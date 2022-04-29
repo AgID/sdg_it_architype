@@ -1,0 +1,178 @@
+#HAPPY PATH: retrieveRequirementList - 200 # status code
+openapi: 3.0.0
+info:
+  title: restituisce la lista delle Tipologie di prova per specifico requisito
+  description: L’insieme delle Tipologie di prova necessarie a soddisfare ogni specifico Requisito sarà restituito dall’Evidence Broker IT.
+  version: 1.0.5
+servers:
+  - url: http://<url_service_catalog>
+    description: Local server
+  - url: http://<url_service_catalog>
+    description: Development server
+  - url: http://<url_service_catalog>
+    description: Test server
+  - url: http://<url_service_catalog>
+    description: Certification server
+  - url: http://<url_service_catalog>
+    description: Production server
+paths:
+  /api/v1/requirement/list:
+    get:
+      security:
+        - Authorization: []        
+      tags:
+        - retrieveRequirementList
+      summary: restituisce la lista delle Tipologie di prova per specifico requisito. 
+      description: L’insieme delle Tipologie di prova necessarie a soddisfare ogni specifico Requisito sarà restituito dall’Evidence Broker IT. 
+      parameters:
+        - in: query
+          name: queryId
+          required: true
+          schema:
+            type: string
+          description: Questo parametro deve essere valorizzato con la seguente stringa "urn:oots:eb:ebxml-regrep:queries:requirementsby-procedure-and-jurisdiction".
+        - in: query
+          name: proc-identifier
+          required: true
+          schema:
+            type: integer
+          description: Identificativo della Procedimento amministrativo al livello Europeo al fine di filtrare i Requirement.
+        - in: query
+          name: proc-jurisdiction
+          required: false
+          schema:
+            type: string
+          description: Giurisdizione della Procedure/Procedimento amministrativo al fine di filtrare i Requirement utilizzati nello Stato Membro. La codifica da utilizzare è ISO 3166-2
+      responses:
+        '200':    # status code
+          description: Successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+components:
+  schemas:     
+    QueryResponse:
+      type: object
+      xml:
+        prefix: 'query'
+        namespace: urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0
+      properties:
+        xmlns:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+          xml:
+            attribute: true
+        xmlns:lcm:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+          xml:
+            attribute: true
+        xmlns:rim:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+          xml:
+            attribute: true
+        xmlns:rs:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+          xml:
+            attribute: true    
+        xmlns:xsi:
+          type: string
+          default: http://www.w3.org/2001/XMLSchema-instance
+          xml:
+            attribute: true      
+        xsi:schemaLocation:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+          xml:
+            attribute: true  
+        requestId:
+          type: string
+          example: c4369c4d-740e-4b64-80f0-7b209a66d629
+          xml:
+            attribute: true   
+        status:
+          type: string
+          default: urn:oasis:names:tc:ebxmlregrep:ResponseStatusType:Success
+          xml:
+            attribute: true             
+        RegistryObjectList:
+          type: object
+          xml:
+            prefix: 'rim'
+          properties:
+            RegistryObject:
+              type: object
+              xml:
+                prefix: 'rim'
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  xml:
+                    attribute: true    
+                Requirement:
+                  type: object 
+                  required:
+                    - Identifier
+                  properties:
+                    xmlns:
+                      type: string
+                      default: http://data.europa.eu/sdg#
+                      xml:
+                        attribute: true
+                    xmlns:xsi:
+                      type: string
+                      default: http://www.w3.org/2001/XMLSchema-instance
+                      xml:
+                        attribute: true  
+                    Identifier:    
+                      type: string
+                    Name:
+                      type: string
+                    ReferenceFramework:
+                      $ref: '#/components/schemas/ReferenceFramework'
+                    IssuedBy:
+                      $ref: '#/components/schemas/IssuedBy'                    
+    ReferenceFramework:
+      type: object
+      required:
+        - Identifier
+        - Jurisdiction
+      properties:
+        Identifier:
+          type: string
+        Title:
+          type: string
+        Description:
+          type: string
+        RelatedTo: 
+          type: object 
+          properties:
+            Identifier:
+              type: string
+        Jurisdiction: 
+          type: object 
+          required:
+           - AdminUnitLevel1
+          properties:
+            AdminUnitLevel1:
+              type: string   
+    IssuedBy:
+      type: object
+      properties:
+        Identifier:
+          type: string
+        Name:
+          type: string
+        Classification:
+          type: integer
+          
+  securitySchemes:
+    Authorization:            # Bearer <Voucher PDND>
+      type: http
+      scheme: bearer
+      bearerFormat: JWT                   

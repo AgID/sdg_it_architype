@@ -1,0 +1,181 @@
+#UNHAPPY PATH: retrieveIdPublicServiceList  - 400 # status code
+openapi: 3.0.0
+info:
+  title: recupero della lista degli PublicService 
+  description: L’utente di backend invoca in GET il metodo retrieveIdPublicServiceList passando in input il parametro identificatore del tipo di PublicService da recuperare
+  version: 1.0.2
+servers:
+  - url: http://<url_service_catalog>
+    description: Local server
+  - url: http://<url_service_catalog>
+    description: Development server
+  - url: http://<url_service_catalog>
+    description: Test server
+  - url: http://<url_service_catalog>
+    description: Certification server
+  - url: http://<url_service_catalog>
+    description: Production server
+paths:
+  /api/v1/data-service/list/:
+    get:
+      security:
+        - Authorization: []         
+      tags:
+        - retrieveIdPublicServiceList 
+      summary: restituisce la lista delle PublicService  
+      description: il metodo get restituisce la lista delle PublicService 
+      parameters:
+        - in: query
+          name: name
+          required: false
+          schema:
+            type: string
+          description: Nome del procedimento amministrativo 
+        - in: query
+          name: publicOrganizationId
+          required: true
+          schema:
+            type: string
+          description: Identificativo dell’ente del procedimento amministrativo
+       
+      responses:
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '402':
+          $ref: '#/components/responses/402'          
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+
+
+components:
+
+  responses:
+    '400':
+      description: Bad Request - Could not parse request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '400'
+             message: Bad Request
+             description: Could not parse request
+    '401':
+      description: Unauthorized - No authentication credentials provided or authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '401'
+             message: Unauthorized
+             description: No authentication credentials provided or authentication failed            
+    '402':
+      description: No Rows Selected - There is not any row extracted
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '402'
+             message: No Rows Selected
+             description: There is not any row extracted                 
+    '403':
+      description: Forbidden - Authenticated user does not have access
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '403'
+             message: Forbidden
+             description: Forbidden - Authenticated user does not have access                 
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '404'
+             message: Not Found
+             description: File Not Found             
+    '429':
+      description: Too Many Requests - Request rejected due to rate limiting
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '429'
+             message: Too Many Requests
+             description: Request rejected due to rate limiting            
+    '500':
+      description: An internal server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '500'
+             message: An internal server error occurred
+             description: An internal server error occurred
+
+
+  schemas:  
+    Errore:
+      type: object
+      properties:
+        publicServiceListResponse:
+
+          required:
+            - code
+            - message
+          type: object
+          properties:
+            code:
+              type: string
+              description: Codice di errore
+              example: <HTTP_CODE>
+              enum:
+                - '400'
+                - '401'
+                - '402'
+                - '403'
+                - '404'
+                - '429'
+                - '^5\d{2}$'
+            message:
+              type: string
+              description: Tipologia di errore
+              example: <HTTP_STATUS>
+              enum:
+                - Bad Request
+                - Unauthorized
+                - No Rows Selected
+                - Forbidden 
+                - Not Found 
+                - Too Many Requests 
+                - Internal Server Error
+            description:
+              type: string
+              description: Descrizione di dettaglio dello specifico problema verificatosi
+              example: <detail_error>
+          description: Modello di risposta in caso di errore 
+          
+
+          
+  securitySchemes:
+    Authorization:            # Bearer <Voucher PDND>
+      type: http
+      scheme: bearer
+      bearerFormat: JWT       
+    

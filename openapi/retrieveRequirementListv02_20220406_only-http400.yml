@@ -1,0 +1,125 @@
+#UNHAPPY PATH: retrieveRequirementList - 400 # status code
+openapi: 3.0.0
+info:
+  title: restituisce la lista delle Tipologie di prova per specifico requisito
+  description: L’insieme delle Tipologie di prova necessarie a soddisfare ogni specifico Requisito sarà restituito dall’Evidence Broker IT.
+  version: 1.0.4
+servers:
+  - url: http://<url_service_catalog>
+    description: Local server
+  - url: http://<url_service_catalog>
+    description: Development server
+  - url: http://<url_service_catalog>
+    description: Test server
+  - url: http://<url_service_catalog>
+    description: Certification server
+  - url: http://<url_service_catalog>
+    description: Production server
+paths:
+  /api/v1/requirement/list:
+    get:
+      security:
+        - Authorization: []    
+      tags:
+        - retrieveRequirementList
+      summary: restituisce la lista delle Tipologie di prova per specifico requisito. 
+      description: L’insieme delle Tipologie di prova necessarie a soddisfare ogni specifico Requisito sarà restituito dall’Evidence Broker IT. 
+      parameters:
+        - in: query
+          name: queryId
+          required: true
+          schema:
+            type: string
+          description: Questo parametro deve essere valorizzato con la seguente stringa "urn:oots:eb:ebxml-regrep:queries:requirementsby-procedure-and-jurisdiction".
+        - in: query
+          name: proc-identifier
+          required: true
+          schema:
+            type: integer
+          description: Identificativo della Procedimento amministrativo al livello Europeo al fine di filtrare i Requirement.
+        - in: query
+          name: proc-jurisdiction
+          required: false
+          schema:
+            type: string
+          description: Giurisdizione della Procedure/Procedimento amministrativo al fine di filtrare i Requirement utilizzati nello Stato Membro. La codifica da utilizzare è ISO 3166-2
+      responses:
+        '400':    # status code
+          description: Bad Request
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+components:
+  schemas:
+    QueryResponse:
+      type: object
+      xml:
+        prefix: 'query'
+        namespace: urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0
+      properties:
+        xmlns:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+          xml:
+            attribute: true
+        xmlns:lcm:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+          xml:
+            attribute: true
+        xmlns:rim:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+          xml:
+            attribute: true
+        xmlns:rs:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+          xml:
+            attribute: true    
+        xmlns:xsi:
+          type: string
+          default: http://www.w3.org/2001/XMLSchema-instance
+          xml:
+            attribute: true      
+        xsi:schemaLocation:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+          xml:
+            attribute: true  
+        status:
+          type: string
+          default: urn:oasis:names:tc:ebxmlregrep:ResponseStatusType:Error
+          xml:
+            attribute: true
+        Exception:
+          type: object
+          xml:
+            prefix: 'rs'
+          properties:
+            xsi:type:
+              type: string
+              default: rs:ObjectNotFoundExceptionType
+              xml:
+                attribute: true
+            severity:
+              type: string
+              default: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
+              xml:
+                attribute: true            
+            message:
+              type: string
+              default: List of requirements requested is empty
+              xml:
+                attribute: true                 
+            code:
+              type: string
+              default: EB:ERR:0001
+              xml:
+                attribute: true
+  securitySchemes:
+    Authorization:            # Bearer <Voucher PDND>
+      type: http
+      scheme: bearer
+      bearerFormat: JWT                    

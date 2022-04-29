@@ -1,0 +1,331 @@
+#HAPPY PATH: retrieveDataServiceList  - 200 # status code
+openapi: 3.0.0
+info:
+  title: lista dal Data Service l’identificativo della Tipologia di Prova e le informazioni descrittive 
+  description: Recupera dal Data Service Directory l’identificativo e le informazioni descrittive dell’Ente Erogatore
+  version: 1.0.6
+servers:
+  - url: http://<url_service_catalog>
+    description: Local server
+  - url: http://<url_service_catalog>
+    description: Development server
+  - url: http://<url_service_catalog>
+    description: Test server
+  - url: http://<url_service_catalog>
+    description: Certification server
+  - url: http://<url_service_catalog>
+    description: Production server
+paths:
+  /api/v1/data-service/list/:
+    get:
+      security:
+        - Authorization: []         
+      tags:
+        - retrieveDataServiceList 
+      summary: restituisce l’identificativo e le informazioni descrittive dell’Ente Erogatore  
+      description: il metodo get restituisce l’identificativo e le informazioni descrittive dell’Ente Erogatore
+      parameters:
+        - in: query
+          name: queryId
+          required: true
+          schema:
+            type: string
+          description: Questo parametro deve essere valorizzato con la seguente stringa "urn:oots:dsd:ebxmlregrep:queries:dataservices-by-evidencetypeand-jurisdiction" 
+        - in: query
+          name: evidenceType
+          required: true
+          schema:
+            type: string
+          description: Identificativo del tipo di prova
+        - in: query
+          name: countryCode
+          required: true
+          schema:
+            type: string
+          description: 2 lettere ISO 3166-1 alpha-2 del prefisso internazionale.       
+        - in: query
+          name: adminUnitL2
+          required: false
+          schema:
+            type: string
+          description: 2 Codice NUTS da 3 a 6 lettere.         
+        - in: query
+          name: adminUnitL3
+          required: false
+          schema:
+            type: string
+          description: Codice LAU
+        - in: query
+          name: userIdentificationOrigin
+          required: true
+          schema:
+            type: string
+          description: Locazione utente dello schema eID usato per l’autenticazione.DEVE essere un codice paese di due lettere di ISO 3166-1 alpha-2.         
+      responses:
+        '200':    # status code
+          description: Successful operation
+          content:
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/QueryResponse'
+
+components:
+  schemas:  
+  
+  
+    QueryResponse:
+      type: object
+      xml:
+        prefix: 'query'
+        namespace: urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0
+      properties:
+        xmlns:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+          xml:
+            attribute: true
+        xmlns:lcm:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+          xml:
+            attribute: true
+        xmlns:rim:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+          xml:
+            attribute: true
+        xmlns:rs:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+          xml:
+            attribute: true    
+        xmlns:xsi:
+          type: string
+          default: http://www.w3.org/2001/XMLSchema-instance
+          xml:
+            attribute: true      
+        xsi:schemaLocation:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+          xml:
+            attribute: true  
+        requestId:
+          type: string
+          example: c4369c4d-740e-4b64-80f0-7b209a66d629
+          xml:
+            attribute: true   
+        status:
+          type: string
+          default: urn:oasis:names:tc:ebxmlregrep:ResponseStatusType:Success
+          xml:
+            attribute: true             
+        RegistryObjectList:
+          type: object
+          xml:
+            prefix: 'rim'
+          properties:
+            RegistryObject:
+              type: object
+              xml:
+                prefix: 'rim'
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  xml:
+                    attribute: true    
+                slot:
+                  type: object
+                  xml:
+                    prefix: 'rim'
+                  required:
+                    - name
+                  properties:
+                    name:
+                      type: string
+                      example: DataServiceEvidenceType
+                      xml:
+                        attribute: true
+                    SlotValue:
+                      type: object
+                      xml:
+                        prefix: 'rim'
+                      required:
+                        - xsi:type
+                      properties:
+                        xsi:type:
+                          type: string
+                          default: rim:AnyValueType
+                          xml:
+                            attribute: true     
+                            
+
+                        DataServiceEvidenceType:
+                          required:
+                            - Identifier
+                            - DistributedAs
+                            - AccessService
+                            - AuthenticationLevelOfAssurance
+                            - UserIdentityAttributeType
+                          type: object
+                          properties:
+                            xmlns:
+                              type: string
+                              default: http://data.europa.eu/sdg#
+                              xml:
+                                attribute: true
+                            xmlns:xsi:
+                              type: string
+                              default: http://www.w3.org/2001/XMLSchema-instance
+                              xml:
+                                attribute: true
+                            Identifier:
+                              type: string
+                              description: Tipologia di Prova (Evidence Type) Metadata. Identificatore   univoco fornito dal Data Service per                 identificare in modo   univoco il tipo di prova ed i metadati correlati.
+                            EvidenceTypeClassification:
+                              type: string
+                              description: Informazioni sulla classificazione.  Usato per il collegamento   con l’Evidence Broker
+                            Title:
+                              type: string
+                              description: Titolo relativo alle informazioni sulla classificazione        
+                            DistributedAs:
+                              type: object
+                              description: Lista delle multiple distribuzioni disponibili per Tipologia di   Prova del Servizio Dati
+                              required:
+                                - Format
+                              properties:
+                                Format:    
+                                  type: string
+                                  description: formati disponibili per il tipo di prova in formato   strutturato come XML, JSON o non strutturato                 come PDF.
+                                ConformsTo:
+                                  type: string
+                                  description: Solo per formati strutturati come XML, JSON, RDF il   servizio dati può fornire una dichiarazione di                   conformità per indicare il profilo di conformità semantica e tecnica.   L’URL che punta a una voce del                 repository semantico   OOTS che contiene tutte le informazioni rilevanti di tale profilo.
+                            AccessService:
+                              type: object
+                              description: Servizio di accesso rappresenta il Servizio dati che notifica   la prova per conto di un Fornitore di                 prove. E’ consentito   avere Servizi ad accesso multiplo (Multiple Access Services) al quale è   associato un singolo                 Fornitore di prove (Evidence Provider  ).
+                              required:  
+                                - AccessURL
+                                - ConformsTo
+                                - Publisher
+                              properties:  
+                                Identifier:
+                                  required:        
+                                    - schemeID
+                                  description: Identificatore del servizio di accesso. E’utilizzato   dall'infrastruttura eDelivery per estrarre e                   utilizzare il PMode preconfigurato appropriato per l'invio della   richiesta di prove
+                                  type: object
+                                  properties:
+                                    schemeID:
+                                      type: string
+                                      example: urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060
+                                      xml:
+                                        attribute: true   
+                                AccessURL:
+                                  type: string
+                                  description: URL del servizio d’accesso.
+                                ConformsTo:
+                                  type: string
+                                  description: Versione e Profilo     dell’Evidence Exchange Message Data       Model.
+                                  default: "oots:edm-1.0"
+                                Publisher:
+                                  type: object
+                                  description: Informazioni sull’accesso del Fornitore di Prove (Evidence   Provider) fornisce il nome, l'ubicazione                 e la   giurisdizione del fornitore di prove, utilizzato dal richiedente di   prove (Evidence Requester) per                 filtrare e selezionare   il fornitore di prove corretto.
+                                  required: 
+                                    - Jurisdiction
+                                  properties:
+                                    Identifier:
+                                      required:        
+                                        - schemeID
+                                      description: Identificatore del servizio di accesso. E’utilizzato   dall'infrastruttura     eDelivery per                 estrarre e   utilizzare il PMode preconfigurato appropriato per l'invio       della richiesta di prove
+                                      type: object
+                                      properties:
+                                        schemeID:
+                                          type: string
+                                          example: 1204
+                                          xml:
+                                            attribute: true      
+                                    Name:
+                                      type: string
+                                      description: Etichetta associata all’agente.
+                                    Address:
+                                      type: object
+                                      description: Una posizione del fornitore di prove sotto forma di   indirizzo. Se la giurisdizione basata sul                   territorio fisico non può essere fornita, l'indirizzo può essere   fornito per facilitare il requisito                 funzionale per   determinare il fornitore di prove in base alle informazioni sulla   posizione
+                                      properties: 
+                                        FullAddress: 
+                                          type: string
+                                          description: Indirizzo completo del Fornitore delle Tipologie di   Prova (Evidence Provider). 
+                                        AdminUnitLevel1:
+                                          $ref: '#/components/schemas/AdminUnitLevel1'
+                                        AdminUnitLevel2:
+                                           $ref: '#/components/schemas/AdminUnitLevel2'
+                                        AdminUnitLevel3:
+                                           $ref: '#/components/schemas/AdminUnitLevel3'
+                                    Jurisdiction:
+                                      type: object
+                                      description: La giurisdizione spaziale del fornitore di prove. Il   codice dovrebbe riflettere la demarcazione                   geografica più precisa per la giurisdizione applicabile   nell'elenco dei codici utilizzati. Ad esempio,                   codice LAU o NUTS per Vienna.
+                                      properties: 
+                                        AdminUnitLevel1:
+                                          $ref: '#/components/schemas/AdminUnitLevel1'
+                                        AdminUnitLevel2:
+                                           $ref: '#/components/schemas/AdminUnitLevel2'
+                                        AdminUnitLevel3:
+                                           $ref: '#/components/schemas/AdminUnitLevel3'
+                            
+                            AuthenticationLevelOfAssurance:
+                              type: string
+                              example: http://eidas.europa.eu/LoA/High
+                              description: Livello di garanzia richiesto dell'autenticazione       dell'utente.
+                            EvidenceSubjectLevelOfAssurance:
+                              type: string
+                              description: Il livello minimo di proprietà del livello di garanzia deve avere per essere preso in considerazione per l’account del record del soggetto da parte di questo set di dati. Corrisponde alle capacità eIDAS.
+                            EvidenceSubjectIdentifierScheme:
+                              type: string
+                              description: L'indicazione degli schemi di identificazione è supportata dalla corrispondenza del record del soggetto.
+                            EvidenceProviderDeterminationContext:
+                              type: string
+                              description: Le informazioni necessarie per selezionare il provider di prove da utilizzare per questo tipo di prova associato 
+                            UserIdentityAttributeType:
+                              type: object
+                              required:
+                                - levelOfAssurance
+                              properties:
+                                levelOfAssurance:
+                                  type: string
+                                  example: http://eidas.europa.eu/LoA/High
+                                  xml:
+                                    attribute: true   
+                                mandatory:
+                                  type: string
+                                  example: false
+                                  xml:
+                                    attribute: true   
+                                userIdentificationOrigin:
+                                  type: string
+                                  example: NL
+                                  xml:
+                                    attribute: true
+                            EvidenceSubjectNature:
+                              type: string
+                              example: http://eidas.europa.eu/attributes/naturalperson
+                              description: Indica il tipo di persona da autenticare. Sono consentite 2 tipologie attualmente. Una persona fisica, utilizzando l'URI predefinito eIDAS http://eidas.europa.eu/attributes/naturalperson Una persona giuridica, che utilizza l'URI predefinito eIDAS http://eidas.europa.eu/attributes/legalperson
+
+            
+    AdminUnitLevel1:
+      type: string
+      description: Unità di amministrazione relativi all'esercizio dei diritti   giurisdizionali. Il livello 1 si riferisce all'unità amministrativa più alta   per l'indirizzo, quasi sempre un paese.
+    AdminUnitLevel2:
+      type: string
+      description: Unità di amministrazione relativi all'esercizio dei diritti giurisdizionali. Il livello 2 si riferisce alla regione dell'indirizzo, di solito una contea, uno stato o un'altra area simile che in genere  comprende diverse località.
+    AdminUnitLevel3:
+      type: string
+      description: Unità di amministrazione relativi all'esercizio dei diritti giurisdizionali. Il livello 3 si riferisce al comune.
+
+            
+ 
+ 
+  securitySchemes:
+    Authorization:            # Bearer <Voucher PDND>
+      type: http
+      scheme: bearer
+      bearerFormat: JWT       
+    
