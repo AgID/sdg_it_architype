@@ -10,9 +10,9 @@ Documento di integrazione
 
 **Classificazione del documento: AgID Internal**
 
-**08 aprile 2022**
+**12 maggio 2022**
 
-Scopo e Ambito del Documento
+# Scopo e Ambito del Documento
 
 ## Scopo del documento
 
@@ -68,9 +68,9 @@ Membri.
 
 ## Diagramma Logico di Architettura
 
-<img src="media/DiagrammaLogicoDiArchitettura1.png" style="width:6.69375in;height:5.03403in" />
+<img title="" src="media/DiagrammaLogicoDiArchitettura1.png" alt="" style="width:6.69375in;height:5.03403in">
 
- 
+ 
 
 L’infrastruttura italiana dell’SDG espone, ad uso dei Procedure Portal,
 le REST API dell'Evidence Broker e del Data Service Directory come da
@@ -109,7 +109,7 @@ contenuti nel documento è stato creato un repository GitHub reperibile a
 questo URL, a cui si può accedere con utenze opportunamente autorizzate
 da AgID:
 
-[https://github.com/AgID/sdg_it_architype](https://urldefense.proofpoint.com/v2/url?u=https-3A__github.com_AgID_sdg-5Fit-5Farchitype&d=DwMGaQ&c=eIGjsITfXP_y-DLLX0uEHXJvU8nOHrUK8IrwNKOtkVU&r=CcBA8Bcw3JtEnYhMMAMPCFmIB0_6RwzYnRcZYq4_vD4i39CHclsbDLC1-wbJR_OV&m=FPPtU_bnRexG_xIL1EVbVccauuEqXP74YaeRTfiX6qZKX1U33PQrs6yXj76EYgkY&s=o4eMYPDiSxpU4HGC4vOtQ-_IukRuBr3Ug-Rmx5vZxZs&e=)
+<https://github.com/AgID/sdg_it_architype>
 
 # Gestione delle Chiavi per recupero delle Procedure
 
@@ -189,11 +189,11 @@ Il medesimo meccanismo è applicato anche per l'interazione tra il
 Procedural Portal e Data Service Directory IT e tra il Procedural Portal
 e Arch Common Service IT.
 
-Nel diagramma seguente gli step 2, 3, 11, 12 sono oggetto di
-approfondimento ed analisi per cui potrebbero subire un cambiamento
-nella prossima versione del documento.
+Il diagramma seguente mostra gli step 2, 3, 11, 12 oggetto di
+adeguamento alle nuove specifiche tecniche anticipate dalla CE per cui
+potrebbero subire delle modifiche.
 
-<img src="media/SequenceDiagram-EB-interazione-PP_SDG-1.png" style="width:6.69306in;height:5.91686in" />
+<img title="" src="media/SequenceDiagram-EB-interazione-PP_SDG-1.png" alt="" style="width:6.69306in;height:5.91686in">
 
 Figura 1 - interazione PP con SDG
 
@@ -228,15 +228,15 @@ GET come *querystring*.
 A titolo di esempio è indicata di seguito la modalità di invio del
 PublicService:
 
-- [**Error! Hyperlink reference not valid.**]()\>
+- https://\<url_procedure_portal\>/procedures?publicService=\<codice_public_service\>
 
 Dove *\<url_procedure_portal\>* e *\<codice_public_service\>* sono
 definiti e selezionati dal back end del catalogo dei servizi in base
 all’interazione con l’utente.
 
-*NB: È in fase di studio di Sicurezza applicativa la necessità di
-criptare il parametro proc-identifier in input alla successiva chiamata
-alla API requirementList dell’Evidence Broker IT*
+NB: È in fase di studio di Sicurezza Applicativa la modalità di criptare
+il parametro proc-identifier, in input alla successiva chiamata alla API
+requirementList dell’Evidence Broker IT.
 
 # Specifiche tecniche delle API relative alle chiamate effettuate dal Procedure Portal
 
@@ -358,11 +358,16 @@ stringa<br />
 </tr>
 <tr class="odd">
 <td>proc-identifier</td>
-<td>Identificativo della Procedimento amministrativo al livello Europeo
-al fine di filtrare i Requirement.</td>
+<td><p>L'identificatore della procedura a livello dell'UE è utilizzato
+per filtrare solo i requisiti utilizzati nell'ambito della procedura
+specifica.</p>
+<p>Esempio:</p>
+<p><!-- Procedure Identifier --></p>
+<p><Identifier>03b82e6a-3227-4751-a815-b570a9c0aeb4</Identifier
+></p></td>
 <td>M</td>
 <td></td>
-<td>integer</td>
+<td>String</td>
 </tr>
 <tr class="even">
 <td>proc-jurisdiction</td>
@@ -435,7 +440,12 @@ xsi:schemaLocation="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0"</p></td>
 <td>requestId</td>
 <td><p>Attributo del nodo query:QueryResponse</p>
 <p>Deve corrispondere all'attributo id dell'oggetto QueryRequest che ha
-generato queryResponse.</p></td>
+generato queryResponse.</p>
+<p>Esempio:</p>
+<p>requestId="c4369c4d-740e-4b64-80f0-7b209a66d629"</p>
+<p>Il codice è autogenerato al momento dell’esecuzione della
+request.</p>
+<p>riferimeto: RegRep4</p></td>
 <td>M</td>
 <td>String</td>
 </tr>
@@ -493,7 +503,7 @@ Provider</p></td>
 </tbody>
 </table>
 
-***Nodo Padre della seguente lista di nodi figli:*** rim:RegistryObject
+***Nodo Padre della seguente lista di nodi figli:** rim:*RegistryObject
 
 <table>
 <colgroup>
@@ -533,7 +543,6 @@ un'azienda deve soddisfare per completare la procedura</p></td>
 | Identifier         | Identificativo univoco del requisito                                                                                                                                                                                    | M                          | String     |
 | Name               | Nome per identificare il requisito                                                                                                                                                                                      | O                          | String     |
 | ReferenceFramework | Il Framework è la piattaforma o portale di riferimento da cui è stato creato il requirement, non rappresenta né identifica i requisiti. (rif. 5.OOTS - Technical Design Documents - Version December 2021.pdf pag. 200) | O                          | Object     |
-| IssuedBy           | L'agente che ha emesso il requisito.                                                                                                                                                                                    | O                          | Object     |
 
 ***Nodo Padre della seguente lista di nodi figli:*** ReferenceFramework
 
@@ -543,50 +552,7 @@ un'azienda deve soddisfare per completare la procedura</p></td>
 | Title           | Un nome per identificare il framework di riferimento.                                                           | O                          | String     |
 | Description     | Descrizione del Framework                                                                                       | O                          | String     |
 | RelatedTo       | L'identificatore della procedura SDGR a cui si riferisce questa procedura                                       | O                          | Objet      |
-| Jurisdiction    | Livello amministrativo in cui si applica questo quadro di riferimento. Può essere applicato a più giurisdizioni | M                          | Object     |
-
-***Nodo Padre della seguente lista di nodi figli:*** IssuedBy
-
-<table style="width:100%;">
-<colgroup>
-<col style="width: 19%" />
-<col style="width: 56%" />
-<col style="width: 12%" />
-<col style="width: 11%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><em><strong>Parameter</strong></em></th>
-<th><em><strong>Description</strong></em></th>
-<th><em><strong>Mandatory / Optional</strong></em></th>
-<th><em><strong>Type</strong></em></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Identifier</td>
-<td>L'agente che ha emesso il requisito.</td>
-<td>O</td>
-<td>String</td>
-</tr>
-<tr class="even">
-<td>Name</td>
-<td><p>Identificazione univoca per l'agente.</p>
-<p>Da utilizzare se e solo se non viene utilizzato un profilo agente più
-preciso.</p></td>
-<td>O</td>
-<td>String</td>
-</tr>
-<tr class="odd">
-<td>Classification</td>
-<td><p>Una breve etichetta per l'agente.</p>
-<p>Da utilizzare dal fornitore di prove o dal richiedente di
-prove</p></td>
-<td>O</td>
-<td>Integer</td>
-</tr>
-</tbody>
-</table>
+| Jurisdiction    | Livello amministrativo in cui si applica questo quadro di riferimento. Può essere applicato a più giurisdizioni | O                          | Object     |
 
 ***Nodo Padre della seguente lista di nodi figli:*** RelatedTo
 
@@ -675,7 +641,12 @@ xsi:schemaLocation="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0"</p></td>
 <td>requestId</td>
 <td><p>Attributo del nodo query:QueryResponse</p>
 <p>Deve corrispondere all'attributo id dell'oggetto QueryRequest che ha
-generato queryResponse.</p></td>
+generato queryResponse.</p>
+<p>Esempio:</p>
+<p>requestId="c4369c4d-740e-4b64-80f0-7b209a66d629"</p>
+<p>Il codice è autogenerato al momento dell’esecuzione della
+request.</p>
+<p>riferimeto: RegRep4</p></td>
 <td>M</td>
 <td>String</td>
 </tr>
@@ -739,6 +710,17 @@ degli scenari di errori.</p>
 <p>Esempio:</p>
 <p>"List of requirements requested is empty"</p></td>
 <td>M</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>code</td>
+<td><p>Attributo del nodo rs:Exception</p>
+<p>Codice corrispondente allo stato del sistema relativo allo stato
+dell’elaborazione della richiesta. Se i codici di errore specifici non
+coprono il motivo dell'errore, utilizzare il codice di errore
+generico</p>
+<p>Esempio: code=’EB:ERR:0001’</p></td>
+<td>O</td>
 <td>String</td>
 </tr>
 </tbody>
@@ -833,7 +815,7 @@ il fallimento di una request
 
 - **204 No Content** - Request succeeded, but no response body
 
-> **Codici di errore**
+**Codici di errore**
 
 - **400 Bad Request** - Could not parse request
 
@@ -878,17 +860,13 @@ condivise, sono utilizzati solamente i seguenti codici di stato: **200,
 400, 500** customizzati in maniera tale che non vengano esportati dati
 utili e di dettaglio dell’infrastruttura e della web app.
 
+A livello di API Gateway saranno restituiti i codici di errore http
+
 ### Swagger
 
-Di seguito la specifica Swagger per l’API retrieveRequirementList per la
-response 200:
+Di seguito la specifica Swagger per l’API retrieveRequirementList:
 
-[retrieveRequirementList-200](openapi/retrieveRequirementListv03_20220407.yml)
-
-Di seguito la specifica Swagger per l’API retrieveRequirementList per la
-response 400:
-
-[retrieveRequirementList-400](openapi/retrieveRequirementListv02_20220406_only-http400.yml)
+[retrieveRequirementList](openapi/retrieveRequirementListv06_20220510.yml)
 
 ## Recupero EvidenceTypeList da Evidence Broker IT
 
@@ -904,7 +882,7 @@ dall’utente.
 | --------------------------- | ---------------------------------------------------------------------- |
 | **PATH (Private Exposure)** | https://\<url_service_catalog \>/\[APP_URL\]/api/v1/evidence-type/list |
 | **METHOD**                  | GET                                                                    |
-| **CONTENT TYPE**            | application / json                                                     |
+| **CONTENT TYPE**            | application / xml                                                      |
 
 **Parameter description:**
 
@@ -1057,7 +1035,12 @@ xsi:schemaLocation="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0"</p></td>
 <td>requestId</td>
 <td><p>Attributo del nodo query:QueryResponse</p>
 <p>Deve corrispondere all'attributo id dell'oggetto QueryRequest che ha
-generato queryResponse.</p></td>
+generato queryResponse.</p>
+<p>Esempio:</p>
+<p>requestId="c4369c4d-740e-4b64-80f0-7b209a66d629"</p>
+<p>Il codice è autogenerato al momento dell’esecuzione della
+request.</p>
+<p>riferimeto: RegRep4</p></td>
 <td>M</td>
 <td>String</td>
 </tr>
@@ -1114,7 +1097,7 @@ rim:RegistryObjectList*
 </tbody>
 </table>
 
-***Nodo Padre della seguente lista di nodi figli:*** rim:RegistryObject
+***Nodo Padre della seguente lista di nodi figli:** rim:*RegistryObject
 
 <table>
 <colgroup>
@@ -1139,9 +1122,8 @@ rim:RegistryObjectList*
 <p>xmlns="http://data.europa.eu/sdg#"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"</p>
 <p>Contiene la condizione o prerequisito stabilito da un'autorità
-competente nel contesto di un SDG online</p>
-<p>procedura, che un cittadino o un'azienda deve soddisfare per
-completare la procedura</p></td>
+competente nel contesto di un SDG online. Procedura, che un cittadino o
+un'azienda deve soddisfare per completare la procedura</p></td>
 <td>O</td>
 <td>Object</td>
 </tr>
@@ -1155,7 +1137,6 @@ completare la procedura</p></td>
 | Identifier         | Identificativo univoco del requisito                                                                                                                                           | M                          | String     |
 | Name               | Nome per identificare il requisito                                                                                                                                             | O                          | String     |
 | ReferenceFramework | Contiene i requisiti identificati e derivati dall’EB limitatamente alle procedure implementate (rif. 5.OOTS - Technical Design Documents - Version December 2021.pdf pag. 200) | O                          | Object     |
-| IssuedBy           | L'agente che ha emesso il requisito.                                                                                                                                           | O                          | Object     |
 | EvidenceTypeList   | Un elenco di tipi di prove, per ciascuno dei quali deve essere fornita una prova corrispondente.                                                                               | O                          | Object     |
 
 ***Nodo Padre della seguente lista di nodi figli:*** ReferenceFramework
@@ -1167,49 +1148,6 @@ completare la procedura</p></td>
 | Description     | Una breve spiegazione che aiuti a chiarire la comprensione del requisito di cui viene creata un'istanza.        | O                          | String     |
 | RelatedTo       | L'identificatore della procedura SDGR a cui si riferisce questa procedura                                       | O                          | Object     |
 | Jurisdiction    | Livello amministrativo in cui si applica questo quadro di riferimento. Può essere applicato a più giurisdizioni | M                          | Object     |
-
-***Nodo Padre della seguente lista di nodi figli:*** IssuedBy
-
-<table style="width:100%;">
-<colgroup>
-<col style="width: 19%" />
-<col style="width: 56%" />
-<col style="width: 12%" />
-<col style="width: 11%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><em><strong>Parameter</strong></em></th>
-<th><em><strong>Description</strong></em></th>
-<th><em><strong>Mandatory / Optional</strong></em></th>
-<th><em><strong>Type</strong></em></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Identifier</td>
-<td>L'agente che ha emesso il requisito.</td>
-<td>O</td>
-<td>String</td>
-</tr>
-<tr class="even">
-<td>Name</td>
-<td><p>Identificazione univoca per l'agente.</p>
-<p>Da utilizzare se e solo se non viene utilizzato un profilo agente più
-preciso.</p></td>
-<td>O</td>
-<td>String</td>
-</tr>
-<tr class="odd">
-<td>Classification</td>
-<td><p>Una breve etichetta per l'agente.</p>
-<p>Da utilizzare dal fornitore di prove o dal richiedente di
-prove</p></td>
-<td>O</td>
-<td>Integer</td>
-</tr>
-</tbody>
-</table>
 
 ***Nodo Padre della seguente lista di nodi figli:*** RelatedTo
 
@@ -1419,6 +1357,17 @@ degli scenari di errori.</p>
 <td>M</td>
 <td>String</td>
 </tr>
+<tr class="odd">
+<td>code</td>
+<td><p>Attributo del nodo rs:Exception</p>
+<p>Codice corrispondente allo stato del sistema relativo allo stato
+dell’elaborazione della richiesta. Se i codici di errore specifici non
+coprono il motivo dell'errore, utilizzare il codice di errore
+generico</p>
+<p>Esempio: code=’EB:ERR:0001’</p></td>
+<td>O</td>
+<td>String</td>
+</tr>
 </tbody>
 </table>
 
@@ -1537,15 +1486,9 @@ utilizzati solamente i seguenti codici di stato: **200, 400, 500.**
 
 ### Swagger
 
-Di seguito la specifica Swagger per l’API retrieveEvidenceTypeList per
-la response 200:
+Di seguito la specifica Swagger per l’API retrieveEvidenceTypeList:
 
-[retrieveEvidenceTypeList-200](openapi/retrieveEvidenceTypeListv03_20220407.yml)
-
-Di seguito la specifica Swagger per l’API retrieveEvidenceTypeList per
-la response 400:
-
-[retrieveEvidenceTypeList-400](openapi/retrieveEvidenceTypeList02_20220406_only-http400.yml)
+[retrieveEvidenceTypeList](openapi/retrieveEvidenceTypeListv06_20220511.yml)
 
 ## Recupero IdPublicServiceList
 
@@ -1561,7 +1504,12 @@ identificatore del tipo di PublicService da recuperare
 | --------------------------- | -------------------------------------------------------------------------- |
 | **PATH (Private Exposure)** | https://\<url_service_catalog\>/\[APP_URL\]/api/v1/public-service/list-id/ |
 | **METHOD**                  | GET                                                                        |
-| **CONTENT TYPE**            | application / json                                                         |
+| **CONTENT TYPE**            | **application / json**                                                     |
+
+N.B.: il Content Type di questa API è in formato JSON utilizzato per
+rendere meno complessa l’integrazione e la lavorazione dei dati
+restituiti. A livello di Specifiche Tecniche della CE tale formato è
+consentito.
 
 **Parameter description:**
 
@@ -1708,23 +1656,23 @@ il fallimento di una request
 
 - **204 No Content** - Request succeeded, but no response body
 
-> **Codici di errore**
+**Codici di errore**
 
-- **400 Bad Request** - Could not parse request
+- **400 Bad Request** - Could not parse request
 
-- **401 Unauthorized** - No authentication credentials provided or
+- **401 Unauthorized** - No authentication credentials provided or
   
   > authentication failed
 
 - **402 No Rows Selected** - There is not any row extracted
 
-- **403 Forbidden** - Authenticated user does not have access
+- **403 Forbidden** - Authenticated user does not have access
 
-- **404 Not Found** - Resource not found
+- **404 Not Found** - Resource not found
 
-- **429 Too Many Requests** - Request rejected due to rate limiting
+- **429 Too Many Requests** - Request rejected due to rate limiting
 
-- **500, 501, 502, 503, etc** - An internal server error occurred
+- **500, 501, 502, 503, etc** - An internal server error occurred
 
 Per questioni di sicurezza applicativa delle informazioni condivise sono
 utilizzati solamente i seguenti codici di stato: **200, 400, 500.**
@@ -1732,15 +1680,9 @@ utilizzati solamente i seguenti codici di stato: **200, 400, 500.**
 
 ### Swagger
 
-Di seguito la specifica Swagger per l’API retrieveIdPublicServiceList
-per la response 200:
+Di seguito la specifica Swagger per l’API retrieveIdPublicServiceList:
 
-[retrieveIdPublicServiceList-200](openapi/retrieveIdPublicServiceListv01_20220408.yml)
-
-Di seguito la specifica Swagger per l’API retrieveIdPublicServiceList
-per la response 400:
-
-[retrieveIdPublicServiceList-400](openapi/retrieveIdPublicServiceListv03_20220428_only-http400.yml)
+[retrieveIdPublicServiceList](openapi/retrieveIdPublicServiceListv03_20220512.yml)
 
 ## Recupero DataServiceList da Data Service Directory IT
 
@@ -1853,8 +1795,8 @@ essere un codice paese di due lettere di ISO 3166-1 alpha-2.</td>
 </table>
 
 La response di questa API potrebbe restituire un elenco possibilmente
-vuoto di tuple anche se la richiesta HTTP è stata completata
-correttamente.
+vuoto di tuple (assenza di prove) anche se la richiesta HTTP è stata
+completata correttamente.
 
 L’ attributo status dovrà indicare l’esito dell’elaborazione.
 
@@ -1915,7 +1857,12 @@ xsi:schemaLocation="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0"</p></td>
 <td>requestId</td>
 <td><p>Attributo del nodo query:QueryResponse</p>
 <p>Deve corrispondere all'attributo id dell'oggetto QueryRequest che ha
-generato queryResponse.</p></td>
+generato queryResponse.</p>
+<p>Esempio:</p>
+<p>requestId="c4369c4d-740e-4b64-80f0-7b209a66d629"</p>
+<p>Il codice è autogenerato al momento dell’esecuzione della
+request.</p>
+<p>riferimeto: RegRep4</p></td>
 <td>M</td>
 <td>String</td>
 </tr>
@@ -2730,10 +2677,10 @@ seguito.
 
 <table>
 <colgroup>
-<col style="width: 16%" />
+<col style="width: 17%" />
 <col style="width: 19%" />
-<col style="width: 32%" />
-<col style="width: 32%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2745,14 +2692,14 @@ seguito.
 </thead>
 <tbody>
 <tr class="odd">
-<td>EB:ERR:0001</td>
+<td>DSD:ERR:0001</td>
 <td>La lista dei Requirement è vuota</td>
 <td><p>rs:ObjectNotFoundEx</p>
 <p>ceptionType</p></td>
 <td>List of requirements requested is empty</td>
 </tr>
 <tr class="even">
-<td>EB:ERR:0002</td>
+<td>DSD:ERR:0002</td>
 <td>Requirement non trovato</td>
 <td><p>rs:ObjectNotFoundEx</p>
 <p>ceptionType</p></td>
@@ -2760,7 +2707,7 @@ seguito.
 not exist</td>
 </tr>
 <tr class="odd">
-<td>EB:ERR:0003</td>
+<td>DSD:ERR:0003</td>
 <td>Codice del livello di giurisdizione sconosciuto</td>
 <td><p>rs:InvalidRequestExc</p>
 <p>eptionType</p></td>
@@ -2768,7 +2715,7 @@ not exist</td>
 unknown</td>
 </tr>
 <tr class="even">
-<td>EB:ERR:0004</td>
+<td>DSD:ERR:0004</td>
 <td>Procedimento amministrativo sconosciuto</td>
 <td><p>rs:InvalidRequestExc</p>
 <p>eptionType</p></td>
@@ -2776,7 +2723,7 @@ unknown</td>
 unknown</td>
 </tr>
 <tr class="odd">
-<td>EB:ERR:0005</td>
+<td>DSD:ERR:0005</td>
 <td>Codice del Paese sconosciuto</td>
 <td><p>rs:InvalidRequestExc</p>
 <p>eptionType</p></td>
@@ -2784,7 +2731,7 @@ unknown</td>
 invalid or unknown</td>
 </tr>
 <tr class="even">
-<td>EB:ERR:0006</td>
+<td>DSD:ERR:0006</td>
 <td>Query sconosciuta</td>
 <td><p>rs:InvalidRequestExc</p>
 <p>eptionType</p></td>
@@ -2833,28 +2780,2487 @@ utilizzati solamente i seguenti codici di stato: **200, 400, 500.**
 
 ### Swagger
 
-Di seguito la specifica Swagger per l’API retrieveDataServiceList per la
-response 200:
+Di seguito la specifica Swagger per l’API retrieveDataServiceList:
 
-[retrieveDataServiceList-200](openapi/retrieveDataServiceListv06_20220408.yml)
+[retrieveDataServiceList](openapi/retrieveDataServiceListv07_20220511.yml)
 
-Di seguito la specifica Swagger per l’API retrieveDataServiceList per la
-response 400:
+## Recupero Evidence da Data Service IT per richiesta pervenuta su AP del SDG EU
 
-[retrieveDataServiceList-400](openapi/retrieveDataServiceListv03_20220427_only-http400.yml)
+Attenzione: Il servizio è da considerare ancora “rolling” in attesa
+della documentazione di specifiche tecniche definitiva da parte della CE
+che illustrino le modalità di integrazione con il SDG
+
+<u>API:</u>/api/v1/exchange-data/list/
+
+<u>Prerequisito</u>: aver eseguito la retrieveDataServiceList per
+recuperare dal Data Service Directory l’identificativo e le informazioni
+descrittive dell’Ente Erogatore
+
+<u>Requisito</u>: recupero delle Tipologie di Prova
+
+| **PROTOCOL**               | HTTPS                                                                   |
+| -------------------------- | ----------------------------------------------------------------------- |
+| **PATH (Public Exposure)** | https://\<url_service_catalog \>/\[APP_URL\]/api/v1/exchange-data/list/ |
+| **METHOD**                 | GET                                                                     |
+| **CONTENT TYPE**           | application /xml                                                        |
+
+**Parameter description:**
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="5"><strong>INPUT</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="5"><strong>HEADER PARAM</strong></td>
+</tr>
+<tr class="even">
+<td><em><strong>Parameter</strong></em></td>
+<td><em><strong>Description</strong></em></td>
+<td><em><strong>Mandatory / Optional</strong></em></td>
+<td><p><em><strong>Max</strong></em></p>
+<p><em><strong>Length</strong></em></p></td>
+<td><em><strong>Type</strong></em></td>
+</tr>
+<tr class="odd">
+<td>Authorization</td>
+<td>Bearer <<em>Voucher PDND</em>></td>
+<td>M</td>
+<td>n/a</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td colspan="5"><strong>BODY PARAM</strong></td>
+</tr>
+<tr class="odd">
+<td><em><strong>Parameter</strong></em></td>
+<td><em><strong>Description</strong></em></td>
+<td><em><strong>Mandatory / Optional</strong></em></td>
+<td><em><strong>Max Length</strong></em></td>
+<td><em><strong>Type</strong></em></td>
+</tr>
+<tr class="even">
+<td>query:QueryRequest</td>
+<td><p>oggetto Request.</p>
+<p>Il nodo deve contenere i seguenti attributi:</p>
+<p>xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"</p>
+<p>xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"</p>
+<p>xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"</p>
+<p>xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"</p>
+<p>xmlns:xlink="http://www.w3.org/1999/xlink"</p></td>
+<td>M</td>
+<td></td>
+<td>Object</td>
+</tr>
+<tr class="odd">
+<td>id</td>
+<td><p>Attributo del nodo query: QueryRequest</p>
+<p>La richiesta di prove deve essere identificata.</p></td>
+<td>M</td>
+<td></td>
+<td>UUID</td>
+</tr>
+<tr class="even">
+<td>rim:Slot</td>
+<td><p>Slot di primo livello, che forniscono metadati sulla risposta e
+sul fornitore di prove.</p>
+<p>Il rim:Slot è opzionale. Il rim:Slot si considera mandatorio dalla
+valorizzazione dell’attributo name</p></td>
+<td>O</td>
+<td></td>
+<td>Object</td>
+</tr>
+<tr class="odd">
+<td>query:ResponseOption</td>
+<td>L'elemento dell'opzione di risposta deve essere impostato come
+"LeafClassWithRepositoryItem" per indicare all'EP che è richiesto un
+elenco di certificati</td>
+<td>M</td>
+<td></td>
+<td>Object</td>
+</tr>
+<tr class="even">
+<td>query:Query</td>
+<td>Il valore dell'attributo queryDefinition nell'elemento Query deve
+essere sempre "DocumentQuery" per lo Step 1 - Richieste di
+documenti.</td>
+<td>M</td>
+<td></td>
+<td>Object</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:Slot
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Name</td>
+<td><p>Attributo del nodo rim:Slot</p>
+<p>Lista di valorizzazioni possibili del parametro name:</p>
+<p>name="Procedure"</p>
+<p>name="Requirement"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>rim:SlotValue</td>
+<td>Il nodo SlotValue è da considerarsi mandatorio in relazione alla
+valorizzazione dell’attributo name del nodo rim:Slot</td>
+<td>M</td>
+<td></td>
+<td>Object</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:SlotValue
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>xsi:type</td>
+<td><p>Attributo del nodo SlotValue</p>
+<p>Lista di valorizzazioni possibili del parametro xsi:type:</p>
+<p>xsi:type="rim:InternationalStringValueType"</p>
+<p>xsi:type="rim:CollectionValueType"</p></td>
+<td>M</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>collectionType</td>
+<td><p>Attributo del nodo SlotValue</p>
+<p>Lista di valorizzazioni possibili del parametro collectionType:</p>
+<p>collectionType="urn:oasis:names:tc:ebxmlregrep:</p>
+<p>CollectionType:Set"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>rim:Value</td>
+<td>Lista di valorizzazoni</td>
+<td>O</td>
+<td></td>
+<td>Object</td>
+</tr>
+<tr class="even">
+<td>rim:Element</td>
+<td>Lista degli elementi</td>
+<td>O</td>
+<td></td>
+<td>Object</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:Value
+
+| ***Parameter***     | ***Description***                                                                                       | ***Mandatory / Optional*** | ***Max Length*** | ***Type*** |
+| ------------------- | ------------------------------------------------------------------------------------------------------- | -------------------------- | ---------------- | ---------- |
+| rim:LocalizedString | Rappresenta la sequenza di stringhe, formalizzate da attributi, di localizzazione relative all’istanza. | O                          |                  | Object     |
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:LocalizedString
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>value</td>
+<td><p>Attributo del nodo rim:LocalizedString</p>
+<p>Specifica il particolare luogo.</p>
+<p>Esempio:</p>
+<p>value="Procedure 4 of Annex 2"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>xml:lang</td>
+<td><p>Attributo del nodo rim:LocalizedString</p>
+<p>Il linguaggio deve essere specificato usando 2 lettere del ISO
+639-1</p>
+<p>Esempio:</p>
+<p>ml:lang="ΕΝ"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:Value
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>xsi:type</td>
+<td><p>Attributo del nodo SlotValue</p>
+<p>Lista di valorizzazioni possibili del parametro xsi:type:</p>
+<p>xsi:type="rim:InternationalStringValueType"</p>
+<p>xsi:type="rim:CollectionValueType"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:Element
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>xsi:type</td>
+<td><p>Attributo del nodo rim:Element</p>
+<p>Lista di valorizzazioni possibili del parametro xsi:type:</p>
+<p>xsi:type="rim:AnyValueType"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:Slot
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Name</td>
+<td><p>Attributo del nodo rim:Slot</p>
+<p>Lista di valorizzazioni possibili del parametro name:</p>
+<p>name="SpecificationIdentifier"</p>
+<p>name="IssueDateTime"</p>
+<p>name="PossibilityForReview"</p>
+<p>name="ExplicitRequestGiven"</p>
+<p>name="EvidenceRequester"</p>
+<p>name="EvidenceProvider"</p></td>
+<td>M</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>SlotValue</td>
+<td>Il nodo SlotValue è da considerarsi mandatorio in relazione alla
+valorizzazione dell’attributo name del nodo rim:Slot</td>
+<td>M</td>
+<td></td>
+<td>Object</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** SlotValue
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>xsi:type</td>
+<td><p>Attributo del nodo SlotValue</p>
+<p>Lista di valorizzazioni possibili del parametro xsi:type:</p>
+<p>xsi:type="rim:StringValueType"</p>
+<p>xsi:type="rim:DateTimeValueType"</p>
+<p>xsi:type="rim:BooleanValueType"</p>
+<p>xsi:type="rim:AnyValueType"</p></td>
+<td>M</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>rim:Value</td>
+<td>Lista di valorizzazoni</td>
+<td>M</td>
+<td></td>
+<td>Object</td>
+</tr>
+<tr class="odd">
+<td>Agent</td>
+<td>Nodo mandatory solo per lo Slot name="EvidenceRequester".</td>
+<td>O</td>
+<td></td>
+<td>Object</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** Agent
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifier</td>
+<td>Identificativo del richiedente la prova</td>
+<td>M</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>schemeID</td>
+<td><p>Attributo del nodo Identifier</p>
+<p>Esempio:</p>
+<p>schemeID="VATRegistration"</p></td>
+<td>M</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>Name</td>
+<td>Nome del richiedente la prova</td>
+<td>M</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>Address</td>
+<td>Oggetto fisico che descrive la locazione di proprietà del
+richiedente.</td>
+<td>O</td>
+<td></td>
+<td>Object</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** Address
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FullAddress</td>
+<td>Indirizzo completo</td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>Thoroughfare</td>
+<td>Dettagli per il passaggio da una posizione ad un'altra. Il dettaglio
+potrebbe riguardare un corso d’acqua, strada o qualche altra
+caratteristica del territorio.</td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>LocatorDesignator</td>
+<td>Un numero o una sequenza di caratteri che consente a un utente o a
+un'applicazione di interpretare, analizzare e formattare il
+localizzatore all'interno dell'ambito pertinente. Un localizzatore può
+includere più designatori di localizzatori.</td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>PostName</td>
+<td><p>Città o divisione postale dell’indirizzo.</p>
+<p>Esempio: LiverPool</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>AdminUnitLevel1</td>
+<td><p>Stato Membro</p>
+<p>Esempio: GB</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>PostCode</td>
+<td><p>Codice di suddivisione dell’indirizzo postale.</p>
+<p>Zip code, CAP (Codice di Avviamento Postale)</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:***
+query:ResponseOption
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>returnType</td>
+<td><p>Attributo del nodo query:ResponseOption</p>
+<p>Valorizzare obbligatoriamente con:</p>
+<p>returnType=”LeafClassWithRepositoryItem"</p></td>
+<td>M</td>
+<td></td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** query:Query
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>queryDefinition</td>
+<td><p>Attributo del nodo query:Query</p>
+<p>Valorizzare:</p>
+<p>queryDefinition =”queryDefinition”</p>
+<p>per Richieste di documenti.</p></td>
+<td>M</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>rim:Slot</td>
+<td><p>Slot contiene dati che descrivono il Rappresentante Legale di
+un'azienda. Può essere utilizzato sia con uno slot LegalPerson che con
+uno slot NaturalPerson.</p>
+<p>Il rim:Slot è opzionale. Il rim:Slot si considera mandatorio dalla
+valorizzazione dell’attributo name</p></td>
+<td>O</td>
+<td></td>
+<td>Object</td>
+</tr>
+<tr class="odd">
+<td>name</td>
+<td><p>Attributo del nodo rim:Slot</p>
+<p>Lista di valorizzazioni possibili del parametro name:</p>
+<p>name="AuthorizedRepresentative"</p>
+<p>name="EvidenceRequest"</p>
+<p>name=”NaturalPerson” in alternativa al name=“LegalPerson”</p>
+<p>name=”UnRequestestedInformationConcepts”</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:Slot
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>rim:SlotValue</td>
+<td>Valori estratti dalla sezione definita</td>
+<td>O</td>
+<td></td>
+<td>Object</td>
+</tr>
+<tr class="even">
+<td>xsi:type</td>
+<td><p>Tipologia d’estrazione dovrà essere valorizzata con</p>
+<p>“rim:AnyValueType”</p></td>
+<td>M</td>
+<td></td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:SlotValue
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Person</td>
+<td><p>E’ da considerare mandatory per lo Slot</p>
+<p>name="AuthorizedRepresentative"</p>
+<p>name=”NaturalPerson”</p>
+<p>Il nodo deve contenere i seguenti attributi:</p>
+<p>xmlns="http://data.europa.eu/sdg#"</p>
+<p>xmlns:xsi="http://www.w3.org/2001/XMLSchemainstance"</p>
+<p>xsi:schemaLocation="http://data.europa.eu/sdg# ../sdg.xsd"</p></td>
+<td>O</td>
+<td></td>
+<td>Object</td>
+</tr>
+<tr class="even">
+<td>LegalPerson</td>
+<td><p>E’ da considerare mandatory per lo Slot</p>
+<p>name=”LegalPerson”</p>
+<p>Il nodo deve contenere il seguente attributo:</p>
+<p>xmlns="http://data.europa.eu/sdg#"</p></td>
+<td>O</td>
+<td></td>
+<td>Object</td>
+</tr>
+<tr class="odd">
+<td>rim:Element</td>
+<td><p>E’ da considerare mandatory per lo Slot</p>
+<p>name=”UserRequestedInformationConcepts”</p>
+<p>ed altri attributi sono definiti nel seguente modo:</p>
+<p>xsi:type="rim:CollectionValueType"</p>
+<p>collectionType="urn:oasis:names:tc:ebxml-regrep:CollectionType:Set"</p>
+<p>Il nodo deve contenere il seguente attributo:</p>
+<p>xsi:type=”rim:AnyValueType”</p></td>
+<td>O</td>
+<td></td>
+<td>Object</td>
+</tr>
+<tr class="even">
+<td>DataServiceEvidenceType</td>
+<td><p>E’ da considerare mandatory per lo Slot</p>
+<p>name="EvidenceRequest"</p>
+<p>Il nodo deve contenere il seguente attributo:</p>
+<p>xmlns="https://data.europa.eu/sdg#"</p></td>
+<td>O</td>
+<td></td>
+<td>Object</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** Person
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifier</td>
+<td><p>Identificativo dell’agente. Sono previsti più identificativi
+specializzati dagli attributi.</p>
+<p><Identifier SchemeID="eIDAS"></p>
+<p><!-- eIDAS Identifier --></p>
+<p><Identifier SchemeID="eIDAS"
+levelOfAssurance="http://eidas.europa.eu/LoA/High"></p>
+<p><!-- Additional Attribute, as declared in DSD. Mapping is done
+using the schemeID, It has no level of assurance --></p>
+<p><Identifier SchemeID="VAT"></p></td>
+<td>M</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>FamilyName</td>
+<td><p>Da considerare mandatory per (Minimum</p>
+<p>Data Set) MDS</p>
+<p>Identificativo condiviso tra membri di famiglia ovvero
+cognome.</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>levelOfAssurance</td>
+<td><p>Attributo del nodo FamilyName</p>
+<p>Esempio:</p>
+<p>levelOfAssurance="http://eidas.europa.eu/LoA/High"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>GivenName</td>
+<td><p>Da considerare mandatory per (Minimum</p>
+<p>Data Set) MDS</p>
+<p>nome o nomi che identificano un individuo</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>levelOfAssurance</td>
+<td><p>Attributo del nodo GivenName</p>
+<p>Esempio:</p>
+<p>levelOfAssurance="http://eidas.europa.eu/LoA/High"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>DateOfBirth</td>
+<td><p>Da considerare mandatory per (Minimum</p>
+<p>Data Set) MDS</p>
+<p>Data di nascita</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>levelOfAssurance</td>
+<td><p>Attributo del nodo DateOfBirth</p>
+<p>Esempio:</p>
+<p>levelOfAssurance="http://eidas.europa.eu/LoA/High"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>BirthName</td>
+<td><p>Da considerare opzionale per (Minimum</p>
+<p>Data Set) MDS</p>
+<p>Nome e Cognome all’atto di nascita</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>levelOfAssurance</td>
+<td><p>Attributo del nodo BirthName</p>
+<p>Esempio:</p>
+<p>levelOfAssurance="http://eidas.europa.eu/LoA/High"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>PlaceOfBirth</td>
+<td><p>Da considerare opzionale per (Minimum</p>
+<p>Data Set) MDS</p>
+<p>Locazione alla data di nascita</p></td>
+<td>O</td>
+<td></td>
+<td>Object</td>
+</tr>
+<tr class="odd">
+<td>levelOfAssurance</td>
+<td><p>Attributo del nodo PlaceOfBirth</p>
+<p>Esempio:</p>
+<p>levelOfAssurance="http://eidas.europa.eu/LoA/High"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>CurrentAddress</td>
+<td><p>Da considerare opzionale per (Minimum</p>
+<p>Data Set) MDS</p>
+<p>Domicilio.</p>
+<p>L’indirizzo attuale dove vive il richiedente</p></td>
+<td>O</td>
+<td></td>
+<td>Object</td>
+</tr>
+<tr class="odd">
+<td>levelOfAssurance</td>
+<td><p>Attributo del nodo CurrentAddress</p>
+<p>Esempio:</p>
+<p>levelOfAssurance="http://eidas.europa.eu/LoA/High"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>Gender</td>
+<td>distinzione di genere dal punto di vista culturale</td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>levelOfAssurance</td>
+<td><p>Attributo del nodo Gender</p>
+<p>Esempio:</p>
+<p>levelOfAssurance="http://eidas.europa.eu/LoA/High"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** PlaceOfBirth
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AdminUnitLevel1</td>
+<td><p>Stato Membro</p>
+<p>Esempio: GB</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** CurrentAddress
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FullAddress</td>
+<td>Indirizzo completo</td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>AdminUnitLevel1</td>
+<td><p>Stato Membro</p>
+<p>Esempio: GB</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** LegalPerson
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifier</td>
+<td><p>Identificativo dell’agente. Sono previsti più identificativi
+specializzati dagli attributi.</p>
+<p><!-- eIDAS Authentication Attributes --></p>
+<p><Identifier SchemeID="eIDAS"
+levelOfAssurance="http://eidas.europa.eu/LoA/High"></p>
+<p>Qualsiasi altro identificatore che non proviene dagli attributi di
+idenitificazione eIDAS</p>
+<p><Identifier SchemeID="GLN"></p></td>
+<td>M</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>LegalIdentifier</td>
+<td><p>L'identificativo giuridico indica il rapporto tra una persona
+giuridica e l'autorità presso la quale è registrata.</p>
+<p>Esempio:</p>
+<p><LegalIdentifier SchemeID="TaxReference"
+levelOfAssurance="http://eidas.europa.eu/LoA/High"></p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>LegalName</td>
+<td><p>Il nome legale dell'azienda.</p>
+<p>Esempio:</p>
+<p><LegalName
+levelOfAssurance="http://eidas.europa.eu/LoA/High"></p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>RegisteredAddress</td>
+<td>indirizzo a cui possono essere inviate comunicazioni formali</td>
+<td>O</td>
+<td></td>
+<td>Object</td>
+</tr>
+<tr class="odd">
+<td>AlternativeName</td>
+<td>Nome commerciale o forme alternative del nome di una persona
+giuridica. Non utilizzato per la traduzione del nome alternativo.</td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** RegisteredAddress
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FullAddress</td>
+<td>Indirizzo completo</td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>levelOfAssurance</td>
+<td><p>Attributo del nodo FullAddress</p>
+<p>Esempio:</p>
+<p>levelOfAssurance="http://eidas.europa.eu/LoA/High"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>PostOfficeBox</td>
+<td>Il numero della casella postale.</td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>levelOfAssurance</td>
+<td><p>Attributo del nodo PoBox</p>
+<p>Esempio:</p>
+<p>levelOfAssurance="http://eidas.europa.eu/LoA/High"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>LocatorDesignator</td>
+<td>Un numero o una sequenza di caratteri che consente a un utente o a
+un'applicazione di interpretare, analizzare e formattare il
+localizzatore all'interno dell'ambito pertinente. Un localizzatore può
+includere più designatori di localizzatori.</td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>levelOfAssurance</td>
+<td><p>Attributo del nodo LocatorDesignator</p>
+<p>Esempio:</p>
+<p>levelOfAssurance="http://eidas.europa.eu/LoA/High"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>Thoroughfare</td>
+<td>Dettagli per il passaggio da una posizione ad un'altra. Il dettaglio
+potrebbe riguardare un corso d’acqua, strada o qualche altra
+caratteristica del territorio.</td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>levelOfAssurance</td>
+<td><p>Attributo del nodo Thoroughfare</p>
+<p>Esempio:</p>
+<p>levelOfAssurance="http://eidas.europa.eu/LoA/High"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>AdminUnitLevel1</td>
+<td><p>Stato Membro</p>
+<p>Esempio: SE</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>levelOfAssurance</td>
+<td><p>Attributo del nodo AdminUnitLevel1</p>
+<p>Esempio:</p>
+<p>levelOfAssurance="http://eidas.europa.eu/LoA/High"</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:Element
+
+| ***Parameter***        | ***Description*** | ***Mandatory / Optional*** | ***Max Length*** | ***Type*** |
+| ---------------------- | ----------------- | -------------------------- | ---------------- | ---------- |
+| sdg:InformationConcept |                   |                            |                  | Object     |
+
+***Nodo Padre della seguente lista di nodi figli:***
+sdg:InformationConcept
+
+| ***Parameter***     | ***Description***                                                                                                                                                                    | ***Mandatory / Optional*** | ***Max Length*** | ***Type*** |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------- | ---------------- | ---------- |
+| sdg:Identifier      | Un riferimento inequivocabile al concetto di informazione                                                                                                                            | M                          |                  | String     |
+| sdg:Type            | Una classificazione del concetto di informazione                                                                                                                                     | M                          |                  | String     |
+| sdg:ValueExpression | Espressione (funzione) del valore previsto.                                                                                                                                          | O                          |                  | String     |
+| sdg:Description     | Una breve spiegazione sulla natura, gli attributi, gli usi o qualsiasi altra informazione aggiuntiva che aiuti a chiarire la comprensione dell'istanza del Concetto di Informazione. | O                          |                  | String     |
+| sdg:SupportedValue  | Il valore fornito dall'utente per il concetto di informazione specifica                                                                                                              | M                          |                  | Object     |
+
+***Nodo Padre della seguente lista di nodi figli:*** sdg:SupportedValue
+
+| ***Parameter*** | ***Description***                              | ***Mandatory / Optional*** | ***Max Length*** | ***Type*** |
+| --------------- | ---------------------------------------------- | -------------------------- | ---------------- | ---------- |
+| sdg:StringValue | Stringa del concetto di informazione specifico | M                          |                  | String     |
+
+***Nodo Padre della seguente lista di nodi figli:***
+DataServiceEvidenceType
+
+| ***Parameter*** | ***Description***                                                                                                                                | ***Mandatory / Optional*** | ***Max Length*** | ***Type*** |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------- | ---------------- | ---------- |
+| Identifier      | Identificativo recuperato dalla directory di Data Services                                                                                       | M                          |                  | String     |
+| Distribution    | distribuzione selezionata richiesta. Deve essere una delle distribuzioni fornite dal DSD per questo specifico tipo di evidenza del servizio dati | M                          |                  | Object     |
+
+***Nodo Padre della seguente lista di nodi figli:*** Distribution
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Max Length</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Format</td>
+<td><p>Rappresentazione tecnica della prova</p>
+<p>Esempio:</p>
+<p>application/xml</p></td>
+<td>M</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>ConformsTo</td>
+<td><p>Uno schema registrato o un profilo dell'applicazione nel
+repository semantico che descrive il contenuto delle prove fornite in
+questa rappresentazione.</p>
+<p>Esempio:</p>
+<p>https://semic.org/sa/common/birthcert-1.0.0</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>Transformation</td>
+<td><p>Identificatore di una trasformazione. Ciò consente la separazione
+della funzionalità dall'implementazione.</p>
+<p>Ad esempio il XSLT rappresenta i dati XML.</p>
+<p>Esempio:</p>
+<p>https://semic.org/sa/transformations/birthcert-1.0.0/ageof-majority</p></td>
+<td>O</td>
+<td></td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+L’ attributo status dovrà indicare l’esito dell’elaborazione.
+
+In questo caso lo status dovrà contenere “Success”
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="4"><strong>OUTPUT</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="4"><strong>HEADER</strong></td>
+</tr>
+<tr class="even">
+<td><em><strong>Parameter</strong></em></td>
+<td><em><strong>Description</strong></em></td>
+<td><em><strong>Mandatory / Optional</strong></em></td>
+<td><em><strong>Type</strong></em></td>
+</tr>
+<tr class="odd">
+<td>TBD</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="4"><strong>BODY</strong></td>
+</tr>
+<tr class="odd">
+<td><em><strong>Parameter</strong></em></td>
+<td><em><strong>Description</strong></em></td>
+<td><em><strong>Mandatory / Optional</strong></em></td>
+<td><em><strong>Type</strong></em></td>
+</tr>
+<tr class="even">
+<td>query:QueryResponse</td>
+<td><p>oggetto Response.</p>
+<p>Il nodo deve contenere i seguenti attributi:</p>
+<p>xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
+xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xlink="http://www.w3.org/1999/xlink"</p></td>
+<td>M</td>
+<td>Object</td>
+</tr>
+<tr class="odd">
+<td>requestId</td>
+<td><p>Attributo del nodo query:QueryResponse</p>
+<p>Deve corrispondere all'attributo id dell'oggetto QueryRequest che ha
+generato queryResponse.</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>status</td>
+<td><p>Attributo del nodo query:QueryResponse</p>
+<p>Dovrà essere valorizzato nel seguente modo per indicare
+l’elaborazione corretta dell’API:</p>
+<p>"urn:oasis:names:tc:ebxmlregrep: ResponseStatusType:Success"</p>
+<p>Se lo stato specifico della reponse non è ancora disponibile,
+valorizzare</p>
+<p>"urn:oasis:names:tc:ebxmlregrep:
+ResponseStatusType:Unavailable"</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** query:QueryResponse
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>rim:Slot</td>
+<td>Sezione dedicata all’estrazione</td>
+<td>O</td>
+<td>Object</td>
+</tr>
+<tr class="even">
+<td>name</td>
+<td><p>Attributo del nodo rim:Slot</p>
+<p>Mandatory:</p>
+<p>name="EvidenceResponseIdentifier"</p>
+<p>name="SpecificationIdentifier"</p>
+<p>name="IssueDateTime"</p>
+<p>name=”EvidenceRequester”</p>
+<p>name=”EvidenceProvider”</p>
+<p>Opzionale:</p>
+<p>name=”ResponseAvailableDateTime”</p></td>
+<td>O</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>rim:RegistryObjectList</td>
+<td>Contiene le informazioni richieste</td>
+<td>O</td>
+<td>Object</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:Slot
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>rim:SlotValue</td>
+<td>Sezione dedicata all’estrazione</td>
+<td>O</td>
+<td>Object</td>
+</tr>
+<tr class="even">
+<td>xsi:type</td>
+<td><p>Attributo del nodo SlotValue</p>
+<p>Lista di valorizzazioni possibili del parametro xsi:type:</p>
+<p>xsi:type="rim:StringValueType"</p>
+<p>xsi:type="rim:DateTimeValueType"</p>
+<p>xsi:type="rim:AnyValueType"</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:SlotValue
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>rim:Value</td>
+<td><p>Valore associato allo slot specifico</p>
+<p>Per rim:Slot name="EvidenceResponseIdentifier" e rim:SlotValue
+xsi:type="rim:StringValueType", l’identificatore univoco della response
+generata dal fornitore di prove, ad esempio è una striga simile:</p>
+<p><rim:Value>530ad1e2-5eaf-4a9a-8192-227432eea95d</rim:Value></p>
+<p>Per rim:Slot name="SpecificationIdentifier" e rim:SlotValue
+xsi:type="rim:StringValueType", esprime la versione della specifica
+utilizzata per la creazione del documento di riferimento, ad esempio p
+una stringa simile:</p>
+<p><rim:Value>oots-edm:v1.0</rim:Value></p>
+<p>Per rim:Slot name="IssueDateTime" e rim:SlotValue
+xsi:type="rim:DateTimeValueType">, è la data e l'ora di creazione del
+documento a cui si fa riferimento da valorizzare in formato ISO
+timestamp. Ad esempio:</p>
+<p><rim:Value>2020-02-14T19:20:30+01:00</rim:Value></p>
+<p>Per rim:Slot name="ResponseAvailableDateTime" e rim:SlotValue
+xsi:type="rim:DateTimeValueType", è utilizzato per esprimere l'ultimo
+momento entro il quale tali prove tardive possono essere rese
+disponibili.</p>
+<p>Questo slot deve essere utilizzato solo con lo stato Query Response
+impostato sullo stato di risposta "Unavailable". In tal caso, il
+contenuto dell'elemento QueryResponse deve contenere un oggetto
+RegistryObjectList (possibilmente vuoto).</p>
+<p>è la data e l'ora di creazione del documento a cui si fa riferimento
+da valorizzare in formato ISO timestamp. Ad esempio:</p>
+<p><rim:Value>2025-02-14T19:20:30+01:00</rim:Value></p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>Agent</td>
+<td><p>Per rim:Slot name="EvidenceProvider" e rim:SlotValue
+xsi:type="rim:AnyValueType", è utilizzato per descrivere
+un'organizzazione che fornisce dati o documenti richiesti da un Evidence
+Requester.</p>
+<p>Il nodo Agent deve contenere i seguenti attributi:</p>
+<p>xmlns="http://data.europa.eu/sdg#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://data.europa.eu/sdg# ../sdg.xsd"</p></td>
+<td>M</td>
+<td>Object</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** Agent
+
+| ***Parameter*** | ***Description***                                                      | ***Mandatory / Optional*** | ***Type*** |
+| --------------- | ---------------------------------------------------------------------- | -------------------------- | ---------- |
+| Identifier      | Identificativo del richiedente la prova                                | M                          | String     |
+| Name            | Nome del richiedente la prova                                          | M                          | String     |
+| Address         | Oggetto fisico che descrive la locazione di proprietà del richiedente. | O                          | Object     |
+
+***Nodo Padre della seguente lista di nodi figli:*** Address
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AdminUnitLevel1</td>
+<td><p>Stato Membro</p>
+<p>Esempio: GB</p></td>
+<td>O</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:**
+rim:RegistryObjectList*
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>rim:RegistryObject</td>
+<td>Contiene il dettaglio della singola richiesta</td>
+<td>O</td>
+<td>Object</td>
+</tr>
+<tr class="even">
+<td>id</td>
+<td><p>Attributo del nodo rim:RegistryObjectList</p>
+<p>ID è l’identificativo univoco definito dall’Evidence
+Provider</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:** rim:*RegistryObject
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>rim:slot</td>
+<td>Sezione dedicata all’estrazione</td>
+<td>O</td>
+<td>Object</td>
+</tr>
+<tr class="even">
+<td>name</td>
+<td><p>Attributo del nodo rim:slot</p>
+<p>Name è l’identificativo della query.</p>
+<p>In questo caso “EvidenceMetadata”</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>rim:RepositoryItemRef</td>
+<td>contiene il collegamento all'allegato AS4 che contenente la
+distribuzione descritta nello slot EvidenceMetadata</td>
+<td>M</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:** rim:*slot
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>rim:SlotValue</td>
+<td>Valori estratti dalla sezione definita</td>
+<td>O</td>
+<td>Object</td>
+</tr>
+<tr class="even">
+<td>xsi:type</td>
+<td><p>Tipologia d’estrazione dovrà essere valorizzata con</p>
+<p>“rim:AnyValueType”</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:** rim:*SlotValue
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Evidence</td>
+<td><p>oggetto Response.</p>
+<p>Il nodo deve contenere i seguenti attributi:</p>
+<p>xmlns="http://data.europa.eu/sdg#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"</p></td>
+<td>O</td>
+<td>Object</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:** Evidence*
+
+| ***Parameter***  | ***Description***                                                         | ***Mandatory / Optional*** | ***Type*** |
+| ---------------- | ------------------------------------------------------------------------- | -------------------------- | ---------- |
+| Identifier       | Identificativo di una prova                                               | M                          | String     |
+| IsAbout          | Soggetto probatorio                                                       | M                          | Object     |
+| IssuingAuthority | Il fornitore di prove ovvero l'agente che rilascia le prove               | M                          | Object     |
+| IsConformantTo   | Tipo di prova                                                             | M                          | Object     |
+| IssuingDate      | La data e l'ora in cui le prove sono state emesse dal fornitore di prove. | M                          | String     |
+| Distribution     | Le distribuzioni fornite dal fornitore di prove di queste prove.          | M                          | Object     |
+| ValidityPeriod   | Il periodo di validità delle prove garantito dal fornitore di prove.      | O                          | Object     |
+
+***Nodo Padre della seguente lista di nodi figli:** IsAbout*
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NaturalPerson</td>
+<td><p>Da considerare mandatory per (Minimum</p>
+<p>Data Set) MDS per confermare la corrispondenza dell'identità</p></td>
+<td>M</td>
+<td>Object</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** NaturalPerson
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifier</td>
+<td>Identificatore della prova</td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>SchemeID</td>
+<td><p>Identificatore dell'utente memorizzato nell'origine dati.</p>
+<p>Esempio:</p>
+<p><Identifier
+SchemeID="VAT">BE0099888223</Identifier></p></td>
+<td>O</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>FamilyName</td>
+<td><p>Da considerare mandatory per (Minimum</p>
+<p>Data Set) MDS</p>
+<p>Identificativo condiviso tra membri di famiglia ovvero
+cognome.</p></td>
+<td>O</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>GivenName</td>
+<td><p>Da considerare mandatory per (Minimum</p>
+<p>Data Set) MDS</p>
+<p>nome o nomi che identificano un individuo</p></td>
+<td>O</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>DateOfBirth</td>
+<td>Il giorno in cui è nato</td>
+<td>O</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>BirthName</td>
+<td><p>Da considerare mandatory per (Minimum</p>
+<p>Data Set) MDS</p>
+<p>Data di nascita</p></td>
+<td>O</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>PlaceOfBirth</td>
+<td><p>Da considerare opzionale per (Minimum</p>
+<p>Data Set) MDS</p>
+<p>Locazione alla data di nascita</p></td>
+<td>O</td>
+<td>Object</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** PlaceOfBirth
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AdminUnitLevel1</td>
+<td><p>Stato Membro</p>
+<p>Esempio: GB</p></td>
+<td>O</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** IssuingAuthority
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifier</td>
+<td>Identificativo dell’autorità rilasciante</td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>SchemeID</td>
+<td><p>Attributo definito nel seguente modo:</p>
+<p><Identifier SchemeID="VAT"></p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>Name</td>
+<td><p>Esempio:</p>
+<p><Name>Population Registry</Name></p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** IsConformantTo
+
+| ***Parameter*** | ***Description***                                                                     | ***Mandatory / Optional*** | ***Type*** |
+| --------------- | ------------------------------------------------------------------------------------- | -------------------------- | ---------- |
+| Identifier      | Identificatore del tipo di prova che sono stati registrati nel Data Service Directory | M                          | String     |
+
+***Nodo Padre della seguente lista di nodi figli:*** Distribution
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Format</td>
+<td><p>Rappresentazione tecnica della prova</p>
+<p>Esempio:</p>
+<p><Format>application/pdf</Format></p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** ValidityPeriod
+
+| ***Parameter*** | ***Description***                                                 | ***Mandatory / Optional*** | ***Type*** |
+| --------------- | ----------------------------------------------------------------- | -------------------------- | ---------- |
+| StartDate       | Partenza del Periodo di Validità garantito dal fornitore di prove | M                          | String     |
+| EndDate         | Fine del Periodo di Validità garantito dal fornitore di prove     | M                          | String     |
+
+I codici di stato HTTP vengono consegnati al browser nell’intestazione
+HTTP.
+
+Riguardano l'esito dell'eventuale elaborazione da pare del server.
+
+| **HTTP Code** | **Result Description**        |
+| ------------- | ----------------------------- |
+| 200           | Service executed successfully |
+
+### Risposta e Gestione degli errori
+
+Attenzione: Il servizio è da considerare ancora “rolling” in attesa
+della documentazione di specifiche tecniche definitiva da parte della CE
+che illustrino le modalità di integrazione con il SDG
+
+E’ gestita la possiblità che l’API non risponda correttamente alle
+richieste. Di seguito il payload di output, differente a quello in caso
+di successo, contenente le indicazioni per gestire l’eccezione
+riscontrata.
+
+L’ attributo status dovrà indicare l’esito dell’elaborazione.
+
+In questo caso lo status dovrà contenere “Failure”
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="4"><strong>OUTPUT</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="4"><strong>HEADER</strong></td>
+</tr>
+<tr class="even">
+<td><em><strong>Parameter</strong></em></td>
+<td><em><strong>Description</strong></em></td>
+<td><em><strong>Mandatory / Optional</strong></em></td>
+<td><em><strong>Type</strong></em></td>
+</tr>
+<tr class="odd">
+<td>TBD</td>
+<td><em>TBD</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="4"><strong>BODY</strong></td>
+</tr>
+<tr class="odd">
+<td><em><strong>Parameter</strong></em></td>
+<td><em><strong>Description</strong></em></td>
+<td><em><strong>Mandatory / Optional</strong></em></td>
+<td><em><strong>Type</strong></em></td>
+</tr>
+<tr class="even">
+<td>query:QueryResponse</td>
+<td><p>oggetto Response.</p>
+<p>Il nodo deve contenere i seguenti attributi:</p>
+<p>xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
+xmlns:xlink="http://www.w3.org/1999/xlink"</p></td>
+<td>M</td>
+<td>Object</td>
+</tr>
+<tr class="odd">
+<td>requestId</td>
+<td><p>Attributo del nodo query:QueryResponse</p>
+<p>Deve corrispondere all'attributo id dell'oggetto QueryRequest che ha
+generato queryResponse.</p>
+<p>Esempio:</p>
+<p>requestId="c4369c4d-740e-4b64-80f0-7b209a66d629"</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>status</td>
+<td><p>Attributo del nodo query:QueryResponse</p>
+<p>Dovrà essere valorizzato nel seguente modo per indicare
+l’elaborazione errata dell’API:
+"urn:oasis:nammes:tc:ebxml-regrep:ResponseStatusType:Failure"</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** query:QueryResponse
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>rim:Slot</td>
+<td>Sezione dedicata all’estrazione</td>
+<td>M</td>
+<td>Object</td>
+</tr>
+<tr class="even">
+<td>name</td>
+<td><p>Attributo del nodo rim:Slot</p>
+<p>name="SpecificationIdentifier"</p>
+<p>name="EvidenceResponseIdentifier"</p>
+<p>name="ErrorProvider"</p>
+<p>name="EvidenceRequester"</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>rs:Exception</td>
+<td>Contiene le informazioni relativa all’eccezione sollevata.</td>
+<td>M</td>
+<td>Object</td>
+</tr>
+<tr class="even">
+<td>xsi:type</td>
+<td><p>Attributo del nodo rs:Exception</p>
+<p>Indica a quale categoria appartiene l’errore riscontrato.</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>severity</td>
+<td><p>Attributo del nodo rs:Exception</p>
+<p>Indica la gravità dell’eccezione riscontrata.</p>
+<p>L’attributo dovrà essere valorizzato nel seguente modo:</p>
+<p>"urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error"</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>message</td>
+<td><p>Attributo del nodo rs:Exception</p>
+<p>Contiene il messaggio in lingua inglese come indicato nella tabella
+degli scenari di errori.</p>
+<p>Esempio:</p>
+<p>"List of requirements requested is empty"</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>detail</td>
+<td>Deve contenere informazioni dettagliate sull'errore, ad esempio
+informazioni tecniche o una traccia dello stack.</td>
+<td>O</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>code</td>
+<td>Deve contenere un valore appropriato per l'errore.</td>
+<td>O</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:Slot
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>rim:SlotValue</td>
+<td>Sezione dedicata all’estrazione</td>
+<td>O</td>
+<td>Object</td>
+</tr>
+<tr class="even">
+<td>xsi:type</td>
+<td><p>Attributo del nodo SlotValue</p>
+<p>Lista di valorizzazioni possibili del parametro xsi:type:</p>
+<p>xsi:type="rim:AnyValueType"</p>
+<p>xsi:type="rim:StringValueType"</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:SlotValue
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>rim:Value</td>
+<td><p>Valore associato allo slot specifico</p>
+<p>Per rim:Slot name="SpecificationIdentifier" e rim:SlotValue
+xsi:type="rim:StringValueType", indica la versione della specifica
+utilizzata per la creazione del documento di riferimento, ad esempio è
+una striga simile:</p>
+<p><rim:Value>oots-edm:v1.0</rim:Value></p>
+<p>Per rim:Slot name="EvidenceResponseIdentifier" e rim:SlotValue
+xsi:type="rim:StringValueType", fornisce l’identificatore univoco alla
+Response del messaggio, ad esempio è una striga simile:</p>
+<p><rim:Value>530ad1e2-5eaf-4a9a-8192-227432eea95d</rim:Value></p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>Agent</td>
+<td><p>Valore associato allo slot specifico</p>
+<p>Per rim:Slot name="ErrorProvider" e rim:SlotValue
+xsi:type="rim:AnyValueType"</p>
+<p>e</p>
+<p>Per rim:Slot name="EvidenceRequester" e rim:SlotValue
+xsi:type="rim:AnyValueType"</p></td>
+<td>M</td>
+<td>Object</td>
+</tr>
+<tr class="odd">
+<td>xmlns</td>
+<td><p>Attributo del nodo Agent</p>
+<p>Valorizzato nel seguente modo:</p>
+<p>xmlns="https://data.europa.eu/sdg/xml#"</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** Agent
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifier</td>
+<td>Identificativo del fornitore della prova</td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>schemeID</td>
+<td><p>Per il caso rim:Slot name="ErrorProvider" e rim:SlotValue
+xsi:type="rim:AnyValueType"</p>
+<p>Attributo del nodo Identifier</p>
+<p>Esempio:</p>
+<p>schemeID="ZZZ"</p>
+<p>Per il caso di rim:Slot name="EvidenceRequester" e rim:SlotValue
+xsi:type="rim:AnyValueType"</p>
+<p>Attributo del nodo Identifier</p>
+<p>Esempio:</p>
+<p>schemeID="VATRegistration"</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>Name</td>
+<td>Nome del fornitore della prova</td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>Address</td>
+<td>Oggetto fisico che descrive la locazione di proprietà del
+fornitore.</td>
+<td>O</td>
+<td>Object</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** Address
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FullAddress</td>
+<td>Indirizzo completo</td>
+<td>O</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>Thoroughfare</td>
+<td>Dettagli per il passaggio da una posizione ad un'altra. Il dettaglio
+potrebbe riguardare un corso d’acqua, strada o qualche altra
+caratteristica del territorio.</td>
+<td>O</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>LocatorDesignator</td>
+<td>Un numero o una sequenza di caratteri che consente a un utente o a
+un'applicazione di interpretare, analizzare e formattare il
+localizzatore all'interno dell'ambito pertinente. Un localizzatore può
+includere più designatori di localizzatori.</td>
+<td>O</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>PostName</td>
+<td><p>Città o divisione postale dell’indirizzo.</p>
+<p>Esempio: LiverPool</p></td>
+<td>O</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>AdminUnitLevel1</td>
+<td><p>Stato Membro</p>
+<p>Esempio: GB</p></td>
+<td>O</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>PostCode</td>
+<td><p>Codice di suddivisione dell’indirizzo postale.</p>
+<p>Zip code, CAP (Codice di Avviamento Postale)</p></td>
+<td>O</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rs:Exception
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>rim:Slot</td>
+<td>Sezione dedicata all’estrazione</td>
+<td>M</td>
+<td>Object</td>
+</tr>
+<tr class="even">
+<td>name</td>
+<td><p>Attributo del nodo rim:Slot</p>
+<p>name="Timestamp"</p>
+<p>name="Reauthentication"</p>
+<p>name="UserRequestedInformationConcepts"</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>xmlns:xsi</td>
+<td><p>per rim:Slot name="UserRequestedInformationConcepts" è necessario
+inserit</p>
+<p>xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"</p></td>
+<td>O</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>xmlns:rim</td>
+<td><p>per rim:Slot name="UserRequestedInformationConcepts" è necessario
+inserit</p>
+<p>xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"</p></td>
+<td>O</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>xmlns:sdg</td>
+<td><p>per rim:Slot name="UserRequestedInformationConcepts" è necessario
+inserit</p>
+<p>xmlns:sdg="http://data.europa.eu/sdg#"</p></td>
+<td>O</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:Slot
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>rim:SlotValue</td>
+<td>Sezione dedicata all’estrazione</td>
+<td>O</td>
+<td>Object</td>
+</tr>
+<tr class="even">
+<td>xsi:type</td>
+<td><p>Attributo del nodo SlotValue</p>
+<p>Lista di valorizzazioni possibili del parametro xsi:type:</p>
+<p>xsi:type="rim:DateTimeValueType"</p>
+<p>xsi:type="rim:VocabularyTermValueType"</p>
+<p>xsi:type="rim:CollectionValueType"</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>collectionType</td>
+<td><p>Attributo del nodo rim:SlotValue</p>
+<p>per rim:Slot name="UserRequestedInformationConcepts" è necessario
+inserit</p>
+<p>collectionType="urn:oasis:names:tc:ebxml-regrep:CollectionType:Set"</p></td>
+<td>O</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:SlotValue
+
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>rim:Value</td>
+<td><p>Valore associato allo slot specifico</p>
+<p>Per rim:Slot name="Timestamp"e rim:SlotValue
+xsi:type="rim:DateTimeValueType" indica la data e l’ora della creazione
+dell’errore, ad esempio è una striga simile:</p>
+<p><rim:Value>2020-02-14T19:20:30</p>
+<p>+01:00</rim:Value></p>
+<p>Per rim:Slot name="Reauthentication" e rim:SlotValue
+xsi:type="rim:VocabularyTermValueType", è richiesta del fornitore di
+prove all'utente di autenticarsi nuovamente, ad esempio è una striga
+simile:</p>
+<p><rim:Value term="iso3166-1-alpha2">AT</rim:Value></p>
+<p>term="iso3166-1-alpha2" indica il vocabolario utilizzato attualmente
+ma potrebbe evolvere.</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>rim:Element</td>
+<td><p>Quando il provider di prove non è in grado di avere una
+corrispondenza univoca, è in grado di restituire un'eccezione che
+richiede attributi che devono essere forniti dall'utente.</p>
+<p>Ogni elemento della raccolta esprime tale attributo
+richiedente.</p></td>
+<td>O</td>
+<td>Object</td>
+</tr>
+<tr class="odd">
+<td>xsi:type</td>
+<td><p>Attributo del nodo rim:Element</p>
+<p>Valorizzare nel seguente modo:</p>
+<p>xsi:type="rim:AnyValueType"</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+
+***Nodo Padre della seguente lista di nodi figli:*** rim:Element
+
+| ***Parameter***        | ***Description***                           | ***Mandatory / Optional*** | ***Type*** |
+| ---------------------- | ------------------------------------------- | -------------------------- | ---------- |
+| sdg:InformationConcept | struttura InformationConcept del CCCEV v2.0 | M                          | Object     |
+
+***Nodo Padre della seguente lista di nodi figli:***
+sdg:InformationConcept
+
+| ***Parameter***     | ***Description***                                                                      | ***Mandatory / Optional*** | ***Type*** |
+| ------------------- | -------------------------------------------------------------------------------------- | -------------------------- | ---------- |
+| sdg:Identifier      | identificatore del concetto                                                            | M                          | String     |
+| sdg:Type            | il tipo previsto del valore di risposta                                                | M                          | String     |
+| sdg:ValueExpression | un'espressione del valore, in genere utilizzando la sintassi dell'espressione regolare | M                          | String     |
+| sdg:Description     | una descrizione potenzialmente fornita in più lingue                                   | M                          | String     |
+
+I codici di stato HTTP vengono consegnati al browser nell’intestazione
+HTTP. Riguardano l'esito dell'eventuale elaborazione da pare del server.
+
+| **HTTP Code** | **Result Description** |
+| ------------- | ---------------------- |
+| 400           | Bad Request            |
+
+### Swagger
+
+Attenzione: Il servizio è da considerare ancora “rolling” in attesa
+della documentazione di specifiche tecniche definitiva da parte della CE
+che illustrino le modalità di integrazione con il SDG
+
+# Integrazione con Preview Panel
+
+Attenzione: Il servizio è da considerare ancora “rolling” in attesa
+della documentazione di specifiche tecniche definitiva da parte della CE
+che illustrino le modalità di integrazione con il SDG
 
 # Storico delle modifiche al documento (Changelog)
 
-| **Vers.** | **Paragrafi modificati**                                      | **Tipo di modifica** | **Modifica apportata**                                                                                                                            |
-| --------- | ------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1.0       | Tutti                                                         | Creazione            | Creazione del documento e documentazione delle API dell’Evidence Broker                                                                           |
-| 1.1       | RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT         | Creazione            | Aggiunta del paragrafo                                                                                                                            |
-|           | Tutti                                                         | Integrazione         | Modificato il paragrafo per allineare il parametro QueryResponse alla documentazione ufficiale europea ricevuta                                   |
-|           | RECUPERO IDPUBLICSERVICELIST\Swagger                          | Correzione           | modificato lo swagger http 200                                                                                                                    |
-|           | Tutti                                                         | Correzione           | Modifica Campi mandatory/optional in conformità alla documentazione ufficiale europea ricevuta. Ove necessario sono stati introdotti nuovi campi. |
-|           | Tutti                                                         | Correzione           | Adeguamento swagger http 200                                                                                                                      |
-|           | RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT         | Correzione           | Modificati parametri di input                                                                                                                     |
-|           | RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT\swagger | Integrazione         | Aggiunto lo swagger http 400                                                                                                                      |
-| 1.2       | RECUPERO IDPUBLICSERVICELIST\Swagger                          | Integrazione         | Aggiunto lo swagger http 400                                                                                                                      |
-|           | RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT\Swagger | Correzione           | Modificato lo swagger http 400                                                                                                                    |
-|           | GESTIONE DELLE CHIAVI PER RECUPERO DELLE PROCEDURE            | Correzione           | Eliminata immagine                                                                                                                                |
+| **Vers.** | **Paragrafi modificati**                                                               | **Tipo di modifica** | **Modifica apportata**                                                                                                                            |
+| --------- | -------------------------------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.0       | Tutti                                                                                  | Creazione            | Creazione del documento e documentazione delle API dell’Evidence Broker                                                                           |
+| 1.1       | RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT                                  | Creazione            | Aggiunta del paragrafo                                                                                                                            |
+|           | Tutti                                                                                  | Integrazione         | Modificato il paragrafo per allineare il parametro QueryResponse alla documentazione ufficiale europea ricevuta                                   |
+|           | RECUPERO IDPUBLICSERVICELIST\Swagger                                                   | Correzione           | modificato lo swagger http 200                                                                                                                    |
+|           | Tutti                                                                                  | Correzione           | Modifica Campi mandatory/optional in conformità alla documentazione ufficiale europea ricevuta. Ove necessario sono stati introdotti nuovi campi. |
+|           | Tutti                                                                                  | Correzione           | Adeguamento swagger http 200                                                                                                                      |
+|           | RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT                                  | Correzione           | Modificati parametri di input                                                                                                                     |
+|           | RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT\swagger                          | Integrazione         | Aggiunto lo swagger http 400                                                                                                                      |
+| 1.2       | Tutti                                                                                  | Correzione           | Unificazione file Swagger http 200 ed http 400                                                                                                    |
+|           | GESTIONE DELLE CHIAVI PER RECUPERO DELLE PROCEDURE                                     | Correzione           | Eliminata immagine in attesa di sostituzione                                                                                                      |
+|           | RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT\RISPOSTA E GESTIONE DEGLI ERRORI | Integrazione         | Integrata la struttura rim:Slot all’rs:Exception                                                                                                  |
+|           | RECUPERO REQUIREMENTLIST DA EVIDENCE BROKER IT                                         | Correzione           | Eliminata la struttura IssuedBy                                                                                                                   |
+|           | RECUPERO EVIDENCETYPELIST DA EVIDENCE BROKER IT                                        | Correzione           | Eliminata la struttura IssuedBy                                                                                                                   |
+|           | RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT\RISPOSTA E GESTIONE DEGLI ERRORI | Correzione           | Adeguato prefisso DSD al codice d’errore                                                                                                          |

@@ -1,9 +1,9 @@
-#HAPPY PATH: retrieveDataServiceList  - 200 # status code
+#HAPPY PATH + UNHAPPY PATH: retrieveDataServiceList
 openapi: 3.0.0
 info:
   title: lista dal Data Service l’identificativo della Tipologia di Prova e le informazioni descrittive 
   description: Recupera dal Data Service Directory l’identificativo e le informazioni descrittive dell’Ente Erogatore
-  version: 1.0.6
+  version: 1.0.7
 servers:
   - url: http://<url_service_catalog>
     description: Local server
@@ -68,6 +68,99 @@ paths:
             application/xml:
               schema:
                   $ref: '#/components/schemas/QueryResponse'
+              example:
+                xmlns: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:lcm: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:rim: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+                xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+                xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                status: urn:oasis:names:tc:ebxmlregrep:ResponseStatusType:Success
+                RegistryObjectList:
+                  RegistryObject:
+                    id: RE238912378
+                    Slot:  
+                      name: DataServiceEvidenceType
+                      SlotValue: 
+                        xsi:type: rim:AnyValueType                      
+                        DataServiceEvidenceType:
+                          xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                          xmlns: http://data.europa.eu/sdg#
+                          AccessService:
+                            ConformsTo: oots:edm-v1.0
+                            Identifier: #NON RIESCO AD INSERIRE IL VALORE --> 8889909098
+                              schemeID: urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060
+                            Publisher:
+                              Address:
+                                AdminUnitLevel1: SK
+                                AdminUnitLevel2: SK12
+                                FullAddress: Prince Street 15
+                              Identifier: #NON RIESCO AD INSERIRE IL VALORE --> 11231112313
+                                schemeID: 1204
+                              Jurisdiction:
+                                AdminUnitLevel1: SK
+                                AdminUnitLevel2: SK77
+                              Name: Example Organization
+                          AuthenticationLevelOfAssurance: http://eidas.europa.eu/LoA/High
+                          DistributedAs:
+                          - ConformsTo: https://semic.org/sa/common/birthcert-1.0.0
+                            Format: http://publications.europa.eu/resource/authority/file-type/XML
+                          - Format: http://publications.europa.eu/resource/authority/file-type/PDF
+                          EvidenceSubjectNature: http://eidas.europa.eu/attributes/naturalperson 
+                          EvidenceTypeClassification: CertificateOfBirth
+                          Identifier: RE238918378
+                          Title: Certificate of Birth
+                          UserIdentityAttributeType: 
+                          - levelOfAssurance: http://eidas.europa.eu/LoA/High
+                            #NON RIESCO AD INSERIRE IL VALORE --> http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier
+                          - levelOfAssurance: http://eidas.europa.eu/LoA/High
+                            #NON RIESCO AD INSERIRE IL VALORE --> http://eidas.europa.eu/attributes/naturalperson/CurrentFamilyName
+                          - levelOfAssurance: http://eidas.europa.eu/LoA/High
+                            #NON RIESCO AD INSERIRE IL VALORE --> http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName
+                          - levelOfAssurance: http://eidas.europa.eu/LoA/High
+                            mandatory: false
+                            userIdentificationOrigin: NL
+                            #NON RIESCO AD INSERIRE IL VALORE --> https://sr.ec.europa.eu/identifiers/NL/person/last-4-digits-bsn
+                          - levelOfAssurance: http://eidas.europa.eu/LoA/High
+                            userIdentificationOrigin: IT
+                            #NON RIESCO AD INSERIRE IL VALORE --> https://sr.ec.europa.eu/identifiers/IT/person/codice-fiscale
+                
+        '400':    # status code
+          description: Failure operation
+          content:
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/QueryResponse'
+              example:
+                xmlns: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:lcm: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:rim: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+                xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+                xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                status: urn:oasis:nammes:tc:ebxml-regrep:ResponseStatusType:Failure 
+                Exception:
+                  xsi:type: rs:ObjectNotFoundExceptionType
+                  severity: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
+                  message: No Evidence Providers were found based on the given parameters
+                  Slot:  
+                  - name: JurisdictionDetermination
+                    SlotValue: 
+                      xsi:type: rim:AnyValueType
+                      sdg:EvidenceProviderJurisdictionDetermination:
+                        sdg:JurisdictionContextId: CompanyHq
+                        sdg:JurisdictionContext: Company Headquarters location
+                        sdg:JurisdictionLevel: https://sr.ec.europa.eu/codelist/locationLevel/NUTS2 
+                  - name: UserRequestedClassificationConcepts
+                    SlotValue: 
+                      xsi:type: rim:AnyValueType
+                      sdg:EvidenceProviderClassification:
+                        sdg:ClassificationConcept:
+                          sdg:Identifier: TypeOfInsurance
+                          sdg:Type: Codelist
+                          sdg:ValueExpression: "http://sr.europa.eu/codelists/insuranceType"
+                          sdg:Description: Type of insurance
+                            #lang: en
 
 components:
   schemas:  
@@ -109,6 +202,11 @@ components:
           default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
           xml:
             attribute: true  
+        xmlns:xlink: 
+          type: string
+          default: http://www.w3.org/1999/xlink    
+          xml:
+            attribute: true
         requestId:
           type: string
           example: c4369c4d-740e-4b64-80f0-7b209a66d629
@@ -118,7 +216,53 @@ components:
           type: string
           default: urn:oasis:names:tc:ebxmlregrep:ResponseStatusType:Success
           xml:
-            attribute: true             
+            attribute: true     
+            
+        Exception:
+          required:
+           - xsi:type
+           - severity
+           - message
+          type: object
+          xml: 
+            prefix: 'rs'
+          properties:
+            xsi:type:
+              type: string
+              default: rs:ObjectNotFoundExceptionType
+
+              xml:
+                attribute: true
+            severity:
+              type: string
+              default: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
+              xml:
+                attribute: true            
+            message:
+              type: string
+              default: The requirement requested, represented by the requirement id, does not exist
+              xml:
+                attribute: true                 
+            detail:
+              type: string
+              description: Deve contenere informazioni dettagliate sull'errore, ad esempio informazioni tecniche o una traccia dello stack.
+              xml:
+                attribute: true
+            code:
+              type: string
+              default: EB:ERR:0002
+              xml:
+                attribute: true  
+            Slot:
+              type: array
+              items:
+                $ref: '#/components/schemas/Slot'
+              xml:
+                wrapped: false
+            
+            
+            
+            
         RegistryObjectList:
           type: object
           xml:
@@ -135,7 +279,9 @@ components:
                   type: string
                   xml:
                     attribute: true    
-                slot:
+                    
+                    
+                Slot:
                   type: object
                   xml:
                     prefix: 'rim'
@@ -188,19 +334,12 @@ components:
                               description: Informazioni sulla classificazione.  Usato per il collegamento   con l’Evidence Broker
                             Title:
                               type: string
-                              description: Titolo relativo alle informazioni sulla classificazione        
+                              description: Titolo relativo alle informazioni sulla classificazione   
                             DistributedAs:
-                              type: object
-                              description: Lista delle multiple distribuzioni disponibili per Tipologia di   Prova del Servizio Dati
-                              required:
-                                - Format
-                              properties:
-                                Format:    
-                                  type: string
-                                  description: formati disponibili per il tipo di prova in formato   strutturato come XML, JSON o non strutturato                 come PDF.
-                                ConformsTo:
-                                  type: string
-                                  description: Solo per formati strutturati come XML, JSON, RDF il   servizio dati può fornire una dichiarazione di                   conformità per indicare il profilo di conformità semantica e tecnica.   L’URL che punta a una voce del                 repository semantico   OOTS che contiene tutte le informazioni rilevanti di tale profilo.
+                                $ref: '#/components/schemas/DistributedAsArray'
+
+                            
+                                  
                             AccessService:
                               type: object
                               description: Servizio di accesso rappresenta il Servizio dati che notifica   la prova per conto di un Fornitore di                 prove. E’ consentito   avere Servizi ad accesso multiplo (Multiple Access Services) al quale è   associato un singolo                 Fornitore di prove (Evidence Provider  ).
@@ -219,7 +358,8 @@ components:
                                       type: string
                                       example: urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060
                                       xml:
-                                        attribute: true   
+                                        attribute: true
+                                    
                                 AccessURL:
                                   type: string
                                   description: URL del servizio d’accesso.
@@ -285,30 +425,66 @@ components:
                               type: string
                               description: Le informazioni necessarie per selezionare il provider di prove da utilizzare per questo tipo di prova associato 
                             UserIdentityAttributeType:
-                              type: object
-                              required:
-                                - levelOfAssurance
-                              properties:
-                                levelOfAssurance:
-                                  type: string
-                                  example: http://eidas.europa.eu/LoA/High
-                                  xml:
-                                    attribute: true   
-                                mandatory:
-                                  type: string
-                                  example: false
-                                  xml:
-                                    attribute: true   
-                                userIdentificationOrigin:
-                                  type: string
-                                  example: NL
-                                  xml:
-                                    attribute: true
+                              $ref: '#/components/schemas/UserIdentityAttributeTypeArray'
                             EvidenceSubjectNature:
                               type: string
                               example: http://eidas.europa.eu/attributes/naturalperson
                               description: Indica il tipo di persona da autenticare. Sono consentite 2 tipologie attualmente. Una persona fisica, utilizzando l'URI predefinito eIDAS http://eidas.europa.eu/attributes/naturalperson Una persona giuridica, che utilizza l'URI predefinito eIDAS http://eidas.europa.eu/attributes/legalperson
+   
+   
+    UserIdentityAttributeTypeArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/UserIdentityAttributeType'
+      xml:
+        wrapped: false 
 
+    UserIdentityAttributeType:
+      type: object
+      required:
+        - levelOfAssurance
+      properties:
+        levelOfAssurance:
+          type: string
+          example: http://eidas.europa.eu/LoA/High
+          xml:
+            attribute: true   
+        mandatory:
+          type: string
+          example: false
+          xml:
+            attribute: true   
+        userIdentificationOrigin:
+          type: string
+          example: NL
+          xml:
+            attribute: true
+
+
+
+
+    DistributedAsArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/DistributedAs'
+      xml:
+        wrapped: false   
+
+
+            
+    DistributedAs:
+     type: object
+     description: Lista delle multiple distribuzioni disponibili per Tipologia di   Prova del Servizio Dati
+     required:
+       - Format
+     properties:
+       Format:    
+         type: string
+         description: formati disponibili per il tipo di prova in formato   strutturato come XML, JSON o non strutturato                 come PDF.
+       ConformsTo:
+         type: string
+         description: Solo per formati strutturati come XML, JSON, RDF il   servizioornire una dichiarazione di                   conformità per indicare ii conformità semantica e tecnica.   L’URL che punta a una voce derepository semantico   OOTS che contiene tutte le informazioni rilevantrofilo.
+                                 
             
     AdminUnitLevel1:
       type: string
@@ -320,7 +496,78 @@ components:
       type: string
       description: Unità di amministrazione relativi all'esercizio dei diritti giurisdizionali. Il livello 3 si riferisce al comune.
 
-            
+
+
+
+    Slot:
+      type: object
+      xml:
+        prefix: 'rim'
+      required:
+        - SlotValue
+      properties:
+        name:
+          type: string
+          example: JurisdictionDetermination 
+          enum:
+           - JurisdictionDetermination
+           - UserRequestedClassificationConcepts
+          xml:
+            attribute: true
+        SlotValue:
+          type: object
+          xml:
+            prefix: 'rim'
+          required:
+            - xsi:type
+          properties:
+            xsi:type:
+              type: string
+              example: rim:AnyValueType
+              xml:
+                attribute: true      
+            sdg:EvidenceProviderJurisdictionDetermination:
+              type: object
+              properties:
+                sdg:JurisdictionContextId:
+                  type: string
+                  description: response della Data Service Directory all’utente
+                sdg:JurisdictionContext:
+                  type: string
+                  description: Il contesto della giurisdizione stessa. Nella lingu visualizzare nell’interfaccia utente del richiedente di prove
+                sdg:JurisdictionLevel:
+                  type: string
+                  description: Il livello di giurisdizione richiesto, definend granularita' richiesta della giurisdizione
+
+            sdg:EvidenceProviderClassification:
+              type: object
+              properties:
+                sdg:ClassificationConcept:
+                  type: object
+                  properties:
+                    sdg:Identifier:
+                      type: string
+                      example: TypeOfInsurance 
+                      description: Identificatore del filtro
+                    sdg:Type:
+                      type: string
+                      example: String
+                      description: Tipo di dato
+                    sdg:ValueExpression:
+                      type: string
+                      example: ^\d{5}$
+                      #description: Sintassi filtro attraverso Espressione Regolare  
+                    Description:
+                      type: object
+                      description: Descrizione del filtro. esempio, Type of insurance
+                      properties:
+                        lang:
+                          type: string
+                          example: en
+                          xml:
+                            attribute: true 
+                          description: Specifica il linguaggio          
+  
  
  
   securitySchemes:

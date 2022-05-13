@@ -1,9 +1,9 @@
-#HAPPY PATH: retrieveRequirementList - 200 # status code
+#HAPPY PATH + UNHAPPY PATH : retrieveRequirementList
 openapi: 3.0.0
 info:
   title: restituisce la lista delle Tipologie di prova per specifico requisito
   description: L’insieme delle Tipologie di prova necessarie a soddisfare ogni specifico Requisito sarà restituito dall’Evidence Broker IT.
-  version: 1.0.5
+  version: 1.0.6
 servers:
   - url: http://<url_service_catalog>
     description: Local server
@@ -50,10 +50,70 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/QueryResponse'
+              example:
+                xmlns: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:lcm: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:rim: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+                xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+                xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                status: urn:oasis:names:tc:ebxmlregrep:ResponseStatusType:Success      
+                RegistryObjectList: 
+                  RegistryObject:
+                    id: 315cfd75-6605-49c4-b0fe-799833b41099
+                    Requirement:
+                      xmlns: http://data.europa.eu/sdg#
+                      xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                      Identifier: 315cfd75-6605-49c4-b0fe-799833b41099
+                      Name: bachelor's degree
+                      
+                      
+                      ReferenceFramework:
+                      
+                      - Identifier: 118fd444-6443-42be-a084-c9fbfd1f674d
+                        Title: Procedure 5 - Annex II of SDG as Implemented in the Italian   Portal
+                        Description: Procedure 5 of Annex II of the Regulation (EU) 2018/1724 the European Parliament an of the Council of October   2 establishing a single digital gateway to providaccess to informati to procedures and to assistance anproblem-solving   services  amending Regulation (EU No 10/2012
+                        RelatedTo: 
+                          Identifier: http://data.europa.eu/eli/reg/2018/1724/oj#Annex-5
+                        Jurisdiction:
+                            AdminUnitLevel1: IT                
+                
+                      - Identifier: 218fd444-6443-42be-a084-c9fbfd1f674d
+                        Title: Procedure 5 - Annex II of SDG as Implemented in the Italian   Portal
+                        Description: Procedure 5 of Annex II of the Regulation (EU) 2018/1724 the European Parliament and of the Council of October   2 establishing a single digital gateway to providaccess to   informati to procedures and to assistance anproblem-solving   services  amending Regulation (EU) No 10/2012
+                        RelatedTo: 
+                          Identifier: http://data.europa.eu/eli/reg/2018/1724/oj#Annex-5
+                        Jurisdiction:
+                          AdminUnitLevel1: IT                           
+  
+                          
+        '400':    # status code
+          description: Failure operation
+          content:
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/QueryResponse'
+              example:
+                xmlns: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:lcm: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:rim: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+                xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+                xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                status: urn:oasis:nammes:tc:ebxml-regrep:ResponseStatusType:Failure 
+                Exception:
+                  xsi:type: rs:ObjectNotFoundExceptionType
+                  severity: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
+                  message: No Evidence Providers were found based on the given parameters
+                  code: EB:ERR:0001
+                          
 components:
   schemas:     
     QueryResponse:
       type: object
+      required:
+       - requestId
+       - status
       xml:
         prefix: 'query'
         namespace: urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0
@@ -98,6 +158,35 @@ components:
           default: urn:oasis:names:tc:ebxmlregrep:ResponseStatusType:Success
           xml:
             attribute: true             
+            
+        Exception:
+          type: object
+          xml:
+            prefix: 'rs'
+          properties:
+            xsi:type:
+              type: string
+              default: rs:ObjectNotFoundExceptionType
+              xml:
+                attribute: true
+            severity:
+              type: string
+              default: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
+              xml:
+                attribute: true            
+            message:
+              type: string
+              default: List of requirements requested is empty
+              xml:
+                attribute: true                 
+            code:
+              type: string
+              default: EB:ERR:0001
+              xml:
+                attribute: true            
+            
+            
+            
         RegistryObjectList:
           type: object
           xml:
@@ -133,10 +222,18 @@ components:
                       type: string
                     Name:
                       type: string
-                    ReferenceFramework:
-                      $ref: '#/components/schemas/ReferenceFramework'
-                    IssuedBy:
-                      $ref: '#/components/schemas/IssuedBy'                    
+                    ReferenceFramework:  
+                      $ref: '#/components/schemas/ReferenceFrameworkArray'
+                      
+    ReferenceFrameworkArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/ReferenceFramework'
+      xml:
+        name: ReferenceFramework
+        wrapped: false
+                  
+                  
     ReferenceFramework:
       type: object
       required:
@@ -161,15 +258,10 @@ components:
           properties:
             AdminUnitLevel1:
               type: string   
-    IssuedBy:
-      type: object
-      properties:
-        Identifier:
-          type: string
-        Name:
-          type: string
-        Classification:
-          type: integer
+
+
+
+                      
           
   securitySchemes:
     Authorization:            # Bearer <Voucher PDND>

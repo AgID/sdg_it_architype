@@ -1,9 +1,9 @@
-#HAPPY PATH: retrievEevidenceTypeList - 200 # status code
+#HAPPY PATH + UNHAPPY PATH: retrievEevidenceTypeList
 openapi: 3.0.0
 info:
   title: lista delle Tipologie di prova per specifico requisito
   description: Estrae la lista di Tipologia di prova aderente all'output di retrieveRequirementList
-  version: 1.0.5
+  version: 1.0.6
 servers:
   - url: http://<url_service_catalog>
     description: Local server
@@ -62,6 +62,60 @@ paths:
             application/xml:
               schema:
                   $ref: '#/components/schemas/QueryResponse'
+              example:
+                xmlns: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:lcm: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:rim: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+                xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+                xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                status: urn:oasis:names:tc:ebxmlregrep:ResponseStatusType:Success
+                RegistryObjectList:      
+                  RegistryObject:
+                   id: 315cfd75-6605-49c4-b0fe-799833b41099
+                   Requirement: 
+                     xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                     xmlns: http://data.europa.eu/sdg#
+                     Identifier: 315cfd75-6605-49c4-b0fe-799833b41099
+                     Name: Proof of Birth
+                     ReferenceFramework:
+                       Identifier: 118fd444-6443-42be-a084-c9fbfd1f674d
+                       Title: Procedure 5 - Annex II of SDG as Implemented in the Spanish Portal
+                       Description: Procedure 5 of Annex II of the Regulation (EU) 2018/1724 of the European Parliament and of the Council of 2 October 2018 establishing a single digital gateway to provide access to information, to procedures and to assistance and problem-solving services and amending Regulation (EU) No 1024/2012
+                       RelatedTo: 
+                         Identifier: http://data.europa.eu/eli/reg/2018/1724/oj#AnnexII-5
+                       Jurisdiction:
+                         AdminUnitLevel1: ES
+                     EvidenceTypeList:   
+                       Identifier: EV-List-1
+                       EvidenceType:
+                         Identifier: ES-EV1223
+                         Description: certificado de nacimiento
+                         Jurisdiction: 
+                           AdminUnitLevel1: ES
+                           AdminUnitLevel2: ES211
+                           AdminUnitLevel3: 01001
+                  
+        '400':    # status code
+          description: Failure operation
+          content:
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/QueryResponse'
+              example:
+                xmlns: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:lcm: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:rim: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+                xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+                xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                status: urn:oasis:nammes:tc:ebxml-regrep:ResponseStatusType:Failure 
+                Exception:
+                  xsi:type: rs:ObjectNotFoundExceptionType
+                  severity: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
+                  message: No Evidence Providers were found based on the given parameters
+                  code: EB:ERR:0002
+                  
 components:
   schemas:     
     QueryResponse:
@@ -110,6 +164,45 @@ components:
           default: urn:oasis:names:tc:ebxmlregrep:ResponseStatusType:Success
           xml:
             attribute: true             
+            
+            
+        Exception:
+          required:
+           - xsi:type
+           - severity
+           - message
+          type: object
+          xml: 
+            prefix: 'rs'
+          properties:
+            xsi:type:
+              type: string
+              example: rs:ObjectNotFoundExceptionType
+
+              xml:
+                attribute: true
+            severity:
+              type: string
+              default: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
+              xml:
+                attribute: true            
+            message:
+              type: string
+              example: The requirement requested, represented by the requirement id, does not exist
+              xml:
+                attribute: true                 
+            detail:
+              type: string
+              description: Deve contenere informazioni dettagliate sull'errore, ad esempio informazioni tecniche o una traccia dello stack.
+              xml:
+                attribute: true
+            code:
+              type: string
+              example: EB:ERR:0002
+              xml:
+                attribute: true              
+            
+            
         RegistryObjectList:
           type: object
           xml:
@@ -147,8 +240,6 @@ components:
                       type: string
                     ReferenceFramework:
                       $ref: '#/components/schemas/ReferenceFramework'
-                    IssuedBy:
-                      $ref: '#/components/schemas/IssuedBy'   
                     EvidenceTypeList:
                       $ref: '#/components/schemas/EvidenceTypeList'
                       
@@ -177,17 +268,7 @@ components:
             AdminUnitLevel1:
               type: string   
               
-    IssuedBy:
-      type: object
-      properties:
-        Identifier:
-          type: string
-        Name:
-          type: string
-        Classification:
-          type: integer
-          
-          
+
     EvidenceTypeList:
       type: object
       required:
