@@ -3,7 +3,7 @@ openapi: 3.0.0
 info:
   title: restituisce la lista delle Tipologie di prova per specifico requisito
   description: L’insieme delle Tipologie di prova necessarie a soddisfare ogni specifico Requisito sarà restituito dall’Evidence Broker IT.
-  version: 1.0.6
+  version: 1.0.9
 servers:
   - url: http://<url_service_catalog>
     description: Local server
@@ -35,7 +35,7 @@ paths:
           name: proc-identifier
           required: true
           schema:
-            type: integer
+            type: string
           description: Identificativo della Procedimento amministrativo al livello Europeo al fine di filtrare i Requirement.
         - in: query
           name: proc-jurisdiction
@@ -57,6 +57,7 @@ paths:
                 xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
                 xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
                 xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                requestId: c4369c4d-740e-4b64-80f0-7b209a66d629
                 status: urn:oasis:names:tc:ebxmlregrep:ResponseStatusType:Success      
                 RegistryObjectList: 
                   RegistryObject:
@@ -100,6 +101,7 @@ paths:
                 xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
                 xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
                 xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                requestId: c4369c4d-740e-4b64-80f0-7b209a66d629
                 status: urn:oasis:nammes:tc:ebxml-regrep:ResponseStatusType:Failure 
                 Exception:
                   xsi:type: rs:ObjectNotFoundExceptionType
@@ -176,12 +178,12 @@ components:
                 attribute: true            
             message:
               type: string
-              default: List of requirements requested is empty
+              example: List of requirements requested is empty
               xml:
                 attribute: true                 
             code:
               type: string
-              default: EB:ERR:0001
+              example: EB:ERR:0001
               xml:
                 attribute: true            
             
@@ -238,7 +240,6 @@ components:
       type: object
       required:
         - Identifier
-        - Jurisdiction
       properties:
         Identifier:
           type: string

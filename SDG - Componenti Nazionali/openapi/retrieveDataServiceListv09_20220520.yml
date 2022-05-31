@@ -3,7 +3,7 @@ openapi: 3.0.0
 info:
   title: lista dal Data Service l’identificativo della Tipologia di Prova e le informazioni descrittive 
   description: Recupera dal Data Service Directory l’identificativo e le informazioni descrittive dell’Ente Erogatore
-  version: 1.0.7
+  version: 1.0.9
 servers:
   - url: http://<url_service_catalog>
     description: Local server
@@ -75,6 +75,7 @@ paths:
                 xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
                 xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
                 xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                requestId: c4369c4d-740e-4b64-80f0-7b209a66d629
                 status: urn:oasis:names:tc:ebxmlregrep:ResponseStatusType:Success
                 RegistryObjectList:
                   RegistryObject:
@@ -87,6 +88,7 @@ paths:
                           xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
                           xmlns: http://data.europa.eu/sdg#
                           AccessService:
+                            AccessURL: http://tbd
                             ConformsTo: oots:edm-v1.0
                             Identifier: #NON RIESCO AD INSERIRE IL VALORE --> 8889909098
                               schemeID: urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060
@@ -94,12 +96,14 @@ paths:
                               Address:
                                 AdminUnitLevel1: SK
                                 AdminUnitLevel2: SK12
+                                AdminUnitLevel3:
                                 FullAddress: Prince Street 15
                               Identifier: #NON RIESCO AD INSERIRE IL VALORE --> 11231112313
                                 schemeID: 1204
                               Jurisdiction:
                                 AdminUnitLevel1: SK
                                 AdminUnitLevel2: SK77
+                                AdminUnitLevel3:
                               Name: Example Organization
                           AuthenticationLevelOfAssurance: http://eidas.europa.eu/LoA/High
                           DistributedAs:
@@ -124,6 +128,10 @@ paths:
                           - levelOfAssurance: http://eidas.europa.eu/LoA/High
                             userIdentificationOrigin: IT
                             #NON RIESCO AD INSERIRE IL VALORE --> https://sr.ec.europa.eu/identifiers/IT/person/codice-fiscale
+                          EvidenceSubjectLevelOfAssurance:
+                          EvidenceSubjectIdentifierScheme:  
+                          EvidenceProviderDeterminationContext:
+                          
                 
         '400':    # status code
           description: Failure operation
@@ -138,11 +146,13 @@ paths:
                 xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
                 xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
                 xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                requestId: c4369c4d-740e-4b64-80f0-7b209a66d629
                 status: urn:oasis:nammes:tc:ebxml-regrep:ResponseStatusType:Failure 
                 Exception:
                   xsi:type: rs:ObjectNotFoundExceptionType
                   severity: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
-                  message: No Evidence Providers were found based on the given parameters
+                  message: No Data Services were found based on the given parameters
+                  code: DSD:ERR:0001
                   Slot:  
                   - name: JurisdictionDetermination
                     SlotValue: 
@@ -168,6 +178,9 @@ components:
   
     QueryResponse:
       type: object
+      required:
+       - requestId
+       - status      
       xml:
         prefix: 'query'
         namespace: urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0
@@ -229,18 +242,18 @@ components:
           properties:
             xsi:type:
               type: string
-              default: rs:ObjectNotFoundExceptionType
+              example: rs:ObjectNotFoundExceptionType
 
               xml:
                 attribute: true
             severity:
               type: string
-              default: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
+              example: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
               xml:
                 attribute: true            
             message:
               type: string
-              default: The requirement requested, represented by the requirement id, does not exist
+              example: The requirement requested, represented by the requirement id, does not exist
               xml:
                 attribute: true                 
             detail:
@@ -250,7 +263,7 @@ components:
                 attribute: true
             code:
               type: string
-              default: EB:ERR:0002
+              example: EB:ERR:0002
               xml:
                 attribute: true  
             Slot:
@@ -337,80 +350,10 @@ components:
                               description: Titolo relativo alle informazioni sulla classificazione   
                             DistributedAs:
                                 $ref: '#/components/schemas/DistributedAsArray'
-
-                            
-                                  
                             AccessService:
-                              type: object
-                              description: Servizio di accesso rappresenta il Servizio dati che notifica   la prova per conto di un Fornitore di                 prove. E’ consentito   avere Servizi ad accesso multiplo (Multiple Access Services) al quale è   associato un singolo                 Fornitore di prove (Evidence Provider  ).
-                              required:  
-                                - AccessURL
-                                - ConformsTo
-                                - Publisher
-                              properties:  
-                                Identifier:
-                                  required:        
-                                    - schemeID
-                                  description: Identificatore del servizio di accesso. E’utilizzato   dall'infrastruttura eDelivery per estrarre e                   utilizzare il PMode preconfigurato appropriato per l'invio della   richiesta di prove
-                                  type: object
-                                  properties:
-                                    schemeID:
-                                      type: string
-                                      example: urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060
-                                      xml:
-                                        attribute: true
-                                    
-                                AccessURL:
-                                  type: string
-                                  description: URL del servizio d’accesso.
-                                ConformsTo:
-                                  type: string
-                                  description: Versione e Profilo     dell’Evidence Exchange Message Data       Model.
-                                  default: "oots:edm-1.0"
-                                Publisher:
-                                  type: object
-                                  description: Informazioni sull’accesso del Fornitore di Prove (Evidence   Provider) fornisce il nome, l'ubicazione                 e la   giurisdizione del fornitore di prove, utilizzato dal richiedente di   prove (Evidence Requester) per                 filtrare e selezionare   il fornitore di prove corretto.
-                                  required: 
-                                    - Jurisdiction
-                                  properties:
-                                    Identifier:
-                                      required:        
-                                        - schemeID
-                                      description: Identificatore del servizio di accesso. E’utilizzato   dall'infrastruttura     eDelivery per                 estrarre e   utilizzare il PMode preconfigurato appropriato per l'invio       della richiesta di prove
-                                      type: object
-                                      properties:
-                                        schemeID:
-                                          type: string
-                                          example: 1204
-                                          xml:
-                                            attribute: true      
-                                    Name:
-                                      type: string
-                                      description: Etichetta associata all’agente.
-                                    Address:
-                                      type: object
-                                      description: Una posizione del fornitore di prove sotto forma di   indirizzo. Se la giurisdizione basata sul                   territorio fisico non può essere fornita, l'indirizzo può essere   fornito per facilitare il requisito                 funzionale per   determinare il fornitore di prove in base alle informazioni sulla   posizione
-                                      properties: 
-                                        FullAddress: 
-                                          type: string
-                                          description: Indirizzo completo del Fornitore delle Tipologie di   Prova (Evidence Provider). 
-                                        AdminUnitLevel1:
-                                          $ref: '#/components/schemas/AdminUnitLevel1'
-                                        AdminUnitLevel2:
-                                           $ref: '#/components/schemas/AdminUnitLevel2'
-                                        AdminUnitLevel3:
-                                           $ref: '#/components/schemas/AdminUnitLevel3'
-                                    Jurisdiction:
-                                      type: object
-                                      description: La giurisdizione spaziale del fornitore di prove. Il   codice dovrebbe riflettere la demarcazione                   geografica più precisa per la giurisdizione applicabile   nell'elenco dei codici utilizzati. Ad esempio,                   codice LAU o NUTS per Vienna.
-                                      properties: 
-                                        AdminUnitLevel1:
-                                          $ref: '#/components/schemas/AdminUnitLevel1'
-                                        AdminUnitLevel2:
-                                           $ref: '#/components/schemas/AdminUnitLevel2'
-                                        AdminUnitLevel3:
-                                           $ref: '#/components/schemas/AdminUnitLevel3'
-                            
+                                $ref: '#/components/schemas/AccessServiceArray'
+                                  
+    
                             AuthenticationLevelOfAssurance:
                               type: string
                               example: http://eidas.europa.eu/LoA/High
@@ -430,6 +373,88 @@ components:
                               type: string
                               example: http://eidas.europa.eu/attributes/naturalperson
                               description: Indica il tipo di persona da autenticare. Sono consentite 2 tipologie attualmente. Una persona fisica, utilizzando l'URI predefinito eIDAS http://eidas.europa.eu/attributes/naturalperson Una persona giuridica, che utilizza l'URI predefinito eIDAS http://eidas.europa.eu/attributes/legalperson
+   
+                                     
+                                  
+    AccessService:
+      type: object
+      description: Servizio di accesso rappresenta il S che notifica   la prova per conto di un Forni           prove. E’ consentito   avere Serviz multiplo (Multiple Access Services) al quale  un singolo                 Fornitore di pro Provider  ).
+      required:  
+        - AccessURL
+        - ConformsTo
+        - Publisher
+      properties:  
+        Identifier:
+          required:        
+            - schemeID
+          description: Identificatore del servizio E’utilizzato   dall'infrastruttura e estrarre e                   utilizz preconfigurato appropriato per l' richiesta di prove
+          type: object
+          properties:
+            schemeID:
+              type: string
+              example: urn:oasis:names:tc:ebcore :iso6523:0060
+              xml:
+                attribute: true
+            
+        AccessURL:
+          type: string
+          description: URL del servizio d’accesso.
+        ConformsTo:
+          type: string
+          description: Versione e Profilo     d Exchange Message Data       Model.
+          default: "oots:edm-1.0"
+        Publisher:
+          type: object
+          description: Informazioni sull’accesso del  Prove (Evidence   Provider) forni l'ubicazione                 e la   giuri fornitore di prove, utilizzato dal ric prove (Evidence Requester) per           e selezionare   il fornitore di prove corretto.
+          required: 
+            - Jurisdiction
+          properties:
+            Identifier:
+              required:        
+                - schemeID
+              description: Identificatore del servizio E’utilizzato   dall'infrastruttura   per                 estrarre e   u PMode preconfigurato appropriato per della richiesta di prove
+              type: object
+              properties:
+                schemeID:
+                  type: string
+                  example: 1204
+                  xml:
+                    attribute: true      
+            Name:
+              type: string
+              description: Etichetta associata all’agente.
+            Address:
+              type: object
+              description: Una posizione del fornit sotto forma di   indirizzo. Se la g basata sul                   territori può essere fornita, l'indirizzo fornito per facilitare il requi  funzionale per   determinare il fornit in base alle informazioni sulla   posizione
+              properties: 
+                FullAddress: 
+                  type: string
+                  description: Indirizzo completo d delle Tipologie di   Prova (Evidenc 
+                AdminUnitLevel1:
+                  $ref: '#/components/schemas/AdminUnitLevel1'
+                AdminUnitLevel2:
+                   $ref: '#/components/schemas/AdminUnitLevel2'
+                AdminUnitLevel3:
+                   $ref: '#/components/schemas/AdminUnitLevel3'
+            Jurisdiction:
+              type: object
+              description: La giurisdizione spaziale d di prove. Il   codice dovrebbe r demarcazione                   ge precisa per la giurisdizione  nell'elenco dei codici utilizzati. Ad               codice LAU o NUTS per Vienna.
+              properties: 
+                AdminUnitLevel1:
+                  $ref: '#/components/schemas/AdminUnitLevel1'
+                AdminUnitLevel2:
+                   $ref: '#/components/schemas/AdminUnitLevel2'
+                AdminUnitLevel3:
+                   $ref: '#/components/schemas/AdminUnitLevel3'
+
+   
+    AccessServiceArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/AccessService'
+      xml:
+        wrapped: false 
+
    
    
     UserIdentityAttributeTypeArray:

@@ -6,11 +6,11 @@ Specifica tecnica
 
 Documento di integrazione
 
-**Versione 1.0 – Stato del documento: Bozza per condivisione**
+**Versione 1.3.1 – Stato del documento: Bozza per condivisione**
 
 **Classificazione del documento: AgID Internal**
 
-**12 maggio 2022**
+**20 maggio 2022**
 
 # Scopo e Ambito del Documento
 
@@ -50,6 +50,13 @@ garantisce i livelli di sicurezza necessari nello scambio di dati
 cross-border. Interviene attivamente nello scambio di dati tra gli Stati
 Membri.
 
+1. Preview Component (Work In Progress. Le specifiche tecniche per
+   questo componente sono ancora in corso da parte della CE).
+
+Il Componente architetturale IT deputato alla visualizzazione delle
+Evidence in anteprima. Come da Specifiche Tecniche anticipate la preview
+è onere del Evidence Provider (e quindi owner) del documento
+
 ## Glossario Definizioni ed Acronimi
 
 | **ACRONIMO** | **DESCRIZIONE**                                                              |
@@ -72,9 +79,9 @@ Membri.
 
  
 
-L’infrastruttura italiana dell’SDG espone, ad uso dei Procedure Portal,
-le REST API dell'Evidence Broker e del Data Service Directory come da
-diagramma riportato.
+L’infrastruttura italiana dell’SDG espone, ad uso dei Procedure Portal
+italiani, le REST API dell'Evidence Broker e del Data Service Directory
+come da diagramma riportato.
 
 Nel confine logico indicato come “IT External Services” sono contenuti
 schematicamente il Procedure Portal ovvero il portale della PA deputato
@@ -84,10 +91,11 @@ necessaria ed il PDND ovvero l’infrastruttura nazionale Dati per
 abilitare (authentication and authorization) l’interoperabilità tramite
 API tra PA.
 
-Il blocco “EU External Services” indicato in grigio è considerato OOO
+Il blocco “EU External Services” indicato in grigio è considerato OOS
 (Out Of Scope) in questo contesto in quanto sono i servizi omologhi
 degli altri Stati Membri riportati nel diagramma per completezza di
-informazione.
+informazione, resi trasparenti a Procedural Portal italiani dalle
+componenti nazionali .
 
 L'utente transfrontaliero, nell’intento di recuperare la Prova
 (*Evidence*) esegue l’accesso al Procedure Portal e in maniera indiretta
@@ -102,16 +110,19 @@ rivolge ai sistemi Evidence Broker o Data Service Directory del SDG.
 
 Il voucher implementa il concetto di token autorizzativo per la gestione
 della richiesta, pertanto, è un Access Token JWT utilizzato nelle
-chiamate delle API REST.
+chiamate delle API REST. I dettagli relativamente agli stessi voucher e
+al loro recupero sono oggetto dell’implementazione PDND, di cui
+l’ecosistema italiano SDG (componenti nazionali, Procedure Portal
+italiani e Data Service italiani) si avvale.
 
-Per permettere un accesso più sicuro ed agevole agli Swagger generati e
+Per permettere un accesso più sicuro ed agevole agli OpenAPI3 generati e
 contenuti nel documento è stato creato un repository GitHub reperibile a
 questo URL, a cui si può accedere con utenze opportunamente autorizzate
 da AgID:
 
-<https://github.com/AgID/sdg_it_architype>
+[https://github.com/AgID/sdg_it_architype](https://urldefense.proofpoint.com/v2/url?u=https-3A__github.com_AgID_sdg-5Fit-5Farchitype&d=DwMGaQ&c=eIGjsITfXP_y-DLLX0uEHXJvU8nOHrUK8IrwNKOtkVU&r=CcBA8Bcw3JtEnYhMMAMPCFmIB0_6RwzYnRcZYq4_vD4i39CHclsbDLC1-wbJR_OV&m=FPPtU_bnRexG_xIL1EVbVccauuEqXP74YaeRTfiX6qZKX1U33PQrs6yXj76EYgkY&s=o4eMYPDiSxpU4HGC4vOtQ-_IukRuBr3Ug-Rmx5vZxZs&e=)
 
-# Gestione delle Chiavi per recupero delle Procedure
+# Gestione delle Chiavi per recupero DEGLI URL PER ACCEDERE ALLE Procedure
 
 Sono analizzati i due possibili scenari di integrazione fra il Catalogo
 dei Servizi ed il Procedure Portal.
@@ -130,18 +141,19 @@ La navigazione nel portale del Catalogo dei Servizi avviene in modalità
 anonima per selezionare la procedura di interesse.
 
 Il processo termina con il Catalogo dei Servizi che produce una URL di
-redirect verso il Procedure Portal (rif. §5.1) ed in particolare viene
-generato un parametro passato in GET nella querystring dell’URL di
-redirect noto come “*publicService*” che corrisponde all’identificativo
-del Procedimento amministrativo, a livello Europeo, utile a filtrare i
+inoltro verso il Procedure Portal (rif. §5.1) ed in particolare viene
+generato un parametro passato nella querystring dell’URL di redirect
+noto come “*publicService*” che corrisponde all’identificativo del
+Procedimento amministrativo, a livello Europeo, utile a filtrare i
 Requirement nella successiva chiamata all’Evidence Broker da parte del
 Procedure Portal.
 
-È pertanto necessario che tale parametro, comunicato dal Procedure
-Portal nella modalità sopra esposta, sia utilizzato nelle successive
-chiamate verso il back-end del Catalogo dei Servizi proprio per filtrare
-il *Requirement* ed evitare così di recuperare una lista di
-*Requirement* troppo ampia rispetto ai desiderata.
+È pertanto necessario che tale parametro, comunicato al Procedure Portal
+nella modalità sopra esposta, sia utilizzato nelle successive chiamate
+verso il back-end del Catalogo dei Servizi proprio per filtrare il
+*Requirement* ed evitare così di recuperare una lista di *Requirement*
+troppo ampia rispetto al contesto amministrativo determinato dalla
+procedura di interesse dell’utente.
 
 ## Scenario di accesso diretto al Procedure Portal
 
@@ -156,21 +168,26 @@ ricevere e mantenere il codice del *publicService* passato sulla URL di
 redirect. In questo caso, dunque, il Procedure Portal nel momento in cui
 ha necessità di recuperare i Requirements dall’Evidence Broker, deve
 autonomamente provvedere al recupero di tale parametro attraverso
-l’invocazione dell’API retrieveIdPublicServiceList (rif. §6.3) al fine
-di poterlo passare nell’invocazione dell’API requirementList
-dell’Evidence Broker (rif. §6.1).
+l’invocazione dell’API retrieveIdPublicService (rif. §6.3) al fine di
+poterlo passare nell’invocazione dell’API requirementList dell’Evidence
+Broker (rif. §6.1).
 
 # Gestione del meccanismo di autenticazione TRAMITE PDND
 
 Al fine d’integrare i servizi esposti dal SDG è necessario registrare
-sull’infrastruttura PDND sia l'applicazione SDG che svolge il ruolo di
-Evidence Provider e sia i diversi Procedure Portal con il ruolo di Enti
-Fruitori, in modo da favorire l’interoperabilità dei sistemi informativi
-e delle basi di dati.
+(onboarding) sull’infrastruttura PDND sia le amministrazioni owner di
+Evidence Provider che le amministrazione owner di Evidence Requestor in
+modo da permettere, per il tramite degli strumenti resi disponibili
+dalla stessa infrastruttura PDND, alle prime di registrare le API rese
+disponibili all’ecosistema SDG, nel ruolo di Erogatore PDND, alle
+seconde di effettuare la richiesta di accesso alle API, nel ruolo di
+Fruitore PDND, ad esse necessaria dando seguito alla richiesta di
+accesso e alla successiva dichiarazione della finalità.
 
 Come meccanismo di Security la PDND implementa il Voucher di
 autorizzazione per l’utilizzo di un e-service per consentire la
-comunicazione tra Evidence Provider e Evidence Requestor.
+comunicazione tra Evidence Provider (Erogatore PDND) e Evidence
+Requestor (Fruitore PDND).
 
 L’Access Token emesso dalla PDND consiste in un JWT conforme all’RFC7515
 firmato dall’Infrastruttura PDND che svolge il ruolo di Voucher
@@ -178,16 +195,17 @@ utilizzato dai Procedure Portal per le chiamate ai servizi del SDG come
 riportato di seguito nell’header del messaggio https nella chiamata alle
 RestAPI necessarie all’integrazione.
 
-Pertanto, è mandatorio che in tutte le chiamate verso i SDG sia
-specificato il parametro “Authorization” nell’header https valorizzato
-come specificato sopra.
+Pertanto, è mandatorio che in tutte le chiamate verso le componenti SDG
+sia popolato l’header “Authorization” con auth-scheme valorizzato a
+“Bearer” e authorization-parameters valorizzato con l’access token
+emesso dalla PDND.
 
 Nel Sequence Diagram seguente è illustrata l’interazione fra il
 Procedure Portal, la PDND e le API dell’Evidence Broker all’interno di
-SGD in seguito di una richiesta da parte dell’utente transfrontaliero.
+SDG in seguito di una richiesta da parte dell’utente transfrontaliero.
 Il medesimo meccanismo è applicato anche per l'interazione tra il
-Procedural Portal e Data Service Directory IT e tra il Procedural Portal
-e Arch Common Service IT.
+Procedure Portal e Data Service Directory IT e tra il Procedure Portal e
+Arch Common Service IT.
 
 Il diagramma seguente mostra gli step 2, 3, 11, 12 oggetto di
 adeguamento alle nuove specifiche tecniche anticipate dalla CE per cui
@@ -202,11 +220,6 @@ Figura 1 - interazione PP con SDG
 In questo capitolo sono esposte le interfacce richiamabili dal Catalogo
 dei Servizi e che i Procedure Portal dovranno esporre.
 
-Nello specifico ad oggi deve essere messa a disposizione del SDG una
-sola API necessaria alla selezione della procedura corretta all’interno
-del Procedure Portal così come riportato ed esposto nel paragrafo
-successivo.
-
 ## Interazione da Catalogo dei Servizi al Procedure Portal
 
 Il catalogo dei servizi, a seguito dell’interazione con l’utente sarà in
@@ -215,15 +228,13 @@ Procedure Portal selezionato e sia il Public Service relativo alla
 procedura voluta ed indicata dall’utente.
 
 Pertanto, sul front end del catalogo dei servizi, è presente una
-*redirect* verso una URL del Procedure Portal individuato alla quale è
+*redirect* verso la URL del Procedure Portal individuato alla quale è
 aggiunto il parametro *PublicService* utilizzato dal Procedure Portal
-per individuare e selezionare la singola procedura di interesse nel
-Portale.
+per determinare la singola procedura di interesse per l’utente.
 
-Per reindirizzare l’utente ad una pagina specifica di un dominio
-selezionato dunque, è necessario aggiungere il valore del parametro del
-*PublicService* selezionato inserendolo nella URL di destinazione della
-GET come *querystring*.
+Per reindirizzare l’utente alla singola procedura, è aggiunto il valore
+del parametro del *PublicService* selezionato, inserito nella URL di
+destinazione come *querystring*.
 
 A titolo di esempio è indicata di seguito la modalità di invio del
 PublicService:
@@ -246,18 +257,6 @@ essi mandatori che opzionali, ed i parametri di output.
 
 Sono altresì riportati anche i file OpenAPI 3.0 in modo da semplificare
 e standardizzare la documentazione delle API per i servizi RESTful.
-Allegati al documento ci sono i file YAML dove sono descritte tutte le
-funzionalità, ivi compresi tutti i parametri di input e output di dette
-API.
-
-I vantaggi di questa standardizzazione sono molti, come una migliore e
-più condivisibile esplorazione delle funzionalità di un'applicazione,
-oltre che alla possibilità di generare codice client/server sfruttando
-direttamente i vincoli definiti nello schema. Infatti, i metadati
-presenti nel file forniscono informazioni sufficienti sia per generare
-il componente back-end, con le rotte https e la validazione degli input,
-sia la parte client che in modo automatico può adattarsi all’evoluzione
-delle API del back-end.
 
 Alla ricezione del documento di specifiche tecniche aggiornato
 (Technical Design Document) da parte della CE previsto per giugno 2022
@@ -297,11 +296,11 @@ amministrativo d’interesse.
 
 Parametri di input al metodo GET e payload di output
 
-| **PROTOCOL**               | HTTPS                                                                |
-| -------------------------- | -------------------------------------------------------------------- |
-| **PATH (Public Exposure)** | https://\<url_service_catalog \>/\[APP_URL\]/api/v1/requirement/list |
-| **METHOD**                 | GET                                                                  |
-| **CONTENT TYPE**           | application / xml                                                    |
+| **PROTOCOL**               | HTTPS                                                    |
+| -------------------------- | -------------------------------------------------------- |
+| **PATH (Public Exposure)** | https://\<url_service_catalog \>/api/v1/requirement/list |
+| **METHOD**                 | GET                                                      |
+| **CONTENT TYPE**           | application / xml                                        |
 
 **Parameter description:**
 
@@ -566,7 +565,7 @@ un'azienda deve soddisfare per completare la procedura</p></td>
 | --------------- | ----------------- | -------------------------- | ---------- |
 | AdminUnitLevel1 | Stato Membro      | M                          | String     |
 
-I codici di stato HTTP vengono consegnati al browser nell’intestazione
+I codici di stato HTTP vengono consegnati al client nell’intestazione
 HTTP.
 
 Riguardano l'esito dell'eventuale elaborazione da pare del server.
@@ -726,7 +725,7 @@ generico</p>
 </tbody>
 </table>
 
-I codici di stato HTTP vengono consegnati al browser nell’intestazione
+I codici di stato HTTP vengono consegnati al client nell’intestazione
 HTTP.
 
 Riguardano l'esito dell'eventuale elaborazione da parte del server.
@@ -815,7 +814,7 @@ il fallimento di una request
 
 - **204 No Content** - Request succeeded, but no response body
 
-**Codici di errore**
+> **Codici di errore**
 
 - **400 Bad Request** - Could not parse request
 
@@ -844,7 +843,7 @@ stack traces, database dumps e codici di errore all’utente finale
 (Hacker).
 
 Questi messaggi rivelano dettagli di implementazione che non dovrebbero
-mai essere rivelati.
+mai essere divulgati.
 
 Tali dettagli o incongruenze (ad esempio “file not found” ed “access
 denied”) possono fornire agli hacker indizi importanti su potenziali
@@ -855,18 +854,19 @@ congegnato che fornirà un messaggio di errore significativo all'utente,
 informazioni diagnostiche ai gestori del sito e nessuna informazione
 utile a un utente malintenzionato.
 
-Per tali questioni di sicurezza applicativa delle informazioni
-condivise, sono utilizzati solamente i seguenti codici di stato: **200,
-400, 500** customizzati in maniera tale che non vengano esportati dati
-utili e di dettaglio dell’infrastruttura e della web app.
+Per tali ragioni di sicurezza verranno generati i codici di stato
+elencati in precedenza per cui l’API Gateway restituirà In modo standard
+i codici **401, 403, 415, 422, 429 ed i 501, 502,503** in dettaglio,
+mentre le funzioni implementate lato backend dell’SDG restituiranno
+codici **200,400 e 500**. Tutti customizzati in maniera tale che non
+vengano esportati dati utili e di dettaglio dell’infrastruttura e della
+web app.
 
-A livello di API Gateway saranno restituiti i codici di errore http
+### OpenAPI3
 
-### Swagger
+Di seguito la specifica OpenAPI3 per l’API retrieveRequirementList:
 
-Di seguito la specifica Swagger per l’API retrieveRequirementList:
-
-[retrieveRequirementList](openapi/retrieveRequirementListv06_20220510.yml)
+[retrieveRequirementList](openapi/retrieveRequirementListv09_20220518.yml)
 
 ## Recupero EvidenceTypeList da Evidence Broker IT
 
@@ -878,11 +878,13 @@ dall’utente.
 
 <u>Requisito</u>: La lista conterrà le Tipologie di prova.
 
-| **PROTOCOL**                | HTTPS                                                                  |
-| --------------------------- | ---------------------------------------------------------------------- |
-| **PATH (Private Exposure)** | https://\<url_service_catalog \>/\[APP_URL\]/api/v1/evidence-type/list |
-| **METHOD**                  | GET                                                                    |
-| **CONTENT TYPE**            | application / xml                                                      |
+
+
+| **PROTOCOL**                | HTTPS                                                      |
+| --------------------------- | ---------------------------------------------------------- |
+| **PATH (Private Exposure)** | https://\<url_service_catalog \>/api/v1/evidence-type/list |
+| **METHOD**                  | GET                                                        |
+| **CONTENT TYPE**            | application / xml                                          |
 
 **Parameter description:**
 
@@ -944,7 +946,7 @@ stringa<br />
 <td>Identificativo del Requirement.</td>
 <td>M</td>
 <td>n/a</td>
-<td>integer</td>
+<td>String</td>
 </tr>
 <tr class="even">
 <td>country-code</td>
@@ -1172,12 +1174,11 @@ un'azienda deve soddisfare per completare la procedura</p></td>
 
 ***Nodo Padre della seguente lista di nodi figli:** EvidenceType*
 
-| ***Parameter***            | ***Description***                                                                                                     | ***Mandatory / Optional*** | ***Type*** |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------- | ---------- |
-| Identifier                 | Identificativo della Tipologie di prova                                                                               | O                          | String     |
-| Description                | Una breve spiegazione sulla natura che aiuti a chiarire la comprensione del requisito di cui viene creata un'istanza. | O                          | String     |
-| EvidenceTypeClassification | Un codice di classificazione per specificare il layout e il contenuto previsti per un tipo di prova                   | M                          | String     |
-| Jurisdiction               | Contiene la lista delle Giurisdizioni a cui si applica questo tipo di prova.                                          | O                          | Object     |
+| ***Parameter*** | ***Description***                                                                                                     | ***Mandatory / Optional*** | ***Type*** |
+| --------------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------- | ---------- |
+| Identifier      | Identificativo della Tipologie di prova                                                                               | O                          | String     |
+| Description     | Una breve spiegazione sulla natura che aiuti a chiarire la comprensione del requisito di cui viene creata un'istanza. | O                          | String     |
+| Jurisdiction    | Contiene la lista delle Giurisdizioni a cui si applica questo tipo di prova.                                          | O                          | Object     |
 
 ***Nodo Padre della seguente lista di nodi figli:** Jurisdiction*
 
@@ -1224,7 +1225,7 @@ diverse località.</p>
 </tbody>
 </table>
 
-I codici di stato HTTP vengono consegnati al browser nell’intestazione
+I codici di stato HTTP vengono consegnati al client nell’intestazione
 HTTP.
 
 Riguardano l'esito dell'eventuale elaborazione da pare del server.
@@ -1239,6 +1240,8 @@ E’ gestita la possiblità che l’API non risponda correttamente alle
 richieste. Di seguito il payload di output, differente a quello in caso
 di successo, contenente le indicazioni per gestire l’eccezione
 riscontrata.
+
+
 
 L’ attributo status dovrà indicare l’esito dell’elaborazione.
 
@@ -1296,6 +1299,19 @@ xsi:schemaLocation="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0"</p></td>
 <td>Object</td>
 </tr>
 <tr class="odd">
+<td>requestId</td>
+<td><p>Attributo del nodo query:QueryResponse</p>
+<p>Deve corrispondere all'attributo id dell'oggetto QueryRequest che ha
+generato queryResponse.</p>
+<p>Esempio:</p>
+<p>requestId="c4369c4d-740e-4b64-80f0-7b209a66d629"</p>
+<p>Il codice è autogenerato al momento dell’esecuzione della
+request.</p>
+<p>riferimeto: RegRep4</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="even">
 <td>status</td>
 <td><p>Attributo del nodo query:QueryResponse</p>
 <p>Dovrà essere valorizzato nel seguente modo per indicare
@@ -1371,7 +1387,7 @@ generico</p>
 </tbody>
 </table>
 
-I codici di stato HTTP vengono consegnati al browser nell’intestazione
+I codici di stato HTTP vengono consegnati al client nell’intestazione
 HTTP. Riguardano l'esito dell'eventuale elaborazione da pare del server.
 
 | **HTTP Code** | **Result Description** |
@@ -1480,31 +1496,32 @@ il fallimento di una request
 
 - **500, 501, 502, 503, etc** - An internal server error occurred
 
-Per questioni di sicurezza applicativa delle informazioni condivise sono
-utilizzati solamente i seguenti codici di stato: **200, 400, 500.**
-[Fare riferimento a Capitolo 6.1.1](#risposta-e-gestione-degli-errori)
+Per il dettaglio fare [riferimento al Capitolo
+6.1.1](#risposta-e-gestione-degli-errori)
 
-### Swagger
+### OpenAPI 3
 
-Di seguito la specifica Swagger per l’API retrieveEvidenceTypeList:
+Di seguito la specifica OpenAPI 3 per l’API retrieveEvidenceTypeList:
 
-[retrieveEvidenceTypeList](openapi/retrieveEvidenceTypeListv06_20220511.yml)
+[retrieveEvidenceTypeList](openapi/retrieveEvidenceTypeListv08_20220519.yml)
 
-## Recupero IdPublicServiceList
+## Recupero IdPublicService
 
-<u>API:</u> /api/v1/public-service/list-id/
+<u>API:</u> /api/v1/public-service/id/
 
 <u>Prerequisito</u>: Aver ottenuto il token JWT dalla PDND
 
 <u>Requisito</u>: L’utente di backend invoca in GET il metodo
-retrieveIdPublicServiceList passando in input il parametro
-identificatore del tipo di PublicService da recuperare
+retrieveIdPublicService passando in input il parametro identificatore
+del tipo di PublicService da recuperare
 
-| **PROTOCOL**                | HTTPS                                                                      |
-| --------------------------- | -------------------------------------------------------------------------- |
-| **PATH (Private Exposure)** | https://\<url_service_catalog\>/\[APP_URL\]/api/v1/public-service/list-id/ |
-| **METHOD**                  | GET                                                                        |
-| **CONTENT TYPE**            | **application / json**                                                     |
+
+
+| **PROTOCOL**                | HTTPS                                                     |
+| --------------------------- | --------------------------------------------------------- |
+| **PATH (Private Exposure)** | https://\<url_service_catalog\>/api/v1/public-service/id/ |
+| **METHOD**                  | GET                                                       |
+| **CONTENT TYPE**            | **application / json**                                    |
 
 N.B.: il Content Type di questa API è in formato JSON utilizzato per
 rendere meno complessa l’integrazione e la lavorazione dei dati
@@ -1559,7 +1576,7 @@ consentito.
 <tr class="even">
 <td>name</td>
 <td>Nome del procedimento amministrativo</td>
-<td>O</td>
+<td>M</td>
 <td></td>
 <td>string</td>
 </tr>
@@ -1568,7 +1585,7 @@ consentito.
 <td>Identificativo dell’ente del procedimento amministrativo</td>
 <td>M</td>
 <td></td>
-<td>integer</td>
+<td>string</td>
 </tr>
 </tbody>
 </table>
@@ -1588,28 +1605,123 @@ publicServiceResponse
 | ***Parameter*** | ***Description***                                                                                                                       | ***Mandatory / Optional*** | ***Type*** |
 | --------------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | ---------- |
 | code            | Rif [response code](https://ts.accenture.com/sites/CNCC-AGID/Shared%20Documents/General/ServiceCatalog_1.0_ST.docx#_Response_and_Error) | M                          | String     |
-| description     | Eventuale descrizione dell’errore                                                                                                       | M                          | String     |
+| description     | Eventuale descrizione code                                                                                                              | M                          | String     |
 | message         | Eventuale messaggio di errore                                                                                                           | O                          | String     |
 | publicService   | Array di oggetti JSON                                                                                                                   | M                          | Object     |
 
 ***Nodo Padre della seguente lista di nodi figli:*** publicService
 
-| ***Parameter*** | ***Description***                                     | ***Mandatory / Optional*** | ***Type*** |
-| --------------- | ----------------------------------------------------- | -------------------------- | ---------- |
-| id              | Del procedimento amministrativo                       | O                          | integer    |
-| name            | Nome del procedimento amministrativo                  | M                          | string     |
-| description     | Descrizione del procedimento amministrativo           | M                          | string     |
-| policyCode      | Identificativo univoco definito dall’Comunità Europea | M                          | object     |
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>publicServiceId</td>
+<td><p>Identificativo tecnico della tabella del procedimento
+amministrativo</p>
+<p>Esempio:</p>
+<p>publicServiceId=101</p></td>
+<td>M</td>
+<td>integer</td>
+</tr>
+<tr class="even">
+<td>euId</td>
+<td><p>Identificativo univoco definito dalla Comunità Europea del
+procedimento amministrativo</p>
+<p>Esempio:</p>
+<p>euId=”P17.1”</p></td>
+<td>M</td>
+<td>string</td>
+</tr>
+<tr class="odd">
+<td>name</td>
+<td><p>Nome del procedimento amministrativo</p>
+<p>Esempio:</p>
+<p>name=”Anagrafica Light”</p></td>
+<td>M</td>
+<td>string</td>
+</tr>
+<tr class="even">
+<td>description</td>
+<td><p>Descrizione del procedimento amministrativo</p>
+<p>Esempio:</p>
+<p>description=”Secondo questa procedura, le autorità competenti (regimi
+pensionistici e assicurativi obbligatori) sono tenute ad accettare la
+domanda di registrazione di un datore di lavoro per via
+elettronica.”</p></td>
+<td>M</td>
+<td>string</td>
+</tr>
+<tr class="odd">
+<td>publicOrganization</td>
+<td>Oggetto JSON relativo alla Pubblica Amministrazione di
+appartenenza</td>
+<td>M</td>
+<td>object</td>
+</tr>
+</tbody>
+</table>
 
-***Nodo Padre della seguente lista di nodi figli:*** policyCode
+***Nodo Padre della seguente lista di nodi figli:*** publicOrganization
 
-| ***Parameter*** | ***Description***                                                | ***Mandatory / Optional*** | ***Type*** |
-| --------------- | ---------------------------------------------------------------- | -------------------------- | ---------- |
-| id              | Identificatore della tabella type chiave esterna                 | M                          | integer    |
-| keyId           | Attributo keyId della tabella Type con filtro code=”policy_code” | M                          | integer    |
-| value           | Attributo value della tabella Type con filtro code=”policy_code” | M                          | String     |
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 56%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><em><strong>Parameter</strong></em></th>
+<th><em><strong>Description</strong></em></th>
+<th><em><strong>Mandatory / Optional</strong></em></th>
+<th><em><strong>Type</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>publicOrganizationId</td>
+<td><p>Identificativo della Pubblica Amministrazione di appartenenza</p>
+<p>Esempio:</p>
+<p>publicOrganizationId=”P06”</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>preferredLabel</td>
+<td><p>Etichetta preferita per l’identificazione della Pubblica
+Amministrazione di appartenenza</p>
+<p>Esempio:</p>
+<p>preferredLabel=”inail”</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>locationGeographicId</td>
+<td><p>Identificativo per la Locazione geografica della Pubblica
+Amministrazione di appartenenza</p>
+<p>Esempio:</p>
+<p>locationGeographicId=”GI6”</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
 
-I codici di stato HTTP vengono consegnati al browser nell’intestazione
+I codici di stato HTTP vengono consegnati al client nell’intestazione
 HTTP. Riguardano l'esito dell'eventuale elaborazione da pare del server.
 
 | **HTTP Code** | **Result Description**        |
@@ -1618,7 +1730,7 @@ HTTP. Riguardano l'esito dell'eventuale elaborazione da pare del server.
 
 ### Risposta e Gestione degli errori
 
-E’ gestita la possiblità che l’API non risponda correttamente alle
+E’ gestita la possibilità che l’API non risponda correttamente alle
 richieste. Di seguito il payload di output, differente a quello in caso
 di successo, contenente le indicazioni per gestire l’eccezione
 riscontrata
@@ -1635,7 +1747,7 @@ riscontrata
 | message                   | Messaggio di errore riscontrato                                | M                          | String     |
 | description               | Descrizione di dettaglio dello specifico problema verificatosi | O                          | String     |
 
-I codici di stato HTTP vengono consegnati al browser nell’intestazione
+I codici di stato HTTP vengono consegnati al client nell’intestazione
 HTTP.
 
 Riguardano l'esito dell'eventuale elaborazione da parte del server.
@@ -1656,7 +1768,7 @@ il fallimento di una request
 
 - **204 No Content** - Request succeeded, but no response body
 
-**Codici di errore**
+> **Codici di errore**
 
 - **400 Bad Request** - Could not parse request
 
@@ -1674,15 +1786,14 @@ il fallimento di una request
 
 - **500, 501, 502, 503, etc** - An internal server error occurred
 
-Per questioni di sicurezza applicativa delle informazioni condivise sono
-utilizzati solamente i seguenti codici di stato: **200, 400, 500.**
-[Fare riferimento a Capitolo 6.1.1](#risposta-e-gestione-degli-errori)
+Per il dettaglio fare [riferimento al Capitolo
+6.1.1](#risposta-e-gestione-degli-errori)
 
-### Swagger
+### OpenAPI 3
 
-Di seguito la specifica Swagger per l’API retrieveIdPublicServiceList:
+Di seguito la specifica OpenAPI 3 per l’API retrieveIdPublicService:
 
-[retrieveIdPublicServiceList](openapi/retrieveIdPublicServiceListv03_20220512.yml)
+[retrieveIdPublicService](openapi/retrieveIdPublicServicev06_20220531.yml)
 
 ## Recupero DataServiceList da Data Service Directory IT
 
@@ -1694,11 +1805,13 @@ dall'Evidence broker
 <u>Requisito</u>: Recuperare dal Data Service Directory l’identificativo
 e le informazioni descrittive dell’Ente Erogatore
 
-| **PROTOCOL**               | HTTPS                                                                  |
-| -------------------------- | ---------------------------------------------------------------------- |
-| **PATH (Public Exposure)** | https://\<url_service_catalog \>/\[APP_URL\]/api/v1/data-service/list/ |
-| **METHOD**                 | GET                                                                    |
-| **CONTENT TYPE**           | application / xml                                                      |
+
+
+| **PROTOCOL**               | HTTPS                                                      |
+| -------------------------- | ---------------------------------------------------------- |
+| **PATH (Public Exposure)** | https://\<url_service_catalog \>/api/v1/data-service/list/ |
+| **METHOD**                 | GET                                                        |
+| **CONTENT TYPE**           | application / xml                                          |
 
 **Parameter description:**
 
@@ -1795,8 +1908,8 @@ essere un codice paese di due lettere di ISO 3166-1 alpha-2.</td>
 </table>
 
 La response di questa API potrebbe restituire un elenco possibilmente
-vuoto di tuple (assenza di prove) anche se la richiesta HTTP è stata
-completata correttamente.
+vuoto di tuple (assenza di data service) anche se la richiesta HTTP è
+stata completata correttamente.
 
 L’ attributo status dovrà indicare l’esito dell’elaborazione.
 
@@ -2371,7 +2484,7 @@ giurisdizionali.</p>
 </tbody>
 </table>
 
-I codici di stato HTTP vengono consegnati al browser nell’intestazione
+I codici di stato HTTP vengono consegnati al client nell’intestazione
 HTTP.
 
 Riguardano l'esito dell'eventuale elaborazione da pare del server.
@@ -2386,6 +2499,8 @@ E’ gestita la possiblità che l’API non risponda correttamente alle
 richieste. Di seguito il payload di output, differente a quello in caso
 di successo, contenente le indicazioni per gestire l’eccezione
 riscontrata.
+
+
 
 L’ attributo status dovrà indicare l’esito dell’elaborazione.
 
@@ -2443,6 +2558,19 @@ xsi:schemaLocation="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0"</p></td>
 <td>Object</td>
 </tr>
 <tr class="odd">
+<td>requestId</td>
+<td><p>Attributo del nodo query:QueryResponse</p>
+<p>Deve corrispondere all'attributo id dell'oggetto QueryRequest che ha
+generato queryResponse.</p>
+<p>Esempio:</p>
+<p>requestId="c4369c4d-740e-4b64-80f0-7b209a66d629"</p>
+<p>Il codice è autogenerato al momento dell’esecuzione della
+request.</p>
+<p>riferimeto: RegRep4</p></td>
+<td>M</td>
+<td>String</td>
+</tr>
+<tr class="even">
 <td>status</td>
 <td><p>Attributo del nodo query:QueryResponse</p>
 <p>Dovrà essere valorizzato nel seguente modo per indicare
@@ -2502,6 +2630,17 @@ degli scenari di errori.</p>
 <p>Esempio:</p>
 <p>"List of requirements requested is empty"</p></td>
 <td>M</td>
+<td>String</td>
+</tr>
+<tr class="odd">
+<td>code</td>
+<td><p>Attributo del nodo rs:Exception</p>
+<p>Codice corrispondente allo stato del sistema relativo allo stato
+dell’elaborazione della richiesta. Se i codici di errore specifici non
+coprono il motivo dell'errore, utilizzare il codice di errore
+generico</p>
+<p>Esempio: code=’DSD:ERR:0001’</p></td>
+<td>O</td>
 <td>String</td>
 </tr>
 </tbody>
@@ -2665,7 +2804,7 @@ insurance</sdg:Description></p></td>
 </tbody>
 </table>
 
-I codici di stato HTTP vengono consegnati al browser nell’intestazione
+I codici di stato HTTP vengono consegnati al client nell’intestazione
 HTTP. Riguardano l'esito dell'eventuale elaborazione da pare del server.
 
 | **HTTP Code** | **Result Description** |
@@ -2675,70 +2814,13 @@ HTTP. Riguardano l'esito dell'eventuale elaborazione da pare del server.
 Ogni servizio dovrà gestire tutti gli scenari di errori elencati di
 seguito.
 
-<table>
-<colgroup>
-<col style="width: 17%" />
-<col style="width: 19%" />
-<col style="width: 31%" />
-<col style="width: 31%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Code</strong></th>
-<th><strong>Description</strong></th>
-<th><strong>Type</strong></th>
-<th><strong>Message</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>DSD:ERR:0001</td>
-<td>La lista dei Requirement è vuota</td>
-<td><p>rs:ObjectNotFoundEx</p>
-<p>ceptionType</p></td>
-<td>List of requirements requested is empty</td>
-</tr>
-<tr class="even">
-<td>DSD:ERR:0002</td>
-<td>Requirement non trovato</td>
-<td><p>rs:ObjectNotFoundEx</p>
-<p>ceptionType</p></td>
-<td>The requirement requested, represented by the requirement id, does
-not exist</td>
-</tr>
-<tr class="odd">
-<td>DSD:ERR:0003</td>
-<td>Codice del livello di giurisdizione sconosciuto</td>
-<td><p>rs:InvalidRequestExc</p>
-<p>eptionType</p></td>
-<td>The jurisdiction level code query parameter is invalid or
-unknown</td>
-</tr>
-<tr class="even">
-<td>DSD:ERR:0004</td>
-<td>Procedimento amministrativo sconosciuto</td>
-<td><p>rs:InvalidRequestExc</p>
-<p>eptionType</p></td>
-<td>The value of the procedureid query parameter is invalid or
-unknown</td>
-</tr>
-<tr class="odd">
-<td>DSD:ERR:0005</td>
-<td>Codice del Paese sconosciuto</td>
-<td><p>rs:InvalidRequestExc</p>
-<p>eptionType</p></td>
-<td>The value of the procedure implementation country query parameter is
-invalid or unknown</td>
-</tr>
-<tr class="even">
-<td>DSD:ERR:0006</td>
-<td>Query sconosciuta</td>
-<td><p>rs:InvalidRequestExc</p>
-<p>eptionType</p></td>
-<td>The requested Query does not exist</td>
-</tr>
-</tbody>
-</table>
+| **Code**     | **Description**                                                                    | **Type**                        | **Message**                                                                |
+| ------------ | ---------------------------------------------------------------------------------- | ------------------------------- | -------------------------------------------------------------------------- |
+| DSD:ERR:0001 | Non sono stati trovati servizi dati in base ai parametri specificati               | rs:ObjectNotFoundEx ceptionType | No Data Services were found based on the given parameters                  |
+| DSD:ERR:0002 | Le prove richieste non possono essere trovate                                      | rs:ObjectNotFoundEx ceptionType | The Evidence requested cannot be found                                     |
+| DSD:ERR:0003 | I parametri di query non seguono la specifica di query                             | rs:InvalidRequestExce ptionType | The query parameters do not follow the query specification                 |
+| DSD:ERR:0004 | La query richiesta non esiste                                                      | rs:InvalidRequestExce ptionType | The requested Query does not exist                                         |
+| DSD:ERR:0005 | La query richiede che gli attributi aggiuntivi inclusi vengano forniti dall'utente | rs:ObjectNotFoundEx ceptionType | The query requires the incuded extra attributes to be provided by the user |
 
 Di seguito la lista dei codici di stato http per indicare il successo o
 il fallimento di una request
@@ -2774,21 +2856,21 @@ il fallimento di una request
 
 - **500, 501, 502, 503, etc** - An internal server error occurred
 
-Per questioni di sicurezza applicativa delle informazioni condivise sono
-utilizzati solamente i seguenti codici di stato: **200, 400, 500.**
-[Fare riferimento a Capitolo 6.1.1](#risposta-e-gestione-degli-errori)
+Per il dettaglio fare [riferimento al Capitolo
+6.1.1](#risposta-e-gestione-degli-errori)
 
-### Swagger
+### OpenAPI 3
 
-Di seguito la specifica Swagger per l’API retrieveDataServiceList:
+Di seguito la specifica OpenAPI 3 per l’API retrieveDataServiceList:
 
-[retrieveDataServiceList](openapi/retrieveDataServiceListv07_20220511.yml)
+[retrieveDataServiceList](openapi/retrieveDataServiceListv09_20220520.yml)
 
 ## Recupero Evidence da Data Service IT per richiesta pervenuta su AP del SDG EU
 
 Attenzione: Il servizio è da considerare ancora “rolling” in attesa
 della documentazione di specifiche tecniche definitiva da parte della CE
-che illustrino le modalità di integrazione con il SDG
+che illustrino le modalità di integrazione con il SDG, pertanto non è
+ancora disponibile in GitHub
 
 <u>API:</u>/api/v1/exchange-data/list/
 
@@ -2798,11 +2880,13 @@ descrittive dell’Ente Erogatore
 
 <u>Requisito</u>: recupero delle Tipologie di Prova
 
-| **PROTOCOL**               | HTTPS                                                                   |
-| -------------------------- | ----------------------------------------------------------------------- |
-| **PATH (Public Exposure)** | https://\<url_service_catalog \>/\[APP_URL\]/api/v1/exchange-data/list/ |
-| **METHOD**                 | GET                                                                     |
-| **CONTENT TYPE**           | application /xml                                                        |
+
+
+| **PROTOCOL**               | HTTPS                                                       |
+| -------------------------- | ----------------------------------------------------------- |
+| **PATH (Public Exposure)** | https://\<url_service_catalog \>/api/v1/exchange-data/list/ |
+| **METHOD**                 | GET                                                         |
+| **CONTENT TYPE**           | application /xml                                            |
 
 **Parameter description:**
 
@@ -4660,7 +4744,7 @@ cognome.</p></td>
 | StartDate       | Partenza del Periodo di Validità garantito dal fornitore di prove | M                          | String     |
 | EndDate         | Fine del Periodo di Validità garantito dal fornitore di prove     | M                          | String     |
 
-I codici di stato HTTP vengono consegnati al browser nell’intestazione
+I codici di stato HTTP vengono consegnati al client nell’intestazione
 HTTP.
 
 Riguardano l'esito dell'eventuale elaborazione da pare del server.
@@ -4673,12 +4757,15 @@ Riguardano l'esito dell'eventuale elaborazione da pare del server.
 
 Attenzione: Il servizio è da considerare ancora “rolling” in attesa
 della documentazione di specifiche tecniche definitiva da parte della CE
-che illustrino le modalità di integrazione con il SDG
+che illustrino le modalità di integrazione con il SDG pertanto non è
+ancora disponibile in GitHub
 
 E’ gestita la possiblità che l’API non risponda correttamente alle
 richieste. Di seguito il payload di output, differente a quello in caso
 di successo, contenente le indicazioni per gestire l’eccezione
 riscontrata.
+
+
 
 L’ attributo status dovrà indicare l’esito dell’elaborazione.
 
@@ -5227,40 +5314,201 @@ sdg:InformationConcept
 | sdg:ValueExpression | un'espressione del valore, in genere utilizzando la sintassi dell'espressione regolare | M                          | String     |
 | sdg:Description     | una descrizione potenzialmente fornita in più lingue                                   | M                          | String     |
 
-I codici di stato HTTP vengono consegnati al browser nell’intestazione
+I codici di stato HTTP vengono consegnati al client nell’intestazione
 HTTP. Riguardano l'esito dell'eventuale elaborazione da pare del server.
 
 | **HTTP Code** | **Result Description** |
 | ------------- | ---------------------- |
 | 400           | Bad Request            |
 
-### Swagger
+### OpenAPI 3
 
 Attenzione: Il servizio è da considerare ancora “rolling” in attesa
 della documentazione di specifiche tecniche definitiva da parte della CE
-che illustrino le modalità di integrazione con il SDG
+che illustrino le modalità di integrazione con il SDG, pertanto non è
+ancora disponibile in GitHub
 
-# Integrazione con Preview Panel
+# Integrazione con Preview Space NAZIONALE
 
 Attenzione: Il servizio è da considerare ancora “rolling” in attesa
 della documentazione di specifiche tecniche definitiva da parte della CE
-che illustrino le modalità di integrazione con il SDG
+che illustrino le modalità di integrazione con il SDG, pertanto non è
+ancora presente in GitHub
 
 # Storico delle modifiche al documento (Changelog)
 
-| **Vers.** | **Paragrafi modificati**                                                               | **Tipo di modifica** | **Modifica apportata**                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1.0       | Tutti                                                                                  | Creazione            | Creazione del documento e documentazione delle API dell’Evidence Broker                                                                           |
-| 1.1       | RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT                                  | Creazione            | Aggiunta del paragrafo                                                                                                                            |
-|           | Tutti                                                                                  | Integrazione         | Modificato il paragrafo per allineare il parametro QueryResponse alla documentazione ufficiale europea ricevuta                                   |
-|           | RECUPERO IDPUBLICSERVICELIST\Swagger                                                   | Correzione           | modificato lo swagger http 200                                                                                                                    |
-|           | Tutti                                                                                  | Correzione           | Modifica Campi mandatory/optional in conformità alla documentazione ufficiale europea ricevuta. Ove necessario sono stati introdotti nuovi campi. |
-|           | Tutti                                                                                  | Correzione           | Adeguamento swagger http 200                                                                                                                      |
-|           | RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT                                  | Correzione           | Modificati parametri di input                                                                                                                     |
-|           | RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT\swagger                          | Integrazione         | Aggiunto lo swagger http 400                                                                                                                      |
-| 1.2       | Tutti                                                                                  | Correzione           | Unificazione file Swagger http 200 ed http 400                                                                                                    |
-|           | GESTIONE DELLE CHIAVI PER RECUPERO DELLE PROCEDURE                                     | Correzione           | Eliminata immagine in attesa di sostituzione                                                                                                      |
-|           | RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT\RISPOSTA E GESTIONE DEGLI ERRORI | Integrazione         | Integrata la struttura rim:Slot all’rs:Exception                                                                                                  |
-|           | RECUPERO REQUIREMENTLIST DA EVIDENCE BROKER IT                                         | Correzione           | Eliminata la struttura IssuedBy                                                                                                                   |
-|           | RECUPERO EVIDENCETYPELIST DA EVIDENCE BROKER IT                                        | Correzione           | Eliminata la struttura IssuedBy                                                                                                                   |
-|           | RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT\RISPOSTA E GESTIONE DEGLI ERRORI | Correzione           | Adeguato prefisso DSD al codice d’errore                                                                                                          |
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 29%" />
+<col style="width: 15%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Vers.</strong></th>
+<th><strong>Paragrafi modificati</strong></th>
+<th><strong>Tipo di modifica</strong></th>
+<th><strong>Modifica apportata</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0</td>
+<td>Tutti</td>
+<td>Creazione</td>
+<td>Creazione del documento e documentazione delle API dell’Evidence
+Broker</td>
+</tr>
+<tr class="even">
+<td rowspan="7">1.1</td>
+<td>RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT</td>
+<td>Creazione</td>
+<td>Aggiunta del paragrafo</td>
+</tr>
+<tr class="odd">
+<td>Tutti</td>
+<td>Integrazione</td>
+<td>Modificato il paragrafo per allineare il parametro QueryResponse
+alla documentazione ufficiale europea ricevuta</td>
+</tr>
+<tr class="even">
+<td>RECUPERO IDPUBLICSERVICELIST\Swagger</td>
+<td>Correzione</td>
+<td>modificato lo swagger http 200</td>
+</tr>
+<tr class="odd">
+<td>Tutti</td>
+<td>Correzione</td>
+<td>Modifica Campi mandatory/optional in conformità alla documentazione
+ufficiale europea ricevuta. Ove necessario sono stati introdotti nuovi
+campi.</td>
+</tr>
+<tr class="even">
+<td>Tutti</td>
+<td>Correzione</td>
+<td>Adeguamento swagger http 200</td>
+</tr>
+<tr class="odd">
+<td>RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT</td>
+<td>Correzione</td>
+<td>Modificati parametri di input</td>
+</tr>
+<tr class="even">
+<td>RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT\swagger</td>
+<td>Integrazione</td>
+<td>Aggiunto lo swagger http 400</td>
+</tr>
+<tr class="odd">
+<td rowspan="3">1.2</td>
+<td>Tutti</td>
+<td>Correzione</td>
+<td>Unificazione file Swagger http 200 ed http 400</td>
+</tr>
+<tr class="even">
+<td>GESTIONE DELLE CHIAVI PER RECUPERO DELLE PROCEDURE</td>
+<td>Correzione</td>
+<td>Eliminata immagine in attesa di sostituzione</td>
+</tr>
+<tr class="odd">
+<td>RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT\RISPOSTA E
+GESTIONE DEGLI ERRORI</td>
+<td>Integrazione</td>
+<td>Integrata la struttura rim:Slot all’rs:Exception</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>RECUPERO REQUIREMENTLIST DA EVIDENCE BROKER IT</td>
+<td>Correzione</td>
+<td>Eliminata la struttura IssuedBy</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>RECUPERO EVIDENCETYPELIST DA EVIDENCE BROKER IT</td>
+<td>Correzione</td>
+<td>Eliminata la struttura IssuedBy</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT\RISPOSTA E
+GESTIONE DEGLI ERRORI</td>
+<td>Correzione</td>
+<td>Adeguato prefisso DSD al codice d’errore</td>
+</tr>
+<tr class="odd">
+<td>1.3</td>
+<td>Tutti</td>
+<td>Correzione</td>
+<td>Controllo e adeguamento dei tipi di dato e della obbligatorietà dei
+campi</td>
+</tr>
+<tr class="even">
+<td>1.3.1</td>
+<td>RECUPERO REQUIREMENTLIST DA EVIDENCE BROKER IT</td>
+<td>Correzione</td>
+<td><p>allegati:</p>
+<p>http 200 - Response XML: retrieveRequirement - estratto PDF
+V2.xml</p>
+<p>http 400 - Response XML: retrieveRequirement - BadResponse V2.xml</p>
+<p>OpenAPI3: retrieveRequirementListv09_20220518.yml</p></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>RECUPERO EVIDENCETYPELIST DA EVIDENCE BROKER IT</td>
+<td>Correzione</td>
+<td><p>allegati:</p>
+<p>http 200 - Response XML: evidence type list - estratto PDF V2.xml</p>
+<p>http 400 - Response XML: evidence type list - BadResponse V2.xml</p>
+<p>OpenAPI3: retrieveEvidenceTypeListv08_20220519.yml</p></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>RECUPERO IDPUBLICSERVICELIST</td>
+<td>Integrazione</td>
+<td><p>Allegato:</p>
+<p>http 200 - Response JSON: retrieveIdPublicServiceList -
+V1.json</p></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>RECUPERO IDPUBLICSERVICELIST</td>
+<td>Correzione</td>
+<td><p>OpenAPI3:</p>
+<p>retrieveIdPublicServiceListv04_20220519.yml</p></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>RECUPERO DATASERVICELIST DA DATA SERVICE DIRECTORY IT</td>
+<td>Correzione</td>
+<td><p>allegati:</p>
+<p>http 200 - Response XML: retrieveDataServiceList - estratto PDF
+V2.xml</p>
+<p>http 400 - retrieveDataServiceList - BadResponse V2.xml</p>
+<p>OpenAPI3: retrieveDataServiceListv09_20220520.yml</p></td>
+</tr>
+<tr class="odd">
+<td rowspan="4">1.3.2</td>
+<td>RECUPERO IDPUBLICSERVICE</td>
+<td>Correzione</td>
+<td><p>allegati:</p>
+<p>retrieveIdPublicService - V3.json</p>
+<p>retrieveIdPublicServicev06_20220531.yml</p></td>
+</tr>
+<tr class="even">
+<td>SCENARIO DI ACCESSO DIRETTO AL PROCEDURE PORTAL</td>
+<td>Correzione</td>
+<td>rinominato retrieveIdPublicServiceList in
+retrieveIdPublicService</td>
+</tr>
+<tr class="odd">
+<td>6.1.1 RISPOSTA E GESTIONE DEGLI ERRORI</td>
+<td>Correzione</td>
+<td>Chiarito concetto.</td>
+</tr>
+<tr class="even">
+<td>6.4.2 RISPOSTA E GESTIONE DEGLI ERRORI</td>
+<td>Correzione</td>
+<td>Sostituito tabella per gli scenari degli errori</td>
+</tr>
+</tbody>
+</table>

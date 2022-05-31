@@ -3,7 +3,7 @@ openapi: 3.0.0
 info:
   title: lista delle Tipologie di prova per specifico requisito
   description: Estrae la lista di Tipologia di prova aderente all'output di retrieveRequirementList
-  version: 1.0.6
+  version: 1.0.8
 servers:
   - url: http://<url_service_catalog>
     description: Local server
@@ -69,6 +69,7 @@ paths:
                 xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
                 xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
                 xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                requestId: c4369c4d-740e-4b64-80f0-7b209a66d629
                 status: urn:oasis:names:tc:ebxmlregrep:ResponseStatusType:Success
                 RegistryObjectList:      
                   RegistryObject:
@@ -88,6 +89,8 @@ paths:
                          AdminUnitLevel1: ES
                      EvidenceTypeList:   
                        Identifier: EV-List-1
+                       Name:
+                       Description:
                        EvidenceType:
                          Identifier: ES-EV1223
                          Description: certificado de nacimiento
@@ -109,6 +112,7 @@ paths:
                 xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
                 xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
                 xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                requestId: c4369c4d-740e-4b64-80f0-7b209a66d629
                 status: urn:oasis:nammes:tc:ebxml-regrep:ResponseStatusType:Failure 
                 Exception:
                   xsi:type: rs:ObjectNotFoundExceptionType
@@ -120,6 +124,9 @@ components:
   schemas:     
     QueryResponse:
       type: object
+      required:
+       - requestId
+       - status      
       xml:
         prefix: 'query'
         namespace: urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0
@@ -209,40 +216,72 @@ components:
             prefix: 'rim'
           properties:
             RegistryObject:
-              type: object
+              $ref: '#/components/schemas/RegistryObjectArray'
+          
+          
+    RegistryObjectArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/RegistryObject'
+      xml:
+        name: RegistryObject
+        wrapped: false
+          
+          
+    RegistryObject:
+      type: object
+      xml:
+        prefix: 'rim'
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          xml:
+            attribute: true    
+        Requirement:
+          type: object 
+          required:
+            - Identifier
+          properties:
+            xmlns:
+              type: string
+              default: http://data.europa.eu/sdg#
               xml:
-                prefix: 'rim'
-              required:
-                - id
-              properties:
-                id:
-                  type: string
-                  xml:
-                    attribute: true    
-                Requirement:
-                  type: object 
-                  required:
-                    - Identifier
-                  properties:
-                    xmlns:
-                      type: string
-                      default: http://data.europa.eu/sdg#
-                      xml:
-                        attribute: true
-                    xmlns:xsi:
-                      type: string
-                      default: http://www.w3.org/2001/XMLSchema-instance
-                      xml:
-                        attribute: true  
-                    Identifier:    
-                      type: string
-                    Name:
-                      type: string
-                    ReferenceFramework:
-                      $ref: '#/components/schemas/ReferenceFramework'
-                    EvidenceTypeList:
-                      $ref: '#/components/schemas/EvidenceTypeList'
+                attribute: true
+            xmlns:xsi:
+              type: string
+              default: http://www.w3.org/2001/XMLSchema-instance
+              xml:
+                attribute: true  
+            Identifier:    
+              type: string
+            Name:
+              type: string
+            ReferenceFramework:
+              $ref: '#/components/schemas/ReferenceFrameworkArray'
+            EvidenceTypeList:
+              $ref: '#/components/schemas/EvidenceTypeListArray'
+
+
+    EvidenceTypeListArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/EvidenceTypeList'
+      xml:
+        name: EvidenceTypeList
+        wrapped: false
+
                       
+    ReferenceFrameworkArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/ReferenceFramework'
+      xml:
+        name: ReferenceFramework
+        wrapped: false
+                  
+
     ReferenceFramework:
       type: object
       required:
@@ -255,18 +294,45 @@ components:
           type: string
         Description:
           type: string
-        RelatedTo: 
-          type: object 
-          properties:
-            Identifier:
-              type: string
-        Jurisdiction: 
-          type: object 
-          required:
-           - AdminUnitLevel1
-          properties:
-            AdminUnitLevel1:
-              type: string   
+        RelatedTo:  
+          $ref: '#/components/schemas/RelatedToArray'
+        Jurisdiction:  
+          $ref: '#/components/schemas/JurisdictionArray'
+          
+          
+    RelatedToArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/RelatedTo'
+      xml:
+        name: RelatedTo
+        wrapped: false          
+          
+          
+    RelatedTo: 
+      type: object 
+      properties:
+        Identifier:
+          type: string
+              
+ 
+ 
+    JurisdictionArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Jurisdiction'
+      xml:
+        name: Jurisdiction
+        wrapped: false      
+        
+              
+    Jurisdiction: 
+      type: object 
+      required:
+       - AdminUnitLevel1
+      properties:
+        AdminUnitLevel1:
+          type: string   
               
 
     EvidenceTypeList:
@@ -280,27 +346,35 @@ components:
         Name:
           type: string  
         Description:
-          type: string            
+          type: string          
         EvidenceType:
+          $ref: '#/components/schemas/EvidenceTypeArray'          
+          
+    EvidenceTypeArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/EvidenceType'
+      xml:
+        name: EvidenceType
+        wrapped: false
+          
+          
+    EvidenceType:
+      type: object
+      properties:
+        Identifier:
+          type: string
+        Description:
+          type: string
+        Jurisdiction:
           type: object
-          required:
-            - EvidenceTypeClassification
-          properties:
-            Identifier:
+          properties: 
+            AdminUnitLevel1:
               type: string
-            Description:
-              type: string
-            EvidenceTypeClassification:
-              type: string
-            Jurisdiction:
-              type: object
-              properties: 
-                AdminUnitLevel1:
-                  type: string
-                AdminUnitLevel2:
-                  type: string                  
-                AdminUnitLevel3:
-                  type: string              
+            AdminUnitLevel2:
+              type: string                  
+            AdminUnitLevel3:
+              type: string              
           
   securitySchemes:
     Authorization:            # Bearer <Voucher PDND>

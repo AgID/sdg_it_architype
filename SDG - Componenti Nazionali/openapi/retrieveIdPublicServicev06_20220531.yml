@@ -1,9 +1,9 @@
-#HAPPY PATH + UNHAPPY PATH : retrieveIdPublicServiceList
+#HAPPY PATH + UNHAPPY PATH : retrieveIdPublicService
 openapi: 3.0.0
 info:
   title: recupero della lista degli PublicService 
   description: L’utente di backend invoca in GET il metodo retrieveIdPublicServiceList passando in input il parametro identificatore del tipo di PublicService da recuperare
-  version: 1.0.3
+  version: 1.0.6
 servers:
   - url: http://<url_service_catalog>
     description: Local server
@@ -16,18 +16,18 @@ servers:
   - url: http://<url_service_catalog>
     description: Production server
 paths:
-  /api/v1/data-service/list/:
+  /api/v1/public-service/list/:
     get:
       security:
         - Authorization: []         
       tags:
-        - retrieveIdPublicServiceList 
+        - retrieveIdPublicService 
       summary: restituisce la lista delle PublicService  
       description: il metodo get restituisce la lista delle PublicService 
       parameters:
         - in: query
           name: name
-          required: false
+          required: true
           schema:
             type: string
           description: Nome del procedimento amministrativo 
@@ -150,9 +150,11 @@ components:
         code:
           type: string
           description: Rif response code
+          example: 200
         description:
           type: string
-          description: Eventuale descrizione dell’errore
+          description: Eventuale descrizione code
+          example: Successful operation
         message:
           type: string
           description: Eventuale messaggio di errore
@@ -163,39 +165,51 @@ components:
       type: object
       description: Array di oggetti JSON
       required:
+        - publicServiceId
+        - euId
         - name
         - description
-        - policyCode
+        - publicOrganization
       properties:
-        id:
+        publicServiceId:
           type: integer
-          description: identificativo del procedimento amministrativo
+          description: Identificativo tecnico della tabella del procedimento amministrativo
+          example: 101
+        euId:
+          type: string
+          description: Identificativo univoco definito dalla Comunità Europea del procedimento amministrativo  
+          example: P17.1    
         name:
           type: string
           description: Nome del procedimento amministrativo  
+          example: Anagrafica Light
         description:
           type: string
           description: Descrizione del procedimento amministrativo
-        policyCode:
-          $ref: '#/components/schemas/policyCode'
+          example: Secondo questa procedura, le autorità competenti (regimi pensionistici e assicurativi obbligatori) sono tenute ad accettare la domanda di registrazione di un datore di lavoro per via elettronica.”
+        publicOrganization:
+          $ref: '#/components/schemas/publicOrganization'
 
-    policyCode:
+    publicOrganization:
       type: object
       description: Identificativo univoco definito dall’Comunità Europea
       required:
-        - id
-        - keyId
-        - value
+        - publicOrganizationId
+        - preferredLabel
+        - locationGeographicId
       properties:
-        id:
-          type: integer
-          description: Identificatore della tabella type chiave esterna 
-        keyId:
-          type: integer
-          description: Attributo keyId della tabella Type con filtro code=”policy_code”
-        value:
+        publicOrganizationId:
           type: string
-          description: Attributo value della tabella Type con filtro code=”policy_code”    
+          description: Identificativo della Pubblica Amministrazione di appartenenza 
+          example: P06
+        preferredLabel:
+          type: string
+          description: Etichetta preferita per l’identificazione della Pubblica Amministrazione di appartenenza
+          example: inail
+        locationGeographicId:
+          type: string
+          description: Identificativo per la Locazione geografica della Pubblica Amministrazione di appartenenza   
+          example: GI6
 
 
     Errore:
