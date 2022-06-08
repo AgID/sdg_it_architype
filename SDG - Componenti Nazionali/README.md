@@ -6,7 +6,7 @@ Specifica tecnica
 
 Documento di integrazione
 
-**Versione 1.3.1 – Stato del documento: Bozza per condivisione**
+**Versione 1.3.2 – Stato del documento: Bozza per condivisione**
 
 **Classificazione del documento: AgID Internal**
 
