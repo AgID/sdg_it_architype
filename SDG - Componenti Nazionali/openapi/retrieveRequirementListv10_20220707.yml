@@ -32,17 +32,29 @@ paths:
             type: string
           description: Questo parametro deve essere valorizzato con la seguente stringa "urn:oots:eb:ebxml-regrep:queries:requirementsby-procedure-and-jurisdiction".
         - in: query
-          name: proc-identifier
-          required: true
+          name: procedure-id
+          required: false
           schema:
             type: string
           description: Identificativo della Procedimento amministrativo al livello Europeo al fine di filtrare i Requirement.
         - in: query
-          name: proc-jurisdiction
+          name: country-code
           required: false
           schema:
             type: string
           description: Giurisdizione della Procedure/Procedimento amministrativo al fine di filtrare i Requirement utilizzati nello Stato Membro. La codifica da utilizzare è ISO 3166-2
+        - in: query
+          name: jurisdiction-admin-l2
+          required: false
+          schema:
+            type: string
+          description: Codice NUTS da 3 a 6 lettere
+        - in: query
+          name: jurisdiction-admin-l3
+          required: false
+          schema:
+            type: string
+          description: Codice LAU
       responses:
         '200':    # status code
           description: Successful operation
@@ -62,31 +74,35 @@ paths:
                 RegistryObjectList: 
                   RegistryObject:
                     id: 315cfd75-6605-49c4-b0fe-799833b41099
-                    Requirement:
-                      xmlns: http://data.europa.eu/sdg#
-                      xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
-                      Identifier: 315cfd75-6605-49c4-b0fe-799833b41099
-                      Name: bachelor's degree
-                      
-                      
-                      ReferenceFramework:
-                      
-                      - Identifier: 118fd444-6443-42be-a084-c9fbfd1f674d
-                        Title: Procedure 5 - Annex II of SDG as Implemented in the Italian   Portal
-                        Description: Procedure 5 of Annex II of the Regulation (EU) 2018/1724 the European Parliament an of the Council of October   2 establishing a single digital gateway to providaccess to informati to procedures and to assistance anproblem-solving   services  amending Regulation (EU No 10/2012
-                        RelatedTo: 
-                          Identifier: http://data.europa.eu/eli/reg/2018/1724/oj#Annex-5
-                        Jurisdiction:
-                            AdminUnitLevel1: IT                
-                
-                      - Identifier: 218fd444-6443-42be-a084-c9fbfd1f674d
-                        Title: Procedure 5 - Annex II of SDG as Implemented in the Italian   Portal
-                        Description: Procedure 5 of Annex II of the Regulation (EU) 2018/1724 the European Parliament and of the Council of October   2 establishing a single digital gateway to providaccess to   informati to procedures and to assistance anproblem-solving   services  amending Regulation (EU) No 10/2012
-                        RelatedTo: 
-                          Identifier: http://data.europa.eu/eli/reg/2018/1724/oj#Annex-5
-                        Jurisdiction:
-                          AdminUnitLevel1: IT                           
-  
+                    Slot:  
+                      name: Requirement
+                      SlotValue: 
+                        xsi:type: rim:AnyValueType 
+                        Requirement:
+                          xmlns: http://data.europa.eu/sdg#
+                          xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                          Identifier: 315cfd75-6605-49c4-b0fe-799833b41099
+                          Name: bachelor's degree
+                          
+                          
+                          ReferenceFramework:
+                          
+                          - Identifier: 118fd444-6443-42be-a084-c9fbfd1f674d
+                            Title: Procedure 5 - Annex II of SDG as Implemented in the Italian   Portal
+                            Description: Procedure 5 of Annex II of the Regulation (EU) 2018/1724 the European Parliament an of the Council of October   2 establishing a single digital gateway to providaccess to informati to procedures and to assistance anproblem-solving   services  amending Regulation (EU No 10/2012
+                            RelatedTo: 
+                              Identifier: http://data.europa.eu/eli/reg/2018/1724/oj#Annex-5
+                            Jurisdiction:
+                                AdminUnitLevel1: IT                
+                    
+                          - Identifier: 218fd444-6443-42be-a084-c9fbfd1f674d
+                            Title: Procedure 5 - Annex II of SDG as Implemented in the Italian   Portal
+                            Description: Procedure 5 of Annex II of the Regulation (EU) 2018/1724 the European Parliament and of the Council of October   2 establishing a single digital gateway to providaccess to   informati to procedures and to assistance anproblem-solving   services  amending Regulation (EU) No 10/2012
+                            RelatedTo: 
+                              Identifier: http://data.europa.eu/eli/reg/2018/1724/oj#Annex-5
+                            Jurisdiction:
+                              AdminUnitLevel1: IT                           
+      
                           
         '400':    # status code
           description: Failure operation
@@ -204,28 +220,52 @@ components:
                 id:
                   type: string
                   xml:
-                    attribute: true    
-                Requirement:
-                  type: object 
+                    attribute: true   
+                Slot:
+                  type: object
+                  xml:
+                    prefix: 'rim'
                   required:
-                    - Identifier
+                    - name
                   properties:
-                    xmlns:
+                    name:
                       type: string
-                      default: http://data.europa.eu/sdg#
+                      example: Requirement
                       xml:
                         attribute: true
-                    xmlns:xsi:
-                      type: string
-                      default: http://www.w3.org/2001/XMLSchema-instance
+                    SlotValue:
+                      type: object
                       xml:
-                        attribute: true  
-                    Identifier:    
-                      type: string
-                    Name:
-                      type: string
-                    ReferenceFramework:  
-                      $ref: '#/components/schemas/ReferenceFrameworkArray'
+                        prefix: 'rim'
+                      required:
+                        - xsi:type
+                      properties:
+                        xsi:type:
+                          type: string
+                          default: rim:AnyValueType
+                          xml:
+                            attribute: true    
+                        Requirement:
+                          type: object 
+                          required:
+                            - Identifier
+                          properties:
+                            xmlns:
+                              type: string
+                              default: http://data.europa.eu/sdg#
+                              xml:
+                                attribute: true
+                            xmlns:xsi:
+                              type: string
+                              default: http://www.w3.org/2001/XMLSchema-instance
+                              xml:
+                                attribute: true  
+                            Identifier:    
+                              type: string
+                            Name:
+                              type: string
+                            ReferenceFramework:  
+                              $ref: '#/components/schemas/ReferenceFrameworkArray'
                       
     ReferenceFrameworkArray:
       type: array
@@ -258,7 +298,11 @@ components:
            - AdminUnitLevel1
           properties:
             AdminUnitLevel1:
-              type: string   
+              type: string  
+            AdminUnitLevel2:
+              type: string
+            AdminUnitLevel3:
+              type: string
 
 
 

@@ -1,8 +1,9 @@
-#HAPPY PATH + UNHAPPY PATH: retrievEevidenceTypeList
 openapi: 3.0.0
 info:
   title: lista delle Tipologie di prova per specifico requisito
-  description: Estrae la lista di Tipologia di prova aderente all'output di retrieveRequirementList
+  description: >-
+    Estrae la lista di Tipologia di prova aderente all'output di
+    retrieveRequirementList
   version: 1.0.8
 servers:
   - url: http://<url_service_catalog>
@@ -19,24 +20,32 @@ paths:
   /api/v1/evidence-type/list:
     get:
       security:
-        - Authorization: []         
+        - Authorization: []
       tags:
         - retrieveEvidenceTypeList
-      summary: restituisce la lista delle Tipologie di prova per specifico requisito non necessariamente italiane. 
-      description: La lista delle prove delle tipologie ristrette all'output di retrieveRequirementList. 
+      summary: >-
+        restituisce la lista delle Tipologie di prova per specifico requisito
+        non necessariamente italiane.
+      description: >-
+        La lista delle prove delle tipologie ristrette all'output di
+        retrieveRequirementList.
       parameters:
         - in: query
           name: queryId
           required: true
           schema:
             type: string
-          description: Questo parametro deve essere valorizzato con la seguente stringa "urn:oots:eb:ebxml-regrep:queries:evidencetypes-by-requirement-and-jurisdiction".
+          description: >-
+            Questo parametro deve essere valorizzato con la seguente stringa
+            "urn:oots:eb:ebxml-regrep:queries:evidencetypes-by-requirement-and-jurisdiction".
         - in: query
           name: requirement-id
           required: true
           schema:
             type: string
-          description: identificativo per requisito per i quali si richiedono le Tipologie di prova.
+          description: >-
+            identificativo per requisito per i quali si richiedono le Tipologie
+            di prova.
         - in: query
           name: country-code
           required: false
@@ -48,20 +57,26 @@ paths:
           required: false
           schema:
             type: string
-          description: codice di secondo livello per l'amministrazione per la giurisdizione della tipologia di prova. Il codice è NUTS. Il codice deve essere combinato con il countrycode
+          description: >-
+            codice di secondo livello per l'amministrazione per la giurisdizione
+            della tipologia di prova. Il codice è NUTS. Il codice deve essere
+            combinato con il countrycode
         - in: query
           name: jurisdiction-admin-l3
           required: false
           schema:
             type: string
-          description: codice di terzo livello per l'amministrazione per la giurisdizione della tipologia di prova. Il codice è LAU. Il codice deve essere combinato con il countrycode
+          description: >-
+            codice di terzo livello per l'amministrazione per la giurisdizione
+            della tipologia di prova. Il codice è LAU. Il codice deve essere
+            combinato con il countrycode
       responses:
-        '200':    # status code
+        '200':
           description: Successful operation
           content:
             application/xml:
               schema:
-                  $ref: '#/components/schemas/QueryResponse'
+                $ref: '#/components/schemas/QueryResponse'
               example:
                 xmlns: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
                 xmlns:lcm: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
@@ -71,40 +86,56 @@ paths:
                 xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
                 requestId: c4369c4d-740e-4b64-80f0-7b209a66d629
                 status: urn:oasis:names:tc:ebxmlregrep:ResponseStatusType:Success
-                RegistryObjectList:      
+                RegistryObjectList:
                   RegistryObject:
-                   id: 315cfd75-6605-49c4-b0fe-799833b41099
-                   Requirement: 
-                     xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
-                     xmlns: http://data.europa.eu/sdg#
-                     Identifier: 315cfd75-6605-49c4-b0fe-799833b41099
-                     Name: Proof of Birth
-                     ReferenceFramework:
-                       Identifier: 118fd444-6443-42be-a084-c9fbfd1f674d
-                       Title: Procedure 5 - Annex II of SDG as Implemented in the Spanish Portal
-                       Description: Procedure 5 of Annex II of the Regulation (EU) 2018/1724 of the European Parliament and of the Council of 2 October 2018 establishing a single digital gateway to provide access to information, to procedures and to assistance and problem-solving services and amending Regulation (EU) No 1024/2012
-                       RelatedTo: 
-                         Identifier: http://data.europa.eu/eli/reg/2018/1724/oj#AnnexII-5
-                       Jurisdiction:
-                         AdminUnitLevel1: ES
-                     EvidenceTypeList:   
-                       Identifier: EV-List-1
-                       Name:
-                       Description:
-                       EvidenceType:
-                         Identifier: ES-EV1223
-                         Description: certificado de nacimiento
-                         Jurisdiction: 
-                           AdminUnitLevel1: ES
-                           AdminUnitLevel2: ES211
-                           AdminUnitLevel3: 01001
-                  
-        '400':    # status code
+                    id: 315cfd75-6605-49c4-b0fe-799833b41099
+                    Slot:
+                      name: Requirement
+                      SlotValue:
+                        xsi:type: rim:AnyValueType
+                        Requirement:
+                          xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                          xmlns: http://data.europa.eu/sdg#
+                          Identifier: 315cfd75-6605-49c4-b0fe-799833b41099
+                          Name: Proof of Birth
+                          ReferenceFramework:
+                            Identifier: 118fd444-6443-42be-a084-c9fbfd1f674d
+                            Title: >-
+                              Procedure 5 - Annex II of SDG as Implemented in
+                              the Spanish Portal
+                            Description: >-
+                              Procedure 5 of Annex II of the Regulation (EU)
+                              2018/1724 of the European Parliament and of the
+                              Council of 2 October 2018 establishing a single
+                              digital gateway to provide access to information,
+                              to procedures and to assistance and
+                              problem-solving services and amending Regulation
+                              (EU) No 1024/2012
+                            RelatedTo:
+                              Identifier: >-
+                                http://data.europa.eu/eli/reg/2018/1724/oj#AnnexII-5
+                            Jurisdiction:
+                              AdminUnitLevel1: ES
+                          EvidenceTypeList:
+                            Identifier: EV-List-1
+                            Name: null
+                            Description: null
+                            EvidenceType:
+                              Identifier: ES-EV1223
+                              title: 
+                                lang: en
+                              Description: certificado de nacimiento
+                              EvidenceTypeClassification: Classification Code
+                              Jurisdiction:
+                                AdminUnitLevel1: ES
+                                AdminUnitLevel2: ES211
+                                AdminUnitLevel3: 1001
+        '400':
           description: Failure operation
           content:
             application/xml:
               schema:
-                  $ref: '#/components/schemas/QueryResponse'
+                $ref: '#/components/schemas/QueryResponse'
               example:
                 xmlns: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
                 xmlns:lcm: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
@@ -113,22 +144,23 @@ paths:
                 xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
                 xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
                 requestId: c4369c4d-740e-4b64-80f0-7b209a66d629
-                status: urn:oasis:nammes:tc:ebxml-regrep:ResponseStatusType:Failure 
+                status: urn:oasis:nammes:tc:ebxml-regrep:ResponseStatusType:Failure
                 Exception:
                   xsi:type: rs:ObjectNotFoundExceptionType
                   severity: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
-                  message: No Evidence Providers were found based on the given parameters
+                  message: >-
+                    No Evidence Providers were found based on the given
+                    parameters
                   code: EB:ERR:0002
-                  
 components:
-  schemas:     
+  schemas:
     QueryResponse:
       type: object
       required:
-       - requestId
-       - status      
+        - requestId
+        - status
       xml:
-        prefix: 'query'
+        prefix: query
         namespace: urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0
       properties:
         xmlns:
@@ -150,75 +182,72 @@ components:
           type: string
           default: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
           xml:
-            attribute: true    
+            attribute: true
         xmlns:xsi:
           type: string
           default: http://www.w3.org/2001/XMLSchema-instance
           xml:
-            attribute: true      
+            attribute: true
         xsi:schemaLocation:
           type: string
           default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
           xml:
-            attribute: true  
+            attribute: true
         requestId:
           type: string
           example: c4369c4d-740e-4b64-80f0-7b209a66d629
           xml:
-            attribute: true   
+            attribute: true
         status:
           type: string
           default: urn:oasis:names:tc:ebxmlregrep:ResponseStatusType:Success
           xml:
-            attribute: true             
-            
-            
+            attribute: true
         Exception:
           required:
-           - xsi:type
-           - severity
-           - message
+            - xsi:type
+            - severity
+            - message
           type: object
-          xml: 
-            prefix: 'rs'
+          xml:
+            prefix: rs
           properties:
             xsi:type:
               type: string
               example: rs:ObjectNotFoundExceptionType
-
               xml:
                 attribute: true
             severity:
               type: string
               default: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
               xml:
-                attribute: true            
+                attribute: true
             message:
               type: string
-              example: The requirement requested, represented by the requirement id, does not exist
+              example: >-
+                The requirement requested, represented by the requirement id,
+                does not exist
               xml:
-                attribute: true                 
+                attribute: true
             detail:
               type: string
-              description: Deve contenere informazioni dettagliate sull'errore, ad esempio informazioni tecniche o una traccia dello stack.
+              description: >-
+                Deve contenere informazioni dettagliate sull'errore, ad esempio
+                informazioni tecniche o una traccia dello stack.
               xml:
                 attribute: true
             code:
               type: string
               example: EB:ERR:0002
               xml:
-                attribute: true              
-            
-            
+                attribute: true
         RegistryObjectList:
           type: object
           xml:
-            prefix: 'rim'
+            prefix: rim
           properties:
             RegistryObject:
               $ref: '#/components/schemas/RegistryObjectArray'
-          
-          
     RegistryObjectArray:
       type: array
       items:
@@ -226,44 +255,64 @@ components:
       xml:
         name: RegistryObject
         wrapped: false
-          
-          
     RegistryObject:
       type: object
       xml:
-        prefix: 'rim'
+        prefix: rim
       required:
         - id
       properties:
         id:
           type: string
           xml:
-            attribute: true    
-        Requirement:
-          type: object 
+            attribute: true
+        Slot:
+          type: object
+          xml:
+            prefix: rim
           required:
-            - Identifier
+            - name
           properties:
-            xmlns:
+            name:
               type: string
-              default: http://data.europa.eu/sdg#
+              example: DataServiceEvidenceType
               xml:
                 attribute: true
-            xmlns:xsi:
-              type: string
-              default: http://www.w3.org/2001/XMLSchema-instance
+            SlotValue:
+              type: object
               xml:
-                attribute: true  
-            Identifier:    
-              type: string
-            Name:
-              type: string
-            ReferenceFramework:
-              $ref: '#/components/schemas/ReferenceFrameworkArray'
-            EvidenceTypeList:
-              $ref: '#/components/schemas/EvidenceTypeListArray'
-
-
+                prefix: rim
+              required:
+                - xsi:type
+              properties:
+                xsi:type:
+                  type: string
+                  default: rim:AnyValueType
+                  xml:
+                    attribute: true
+                Requirement:
+                  type: object
+                  required:
+                    - Identifier
+                  properties:
+                    xmlns:
+                      type: string
+                      default: http://data.europa.eu/sdg#
+                      xml:
+                        attribute: true
+                    xmlns:xsi:
+                      type: string
+                      default: http://www.w3.org/2001/XMLSchema-instance
+                      xml:
+                        attribute: true
+                    Identifier:
+                      type: string
+                    Name:
+                      type: string
+                    ReferenceFramework:
+                      $ref: '#/components/schemas/ReferenceFrameworkArray'
+                    EvidenceTypeList:
+                      $ref: '#/components/schemas/EvidenceTypeListArray'
     EvidenceTypeListArray:
       type: array
       items:
@@ -271,8 +320,6 @@ components:
       xml:
         name: EvidenceTypeList
         wrapped: false
-
-                      
     ReferenceFrameworkArray:
       type: array
       items:
@@ -280,8 +327,6 @@ components:
       xml:
         name: ReferenceFramework
         wrapped: false
-                  
-
     ReferenceFramework:
       type: object
       required:
@@ -294,47 +339,36 @@ components:
           type: string
         Description:
           type: string
-        RelatedTo:  
+        RelatedTo:
           $ref: '#/components/schemas/RelatedToArray'
-        Jurisdiction:  
+        Jurisdiction:
           $ref: '#/components/schemas/JurisdictionArray'
-          
-          
     RelatedToArray:
       type: array
       items:
         $ref: '#/components/schemas/RelatedTo'
       xml:
         name: RelatedTo
-        wrapped: false          
-          
-          
-    RelatedTo: 
-      type: object 
+        wrapped: false
+    RelatedTo:
+      type: object
       properties:
         Identifier:
           type: string
-              
- 
- 
     JurisdictionArray:
       type: array
       items:
         $ref: '#/components/schemas/Jurisdiction'
       xml:
         name: Jurisdiction
-        wrapped: false      
-        
-              
-    Jurisdiction: 
-      type: object 
+        wrapped: false
+    Jurisdiction:
+      type: object
       required:
-       - AdminUnitLevel1
+        - AdminUnitLevel1
       properties:
         AdminUnitLevel1:
-          type: string   
-              
-
+          type: string
     EvidenceTypeList:
       type: object
       required:
@@ -344,12 +378,11 @@ components:
         Identifier:
           type: string
         Name:
-          type: string  
+          type: string
         Description:
-          type: string          
+          type: string
         EvidenceType:
-          $ref: '#/components/schemas/EvidenceTypeArray'          
-          
+          $ref: '#/components/schemas/EvidenceTypeArray'
     EvidenceTypeArray:
       type: array
       items:
@@ -357,27 +390,41 @@ components:
       xml:
         name: EvidenceType
         wrapped: false
-          
-          
     EvidenceType:
       type: object
       properties:
         Identifier:
           type: string
+        title:
+          type: string
+          properties:
+            lang:
+              type: string
+              example: en
+              xml:
+                attribute: true
+
         Description:
+          type: string
+          properties:
+            lang:
+              type: string
+              example: en
+              xml:
+                attribute: true
+        EvidenceTypeClassification:
           type: string
         Jurisdiction:
           type: object
-          properties: 
+          properties:
             AdminUnitLevel1:
               type: string
             AdminUnitLevel2:
-              type: string                  
+              type: string
             AdminUnitLevel3:
-              type: string              
-          
+              type: string
   securitySchemes:
-    Authorization:            # Bearer <Voucher PDND>
+    Authorization:
       type: http
       scheme: bearer
-      bearerFormat: JWT                   
+      bearerFormat: JWT
