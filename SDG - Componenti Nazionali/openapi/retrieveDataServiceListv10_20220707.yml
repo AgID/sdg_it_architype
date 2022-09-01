@@ -67,6 +67,16 @@ paths:
           schema:
            type: string
           description: Identificativo del dataServiceEvidenceType.Il parametro DEVE essere utilizzato quando si risponde a un'eccezione DSD ricevuta, fornendo l'id del DataServiceEvidenceType selezionato trovato nell'eccezione  
+        - name: searchParam
+          in: query
+          description: Lista di parametri per la gestione degli attributi aggiuntivi (definiti nel classificationConcept). Es. TypeOfInsurance=public
+          required: false
+          style: deepObject
+          explode: true
+          schema:
+            type: object
+            additionalProperties:
+              type: string
       responses:
         '200':    # status code
           description: Successful operation
