@@ -2177,7 +2177,7 @@ l’evidenceBorker</td>
 un'eccezione DSD ricevuta, fornendo l'id del DataServiceEvidenceType
 selezionato trovato nell'eccezione.</em> Fare riferimento al capitolo
 3.1 del tdd giugno 2022</p></td>
-<td>M</td>
+<td>O</td>
 <td></td>
 <td>String</td>
 </tr>
