@@ -14,7 +14,6 @@ Documento di Specifica Tecnica
 
 **5 ottobre 2022**
 
-re
 
 | **Lista di Distribuzione** |                                    |
 |----------------------------|------------------------------------|
