@@ -14905,10 +14905,8 @@ dell’Entrate:
 
     -   statoNascita
 
-```{=html}
-<!-- -->
-```
-1.  In fase di definizione gli standard delle codifiche da utilizzare
+
+2.  In fase di definizione gli standard delle codifiche da utilizzare
     per la valorizzazione dei campi in input:
 
     -   provinciaNascita
