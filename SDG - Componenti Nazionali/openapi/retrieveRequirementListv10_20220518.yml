@@ -1,7 +1,6 @@
-#HAPPY PATH + UNHAPPY PATH : retrieveRequirementList
 openapi: 3.0.0
 info:
-  title: restituisce la lista delle Tipologie di prova per specifico requisito
+  title: Restituisce la lista delle Tipologie di prova per specifico requisito
   description: L’insieme delle Tipologie di prova necessarie a soddisfare ogni specifico Requisito sarà restituito dall’Evidence Broker IT.
   version: 1.0.9
 servers:
@@ -105,7 +104,7 @@ paths:
       
                           
         '400':    # status code
-          description: Failure operation
+          description: Bad Request
           content:
             application/xml:
               schema:
@@ -123,6 +122,27 @@ paths:
                   xsi:type: rs:ObjectNotFoundExceptionType
                   severity: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
                   message: No Evidence Providers were found based on the given parameters
+                  code: EB:ERR:0001
+
+        '500':    # status code
+          description: Internal Server Error
+          content:
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/QueryResponse'
+              example:
+                xmlns: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:lcm: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:rim: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+                xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+                xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                requestId: c4369c4d-740e-4b64-80f0-7b209a66d629
+                status: urn:oasis:nammes:tc:ebxml-regrep:ResponseStatusType:Failure 
+                Exception:
+                  xsi:type: rs:InvalidRequestExceptionType
+                  severity: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
+                  message: Internal Server Error
                   code: EB:ERR:0001
                           
 components:

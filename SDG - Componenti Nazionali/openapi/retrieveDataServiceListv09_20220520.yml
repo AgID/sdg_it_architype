@@ -1,7 +1,6 @@
-#HAPPY PATH + UNHAPPY PATH: retrieveDataServiceList
 openapi: 3.0.0
 info:
-  title: lista dal Data Service l’identificativo della Tipologia di Prova e le informazioni descrittive 
+  title: Lista dal Data Service l’identificativo della Tipologia di Prova e le informazioni descrittive 
   description: Recupera dal Data Service Directory l’identificativo e le informazioni descrittive dell’Ente Erogatore
   version: 1.0.9
 servers:
@@ -69,7 +68,7 @@ paths:
           description: Identificativo del dataServiceEvidenceType.Il parametro DEVE essere utilizzato quando si risponde a un'eccezione DSD ricevuta, fornendo l'id del DataServiceEvidenceType selezionato trovato nell'eccezione  
         - name: searchParam
           in: query
-          description: Lista di parametri per la gestione degli attributi aggiuntivi (definiti nel classificationConcept). Es. TypeOfInsurance=public
+          description: Lista di parametri per la gestione degli attributi aggiuntivi (definiti nel classificationConcept). Es. TypeOfInsurance=public. Si tratta di una lista di parametri di tipo chiave-valore da aggiungere in queryString, valorizzata in caso di errore DSD:ERR:0005. La chiave corrisponde al campo identifer del classificationConcept ricevuto nella response di errore.
           required: false
           style: deepObject
           explode: true
@@ -148,10 +147,15 @@ paths:
                            - ValueExpression: http://sr.europa.eu/codelists 
                            - Description: #Certificate of Birth
                              - lang: en
+                          UserIdentityAttribute:
+                            name: codice fiscale
+                            label:
+                              lang: it
+
                           
                 
         '400':    # status code
-          description: Failure operation
+          description: Bad Request
           content:
             application/xml:
               schema:
@@ -169,7 +173,7 @@ paths:
                   xsi:type: rs:ObjectNotFoundExceptionType
                   severity: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
                   message: No Data Services were found based on the given parameters
-                  code: DSD:ERR:0001
+                  code: DSD:ERR:0005
                   Slot:  
                   - name: DataServiceEvidenceType
                     SlotValue: 
@@ -202,6 +206,27 @@ paths:
                           - ValueExpression: http://sr.europa.eu/codelists 
                           - Description: #Certificate of Birth
                             - lang: en
+
+        '500':    # status code
+          description: Internal Server Error
+          content:
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/QueryResponse'
+              example:
+                xmlns: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:lcm: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:rim: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+                xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+                xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                requestId: c4369c4d-740e-4b64-80f0-7b209a66d629
+                status: urn:oasis:nammes:tc:ebxml-regrep:ResponseStatusType:Failure 
+                Exception:
+                  xsi:type: rs:InvalidRequestExceptionType
+                  severity: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
+                  message: Internal Server Error
+                  code: DSD:ERR:0006
 
 components:
   schemas:  
@@ -423,6 +448,9 @@ components:
                              
                             EvidenceProviderClassification:
                                $ref: '#/components/schemas/EvidenceProviderClassificationArray'
+
+                            UserIdentityAttribute:
+                               $ref: '#/components/schemas/UserIdentityAttribute'
 
 
                            
@@ -779,7 +807,38 @@ components:
             prefix: 'sdg'
            description: Una quantità e una valuta come definito in UN/CEFACT's CCTS
          
-
+    UserIdentityAttribute:
+      type: object
+      xml:
+       prefix: 'sdg'
+      description: attributi aggiuntivi 
+      properties:
+         name:
+          type: string
+          example: codice_fiscale 
+          xml:
+            attribute: true
+            prefix: 'sdg'
+         uri:
+          type: string
+          xml:
+           prefix: 'sdg'
+          
+         label:
+          type: array
+          xml:
+           prefix: 'sdg'
+          items:
+           type: object
+           description: nome dell’attributo nella lingua specificata. Una lista per la gestione del multilingua.
+           properties:
+            lang:
+             type: string
+             example: en
+             xml:
+              attribute: true 
+             description: Specifica il linguaggio
+        
          
     Slot:
       type: object

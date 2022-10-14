@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: lista delle Tipologie di prova per specifico requisito
+  title: Lista delle Tipologie di prova per specifico requisito
   description: >-
     Estrae la lista di Tipologia di prova aderente all'output di
     retrieveRequirementList
@@ -131,7 +131,7 @@ paths:
                                 AdminUnitLevel2: ES211
                                 AdminUnitLevel3: 1001
         '400':
-          description: Failure operation
+          description: Bad Request
           content:
             application/xml:
               schema:
@@ -152,6 +152,29 @@ paths:
                     No Evidence Providers were found based on the given
                     parameters
                   code: EB:ERR:0002
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+              example:
+                xmlns: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:lcm: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:rim: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+                xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+                xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                requestId: c4369c4d-740e-4b64-80f0-7b209a66d629
+                status: urn:oasis:nammes:tc:ebxml-regrep:ResponseStatusType:Failure
+                Exception:
+                  xsi:type: rs:InvalidRequestExceptionType
+                  severity: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
+                  message: >-
+                    Internal Server Error
+                  code: EB:ERR:0001
+                  
 components:
   schemas:
     QueryResponse:
