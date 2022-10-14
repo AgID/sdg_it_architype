@@ -14890,7 +14890,7 @@ par. 3.11
 
 Di seguito la specifica OpenAPI 3 per l’API checkPF:
 
-[checkPF](openapi/checkPF_V1.0_22092022.yml)
+[checkPF](openapi/checkPF_V1.0_22092022.yaml)
 
 ### Punti aperti
 
