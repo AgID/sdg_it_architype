@@ -104,7 +104,7 @@ components:
       description: Array di oggetti JSON
       required:
         - publicServiceId
-        - euId
+        - euPublicServiceId
         - name
         - description
         - publicOrganization
@@ -113,7 +113,7 @@ components:
           type: integer
           description: Identificativo tecnico della tabella del procedimento amministrativo
           example: 101
-        euId:
+        euPublicServiceId:
           type: string
           description: Identificativo univoco definito dalla Comunità Europea del procedimento amministrativo  
           example: P17.1    

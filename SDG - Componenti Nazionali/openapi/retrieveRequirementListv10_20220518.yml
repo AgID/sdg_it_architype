@@ -41,7 +41,8 @@ paths:
           required: false
           schema:
             type: string
-          description: Giurisdizione della Procedure/Procedimento amministrativo al fine di filtrare i Requirement utilizzati nello Stato Membro. La codifica da utilizzare è ISO 3166-2
+          description: Giurisdizione della Procedure/Procedimento amministrativo al fine di filtrare i Requirement utilizzati nello Stato Membro. La codifica da utilizzare è ISO 3166-2.
+                        Obbligatorio nel caso sia valorizzato il procedure-id.
         - in: query
           name: jurisdiction-admin-l2
           required: false

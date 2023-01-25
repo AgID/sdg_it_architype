@@ -6,13 +6,14 @@ Integrazione SDG con Procedure Portal
 
 Documento di Specifica Tecnica
 
-**Versione 1.5.1**
+**Versione 1.5.3**
 
 **Stato del documento: Final**
 
 **Classificazione del documento: AgID Internal**
 
-**5 ottobre 2022**
+**25 gennaio 2023**
+
 
 
 | **Lista di Distribuzione** |                                    |
@@ -47,6 +48,8 @@ Documento di Specifica Tecnica
 | 18 luglio 2022    | 1.4       | Integrazione                                                                                | Come da Changelog in calce |
 | 30 settembre 2022 | 1.5       | Revisione e modifiche necessarie alla versione di Giugno 2022 del Technical Design Document | Come da Changelog in calce |
 | 5 ottobre 2022    | 1.5.1     | Integrazione e correzione                                                                   | Come da Changelog in calce |
+| 20 gennaio 2023   | 1.5.2     | Integrazione                                                                                | Come da Changelog in calce |
+| 25 gennaio 2023   | 1.5.3     | Correzioni
 
 **Emissione del documento**
 
@@ -100,8 +103,6 @@ Documento di Specifica Tecnica
 </tr>
 </tbody>
 </table>
-
-
 
 # Scopo e Ambito del Documento
 
@@ -594,6 +595,12 @@ nascita, Stato di nascita), richiama l’omonimo servizio esposto
 dall’Agenzia dell’entrate per la verifica di correttezza del Codice
 fiscale.
 
+Ai soggetti, che dovranno inserire i dati previsti e su indicati dai
+vari Procedure Portal che si avvarranno del servizio, dovrà essere
+richiesto di inserire i dati così esattamente come riportati sul
+tesserino di codice fiscale o sul certificato di attribuzione del codice
+fiscale.
+
 L’API esposta è *checkPF* (par. 3.10).
 
 # Specifiche tecniche
@@ -833,6 +840,7 @@ passando in input il parametro identificativo dell’ente del servizio di
 interesse.
 
 
+
 | **PROTOCOL**                | HTTPS                                                                         |
 |----------------|--------------------------------------------------------|
 | **PATH (Private Exposure)** | https://\<dominio_service_catalog\>/servicecatalogue/v1/publicService/mapping |
@@ -968,11 +976,11 @@ publicServiceResponse**
 <td><em><strong>Integer</strong></em></td>
 </tr>
 <tr class="even">
-<td><em><strong>euId</strong></em></td>
+<td><em><strong>euPublicServiceId</strong></em></td>
 <td><p><em>Identificativo univoco definito dalla Comunità Europea del
 procedimento amministrativo</em></p>
 <p><em>Esempio:</em></p>
-<p><em>euId=”P17.1”</em></p></td>
+<p><em>euPublicServiceId=”P17.1”</em></p></td>
 <td><em><strong>M</strong></em></td>
 <td><em><strong>String</strong></em></td>
 </tr>
@@ -1087,8 +1095,8 @@ par. 3.11.
 
 Di seguito la specifica OpenAPI 3 per l’API retrieveIdPublicService:
 
-[retrieveIdPublicService](openapi/retrieveIdPublicServicev06_20220531.yml)
 
+[retrieveIdPublicService](openapi/retrieveIdPublicServicev06_20220531.yml)
 ## Recupero RequirementList da Evidence Broker IT
 
 <u>API</u>: **retrieveRequirementList**
@@ -1194,7 +1202,8 @@ specifica.</p>
 <td><p>Giurisdizione della Procedure/Procedimento amministrativo
 utilizato al fine di filtrare i Requirement utilizzati solo in uno
 specifico Stato Membro.</p>
-<p>Vincolo: Codice ISO 3166-2</p></td>
+<p>Vincolo: Codice ISO 3166-2</p>
+<p>Obbligatorio nel caso sia valorizzato il procedure-id.</p></td>
 <td>O</td>
 <td></td>
 <td>String</td>
@@ -1593,7 +1602,6 @@ par. 3.11.
 Di seguito la specifica OpenAPI3 per l’API retrieveRequirementList:
 
 [retrieveRequirementList](openapi/retrieveRequirementListv10_20220518.yml)
-
 ## Recupero EvidenceTypeList da Evidence Broker IT
 
 <u>API:</u> **retrieveEvidenceTypeList**
@@ -2314,7 +2322,7 @@ par. 3.11.
 Di seguito la specifica OpenAPI 3 per l’API retrieveEvidenceTypeList:
 
 [retrieveEvidenceTypeList](openapi/retrieveEvidenceTypeListv09_20220707.yml)
-
+																		
 ## Recupero DataServiceList da Data Service Directory IT
 
 <u>API:</u> **retrieveDataServiceList**
@@ -3716,7 +3724,6 @@ Di seguito la specifica OpenAPI 3 per l’API retrieveDataServiceList:
 <u>Requisito</u>: istanziazione del recupero del link alla Preview
 dell’Evidence da ACS, da completarsi successivamente con la generazione
 della “Evidence Response 1” al par. 3.7.
-
 
 
 | **PROTOCOL**               | HTTPS                                           |
@@ -9124,7 +9131,6 @@ sul TDD.*
 Di seguito la specifica OpenAPI 3 per l’API EvidenceRequest:
 
 [EvidenceRequest](openapi/EvidenceRequest.yml)
-
 ## Verifica generazione Evidence Response 1
 
 <u>API</u>: **EvidenceResponse**
@@ -14611,7 +14617,7 @@ sul TDD.*
 ### OpenAPI 3
 
 Di seguito la specifica OpenAPI 3 per l’API EvidenceResponse:
-[EvidenceResponse](openapi/EvidenceResponse.yml)
+[EvidenceResponse](openapi/EvidenceResponse.yml)												
 
 ## Richiesta invio Evidence Request 2
 
@@ -14723,6 +14729,7 @@ espresso al par. 3.7.2.
 (eseguita effettivamente dal servizio presso Agenzia delle Entrate).
 
 
+
 | **PROTOCOL**               | HTTPS                                               |
 |-------------------|-----------------------------------------------------|
 | **PATH (Public Exposure)** | https://\<dominio_service_catalog\>/acs/v1/check/pf |
@@ -14812,24 +14819,42 @@ Len</strong></td>
 </tr>
 <tr class="even">
 <td>comuneNascita</td>
-<td>Comune di nascita</td>
+<td>Il comune di nascita è obbligatorio. Deve essere valorizzato se il
+soggetto è nato in Italia e deve essere indicata la dizione così come
+presente sul tesserino di codice fiscale o certificato di attribuzione
+del codice fiscale. Vengono considerate congruenti tutte le dizioni,
+anche quelle alternative, storiche o dizioni ANPR che risultano
+associate al codice catastale del codice fiscale registrato in Anagrafe
+Tributaria</td>
 <td>M</td>
 <td></td>
 <td>string</td>
 </tr>
 <tr class="odd">
 <td>provinciaNascita</td>
-<td>Provincia di nascita. Sono consentite le sigle ufficiali delle
-province italiane. Da non valorizzare in caso di nato in ex Comune
-Italiano (par. 3.10.4)</td>
+<td>La sigla della provincia del comune di nascita è obbligatoria. Deve
+essere valorizzata se il soggetto è nato in Italia ed il comune non
+rientra in uno di quelli ceduti alla ex Jugoslavia (ad es. Pola, Fiume e
+Zara). Difatti per questi ultimi sul tesserino non è riportata la
+provincia così come nei certificati di attribuzione del codice fiscale,
+se comunque viene indicata non è causa di scarto. La provincia viene
+utilizzata, congiuntamente alla dizione del comune di nascita. Vengono
+considerate congruenti tutte le province, anche quelle storiche o ANPR
+che, unitamente alla dizione del comune, risultano associate al codice
+catastale del codice fiscale registrato in Anagrafe Tributaria.</td>
 <td>M</td>
 <td></td>
 <td>string</td>
 </tr>
 <tr class="even">
 <td>statoNascita</td>
-<td>Stato di nascita. Lo stato è da inserire quando la persona fisica
-non è nata in Italia. (par. 3.10.4)</td>
+<td>La dizione dello Stato estero di nascita è obbligatoria. Se il
+soggetto non è nato in Italia deve essere valorizzata e non deve essere
+indicato né il comune di nascita né la sigla provincia; comunque se
+presente il valore “EE” questo non è causa di scarto. Vengono
+considerate congruenti tutte le dizioni, anche quelle alternative o
+storiche, che risultano associate al codice catastale del codice fiscale
+registrato in Anagrafe Tributaria.</td>
 <td>M</td>
 <td></td>
 <td>string</td>
@@ -14844,20 +14869,20 @@ non è nata in Italia. (par. 3.10.4)</td>
 | **OUTPUT** |
 |------------|
 
-| **BODY**         |                                                                                                                                            |           |          |
+| **BODY**         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |           |          |
 |----------------------------|--------------------------|----------|---------|
-| **Parameter**    | **Description**                                                                                                                            | **M / O** | **Type** |
-| dati             | Contenitore dei dati usati per la validazione                                                                                              | M         | obejct   |
-| codiceFiscale    | Codice fiscale da verificare                                                                                                               | M         | string   |
-| cognome          | Cognome                                                                                                                                    | M         | string   |
-| nome             | nome                                                                                                                                       | M         | string   |
-| sesso            | Sesso. Valori consentiti: M o F                                                                                                            | M         | string   |
-| dataNascita      | Data in formato yyyy/mm/dd                                                                                                                 | M         | string   |
-| comuneNascita    | Comune di nascita                                                                                                                          | M         | string   |
-| provinciaNascita | Provincia di nascita. Sono consentite le sigle ufficiali delle province italiane. Da non valorizzare in caso di nato in ex Comune Italiano | M         | string   |
-| statoNascita     | Stato di nascita. Lo stato è da inserire quando la persona fisica non è nata in Italia.                                                    | M         | string   |
-| valido           | Campo di validità della persona fisica                                                                                                     | M         | boolean  |
-| messaggio        | Messaggio di ritorno del servizio di verifica                                                                                              | M         | String   |
+| **Parameter**    | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | **M / O** | **Type** |
+| dati             | Contenitore dei dati usati per la validazione                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | M         | obejct   |
+| codiceFiscale    | Codice fiscale da verificare                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | M         | string   |
+| cognome          | Cognome                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | M         | string   |
+| nome             | nome                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | M         | string   |
+| sesso            | Sesso. Valori consentiti: M o F                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | M         | string   |
+| dataNascita      | Data in formato yyyy-mm-dd                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | M         | string   |
+| comuneNascita    | Il comune di nascita è obbligatorio. Deve essere valorizzato se il soggetto è nato in Italia e deve essere indicata la dizione così come presente sul tesserino di codice fiscale o certificato di attribuzione del codice fiscale. Vengono considerate congruenti tutte le dizioni, anche quelle alternative, storiche o dizioni ANPR che risultano associate al codice catastale del codice fiscale registrato in Anagrafe Tributaria                                                                                                                                                                                                                                                                              | M         | string   |
+| provinciaNascita | La sigla della provincia del comune di nascita è obbligatoria. Deve essere valorizzata se il soggetto è nato in Italia ed il comune non rientra in uno di quelli ceduti alla ex Jugoslavia (ad es. Pola, Fiume e Zara). Difatti per questi ultimi sul tesserino non è riportata la provincia così come nei certificati di attribuzione del codice fiscale, se comunque viene indicata non è causa di scarto. La provincia viene utilizzata, congiuntamente alla dizione del comune di nascita. Vengono considerate congruenti tutte le province, anche quelle storiche o ANPR che, unitamente alla dizione del comune, risultano associate al codice catastale del codice fiscale registrato in Anagrafe Tributaria. | M         | string   |
+| statoNascita     | La dizione dello Stato estero di nascita è obbligatoria. Se il soggetto non è nato in Italia deve essere valorizzata e non deve essere indicato né il comune di nascita né la sigla provincia; comunque se presente il valore “EE” questo non è causa di scarto. Vengono considerate congruenti tutte le dizioni, anche quelle alternative o storiche, che risultano associate al codice catastale del codice fiscale registrato in Anagrafe Tributaria.                                                                                                                                                                                                                                                             | M         | string   |
+| valido           | Campo di validità della persona fisica                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | M         | boolean  |
+| messaggio        | Messaggio di ritorno del servizio di verifica                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | M         | String   |
 
 **Descrizione per response con esito KO**
 
@@ -14891,27 +14916,6 @@ par. 3.11
 Di seguito la specifica OpenAPI 3 per l’API checkPF:
 
 [checkPF](openapi/checkPF_V1.0_22092022.yaml)
-
-### Punti aperti
-
-Si riportano i seguenti punti aperti derivati dall’analisi delle
-specifiche di interfaccia del servizio messo a disposizione dall’Agenzia
-dell’Entrate:
-
-1.  In fase di definizione le regole di obbligatorietà nel popolamento
-    dei campi in input:
-
-    -   provinciaNascita
-
-    -   statoNascita
-
-
-2.  In fase di definizione gli standard delle codifiche da utilizzare
-    per la valorizzazione dei campi in input:
-
-    -   provinciaNascita
-
-    -   statoNascita
 
 ## Codici di Stato HTTP
 
@@ -15174,6 +15178,43 @@ VERIFICA GENERAZIONE EVIDENCE REQUEST 1</td>
 <p>Aggiornato in tabella e nel file .yaml il parametro
 rim:RepositoryItem del nodo
 <strong>rim:RegistryObject</strong>.</p></td>
+</tr>
+<tr class="even">
+<td rowspan="3">1.5.2</td>
+<td><h3 id="servizio-validazione-codice-fiscale-1"
+class="list-paragraph">SERVIZIO VALIDAZIONE CODICE FISCALE</h3></td>
+<td>Integrazione</td>
+<td>Inserite indicazioni per per il popolamento die campi in input.</td>
+</tr>
+<tr class="odd">
+<td><h2 id="validazione-codice-fiscale-1"
+class="list-paragraph">VALIDAZIONE CODICE FISCALE</h2></td>
+<td>Integrazione</td>
+<td><p>Aggiornate indicazioni per per il popolamento die campi in
+input.</p>
+<p>Aggiornato file yaml.</p></td>
+</tr>
+<tr class="even">
+<td><h2 id="punti-aperti-ex.-3.10.4" class="list-paragraph">PUNTI APERTI
+(ex. §3.10.4)</h2></td>
+<td>Eliminazione</td>
+<td>Eliminato paragrafo</td>
+</tr>
+<tr class="odd">
+<td rowspan="2">1.5.3</td>
+<td><h2 id="recupero-id-publicservice" class="list-paragraph">RECUPERO
+ID PUBLICSERVICE</h2></td>
+<td>correzione</td>
+<td>Corretta in tabella e nel file .yaml parametro
+euPublicServiceId</td>
+</tr>
+<tr class="even">
+<td><h2 id="recupero-requirement-list" class="list-paragraph">RECUPERO
+REQUIREMENT LIST</h2></td>
+<td>integrazione</td>
+<td><p>Aggiornate indicazioni per il popolamento del parametro
+country-code in input.</p>
+<p>Aggiornato file yaml.</p></td>
 </tr>
 </tbody>
 </table>
