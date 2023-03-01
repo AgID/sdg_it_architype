@@ -250,7 +250,7 @@ components:
           type: string
           description: >-
             Lo stato è da inserire quando la persona fisica non è nata in
-            italia.
+            italia. In caso contrario inviare stringa vuota.
           example: SVIZZERA
     OutputVerificaPfDto:
       type: object

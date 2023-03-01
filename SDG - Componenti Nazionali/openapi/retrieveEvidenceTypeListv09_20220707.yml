@@ -17,7 +17,7 @@ servers:
   - url: http://<url_service_catalog>
     description: Production server
 paths:
-  /api/v1/evidence-type/list:
+  /api/v1/evidence-type-list/list:
     get:
       security:
         - Authorization: []

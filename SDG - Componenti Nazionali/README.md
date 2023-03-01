@@ -6,13 +6,13 @@ Integrazione SDG con Procedure Portal
 
 Documento di Specifica Tecnica
 
-**Versione 1.5.3**
+**Versione 1.5.5**
 
 **Stato del documento: Final**
 
 **Classificazione del documento: AgID Internal**
 
-**25 gennaio 2023**
+**08 febbraio 2023**
 
 
 
@@ -49,7 +49,9 @@ Documento di Specifica Tecnica
 | 30 settembre 2022 | 1.5       | Revisione e modifiche necessarie alla versione di Giugno 2022 del Technical Design Document | Come da Changelog in calce |
 | 5 ottobre 2022    | 1.5.1     | Integrazione e correzione                                                                   | Come da Changelog in calce |
 | 20 gennaio 2023   | 1.5.2     | Integrazione                                                                                | Come da Changelog in calce |
-| 25 gennaio 2023   | 1.5.3     | Correzioni
+| 24 gennaio 2023   | 1.5.3     | Integrazione e correzione                                                                   | Come da Changelog in calce |
+| 01 febbraio 2023  | 1.5.4     | Correzione                                                                                  | Come da Changelog in calce |
+| 08 febbraio 2023  | 1.5.5     | Correzione   
 
 **Emissione del documento**
 
@@ -463,7 +465,7 @@ Per la specifica tecnica della redirect si faccia riferimento al par.
 <img src="media/5_recuperoPublicServiceId.jpg" style="width:5.3in;height:3.23056in"
 alt="Chart, diagram, box and whisker chart Description automatically generated" />
 
-Figura – Interazione tra PP e CS IT per recupero publicServiceID
+Figura 5 – Interazione tra PP e CS IT per recupero publicServiceID
 
 L’Utente transfrontaliero potrebbe accedere al Procedimento
 amministrativo di interesse sul Procedure Portal della PA italiana senza
@@ -479,7 +481,7 @@ tramite l’API *retrieveIdPublicService* (par. 3.2).
 <img src="media/6_recuperoListaRequirement.jpg" style="width:6.69375in;height:3.16923in"
 alt="Diagram Description automatically generated" />
 
-Figura – Interazione tra PP ed EB per recupero lista di Requirement
+Figura 6 – Interazione tra PP ed EB per recupero lista di Requirement
 
 Il Procedure Portal (PP) ha la possibilità di invocare un servizio
 pubblico esposto dall’Evidence Broker SDG IT per recuperare la lista dei
@@ -494,7 +496,7 @@ L’API resa disponibile è *retrieveRequirementList* (par.3.3).
 <img src="media/7_recuperoEvidenceTypeList.jpg" style="width:6.69375in;height:3.81188in"
 alt="Diagram Description automatically generated" />
 
-Figura – Interazione tra PP ed EB per recupero lista di Evidence type
+Figura 7 – Interazione tra PP ed EB per recupero lista di Evidence type
 
 Il Procedure Portal (PP) ha la possibilità di invocare un servizio
 pubblico esposto dall’Evidence Broker SDG IT (EB) per recuperare la
@@ -508,7 +510,7 @@ L’API resa disponibile è *retrieveEvidenceTypeList* (par. 3.4).
 <img src="media/8_recuperoListaDataService.jpg" style="width:6.02326in;height:3.3741in"
 alt="Chart, box and whisker chart Description automatically generated" />
 
-Figura – Interazione tra PP e DSD per recupero lista dei data service
+Figura 8 – Interazione tra PP e DSD per recupero lista dei data service
 
 Il Procedure Portal (PP) ha la possibilità di recuperare dal Data
 Service Directory SDG IT (DSD) l’identificativo e le informazioni
@@ -524,7 +526,7 @@ L’API esposta dal DSD è *retrieveDataServiceList* (par. 3.5).
 
 <img src="media/9_invioEvidenceRequest1.jpg" style="width:6.43023in;height:3.7903in" />
 
-Figura – Interazione tra PP e ACS SDG IT per invio Evidence Request 1
+Figura 9 – Interazione tra PP e ACS SDG IT per invio Evidence Request 1
 
 L’Utente transfrontaliero, tramite Procedure Portal, deve avere la
 possibilità di avviare il processo di recupero della Evidence. A seguito
@@ -540,7 +542,7 @@ in seguito a un’ulteriore chiamata, così come descritta al par. 2.3.7.
 <img src="media/10_recuperoEvidenceResponse1.jpg" style="width:5.56923in;height:3.2799in"
 alt="Diagram, box and whisker chart Description automatically generated" />
 
-Figura - Interazione tra PP e ACS SDG IT per recupero Evidence Response
+Figura 10 - Interazione tra PP e ACS SDG IT per recupero Evidence Response
 1
 
 Il Procedure Portal può verificare l’avvenuta generazione di una
@@ -553,7 +555,7 @@ dall’Architecture Common Services SDG IT *evidenceResponse* (par. 3.7).
 <img src="media/11_invioEvidenceRequest2.jpg" style="width:6.3429in;height:3.4744in"
 alt="Diagram Description automatically generated" />
 
-Figura – Integrazione tra PP e ACS SDG IT per invio Evidence Request 2
+Figura 11 – Integrazione tra PP e ACS SDG IT per invio Evidence Request 2
 verso il Data Service
 
 Nel caso in cui il Procedure Portal abbia ricevuto un’Evidence Response
@@ -570,7 +572,7 @@ Space SDG IT.
 <img src="media/12_invioEvidenceReq2ToDs.jpg" style="width:6.35652in;height:3.75361in"
 alt="Diagram, box and whisker chart Description automatically generated" />
 
-Figura - Integrazione tra PP e ACS SDG IT per invio Evidence Request 2
+Figura 12 - Integrazione tra PP e ACS SDG IT per invio Evidence Request 2
 verso il Data Service
 
 Il Procedure Portal può verificare l’avvenuta generazione di una
@@ -585,7 +587,7 @@ Evidence, queste saranno contenute nell’Evidence Response 2.
 <img src="media/13_CheckPF.jpg"
 style="width:6.48837in;height:4.58179in" />
 
-Figura - Integrazione tra PP e ACS SDG IT per servizio checkPF presso
+Figura 13 - Integrazione tra PP e ACS SDG IT per servizio checkPF presso
 Agenzia delle Entrate
 
 L’Architecture Common Services SDG IT espone un servizio che, a fronte
@@ -15216,5 +15218,22 @@ REQUIREMENT LIST</h2></td>
 country-code in input.</p>
 <p>Aggiornato file yaml.</p></td>
 </tr>
+<tr class="odd">
+<td rowspan="2">1.5.4</td>
+<td>RECUPERO ID PUBLICSERVICE</td>
+<td>Correzione</td>
+<td>Corretto file di esempio retrieveIdPublicService - V3.json</td>
+</tr>
+<tr class="even">
+<td>RECUPERO EVIDENCETYPE LIST</td>
+<td>Correzione</td>
+<td>Corretta url API.</td>
+</tr>
+<tr class="odd">
+<td>1.5.5</td>
+<td>RECUPERO EVIDENCETYPE LIST</td>
+<td>Correzione</td>
+<td>Corretto file yaml.</td>
+</tr>				
 </tbody>
 </table>
