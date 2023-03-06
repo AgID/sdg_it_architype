@@ -1620,7 +1620,7 @@ Di seguito la specifica OpenAPI3 per l’API retrieveRequirementList:
 
 | **PROTOCOL**                | HTTPS                                                         |
 |-------------------|-----------------------------------------------------|
-| **PATH (Private Exposure)** | https://\<dominio_service_catalog\>/api/v1/evidence-type/list |
+| **PATH (Private Exposure)** | https://\<dominio_service_catalog\>/api/v1/evidence-type-list/list |
 | **METHOD**                  | GET                                                           |
 | **CONTENT TYPE**            | application/xml                                               |
 
