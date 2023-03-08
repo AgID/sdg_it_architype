@@ -1,0 +1,181 @@
+openapi: 3.0.0
+info:
+  title: Recupero della lista degli PublicService 
+  description: L’utente di backend invoca in GET il metodo retrieveIdPublicServiceList passando in input il parametro identificatore del tipo di PublicService da recuperare
+  version: 1.0.6
+servers:
+  - url: https://sit.servizisdg.gov.it/sdg-cnaz-sp-int
+    description: PDND Collaudo
+paths:
+  /servicecatalogue/v1/publicService/mapping:
+    get:
+      security:
+        - Authorization: []         
+      tags:
+        - retrieveIdPublicService 
+      summary: restituisce la lista delle PublicService  
+      description: il metodo get restituisce la lista delle PublicService 
+      parameters:
+        - in: query
+          name: name
+          required: true
+          schema:
+            type: string
+          description: Nome del procedimento amministrativo 
+        - in: query
+          name: ipaCode
+          required: true
+          schema:
+            type: string
+          description: Codice IPA, identificativo dell’ente del procedimento amministrativo
+       
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+
+
+components:
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+           $ref: '#/components/schemas/publicServiceResponse'
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '400'
+             message: Bad Request
+             description: Could not parse request           
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '500'
+             message: An internal server error occurred
+             description: An internal server error occurred
+
+
+  schemas:  
+
+    publicServiceResponse:
+      type: object
+      required:
+        - code
+        - description
+        - publicService
+      properties:
+        code:
+          type: string
+          description: Rif response code
+          example: 200
+        description:
+          type: string
+          description: Eventuale descrizione code
+          example: Successful operation
+        message:
+          type: string
+          description: Eventuale messaggio di errore
+        publicService:
+          $ref: '#/components/schemas/publicService'
+
+    publicService:
+      type: object
+      description: Array di oggetti JSON
+      required:
+        - publicServiceId
+        - euPublicServiceId
+        - name
+        - description
+        - publicOrganization
+      properties:
+        publicServiceId:
+          type: integer
+          description: Identificativo tecnico della tabella del procedimento amministrativo
+          example: 101
+        euPublicServiceId:
+          type: string
+          description: Identificativo univoco definito dalla Comunità Europea del procedimento amministrativo  
+          example: P17.1    
+        name:
+          type: string
+          description: Nome del procedimento amministrativo  
+          example: Anagrafica Light
+        description:
+          type: string
+          description: Descrizione del procedimento amministrativo
+          example: Secondo questa procedura, le autorità competenti (regimi pensionistici e assicurativi obbligatori) sono tenute ad accettare la domanda di registrazione di un datore di lavoro per via elettronica.”
+        publicOrganization:
+          $ref: '#/components/schemas/publicOrganization'
+
+    publicOrganization:
+      type: object
+      description: Identificativo univoco definito dall’Comunità Europea
+      required:
+        - publicOrganizationId
+        - preferredLabel
+        - locationGeographicId
+        - ipaCode
+      properties:
+        publicOrganizationId:
+          type: integer
+          description: Identificativo della Pubblica Amministrazione di appartenenza 
+          example: 123
+        preferredLabel:
+          type: string
+          description: Etichetta preferita per l’identificazione della Pubblica Amministrazione di appartenenza
+          example: inail
+        locationGeographicId:
+          type: string
+          description: Identificativo per la Locazione geografica della Pubblica Amministrazione di appartenenza   
+          example: GI6
+        ipaCode:
+          type: string
+          description: codice ipa,Identificativo della Pubblica Amministrazione di appartenenza   
+          example: P06
+
+
+    Errore:
+      type: object
+      required:
+            - code
+            - message
+      properties:
+            code:
+              type: string
+              description: Codice di errore
+              example: <HTTP_CODE>
+              enum:
+                - '400'
+                - '500'
+            message:
+              type: string
+              description: Tipologia di errore
+              example: <HTTP_STATUS>
+              enum:
+                - Bad Request
+                - Internal Server Error
+            description:
+              type: string
+              description: Descrizione di dettaglio dello specifico problema verificatosi
+              example: <detail_error>
+      description: Modello di risposta in caso di errore 
+          
+  securitySchemes:
+    Authorization:            # Bearer <Voucher PDND>
+      type: http
+      scheme: bearer
+      bearerFormat: JWT       
+    
