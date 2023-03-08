@@ -135,7 +135,7 @@ paths:
 
                           EvidenceProviderDeterminationContext:
                            - Identifier: CertificateOfBirth
-                           - Type: Codelist 	##Value from a Codelist required. Must be publised in the Semantic Repository
+                           - Type: Codelist   ##Value from a Codelist required. Must be publised in the Semantic Repository
                            - ValueExpression: http://sr.europa.eu/codelists 
                            - Description: #Certificate of Birth
                              - lang: en
@@ -716,6 +716,8 @@ components:
            description: true or 1 Representing Yes affirmative answers.false or 0 representing No negative answers.
           CodeValue:
            type: string
+           xml:
+            prefix: 'sdg'
            description: codice per il classification concept
           DataTimeValue:
            type: string
@@ -734,6 +736,8 @@ components:
            description: Un URI  o un indirizzo email
           Time:
            type: string
+           xml:
+            prefix: 'sdg'
            description: Un orario (formato hh:mm:ss)
           Duration:
            type: string
