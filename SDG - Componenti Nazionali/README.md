@@ -1,20 +1,6 @@
-***Accordo quadro di servizi applicativi in ottica Cloud – Lotto 1***
-
-***Progetto Single Digital Gateway (SDG)***
-
-Integrazione SDG con Procedure Portal
-
-Documento di Specifica Tecnica
-
-**Versione 1.5.5**
-
-**Stato del documento: Final**
-
-**Classificazione del documento: AgID Internal**
-
-**08 febbraio 2023**
-
-
+Il presente Repository contiene:
+-   le specifiche di Interface Agreement relative ai Procedure Portal aggiornate all'ultima versione in formato docx;
+-   gli swagger relativi agli e-services pubblicati sotto PDND
 
 | **Lista di Distribuzione** |                                    |
 |----------------------------|------------------------------------|
