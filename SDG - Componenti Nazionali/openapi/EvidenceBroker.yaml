@@ -401,6 +401,16 @@ components:
                                 prefix: 'sdg'                              
                             ReferenceFramework:  
                               $ref: '#/components/schemas/ReferenceFrameworkArray'
+                            EvidenceTypeList:
+                                $ref: '#/components/schemas/EvidenceTypeListArray'
+    EvidenceTypeListArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/EvidenceTypeList'
+      xml:
+        name: EvidenceTypeList
+        wrapped: false
+        prefix: 'sdg'
                       
     ReferenceFrameworkArray:
       type: array
@@ -457,8 +467,89 @@ components:
             AdminUnitLevel3:
               type: string
               xml:
-                prefix: 'sdg'                         
-      Errore:
+                prefix: 'sdg'
+    EvidenceTypeList:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - Identifier
+        - EvidenceType
+      properties:
+        Identifier:
+          type: string
+          xml:
+            prefix: 'sdg'
+        Name:
+          type: string
+          xml:
+            prefix: 'sdg'
+        Description:
+          type: string
+          xml:
+            prefix: 'sdg'
+        EvidenceType:
+          $ref: '#/components/schemas/EvidenceTypeArray'
+    EvidenceTypeArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/EvidenceType'
+      xml:
+        name: EvidenceType
+        wrapped: false
+        prefix: 'sdg'
+    EvidenceType:
+      type: object
+      xml:
+        prefix: 'sdg'
+      properties:
+        Identifier:
+          type: string
+          xml:
+            prefix: 'sdg'
+        title:
+          type: string
+          xml:
+            prefix: 'sdg'
+          properties:
+            lang:
+              type: string
+              example: en
+              xml:
+                attribute: true
+
+        Description:
+          type: string
+          xml:
+            prefix: 'sdg'
+          properties:
+            lang:
+              type: string
+              example: en
+              xml:
+                attribute: true
+        EvidenceTypeClassification:
+          type: string
+          xml:
+            prefix: 'sdg'
+        Jurisdiction:
+          type: object
+          xml:
+            prefix: 'sdg'
+          properties:
+            AdminUnitLevel1:
+              type: string
+              xml:
+                prefix: 'sdg'
+            AdminUnitLevel2:
+              type: string
+              xml:
+                prefix: 'sdg'
+            AdminUnitLevel3:
+              type: string
+              xml:
+                prefix: 'sdg'                
+    Errore:
       type: object
       required:
             - code
