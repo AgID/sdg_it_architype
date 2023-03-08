@@ -7,6 +7,32 @@ servers:
   - url: https://sit.servizisdg.gov.it/sdg-cnaz-sp-int
     description: PDND Collaudo
 paths:
+  /acs/v1/check/pf:
+    post:
+      tags:
+        - agenzia-delle-entrate
+      summary: getFiscalCode
+      operationId: getFiscalCodeUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
   /acs/v1/evidence/request:
     post:
       security:
@@ -1533,6 +1559,38 @@ components:
      properties:
       LegalPerson:
        $ref: '#/components/schemas/LegalPersonResponse' 
+    UserVO:
+      title: UserVO
+      required:
+        - dataNascita
+      type: object
+      properties:
+        codiceFiscale:
+          pattern: ^([A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST]{1}[0-9LMNPQRSTUV]{2}[A-Z]{1}[0-9LMNPQRSTUV]{3}[A-Z]{1})$|([0-9]{11})$
+          type: string
+        cognome:
+          pattern: ^[a-zA-Zà-ù\'\s+]+$
+          type: string
+        comuneNascita:
+          pattern: ^[a-zA-Zà-ù\s+]+$
+          type: string
+        dataNascita:
+          type: string
+          format: date-time
+        nome:
+          pattern: ^[a-zA-Zà-ù\'\s+]+$
+          type: string
+        provinciaNascita:
+          pattern: ^[a-zA-Zà-ù\s+]+$
+          type: string
+        sesso:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[fmFM]{1}$
+          type: string
+        statoNascita:
+          pattern: ^[a-zA-Zà-ù\s+]+$
+          type: string
   securitySchemes:
     Authorization:            # Bearer <Voucher PDND>
       type: http
