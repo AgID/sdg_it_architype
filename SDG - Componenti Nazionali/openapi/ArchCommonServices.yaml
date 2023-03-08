@@ -20,11 +20,16 @@ paths:
               $ref: '#/components/schemas/UserVO'
       responses:
         '200':
-          description: OK
+          description: >-
+            Ritorno positivo della chiamata, restituisce un valore TRUE/FALSE
+            che identifica se la persona fisica è valida, inoltre ai fini della consistenza delle API
+            restituisce i dati di input utilizzati per la verifica.
           content:
-            application/json:
+            application/problem+json:
               schema:
-                type: object
+                type: array
+                items:
+                  $ref: '#/components/schemas/OutputVerificaPfDto'
         '201':
           description: Created
         '401':
@@ -1591,6 +1596,57 @@ components:
         statoNascita:
           pattern: ^[a-zA-Zà-ù\s+]+$
           type: string
+     
+    OutputVerificaPfDto:
+      type: object
+      properties:
+        dati:
+          $ref: '#/components/schemas/UserVO'
+        valido:
+          type: boolean
+          description: Campo di validità della persona fisica
+        messaggio:
+          type: string
+          description: Messaggio di ritorno del servizio di verifica
+          enum:
+            - Persona fisica verificata con successo
+            - CF formalmente errato
+            - >-
+              CF calcolato sulla base dei dati forniti diverso da quello
+              indicato
+            - CF non presente in AT
+            - >-
+              CF presente in AT, definitivo, i dati anagrafici non corrispondono
+              a quelli indicati
+            - >-
+              CF presente in AT, definitivo, i dati anagrafici corrispondono a
+              quelli indicati, soggetto deceduto
+            - >-
+              CF presente in AT, definitivo, i dati anagrafici corrispondono a
+              quelli indicati
+            - >-
+              CF presente in AT, definitivo, i dati anagrafici corrispondono a
+              quelli indicati, soggetto adottato
+            - >-
+              CF presente in AT, definitivo, i dati anagrafici corrispondono a
+              quelli indicati, soggetto espulso
+            - >-
+              CF presente in AT, definitivo, i dati anagrafici corrispondono a
+              quelli indicati, attribuito sulla base di documenti falsi
+            - CF presente in AT, base di omocodia
+            - >-
+              CF presente in AT, collegato ad altro codice fiscale i dati
+              anagrafici di input non coincidono con quelli associati al
+              collegato
+            - >-
+              CF presente in AT, collegato ad altro codice fiscale i dati
+              anagrafici di input coincidono con i dati anagrafici associati al
+              collegato
+            - >-
+              CF presente in AT, collegato ad altro codice fiscale i dati
+              anagrafici di input coincidono con i dati anagrafici associati al
+              collegato, risulta attribuito in base a documenti falsi
+      description: Oggetto generico di ritorno per la verifica del PF
   securitySchemes:
     Authorization:            # Bearer <Voucher PDND>
       type: http
