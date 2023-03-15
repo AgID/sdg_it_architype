@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query:QueryResponse
+xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
+xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:sdg="http://data.europa.eu/p4s"
+startIndex="0"
+status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" totalResultCount="1">
+	<!-- depending on the count of datasets returned, the totalResultCount attribute should reflect the number of the datasets returned -->
+	<rim:RegistryObjectList>
+		<!-- One registry object per dataset -->
+		<rim:RegistryObject id="RE238912378">
+			<rim:Slot name="DataServiceEvidenceType">
+				<rim:SlotValue xsi:type="rim:AnyValueType">
+					<sdg:DataServiceEvidenceType>
+						<!-- - - Evidence Type Metadata - - -->
+						<!-- The Data Service assigned Unique Identifier of the Evidence Type. Must be used in the Evidence Exchange Request -->
+						<sdg:Identifier>RE238918378</sdg:Identifier>
+						<!-- Classification Information - Used for linking with the Semantic Repository and Evidence Broker -->
+						<sdg:EvidenceTypeClassification>http://oots.eu/evidencetypes/germany/geburtsurkunde</sdg:EvidenceTypeClassification>
+						<sdg:Title lang="en">Certificate of Birth</sdg:Title>
+						<sdg:Title lang="de">Geburtsurkunde</sdg:Title>
+						<sdg:Description lang="en">An official certificate of birth of a person - with first name, surname, sex, date and place of birth, which is obtained from the birth register of the place of birth.</sdg:Description>
+						<sdg:Description lang="de">Eine amtliche Bescheinigung über die Geburt einer Person – mit Vorname, Familienname, Geschlecht, Datum und Ort der Geburt, welche aus dem Geburtsregister des Geburtsortes erstellt wird.</sdg:Description>
+						<!-- Distribution Information - Multiple Distributions per Data Service Evidence Type -->
+						<!-- XML Distribution, conforming to the common data model on Birth Certificate -->
+						<sdg:DistributedAs>
+							<sdg:Format>http://publications.europa.eu/resource/authority/file-type/XML</sdg:Format>
+							<sdg:ConformsTo>https://semic.org/sa/common/birthcert-1.0.0</sdg:ConformsTo>
+						</sdg:DistributedAs>
+						<!-- PDF Distribution. PDF is unstructured data so there is no conformance to a data model -->
+						<sdg:DistributedAs>
+							<sdg:Format>application/pdf</sdg:Format>
+						</sdg:DistributedAs>
+						<!-- - - Evidence Provider and Data Service Metadata - - -->
+						<!-- Access Service represents the Data Service serving the piece of Evidence on behalf of an Evidence Provider -->
+						<!-- Multiple Access Services, one per Evidence Provider -->
+						<sdg:AccessService>
+							<!-- The Evidence Exchange profile version to which this access service expects / serves -->
+							<sdg:Identifier schemeID="urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060">8889909098</sdg:Identifier>
+							<!-- The identifier of the Access Service, using ebcore Party ID Type. Used in eDelivery Evidence Exchange for PMode Mapping -->
+							<sdg:ConformsTo>oots:edm-v1.0</sdg:ConformsTo>
+							<!-- The Evidence Provider Information of this access service -->
+							<sdg:Publisher>
+								<sdg:Identifier schemeID="VAT">DE73524311</sdg:Identifier>
+								<sdg:Name>Civil Registration Office Hamburg</sdg:Name>
+								<sdg:Address>
+									<sdg:FullAddress>Street ABC</sdg:FullAddress>
+									<sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+									<!-- NUTS Code -->
+									<sdg:AdminUnitLevel2>DE12</sdg:AdminUnitLevel2>
+								</sdg:Address>
+								<sdg:Jurisdiction>
+									<sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+									<sdg:AdminUnitLevel2>DE12</sdg:AdminUnitLevel2>
+								</sdg:Jurisdiction>
+								<!-- - - An Example of an Information Concept that can be provided by the Access Service in a structured format - - -->
+								<sdg:ClassificationConcept>
+									<sdg:Identifier>BirthDate</sdg:Identifier>
+									<sdg:Type>CertificateOfBirth</sdg:Type>
+									<sdg:Description>The month, day, and year a person was born</sdg:Description>
+									<sdg:SupportedValue>
+										<sdg:DateValue>2022-05-05</sdg:DateValue>
+									</sdg:SupportedValue>
+								</sdg:ClassificationConcept>
+							</sdg:Publisher>
+						</sdg:AccessService>
+						<!-- Classification Information - Used for linking with the Evidence Broker -->
+						<sdg:AccessService>
+							<sdg:Identifier schemeID="urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060">8889909099</sdg:Identifier>
+							<sdg:ConformsTo>oots:edm-v1.0</sdg:ConformsTo>
+							<sdg:Publisher>
+								<!-- The Evidence Provider Information -->
+								<sdg:Identifier schemeID="VAT">DE73524311</sdg:Identifier>
+								<sdg:Name>Civil Registration Office Hamburg</sdg:Name>
+								<sdg:Address>
+									<sdg:FullAddress>Street ABC</sdg:FullAddress>
+									<sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+									<!-- NUTS Code -->
+									<sdg:AdminUnitLevel2>DE12</sdg:AdminUnitLevel2>
+								</sdg:Address>
+								<sdg:Jurisdiction>
+									<sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+									<sdg:AdminUnitLevel2>DE12</sdg:AdminUnitLevel2>
+								</sdg:Jurisdiction>
+							</sdg:Publisher>
+						</sdg:AccessService>
+						<sdg:EvidenceProviderClassification>
+							<sdg:Identifier>CertificateOfBirth</sdg:Identifier>
+							<sdg:Type>Codelist</sdg:Type>
+							<!-- Value from a Codelist required. Must be publised in the Semantic Repository -->
+							<sdg:ValueExpression>http://sr.europa.eu/codelists/birthCertificate</sdg:ValueExpression>
+							<sdg:Description lang="en">Certificate of Birth</sdg:Description>
+						</sdg:EvidenceProviderClassification>
+						
+						<sdg:UserIdentityAttribute name="codice_fiscale">
+							<label lang="en" > fiscal code</label>
+							<label lang="it" > codice fiscale</label>
+							<url>http://etccc</url>
+						</sdg:UserIdentityAttribute>
+						
+						<sdg:UserIdentityAttribute name="altro_attributo">
+							<label lang="it" >altro attributo</label>
+							<label lang="en" >other attribute</label>
+						</sdg:UserIdentityAttribute>
+						
+					</sdg:DataServiceEvidenceType>
+				</rim:SlotValue>
+			</rim:Slot>
+		</rim:RegistryObject>
+	</rim:RegistryObjectList>
+</query:QueryResponse>
