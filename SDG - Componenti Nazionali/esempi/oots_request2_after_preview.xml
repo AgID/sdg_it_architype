@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query:QueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+                  xmlns:sdg="http://data.europa.eu/p4s"
+                  xmlns:xmime="http://www.w3.org/2005/05/xmlmime" 
+                  xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+                  xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xmlns:xml="http://www.w3.org/XML/1998/namespace"            
+                  requestID="bc2842c1-6625-450d-a7c6-7d692230b753">
+
+	<rim:Slot name="SpecificationIdentifier">
+		<rim:SlotValue xsi:type="rim:StringValueType">
+			<rim:Value>oots-edm:v1.0</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="IssueDateTime">
+		<rim:SlotValue xsi:type="rim:DateTimeValueType">
+			<rim:Value>2022-02-15T19:20:30+01:00</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="Procedure">
+		<rim:SlotValue xsi:type="rim:InternationalStringValueType">
+			<rim:Value>
+				<rim:LocalizedString xml:lang="en"
+									 value="Requesting recognition of diploma"/>
+			</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="PreviewLocation">
+		<rim:SlotValue xsi:type="rim:StringValueType">
+			<rim:Value>https://preview.space.example.com/requests?session=d36af8bc-fea6-4ee5-a32d-5bef82cdb071</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="PossibilityForPreview">
+		<rim:SlotValue xsi:type="rim:BooleanValueType">
+			<rim:Value>true</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="ExplicitRequestGiven">
+		<rim:SlotValue xsi:type="rim:BooleanValueType">
+			<rim:Value>true</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="Requirements">
+		<rim:SlotValue xsi:type="rim:CollectionValueType"
+					   collectionType="urn:oasis:names:tc:ebxml-regrep:CollectionType:Set">
+			<rim:Element xsi:type="rim:AnyValueType">
+				<sdg:Requirement>
+					<sdg:Identifier>315cfd75-6605-49c4-b0fe-799833b41099</sdg:Identifier>
+					<sdg:Name lang="en">Proof of Secondary Education Completion</sdg:Name>
+				</sdg:Requirement>
+			</rim:Element>
+			<rim:Element xsi:type="rim:AnyValueType">
+				<sdg:Requirement>
+					<sdg:Identifier>543-cfd75-6605-49c4-b0fe-799833b41111</sdg:Identifier>
+					<sdg:Name lang="en">Proof of Secondary Education Completion Supplemenent Evidence</sdg:Name>
+				</sdg:Requirement>
+			</rim:Element>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="EvidenceRequester">
+		<rim:SlotValue xsi:type="rim:CollectionValueType">
+			<rim:Element xsi:type="rim:AnyValueType">
+				<sdg:Agent>
+					<sdg:Identifier schemeID="0190">NL22233223</sdg:Identifier>
+					<sdg:Name lang="en">University of Amsterdam</sdg:Name>
+					<sdg:Address>
+						<sdg:FullAddress>Binnengasthuisstraat 9</sdg:FullAddress>
+						<sdg:LocatorDesignator>9</sdg:LocatorDesignator>
+						<sdg:PostCode>1012</sdg:PostCode>
+						<sdg:PostCityName>Amsterdam</sdg:PostCityName>
+						<sdg:AdminUnitLevel1>NL</sdg:AdminUnitLevel1>
+						<sdg:AdminUnitLevel2>NL329</sdg:AdminUnitLevel2>
+					</sdg:Address>
+					<sdg:Classification>EvidenceRequester</sdg:Classification>
+				</sdg:Agent>
+			</rim:Element>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="EvidenceProvider">
+		<rim:SlotValue xsi:type="rim:AnyValueType">
+			<sdg:Agent>
+				<sdg:Identifier schemeID="0204">DE7657587001</sdg:Identifier>
+				<sdg:Name>Authority for school and occupational training</sdg:Name>
+			</sdg:Agent>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="EvidenceProviderClassification">
+		<rim:SlotValue xsi:type="rim:CollectionValueType">
+			<rim:Element xsi:type="rim:AnyValueType">
+				<sdg:EvidenceProviderClassification>
+					<sdg:Identifier>SecondarySchool</sdg:Identifier>
+					<sdg:Type>Codelist</sdg:Type>
+					<!-- Value from a Codelist required. Must be publised in the Semantic Repository -->
+					<sdg:Description lang="en">SecondarySchool</sdg:Description>
+					<sdg:SupportedValue>
+						<sdg:StringValue>Wilhelm Gymnasium</sdg:StringValue>
+					</sdg:SupportedValue>
+				</sdg:EvidenceProviderClassification>
+			</rim:Element>
+			<rim:Element xsi:type="rim:AnyValueType">
+				<sdg:EvidenceProviderClassification>
+					<sdg:Identifier>YearOfGraduation</sdg:Identifier>
+					<sdg:Type>Codelist</sdg:Type>
+					<!-- Value from a Codelist required. Must be publised in the Semantic Repository -->
+					<sdg:Description lang="en">SecondarySchool</sdg:Description>
+					<sdg:SupportedValue>
+						<sdg:StringValue>1988</sdg:StringValue>
+					</sdg:SupportedValue>
+				</sdg:EvidenceProviderClassification>
+			</rim:Element>
+		</rim:SlotValue>
+	</rim:Slot>
+	<query:ResponseOption returnType="LeafClassWithRepositoryItem"/>
+	<query:Query queryDefinition="DocumentQuery">
+		<rim:Slot name="NaturalPerson">
+			<rim:SlotValue xsi:type="rim:AnyValueType">
+				<sdg:Person>
+					<sdg:LevelOfAssurance>High</sdg:LevelOfAssurance>
+					<sdg:Identifier schemeID="eidas">DK/DE/123456</sdg:Identifier>
+					<sdg:FamilyName>Smith</sdg:FamilyName>
+					<sdg:GivenName>Jack</sdg:GivenName>
+					<sdg:DateOfBirth>1970-03-01</sdg:DateOfBirth>
+					<sdg:PlaceOfBirth>Dusseldorf</sdg:PlaceOfBirth>
+					<sdg:CurrentAddress>
+						<sdg:FullAddress>Lansstraße 81</sdg:FullAddress>
+						<sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+					</sdg:CurrentAddress>
+					<sdg:Gender>Male</sdg:Gender>
+					<SectorSpecificAttribute> 
+						<AttributeName>IBAN</AttributeName> 
+						<AttributeURI>http://eidas.europa.eu/attributes/naturalperson/banking/IBAN</AttributeURI> 
+						<AttributeValue>DE02500105170137075032</AttributeValue> 
+					</SectorSpecificAttribute> 
+					<SectorSpecificAttribute> 
+						<AttributeName>BIC</AttributeName> 
+						<AttributeURI>http://eidas.europa.eu/attributes/naturalperson/banking/BIC</AttributeURI> 
+						<AttributeValue>INGDDEFFYYY</AttributeValue> 
+					</SectorSpecificAttribute> 
+					<UserIdentityAttribute> 
+						<AttributeName>CF</AttributeName> 
+						<AttributeValue>ABCDEF81U26R238Q</AttributeValue> 
+					</UserIdentityAttribute>		
+				</sdg:Person>
+			</rim:SlotValue>
+		</rim:Slot>
+		<rim:Slot name="EvidenceRequest">
+			<rim:SlotValue xsi:type="rim:AnyValueType">
+				<sdg:DataServiceEvidenceType>
+					<sdg:Identifier>487fdfdc-7f92-42bb-a690-dcbd3d65f435</sdg:Identifier>
+					<sdg:EvidenceTypeClassification>SecondaryEducationCompletion</sdg:EvidenceTypeClassification>
+					<sdg:Title lang="en">Secondary Education Completion Evidence</sdg:Title>
+					<sdg:Title lang="de">Nachweis des Sekundarschulabschlusses</sdg:Title>
+					<sdg:DistributedAs>
+						<sdg:Format>application/pdf</sdg:Format>
+						<sdg:ConformsTo>https://semic.org/sa/common/secondary-education-evidence-1.0.0</sdg:ConformsTo>
+					</sdg:DistributedAs>
+				</sdg:DataServiceEvidenceType>
+			</rim:SlotValue>
+		</rim:Slot>
+	</query:Query>
+</query:QueryRequest>
