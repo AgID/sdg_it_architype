@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query:QueryResponse
+    xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0"
+    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
+    xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+    xmlns:sdg="http://data.europa.eu/p4s"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success">
+
+    <!-- Validate with sch/EB-EVI-C and sch/EB-EVI-S -->
+    <rim:RegistryObjectList>
+        <!-- One registry object per dataset -->
+        <rim:RegistryObject id="urn:uuid:ff975f1d-0470-436f-9209-eb521b955515">
+            <rim:Slot name="Requirement">
+                <rim:SlotValue xsi:type="rim:AnyValueType">
+                    <sdg:Requirement>
+                        <sdg:Identifier>https://sr.oots.tech.europa.eu/requirements/cfcd4e22-30f1-48fa-93e4-6cf98cedbf40</sdg:Identifier>
+                        <sdg:Name>Proof of secondary education diploma/certificate</sdg:Name>
+
+                        <!-- List of Reference Frameworks that implement the Requirement-->
+                        <sdg:ReferenceFramework>
+
+                            <!-- Link to the Procedure as implemented in Schleswig-Holstein, Germany, uniquely identified by the Identifier and Jurisdiction. The name of the procedure is declared  with a regional reference framework in Schleswig-Holstein because the procedure is implemented by a regional Member State regulation -->
+                            <sdg:Identifier>5f661524-0ea6-4e5c-a6b8-e381e9908644</sdg:Identifier>
+                            <sdg:Title>39 HSG - University Admission, Schleswig-Holstein</sdg:Title>
+                            <sdg:Description> Section 39 Law on Universities and the University Hospital of Schleswig-Holstein (Higher Education Act - HSG): (1) The following proven school-based higher education entrance qualifications shall entitle the holder to study with a first higher education degree: 1. the general higher education entrance qualification, 2. the subject-linked higher education entrance qualification, 3. the general entrance qualification for studies at universities of applied sciences, 4. the subject-linked entrance qualification for studies at universities of applied sciences.
+                            </sdg:Description>
+
+                            <!-- The Identifier of the SDGR Procedure which this procedure relates to encoded according to Procedures-CodeList.gc. In this case T2 relates to "Submitting an initial application for admission to public tertiary education institution" -->
+                            <sdg:RelatedTo>
+                                <sdg:Identifier>T2</sdg:Identifier>
+                            </sdg:RelatedTo>
+
+                            <!-- Country - Mandatory - ISO code. Requirement is connected to the implementation of Procedure 4 in Schleswig-Holstein, Germany. Regional Codes (AdminUnitLevel 2) is provided because the regional law or reference framework in Schleswig-Holstein is relevant for the implementation (Common Reference Framework for the country)  -->
+                            <sdg:Jurisdiction>
+                                <sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+                                <sdg:AdminUnitLevel2>DEF</sdg:AdminUnitLevel2>
+                            </sdg:Jurisdiction>
+
+                        </sdg:ReferenceFramework>
+
+                        <sdg:ReferenceFramework>
+
+                            <!-- Link to the Procedure as implemented in Hesse Germany, uniquely identified by the Identifier and Jurisdiction. The name of the procedure is declared  with a regional reference framework in Hesse because the procedure is implemented by a regional Member State regulation -->
+                            <sdg:Identifier>b09b256e-37c7-4ca4-8578-31bfb82abba8</sdg:Identifier>
+                            <sdg:Title>54 HessHG 2009 - University Admission, Hesse</sdg:Title>
+                            <sdg:Description>54 Hessian Higher Education Act (HessHG) 2009: (1) Students are entitled to study in an undergraduate degree programme if they can prove that they have the necessary qualifications (higher education entrance qualification). The eligible qualifications for study are described in (2) of the (§ 54 HessHG 2009).
+                            </sdg:Description>
+
+                            <!-- The Identifier of the SDGR Procedure which this procedure relates to encoded according to Procedures-CodeList.gc. In this case T2 relates to "Submitting an initial application for admission to public tertiary education institution" -->
+                            <sdg:RelatedTo>
+                                <sdg:Identifier>T2</sdg:Identifier>
+                            </sdg:RelatedTo>
+
+                            <!-- Country - Mandatory - ISO code. Requirement is connected to the implementation of Procedure 4 in Hesse, Germany. Regional Codes (AdminUnitLevel 2) is provided because the regional law or reference framework in Hesse is relevant for the implementation (Common Reference Framework for the country)  -->
+                            <sdg:Jurisdiction>
+                                <sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+                                <sdg:AdminUnitLevel2>DE7</sdg:AdminUnitLevel2>
+                            </sdg:Jurisdiction>
+
+                        </sdg:ReferenceFramework>
+
+                        <!-- List of Evidence Types related to Higher education entrance qualification that proof the Requirement in Germany, indicated by the Jurisdiction - DE-->
+                        <sdg:EvidenceTypeList>
+                            <sdg:Identifier>48ab0f96-79a5-4d2d-93eb-06d651d5e2ca</sdg:Identifier>
+                            <sdg:Name lang="EN">Certificates about Higher education entrance qualification</sdg:Name>
+                            <sdg:Name lang="DE">Zeugnisse der Hochschulreife</sdg:Name>
+
+                            <!-- Example structure of an evidence type having national coverage area / jurisdiction = DE -->
+                            <sdg:EvidenceType>
+                                <!-- EvidenceTypeClassification Information - Provided by the Evidence Broker on the basis of the Semantic Repository. Used for linking with the Semantic Repository and Data Service Directory -->
+                                <sdg:EvidenceTypeClassification>https://sr.oots.tech.europa.eu/evidencetypeclassifications/DE/edf717b7-b373-40b1-b51b-cbb7c9d64de5</sdg:EvidenceTypeClassification>
+                                <sdg:Title lang="EN">Secondary Education Completion Evidence</sdg:Title>
+                                <sdg:Title lang="DE">Nachweis des Sekundarschulabschlusses</sdg:Title>
+                                <sdg:Description lang="EN">Proof of a secondary school graduation which is acquired after 12 or 13 school years in the upper secondary school and which entitles the holder to the general higher education entrance qualification, i.e. opens up access to all higher education institutions and fields of study.</sdg:Description>
+                                <sdg:Description lang="DE">Nachweis für einen Sekundarschulabschluss, der nach 12 bzw. 13 Schuljahren in der gymnasialen Oberstufe erworben wird und die Allgemeine Hochschulreife verleiht, d.h. den Zugang zu allen Hochschulen und Fachrichtungen eröffnet.</sdg:Description>
+                                <sdg:Jurisdiction>
+                                    <!-- Country - Mandatory - ISO code -->
+                                    <sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+                                    <!-- Regional Code not applicable for DE (Common Evidence Type for the country) -->
+                                </sdg:Jurisdiction>
+                            </sdg:EvidenceType>
+
+                            <sdg:EvidenceType>
+                                <!-- EvidenceTypeClassification Information - Provided by the Evidence Broker on the basis of the Semantic Repository. Used for linking with the Semantic Repository and Data Service Directory -->
+                                <sdg:EvidenceTypeClassification>https://sr.oots.tech.europa.eu/evidencetypeclassifications/DE/a7e1520a-7051-4a96-931f-a097b0f7c097</sdg:EvidenceTypeClassification>
+                                <sdg:Title lang="EN">Subject-specific higher education entrance qualification</sdg:Title>
+                                <sdg:Title lang="DE">Fachgebundene Hochschulreife</sdg:Title>
+                                <sdg:Description lang="EN">The subject-specific higher education entrance qualification is a higher education qualification that entitles the holder to study certain subjects and specialisations at universities and all subjects at universities of applied sciences. This school-leaving certificate is the secondary school leaving certificate without lessons/school examinations in a 2nd foreign language.</sdg:Description>
+                                <sdg:Description lang="DE">Die Fachgebundene Hochschulreife ist ein höherer Bildungsabschluss mit der Studienberechtigung für bestimmte Fächer und Fachrichtungen an Universitäten und für sämtliche Studienfächer an Fachhochschulen. Bei diesem Schulabschluss handelt es sich um das Abitur ohne Unterricht/schulische Prüfung in einer 2. Fremdsprache.</sdg:Description>
+                                <sdg:Jurisdiction>
+                                    <!-- Country - Mandatory - ISO code -->
+                                    <sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+                                    <!-- Regional Code not applicable for DE (Common Evidence Type for the country) -->
+                                </sdg:Jurisdiction>
+                            </sdg:EvidenceType>
+
+                            <sdg:EvidenceType>
+                                <!-- EvidenceTypeClassification Information - Provided by the Evidence Broker on the basis of the Semantic Repository. Used for linking with the Semantic Repository and Data Service Directory -->
+                                <sdg:EvidenceTypeClassification>https://sr.oots.tech.europa.eu/evidencetypeclassifications/DE/76aff882-b970-4400-a33e-6b51d46973c1</sdg:EvidenceTypeClassification>
+                                <sdg:Title lang="EN">Entrance qualification for studies at universities of applied sciences</sdg:Title>
+                                <sdg:Title lang="DE">Fachhochschulreife</sdg:Title>
+                                <sdg:Description lang="EN">The university entrance qualification for studies at universities of applied sciences (Fachhochschulreife, FHSR) is a higher educational qualification from upper secondary level that entitles the holder to study all degree programmes at universities of applied sciences and to take up a Bachelor's degree programme at some universities. </sdg:Description>
+                                <sdg:Description lang="DE">Die Fachhochschulreife (FHSR) ist ein höherer Bildungsabschluss der Sekundarstufe II, der zum Studium aller Studiengänge an Fachhochschulen und zur Aufnahme eines Bachelor-Studiengangs an einigen Universitäten berechtigt. </sdg:Description>
+                                <sdg:Jurisdiction>
+                                    <!-- Country - Mandatory - ISO code -->
+                                    <sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+                                    <!-- Regional Code not applicable for DE (Common Evidence Type for the country) -->
+                                </sdg:Jurisdiction>
+                            </sdg:EvidenceType>
+                        </sdg:EvidenceTypeList>
+
+                        <!-- List of Evidence Types related to Master craftsman's examination or a comparable advanced or further training qualification that proof the Requirement in Germany, indicated by the Jurisdiction - DE-->
+                        <sdg:EvidenceTypeList>
+                            <!-- Example structure of an evidence type list having national coverage area / jurisdiction = DE -->
+                            <sdg:Identifier>c5d3e4e2-c671-48d3-812d-58c6f3bdbc39</sdg:Identifier>
+                            <sdg:Name lang="EN">Other university entrance qualifications</sdg:Name>
+                            <sdg:Name lang="DE">Sonstige Hochschulzugangsberechtigungen</sdg:Name>
+
+                            <sdg:EvidenceType>
+                                <!-- EvidenceTypeClassification Information - Provided by the Evidence Broker on the basis of the Semantic Repository. Used for linking with the Semantic Repository and Data Service Directory -->
+                                <sdg:EvidenceTypeClassification>https://sr.oots.tech.europa.eu/evidencetypeclassifications/DE/c194c647-2e0d-49b5-92ba-03b0e31cc611</sdg:EvidenceTypeClassification>
+                                <sdg:Title lang="EN">Completed master craftsman's examination</sdg:Title>
+                                <sdg:Title lang="DE">Abgeschlossene Meisterprüfung</sdg:Title>
+                                <sdg:Description lang="EN">With a qualification as a master craftsman, it is possible, among other things, to enter directly into a course of study of one's choice.</sdg:Description>
+                                <sdg:Description lang="ES">Mit einem Meisterabschluss kann unter anderem direkt in ein Studium nach Wahl eingestiegen werden</sdg:Description>
+                                <sdg:Jurisdiction>
+                                    <!-- Country - Mandatory - ISO code -->
+                                    <sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+                                    <!-- Regional Code not applicable for DE (Common Evidence Type for the country) -->
+                                </sdg:Jurisdiction>
+                            </sdg:EvidenceType>
+                            <sdg:EvidenceType>
+                                <!-- EvidenceTypeClassification Information - Provided by the Evidence Broker on the basis of the Semantic Repository. Used for linking with the Semantic Repository and Data Service Directory -->
+                                <sdg:EvidenceTypeClassification>https://sr.oots.tech.europa.eu/evidencetypeclassifications/DE/3f085f27-ad1f-4f39-ad02-df70561d32b4</sdg:EvidenceTypeClassification>
+                                <sdg:Title lang="EN">Completed professional training with work experience</sdg:Title>
+                                <sdg:Title lang="DE">Abgeschlossene Berufsausbildung mit Berufserfahrung</sdg:Title>
+                                <sdg:Description lang="EN">With professional training and subsequent professional practical experience - usually of about three years - it is possible to enter a subject-related degree programme. Sometimes entrance examinations are to be expected.</sdg:Description>
+                                <sdg:Description lang="ES">Mit einer Berufsausbildung und anschließender beruflicher Praxiserfahrung – von meist etwa drei Jahren – kann in ein fachbezogenes Studium eingestiegen werden. Mitunter ist mit Aufnahmeprüfungen zu rechnen.</sdg:Description>
+                                <sdg:Jurisdiction>
+                                    <!-- Country - Mandatory - ISO code -->
+                                    <sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+                                    <!-- Regional Code not applicable for DE (Common Evidence Type for the country) -->
+                                </sdg:Jurisdiction>
+                            </sdg:EvidenceType>
+                        </sdg:EvidenceTypeList>
+
+                    </sdg:Requirement>
+                </rim:SlotValue>
+            </rim:Slot>
+        </rim:RegistryObject>
+    </rim:RegistryObjectList>
+</query:QueryResponse>
