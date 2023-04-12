@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query:QueryResponse xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0" 
+    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0" 
+    xmlns:sdg="http://data.europa.eu/p4s"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    requestId="urn:uuid:4ffb5281-179d-4578-adf2-39fd13ccc797"
+    status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure">
+    <!-- The 'id' attribute of a 'QueryResponse' MUST be unique UUID (RFC 4122) for each request starting with prefix "urn:uuid:" -->
+    <!-- The 'status' attribute of an unsuccessfull 'query:QueryResponse' MUST be encoded as as 'urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure'. -->
+    
+    <rim:Slot name="SpecificationIdentifier">
+        <rim:SlotValue xsi:type="rim:StringValueType">
+            <!-- MUST be the fixed value "oots-edm:v1.0", depending on the version of the OOTS -->
+            <rim:Value>oots-edm:v1.0</rim:Value>
+        </rim:SlotValue>
+    </rim:Slot>
+    <rim:Slot name="EvidenceResponseIdentifier">
+        <rim:SlotValue xsi:type="rim:StringValueType">
+            <!-- The 'rim:Value' of the 'EvidenceResponseIdentifier' MUST be unique UUID (RFC 4122) for each response. -->
+            <rim:Value>530ad1e2-5eaf-4a9a-8192-227432eea95d</rim:Value>
+        </rim:SlotValue>
+    </rim:Slot>
+    <rim:Slot name="ErrorProvider">
+        <rim:SlotValue xsi:type="rim:AnyValueType">
+            <sdg:Agent>
+                <!-- The value of the 'schemeID' attribute of the 'Identifier' MUST be part of the code list 'EAS' (Electronic Address Scheme ) and use the prefix 'urn:cef.eu:names:identifier:EAS:[Code]'  -->
+                <sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0204">DE765758700</sdg:Identifier>
+                <sdg:Name lang="EN">Authority for school and occupational training</sdg:Name>
+                <sdg:Address>
+                    <sdg:FullAddress>Hamburger Str. 31</sdg:FullAddress>
+                    <sdg:LocatorDesignator>31</sdg:LocatorDesignator>
+                    <sdg:PostCode>22083</sdg:PostCode>
+                    <sdg:PostCityName>Hamburg</sdg:PostCityName>
+                    <!-- The value of the 'AdminUnitLevel1' MUST be coded using the code list 'CountryIdentificationCode' (ISO 3166-1' alpha-2 codes).  -->
+                    <sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+                    <!-- The value of the 'AdminUnitLevel2' MUST be coded using the code list 'NUTS' (Nomenclature of Territorial Units for Statistics).  -->
+                    <sdg:AdminUnitLevel2>DE60</sdg:AdminUnitLevel2>
+                </sdg:Address>
+                <!--   The value MUST be part of the code list 'AgentClassification'. Default value: ERRP (Error Provider). The code 'ER' shall not be used by this transaction.  -->
+                <sdg:Classification>ERRP</sdg:Classification>
+            </sdg:Agent>
+        </rim:SlotValue>
+    </rim:Slot>
+    
+    <rim:Slot name="EvidenceRequester">
+        <rim:SlotValue xsi:type="rim:AnyValueType">
+            <sdg:Agent>
+                <sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0190">NL22233223</sdg:Identifier>
+                <sdg:Name lang="en">University of Amsterdam</sdg:Name>
+            </sdg:Agent>  
+        </rim:SlotValue>
+    </rim:Slot>
+
+    <!-- The value of 'xsi:type' attribute of a 'rs:Exception' MUST be a 'type' provided by code list 'EDMErrorCodes' (Exchange Data Model Error Response Codes).  -->
+    <!-- The 'severity' attribute must be part of the code list 'ErrorSeverity' (Error Severity). The code 'urn:sr.oots.tech.europa.eu:codes:ErrorSeverity:DSDErrorResponse:AdditionalInput' shall not be used by this transaction.  -->
+    <!-- The value of 'severity' attribute of a 'rs:Exception' MUST  be 'urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error' if the rs:Exception xsi:type='rs:AuthorizationExceptionType' (@code 'EDM:ERR:0001') is NOT used.  -->
+    <!-- The value of 'code' attribute of a 'rs:Exception' MUST be a 'code' matching the 'type' provided by code list 'EDMErrorCodes' (Exchange Data Model Error Response Codes). -->
+    <!-- If a 'rim:Slot[@name='PreviewLocation']' is provided, the 'rs:Exception' MUST  be 'urn:sr.oots.tech.europa.eu:codes:ErrorSeverity:EDMErrorResponse:PreviewRequired' and use the rs:Exception xsi:type='rs:AuthorizationExceptionType' (@code 'EDM:ERR:0001').  -->
+    <!-- This Example for rs:Exception points to a required preview on the side of the Evidence Provider -->
+    <rs:Exception xsi:type="rs:AuthorizationExceptionType"   severity="urn:sr.oots.tech.europa.eu:codes:ErrorSeverity:EDMErrorResponse:PreviewRequired"
+        message="Missing Authorization" detail="The server needs authorisation and preview on its side to process the request" code="EDM:ERR:0002">
+
+
+        <rim:Slot name="Timestamp">
+            <rim:SlotValue xsi:type="rim:DateTimeValueType">
+                <!-- The 'rim:Value' of 'Timestamp' MUST be according to xsd:dateTime.  -->
+                <rim:Value>2020-02-14T19:21:30+01:00</rim:Value>
+            </rim:SlotValue>
+        </rim:Slot>
+        <rim:Slot name="PreviewLocation">
+            <rim:SlotValue xsi:type="rim:StringValueType">
+                <!-- The 'rim:Value' of a 'PreviewLocation' MUST be a URI starting with 'https://'. -->
+                <rim:Value>https://preview.space.example.com/requests?session=d36af8bc-fea6-4ee5-a32d-5bef82cdb071</rim:Value>
+            </rim:SlotValue>
+        </rim:Slot>
+        <rim:Slot name="PreviewDescription">
+            <rim:SlotValue xsi:type="rim:InternationalStringValueType">
+                <!-- The 'language' attribute of 'PreviewDescription' MUST be specified using the code list 'LanguageCode' (ISO 639-1 two-letter code). -->
+                <rim:Value>
+                    <rim:LocalizedString xml:lang="NL" value="Kies uw diploma."/>
+                    <rim:LocalizedString xml:lang="RO" value="Vă rugăm să selectați diploma dvs."/>
+                    <rim:LocalizedString xml:lang="EN" value="Please select your diploma."/>
+                </rim:Value>
+            </rim:SlotValue>
+        </rim:Slot>
+        <rim:Slot name="PreviewMethod">
+            <rim:SlotValue xsi:type="rim:StringValueType">
+                <!-- The 'rim:Value' of a 'PreviewMethod' MUST be either the HTTP verb 'GET' or 'POST'. -->
+                <rim:Value>GET</rim:Value>
+            </rim:SlotValue>
+        </rim:Slot>
+    </rs:Exception>
+</query:QueryResponse>

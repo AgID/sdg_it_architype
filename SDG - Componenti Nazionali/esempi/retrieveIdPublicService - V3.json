@@ -1,0 +1,17 @@
+{
+  "code": "200",
+  "description": "Successful operation",
+  "message": "string",
+  "publicService": {
+    "publicServiceId": 101,
+    "euPublicServiceId": "P17.1",
+    "name": "Anagrafica Light",
+    "description": "Secondo questa procedura, le autorità competenti (regimi pensionistici e assicurativi obbligatori) sono tenute ad accettare la domanda di registrazione di un datore di lavoro per via elettronica.”",
+    "publicOrganization": {
+      "publicOrganizationId": "P06",
+      "preferredLabel": "inail",
+      "locationGeographicId": "GI6",
+	  "ipaCode": "inail"
+    }
+  }
+}

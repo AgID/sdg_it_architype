@@ -1,0 +1,928 @@
+openapi: 3.0.0
+info:
+  title: Lista dal Data Service l’identificativo della Tipologia di Prova e le informazioni descrittive 
+  description: Recupera dal Data Service Directory l’identificativo e le informazioni descrittive dell’Ente Erogatore
+  version: 1.0.9
+servers:
+  - url: https://sit.servizisdg.gov.it/sdg-cnaz-sp-int
+    description: PDND Collaudo
+paths:
+  /dataservice/v1/data-service/list/:
+    get:
+      security:
+        - Authorization: []         
+      tags:
+        - retrieveDataServiceList 
+      summary: restituisce l’identificativo e le informazioni descrittive dell’Ente Erogatore  
+      description: il metodo get restituisce l’identificativo e le informazioni descrittive dell’Ente Erogatore
+      parameters:
+        - in: query
+          name: queryId
+          required: true
+          schema:
+            type: string
+          description: Questo parametro deve essere valorizzato con la seguente stringa "urn:oots:dsd:ebxml-regrep:queries:dataservices-by-evidencetypeand-jurisdiction" 
+        - in: query
+          name: evidenceTypeClassification
+          required: true
+          schema:
+            type: string
+          description: Classificazione dell’evidenceType. Chiave di collegamento con l’evidenceBorker
+        - in: query
+          name: countryCode
+          required: true
+          schema:
+            type: string
+          description: 2 lettere ISO 3166-1 alpha-2 del prefisso internazionale.       
+        - in: query
+          name: jurisdiction-admin-l2
+          required: false
+          schema:
+            type: string
+          description: 2 Codice NUTS da 3 a 6 lettere.         
+        - in: query
+          name: jurisdiction-admin-l3
+          required: false
+          schema:
+            type: string
+          description: Codice LAU
+        - in: query
+          name: jurisdiction-context-id
+          required: false
+          schema:
+            type: string
+          description: Utilizzato per fornire l'ID del jurisdictionContext utilizzato per la query. Il parametro DEVE essere utilizzato quando si risponde a un'eccezione DSD ricevuta, fornendo il Jurisdiction Context Id trovato nell'eccezione. 
+        - in: query
+          name: evidenceTypeId
+          required: false
+          schema:
+           type: string
+          description: Identificativo del dataServiceEvidenceType.Il parametro DEVE essere utilizzato quando si risponde a un'eccezione DSD ricevuta, fornendo l'id del DataServiceEvidenceType selezionato trovato nell'eccezione  
+        - name: searchParam
+          in: query
+          description: Lista di parametri per la gestione degli attributi aggiuntivi (definiti nel classificationConcept). Es. TypeOfInsurance=public. Si tratta di una lista di parametri di tipo chiave-valore da aggiungere in queryString, valorizzata in caso di errore DSD:ERR:0005. La chiave corrisponde al campo identifer del classificationConcept ricevuto nella response di errore.
+          required: false
+          style: deepObject
+          explode: true
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+      responses:
+        '200':    # status code
+          description: Successful operation
+          content:
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/QueryResponse'
+              example:
+                xmlns: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:lcm: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:rim: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+                xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+                xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                status: urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success
+                RegistryObjectList:
+                  RegistryObject:
+                    id: RE238912378
+                    Slot:  
+                      name: DataServiceEvidenceType
+                      SlotValue: 
+                        xsi:type: rim:AnyValueType                      
+                        DataServiceEvidenceType:
+                          xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                          xmlns: http://data.europa.eu/sdg#
+                          Identifier: RE238912378
+                          Title: #NON RIESCO AD INSERIRE IL VALORE Certificate of Birth
+                            - lang: en
+                            - lang: de
+
+                          Description: #NON RIESCO AD INSERIRE IL VALORE An official certificate of birth of a person - with first name, surname, sex, date and place of birth, which is obtained from the birth register of the place of birth.
+                            - lang: en
+                            - lang: de
+                          EvidenceTypeClassification: CertificateOfBirth
+                          DistributedAs:
+                          - ConformsTo: https://semic.org/sa/common/birthcert-1.0.0
+                            Format: http://publications.europa.eu/resource/authority/file-type/XML
+                          - Format: http://publications.europa.eu/resource/authority/file-type/PDF
+                          AccessService:
+                            ConformsTo: oots:edm-v1.0
+                            Identifier: #NON RIESCO AD INSERIRE IL VALORE --> 8889909098
+                              schemeID: urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060
+                            Publisher:
+                              Identifier: #NON RIESCO AD INSERIRE IL VALORE -->DE73524311
+                               schemeID: VAT
+                              Name: Civil Registration Office Hamburg
+                              Address:
+                                FullAddress: Street ABC
+                                AdminUnitLevel1: DE
+                                AdminUnitLevel2: DE12
+                                AdminUnitLevel3:
+
+                              Jurisdiction:
+                                AdminUnitLevel1: DE
+                                AdminUnitLevel2: DE12
+                                AdminUnitLevel3:
+                              ClassificationConcept:
+                               Identifier: BirthDate
+                               Type: CertificateOfBirthh
+                               Description: #NON RIESCO AD INSERIRE IL VALORE The month, day, and year a person was born
+                               - lang: en
+                               SupportedValue:
+                                 DateValue: 2022-05-05
+                          AuthenticationLevelOfAssurance: http://eidas.europa.eu/LoA/High
+
+                          EvidenceProviderDeterminationContext:
+                           - Identifier: CertificateOfBirth
+                           - Type: Codelist   ##Value from a Codelist required. Must be publised in the Semantic Repository
+                           - ValueExpression: http://sr.europa.eu/codelists 
+                           - Description: #Certificate of Birth
+                             - lang: en
+                          UserIdentityAttribute:
+                            name: codice fiscale
+                            label:
+                              lang: it
+
+                          
+                
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+
+components:
+  responses:
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '400'
+             message: Bad Request
+             description: Could not parse request           
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '500'
+             message: An internal server error occurred
+             description: An internal server error occurred
+  schemas:  
+  
+  
+    QueryResponse:
+      type: object
+      required:
+       - requestId
+       - status  
+       - RegistryObjectList
+      xml:
+        prefix: 'query'
+        namespace: urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0
+      properties:
+        xmlns:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+          xml:
+            attribute: true
+        xmlns:lcm:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+          xml:
+            attribute: true
+        xmlns:rim:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+          xml:
+            attribute: true
+        xmlns:rs:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+          xml:
+            attribute: true    
+        xmlns:xsi:
+          type: string
+          default: http://www.w3.org/2001/XMLSchema-instance
+          xml:
+            attribute: true      
+        xsi:schemaLocation:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+          xml:
+            attribute: true  
+        xmlns:xlink: 
+          type: string
+          default: http://www.w3.org/1999/xlink    
+          xml:
+            attribute: true
+        status:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success
+          xml:
+            attribute: true     
+            
+        Exception:
+          required:
+           - code
+           - xsi:type
+           - severity
+           - message
+          type: object
+          xml: 
+            prefix: 'rs'
+          properties:
+            xsi:type:
+              type: string
+              example: rs:ObjectNotFoundExceptionType
+
+              xml:
+                attribute: true
+            severity:
+              type: string
+              example: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
+              xml:
+                attribute: true            
+            message:
+              type: string
+              example: The requirement requested, represented by the requirement id, does not exist
+              xml:
+                attribute: true                 
+            detail:
+              type: string
+              description: Deve contenere informazioni dettagliate sull'errore, ad esempio informazioni tecniche o una traccia dello stack.
+              xml:
+                attribute: true
+            code:
+              type: string
+              example: EB:ERR:0002
+              xml:
+                attribute: true  
+            Slot:
+              type: array
+              items:
+                $ref: '#/components/schemas/Slot'
+              xml:
+                wrapped: false
+            
+            
+            
+            
+        RegistryObjectList:
+          type: object
+          required:
+           - RegistryObject
+          xml:
+            prefix: 'rim'
+          properties:
+            RegistryObject:
+              type: object
+              xml:
+                prefix: 'rim'
+              required:
+                - id
+                - Slot
+              properties:
+                id:
+                  type: string
+                  xml:
+                    attribute: true    
+                    
+                    
+                Slot:
+                  type: object
+                  xml:
+                    prefix: 'rim'
+                  required:
+                    - name
+                  properties:
+                    name:
+                      type: string
+                      example: DataServiceEvidenceType
+                      xml:
+                        attribute: true
+                    SlotValue:
+                      type: object
+                      xml:
+                        prefix: 'rim'
+                      required:
+                        - xsi:type
+                      properties:
+                        xsi:type:
+                          type: string
+                          default: rim:AnyValueType
+                          xml:
+                            attribute: true     
+                            
+
+                        DataServiceEvidenceType:
+                          required:
+                            - Identifier
+                            - EvidenceTypeClassification
+                            - Title
+                            - DistributedAs
+                            - AccessService
+
+                          type: object
+                          xml:
+                           prefix: 'sdg'
+                          properties:
+                            xmlns:
+                              type: string
+                              default: http://data.europa.eu/sdg#
+                              xml:
+                                attribute: true
+                            xmlns:xsi:
+                              type: string
+                              default: http://www.w3.org/2001/XMLSchema-instance
+                              xml:
+                                attribute: true
+                            Identifier:
+                              type: string
+                              xml:
+                                prefix: 'sdg'
+                              description: Tipologia di Prova (Evidence Type) Metadata. Identificatore   univoco fornito dal Data Service per                 identificare in modo   univoco il tipo di prova ed i metadati correlati.
+                            EvidenceTypeClassification:
+                              type: string
+                              xml:
+                                prefix: 'sdg'
+                              description: Informazioni sulla classificazione.  Usato per il collegamento   con l’Evidence Broker
+                            Title:
+                             type: array
+                             xml:
+                                prefix: 'sdg'
+                             items:
+                              type: object
+                              description: Titolo relativo alle informazioni sulla classificazione. L'attributo "lang" espresso come  codice di due lettere in codifica ISO 639-1, permette di specificare la lingua usata.
+                              properties:
+                               lang:
+                                type: string
+                                example: en
+                                xml:
+                                 attribute: true 
+                                description: Specifica il linguaggio
+                            Description:
+                             type: array
+                             xml:
+                                prefix: 'sdg'
+                             items:
+                              type: object
+                              description: Descrizione relativa al DataServiceEvidenceType. l'attributo "lang" permette di specificare la lingua
+                              properties:
+                               lang:
+                                type: string
+                                example: en
+                                xml:
+                                 attribute: true 
+                                description: Specifica il linguaggio
+                            DistributedAs:
+                                $ref: '#/components/schemas/DistributedAsArray'
+                            AccessService:
+                                $ref: '#/components/schemas/AccessServiceArray'
+                                  
+    
+                            AuthenticationLevelOfAssurance:
+                              type: string
+                              xml:
+                                prefix: 'sdg'
+                              example: http://eidas.europa.eu/LoA/High
+                              description: Livello di garanzia richiesto dell'autenticazione       dell'utente.
+                              
+                            EvidenceProviderJurisdictionDetermination:
+                              $ref: '#/components/schemas/EvidenceProviderJurisdictionDetermination'
+                             
+                            EvidenceProviderClassification:
+                               $ref: '#/components/schemas/EvidenceProviderClassificationArray'
+
+                            UserIdentityAttribute:
+                               $ref: '#/components/schemas/UserIdentityAttribute'
+
+
+                           
+                                  
+    AccessService:
+      type: object
+      xml:
+       prefix: 'sdg'
+      description: Servizio di accesso rappresenta il S che notifica   la prova per conto di un Forni           prove. E’ consentito   avere Serviz multiplo (Multiple Access Services) al quale  un singolo                 Fornitore di pro Provider  ).
+      required:  
+        - Identifier
+        - ConformsTo
+        - Publisher
+      properties:  
+        Identifier:
+          required:        
+            - schemeID
+          description: Identificatore del servizio E’utilizzato   dall'infrastruttura e estrarre e                   utilizz preconfigurato appropriato per l' richiesta di prove
+          type: object
+          xml:
+            prefix: 'sdg'
+          properties:
+            schemeID:
+              type: string
+              example: urn:oasis:names:tc:ebcore :iso6523:0060
+              xml:
+                attribute: true
+        ConformsTo:
+          type: string
+          xml:
+            prefix: 'sdg'
+          description: Versione e Profilo     d Exchange Message Data       Model.
+          default: "oots:edm-1.0"
+        Publisher:
+          type: object
+          xml:
+            prefix: 'sdg'
+          description: Informazioni sull’accesso del  Prove (Evidence   Provider) forni l'ubicazione                 e la   giuri fornitore di prove, utilizzato dal ric prove (Evidence Requester) per           e selezionare   il fornitore di prove corretto.
+          required: 
+            - Identifier
+            - Name
+            - Address
+            - Jurisdiction
+          properties:
+            Identifier:
+              required:        
+                - schemeID
+              description: Identificatore del servizio E’utilizzato   dall'infrastruttura   per                 estrarre e   u PMode preconfigurato appropriato per della richiesta di prove
+              type: object
+              xml:
+               prefix: 'sdg'
+              properties:
+                schemeID:
+                  type: string
+                  example: 1204
+                  xml:
+                    attribute: true      
+            Name:
+              type: string
+              xml:
+                prefix: 'sdg'
+              description: Etichetta associata all’agente.
+            Address:
+              type: object
+              xml:
+                prefix: 'sdg'
+              description: Indirizzo del provider
+              
+              properties: 
+                FullAddress: 
+                  type: string
+                  xml:
+                    prefix: 'sdg'
+                  description: Indirizzo completo dell'EvidenceProvider
+                Thoroughfare: 
+                  type: string
+                  xml:
+                    prefix: 'sdg'
+                  description: Il nome o i nomi di un'area geografica o località (es. quartiere, villaggio).
+                LocatorDesignator: 
+                  type: string
+                  xml:
+                    prefix: 'sdg'
+                  description: Un numero o una sequenza di caratteri che identifica in modo univoco il provider (numero edificio, numero appartamento, ecc.) 
+                PostCode: 
+                  type: string
+                  xml:
+                    prefix: 'sdg'
+                  description: codice postale
+                PostCityName: 
+                  type: string
+                  xml:
+                    prefix: 'sdg'
+                  description: Nome della città
+                AdminUnitLevel1:
+                  $ref: '#/components/schemas/AdminUnitLevel1'
+                AdminUnitLevel2:
+                   $ref: '#/components/schemas/AdminUnitLevel2'
+            Jurisdiction:
+              type: object
+              required:
+               - AdminUnitLevel1
+              xml:
+                prefix: 'sdg'
+              description: La giurisdizione spaziale d di prove. Il   codice dovrebbe r demarcazione                   ge precisa per la giurisdizione  nell'elenco dei codici utilizzati. Ad               codice LAU o NUTS per Vienna.
+              properties: 
+                AdminUnitLevel1:
+                  $ref: '#/components/schemas/AdminUnitLevel1'
+                AdminUnitLevel2:
+                   $ref: '#/components/schemas/AdminUnitLevel2'
+                AdminUnitLevel3:
+                   $ref: '#/components/schemas/AdminUnitLevel3'
+            ClassificationConcept:
+              type: array
+              items:
+                $ref: '#/components/schemas/ClassificationConcept'
+              xml:
+                wrapped: false
+                prefix: 'sdg'
+
+   
+    AccessServiceArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/AccessService'
+      xml:
+        wrapped: false 
+
+    DistributedAsArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/DistributedAs'
+      xml:
+        wrapped: false   
+
+    EvidenceProviderClassificationArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/EvidenceProviderClassification'
+      xml:
+        wrapped: false 
+            
+    DistributedAs:
+     type: object
+     xml:
+       prefix: 'sdg'
+     description: Lista delle multiple distribuzioni disponibili per Tipologia di   Prova del Servizio Dati
+     required:
+       - Format
+     properties:
+       Format:    
+         type: string
+         xml:
+            prefix: 'sdg'
+         description: formati disponibili per il tipo di prova in formato   strutturato come XML, JSON o non strutturato                 come PDF.
+       ConformsTo:
+         type: string
+         xml:
+            prefix: 'sdg'
+         description: Solo per formati strutturati come XML, JSON, RDF il   servizioornire una dichiarazione di                   conformità per indicare ii conformità semantica e tecnica.   L’URL che punta a una voce derepository semantico   OOTS che contiene tutte le informazioni rilevantrofilo.
+       Transformation :
+         type: string
+         xml:
+            prefix: 'sdg'
+         description: È una URL che punta ad un sottoinsieme di informazioni dell’EvidenceType sufficiente per la richiesta della prova.
+                                 
+            
+    AdminUnitLevel1:
+      type: string
+      xml:
+         prefix: 'sdg'
+      description: Unità di amministrazione relativi all'esercizio dei diritti   giurisdizionali. Il livello 1 si riferisce all'unità amministrativa più alta   per l'indirizzo, quasi sempre un paese.
+    AdminUnitLevel2:
+      type: string
+      xml:
+         prefix: 'sdg'
+      description: Unità di amministrazione relativi all'esercizio dei diritti giurisdizionali. Il livello 2 si riferisce alla regione dell'indirizzo, di solito una contea, uno stato o un'altra area simile che in genere  comprende diverse località.
+    AdminUnitLevel3:
+      type: string
+      xml:
+         prefix: 'sdg'
+      description: Unità di amministrazione relativi all'esercizio dei diritti giurisdizionali. Il livello 3 si riferisce al comune.
+
+    
+    EvidenceProviderJurisdictionDetermination:
+     type: object
+     xml:
+       prefix: 'sdg'
+     description: Informazioni richieste per la determinazione della giurisdizione dell'Evidence Provider corretto
+     required:
+       - JurisdictionContextId
+       - JurisdictionContext
+       - JurisdictionLevel
+     properties:
+       JurisdictionContextId:    
+         type: string
+         xml:
+            prefix: 'sdg'
+         description: Identificativo del jurisdictionContextDetermination
+       JurisdictionContext:
+         type: array
+         xml:
+            prefix: 'sdg'
+         items:
+          type: object
+          description: Lista di jurisdictionContext associati all’evidenceType. La lista serve a gestire il multilanguage.L'attributo "lang" espresso come  codice di due lettere in codifica ISO 639-1, specifica la lingua usata.
+          properties:
+           lang:
+            type: string
+            example: en
+            xml:
+             attribute: true 
+            description: Specifica il linguaggio
+       JurisdictionLevel:    
+         type: string
+         xml:
+            prefix: 'sdg'
+         description: Livello di giurisdizione necessario 
+      
+    EvidenceProviderClassification:
+      type: object
+      xml:
+        prefix: 'sdg'
+      description: Lista di classificationConcept mappati sull’EvidenceType necessari per la determinazione dell’EvidenceProvider corretto
+      required:
+        - Identifier
+        - type
+        - description
+      properties:
+        Identifier:    
+          type: string
+          xml:
+            prefix: 'sdg'
+          description: Identificativo univoco del classificationConcept
+        type:    
+          type: string
+          xml:
+            prefix: 'sdg'
+          description: Tipo del classificationConcept. Deve essere un codice presente sul semantic repository
+        ValueExpression:
+          type: string
+          xml:
+            prefix: 'sdg'
+          example: ^\d{5}$
+             #description: Sintassi filtro attraverso Espressione Regolare  
+        Description:
+          type: array
+          xml:
+            prefix: 'sdg'
+          items:
+            type: object
+            description: Descrizione del filtro. esempio Type of insurance
+            properties:
+             lang:
+              type: string
+              example: en
+              xml:
+               attribute: true 
+              description: Specifica il linguaggio
+
+    ClassificationConcept:
+     type: object
+     xml:
+       prefix: 'sdg'
+     description: Lista di classificationConcept che fornisce la lista di supportedValue per i classificationConcept definiti sul dataServiceEvidenceType
+     required:
+       - Identifier
+       - type
+       - description
+       - SupportedValue
+     properties:
+      Identifier:    
+        type: string
+        xml:
+         prefix: 'sdg'
+        description: Identificativo univoco del classificationConcept
+      type:    
+        type: string
+        xml:
+         prefix: 'sdg'
+        description: Tipo del classificationConcept. Deve essere un codice presente sul semantic repository
+      ValueExpression:
+        type: string
+        xml:
+         prefix: 'sdg'
+        example: ^\d{5}$
+           #description: Sintassi filtro attraverso Espressione Regolare  
+      Description:
+        type: array
+        xml:
+         prefix: 'sdg'
+        items:
+          type: object
+          description: Descrizione del filtro. esempio Type of insurance
+          properties:
+           lang:
+            type: string
+            example: en
+            xml:
+             attribute: true 
+            description: Specifica il linguaggio
+      SupportedValue:   
+        $ref: '#/components/schemas/SupportedValue'
+    
+    SupportedValue:    
+         type: object
+         xml:
+          prefix: 'sdg'
+         description: Valore supportato dalla risposta. Il campo è obbligatorio ma deve essere valorizzato solo UNO dei valori in lista.
+         properties:
+          StringValue:
+           type: string
+           xml:
+            prefix: 'sdg'
+           description: Campo testuale
+          DateValue:
+           type: string
+           xml:
+            prefix: 'sdg'
+           description: Campo Data (formato YYYY-DD-MM)
+          BooleanValue:
+           type: boolean
+           xml:
+            prefix: 'sdg'
+           description: true or 1 Representing Yes affirmative answers.false or 0 representing No negative answers.
+          CodeValue:
+           type: string
+           xml:
+            prefix: 'sdg'
+           description: codice per il classification concept
+          DateTimeValue:
+           type: string
+           xml:
+            prefix: 'sdg'
+           description: Campo data che include l’orario (formato YYYY-DD-MM hh:mm:ss zzzzzz)
+          Identifier:
+           type: string
+           xml:
+            prefix: 'sdg'
+           description: Un identificativo di un concept, incluso uno schemaId
+          URI:
+           type: string
+           xml:
+            prefix: 'sdg'
+           description: Un URI  o un indirizzo email
+          Time:
+           type: string
+           xml:
+            prefix: 'sdg'
+           description: Un orario (formato hh:mm:ss)
+          Duration:
+           type: string
+           xml:
+            prefix: 'sdg'
+           description: Una durata espresso come  Year, Month, Day, Hour and Minutes (formato PnYn MnDTnH nMnS)
+          Decimal:
+           type: number
+           xml:
+            prefix: 'sdg'
+           description: Un numero in formato decimale
+          Amount:
+           type: string
+           xml:
+            prefix: 'sdg'
+           description: Una quantità e una valuta come definito in UN/CEFACT's CCTS
+         
+    UserIdentityAttribute:
+      type: object
+      xml:
+       prefix: 'sdg'
+      description: attributi aggiuntivi 
+      properties:
+         name:
+          type: string
+          example: codice_fiscale 
+          xml:
+            attribute: true
+            prefix: 'sdg'
+         uri:
+          type: string
+          xml:
+           prefix: 'sdg'
+          
+         label:
+          type: array
+          xml:
+           prefix: 'sdg'
+          items:
+           type: object
+           description: nome dell’attributo nella lingua specificata. Una lista per la gestione del multilingua.
+           properties:
+            lang:
+             type: string
+             example: en
+             xml:
+              attribute: true 
+             description: Specifica il linguaggio
+        
+         
+    Slot:
+      type: object
+      xml:
+        prefix: 'rim'
+      required:
+        - SlotValue
+      properties:
+        name:
+          type: string
+          example: JurisdictionDetermination 
+          enum:
+           - DataServiceEvidenceType
+           - JurisdictionDetermination
+           - UserRequestedClassificationConcepts
+          xml:
+            attribute: true
+        SlotValue:
+          type: object
+          xml:
+            prefix: 'rim'
+          required:
+            - xsi:type
+            - DataServiceEvidenceType
+          properties:
+            xsi:type:
+              type: string
+              example: rim:AnyValueType
+              xml:
+                attribute: true
+            EvidenceProviderJurisdictionDetermination:
+              $ref: '#/components/schemas/EvidenceProviderJurisdictionDetermination'
+
+            EvidenceProviderClassification:
+              type: array
+              items:
+               $ref: '#/components/schemas/EvidenceProviderClassification'
+              xml:
+                wrapped: false
+            DataServiceEvidenceType:
+              required:
+               - Identifier
+              type: object
+              xml:
+                prefix: 'sdg'
+              properties:
+               xmlns:
+                type: string
+                default: http://data.europa.eu/sdg#
+                xml:
+                 attribute: true
+               xmlns:xsi:
+                 type: string
+                 default: http://www.w3.org/2001/XMLSchema-instance
+                 xml:
+                  attribute: true
+               Identifier:
+                  type: string
+                  xml:
+                    prefix: 'sdg'
+                  description: Tipologia di Prova (Evidence Type) Metadata. Identificatore   univoco fornito dal Data Service per                 identificare in modo   univoco il tipo di prova ed i metadati correlati.
+               EvidenceTypeClassification:
+                  type: string
+                  xml:
+                   prefix: 'sdg'
+                  description: Informazioni sulla classificazione.  Usato per il collegamento   con l’Evidence Broker
+               Title:
+                  type: array
+                  xml:
+                   prefix: 'sdg'
+                  items:
+                   type: object
+                   description: Titolo relativo alle informazioni sulla classificazione. L'attributo "lang" espresso come  codice di due lettere in codifica ISO 639-1, permette di specificare la lingua usata.
+                   properties:
+                    lang:
+                     type: string
+                     example: en
+                     xml:
+                      attribute: true 
+                     description: Specifica il linguaggio
+               Description:
+                type: array
+                xml:
+                   prefix: 'sdg'
+                items:
+                 type: object
+                 description: Descrizione relativa al DataServiceEvidenceType. l'attributo "lang" permette di specificare la lingua
+                 properties:
+                  lang:
+                   type: string
+                   example: en
+                   xml:
+                     attribute: true 
+                   description: Specifica il linguaggio 
+  
+    Errore:
+      type: object
+      required:
+            - code
+            - message
+      properties:
+            code:
+              type: string
+              description: Codice di errore
+              example: <HTTP_CODE>
+              enum:
+                - '400'
+                - '500'
+            message:
+              type: string
+              description: Tipologia di errore
+              example: <HTTP_STATUS>
+              enum:
+                - Bad Request
+                - Internal Server Error
+            description:
+              type: string
+              description: Descrizione di dettaglio dello specifico problema verificatosi
+              example: <detail_error>
+      description: Modello di risposta in caso di errore  
+ 
+  securitySchemes:
+    Authorization:            # Bearer <Voucher PDND>
+      type: http
+      scheme: bearer
+      bearerFormat: JWT       
+    

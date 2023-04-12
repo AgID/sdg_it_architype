@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query:QueryResponse xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
+    xmlns:sdg="http://data.europa.eu/p4s"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    requestId="urn:uuid:4ffb5281-179d-4578-adf2-39fd13ccc797"
+    status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure">
+    <!-- The 'id' attribute of a 'QueryResponse' MUST be unique UUID (RFC 4122) for each request starting with prefix "urn:uuid:" -->
+    <!-- The 'status' attribute of an unsuccessfull 'query:QueryResponse' MUST be encoded as as 'urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure'. -->
+
+    <!-- Additional slots describing the response are omitted for clarity -->
+
+    <!-- The value of 'xsi:type' attribute of a 'rs:Exception' MUST be a 'type' provided by code list 'EDMErrorCodes' (Exchange Data Model Error Response Codes).  -->
+    <!-- The 'severity' attribute must be part of the code list 'ErrorSeverity' (Error Severity). The code 'urn:sr.oots.tech.europa.eu:codes:ErrorSeverity:DSDErrorResponse:AdditionalInput' shall not be used by this transaction.  -->
+    <!-- The value of 'severity' attribute of a 'rs:Exception' MUST  be 'urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error' if the rs:Exception xsi:type='rs:AuthorizationExceptionType' (@code 'EDM:ERR:0001') is NOT used.  -->
+    <!-- The value of 'code' attribute of a 'rs:Exception' MUST be a 'code' matching the 'type' provided by code list 'EDMErrorCodes' (Exchange Data Model Error Response Codes). -->
+    <!-- If a 'rim:Slot[@name='PreviewLocation']' is provided, the 'rs:Exception' MUST  be 'urn:sr.oots.tech.europa.eu:codes:ErrorSeverity:EDMErrorResponse:PreviewRequired' and use the rs:Exception xsi:type='rs:AuthorizationExceptionType' (@code 'EDM:ERR:0001').  -->
+
+    <rs:Exception xsi:type="rs:TimeoutExceptionType" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error "
+        message="Exceeding timeout period"
+        detail="No response from base registry for requestID 4ffb5281-179d-4578-adf2-39fd13ccc797."
+        code="EDM:ERR:0005">
+
+        <!-- Example for rs:Exception pointing to a required preview on the side of the Evidence Provider
+        <rs:Exception xsi:type="rs:AuthorizationExceptionType" severity="urn:sr.oots.tech.europa.eu:codes:ErrorSeverity:EDMErrorResponse:PreviewRequired"
+        message="Failed Authentication"
+        detail="The evidence provider requires authentication and preview and selection by the user in his domain to provide the evidence."
+        code="EDM:ERR:0002"> -->
+
+
+        <!-- Additional slots describing the exception and the preview if required -->
+
+    </rs:Exception>
+  </query:QueryResponse>

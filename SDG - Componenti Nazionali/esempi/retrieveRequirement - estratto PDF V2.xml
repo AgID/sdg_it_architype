@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query:QueryResponse xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0"
+    xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0"
+    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
+    xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+    xmlns:sdg="http://data.europa.eu/p4s"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" totalResultCount="1" startIndex="0" status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success">
+   
+    <!-- Validate with sch/EB-REQ-C and sch/EB_REQ-S -->
+    <rim:RegistryObjectList>
+        <rim:RegistryObject id="urn:uuid:8c3ba281-73fd-4b22-852d-b7fc972db532">
+            <rim:Slot name="Requirement">
+                <rim:SlotValue xsi:type="rim:AnyValueType">
+                    <sdg:Requirement>                        
+                        <sdg:Identifier>https://sr.oots.tech.europa.eu/requirements/315cfd75-6605-49c4-b0fe-799833b41099</sdg:Identifier>
+                        <sdg:Name lang="EN">Proof of Birth</sdg:Name>
+                        <sdg:Name lang="DE">Geburtsnachweis</sdg:Name>
+
+                        <!-- List of Reference Frameworks that implement the Requirement. Multiple Reference Frameworks might be added. In this example only one Reference Framework for DE - Germany is listed-->
+                        <sdg:ReferenceFramework>
+
+                            <!-- Link to the Procedure as implemented in Germany, uniquely identified by the Identifier and Jurisdiction. The name of the procedure, as declared in the SDG Regulation; Is possibly extended or replaced with national reference frameworks when the procedure is implemented by a Member State regulation -->
+                            <sdg:Identifier>118fd444-6443-42be-a084-c9fbfd1f674d</sdg:Identifier>
+                            <sdg:Title lang="EN">Procedure #1 - Requesting proof of registration of birth</sdg:Title>
+                            <sdg:Title lang="DE">Verfahren #1 - Beantragung des Nachweises über die Eintragung in das Geburtenregister</sdg:Title>
+                            <sdg:Description lang="EN"> Procedure #1 "Requesting proof of registration of birth" belongs to the life event "Birth" of Annex II of the Regulation (EU) 2018/1724
+                                of the European Parliament and of the Council of 2 October 2018 establishing a single digital gateway to provide access to information, to procedures and to assistance and problem-solving services and amending Regulation (EU) No 1024/2012
+                            </sdg:Description>
+                            <sdg:Description lang="DE"> Das Verfahren #1 "Beantragung des Nachweises über die Eintragung in das Geburtenregister" gehört zum Lebensereignis "Geburt" des Anhangs II der Verordnung (EU) 2018/1724 des Europäischen Parlaments und des Rates vom 2. Oktober 2018 über die Einrichtung eines einheitlichen digitalen Zugangstors zu Informationen, Verfahren, Hilfsund Problemlösungsdiensten und zur Änderung der Verordnung (EU) Nr. 1024/2012
+                            </sdg:Description>
+                            
+                            <!-- The Identifier of the SDGR Procedure which this procedure relates to encoded according to Procedures-CodeList.gc. In this case R1 relates to "Requesting a birth certificate" -->
+                            <sdg:RelatedTo>
+                                <sdg:Identifier>R1</sdg:Identifier>
+                            </sdg:RelatedTo>
+
+                            <!-- Country - Mandatory - ISO code. Requirement is connected to the implementation of Procedure 1 in Germany. Regional Codes (AdminUnitLevel 2 and 3) not applicable for DE in this Procedure (Common Reference Framework for the country)  -->
+                            <sdg:Jurisdiction>
+                                <sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+                            </sdg:Jurisdiction>
+                            
+                        </sdg:ReferenceFramework>
+
+                    </sdg:Requirement>
+                </rim:SlotValue>
+            </rim:Slot>
+            
+        </rim:RegistryObject>
+        
+    </rim:RegistryObjectList>
+</query:QueryResponse>
