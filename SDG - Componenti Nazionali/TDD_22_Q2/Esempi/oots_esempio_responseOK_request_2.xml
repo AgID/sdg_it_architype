@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<query:QueryResponse 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+    xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+    xmlns:sdg="http://data.europa.eu/p4s"
+    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace" 
+    requestID="4ffb5281-179d-4578-adf2-39fd13ccc797">
+ 
+<!-- Top Level Slots, providing metadata about the Response and the Evidence Provider -->
+<rim:Slot name="SpecificationIdentifier">
+    <rim:SlotValue xsi:type="rim:StringValueType"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <rim:Value>oots-edm:v1.0</rim:Value>
+    </rim:SlotValue>
+</rim:Slot>
+<rim:Slot name="EvidenceResponseIdentifier">
+    <rim:SlotValue xsi:type="rim:StringValueType"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <rim:Value>166155eb-d7a7-4cac-9086-8a85f0116462</rim:Value>
+    </rim:SlotValue>
+</rim:Slot>
+<rim:Slot name="IssueDateTime">
+    <rim:SlotValue xsi:type="rim:DateTimeValueType"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <rim:Value>2022-05-19T17:10:10.872Z</rim:Value>
+    </rim:SlotValue>
+</rim:Slot>
+<rim:Slot name="EvidenceProvider">
+    <rim:SlotValue xsi:type="rim:CollectionValueType">
+        <sdg:Agent>
+            <sdg:Identifier schemeID="9930">DE73524311</sdg:Identifier>
+            <sdg:Name lang="en">Civil Registration Office Berlin I</sdg:Name>
+            <sdg:Address>
+                    <sdg:FullAddress>Schönstedtstraße 5</sdg:FullAddress>
+                    <sdg:LocatorDesignator>5</sdg:LocatorDesignator>
+                    <sdg:PostCode>13357</sdg:PostCode>
+                    <sdg:PostCityName>Berlin</sdg:PostCityName>
+                    <sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>  
+            </sdg:Address>
+            <sdg:Classification>EvidenceProvider</sdg:Classification>
+        </sdg:Agent>
+    </rim:SlotValue>
+</rim:Slot>
+<rim:Slot name="EvidenceRequester">
+    <rim:SlotValue xsi:type="rim:AnyValueType">
+        <sdg:Agent>
+            <sdg:Identifier schemeID="0096">DK22233223</sdg:Identifier>
+            <sdg:Name>Denmark University Portal</sdg:Name>
+        </sdg:Agent>
+    </rim:SlotValue>
+</rim:Slot>
+</query:QueryResponse>
