@@ -12,7 +12,7 @@ paths:
       security:
         - Authorization: []
       tags:
-        - agenzia-delle-entrate
+        - checkPf
       summary: getFiscalCode
       operationId: getFiscalCodeUsingPOST
       requestBody:
@@ -66,7 +66,7 @@ paths:
       security:
         - Authorization: []  
       tags:
-        - Verifica cf persona fisica e identificativo supporto
+        - checkPfSupporto
       summary: Effettua la verifica del codice fiscale della persona fisica con supporto
       description: >-
         La chiamata permette tramite l'inserimento del codice fiscale, dei dati
