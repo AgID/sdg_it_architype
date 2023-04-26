@@ -23,13 +23,13 @@ paths:
             type: string
           description: Questo parametro deve essere valorizzato con la seguente stringa "urn:oots:dsd:ebxml-regrep:queries:dataservices-by-evidencetypeand-jurisdiction" 
         - in: query
-          name: evidenceTypeClassification
+          name: evidence-type-classification
           required: true
           schema:
             type: string
           description: Classificazione dell’evidenceType. Chiave di collegamento con l’evidenceBorker
         - in: query
-          name: countryCode
+          name: country-code
           required: true
           schema:
             type: string
@@ -53,7 +53,7 @@ paths:
             type: string
           description: Utilizzato per fornire l'ID del jurisdictionContext utilizzato per la query. Il parametro DEVE essere utilizzato quando si risponde a un'eccezione DSD ricevuta, fornendo il Jurisdiction Context Id trovato nell'eccezione. 
         - in: query
-          name: evidenceTypeId
+          name: evidence-type-id
           required: false
           schema:
            type: string
