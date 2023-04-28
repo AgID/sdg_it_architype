@@ -22,7 +22,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Questo parametro deve essere valorizzato con la seguente stringa "urn:fdc:oots:eb:ebxml-regrep:queries:requirementsby-procedure-and-jurisdiction".
+          description: Questo parametro deve essere valorizzato con la seguente stringa "urn:fdc:oots:eb:ebxml-regrep:queries:requirements-by-procedure-and-jurisdiction".
         - in: query
           name: procedure-id
           required: false
@@ -122,7 +122,7 @@ paths:
             type: string
           description: >-
             Questo parametro deve essere valorizzato con la seguente stringa
-            "urn:fdc:oots:eb:ebxml-regrep:queries:evidencetypes-by-requirement-and-jurisdiction".
+            "urn:fdc:oots:eb:ebxml-regrep:queries:evidence-types-by-requirement-and-jurisdiction".
         - in: query
           name: requirement-id
           required: true

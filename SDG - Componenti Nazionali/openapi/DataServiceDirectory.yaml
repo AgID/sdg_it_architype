@@ -21,7 +21,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Questo parametro deve essere valorizzato con la seguente stringa "urn:oots:dsd:ebxml-regrep:queries:dataservices-by-evidencetypeand-jurisdiction" 
+          description: Questo parametro deve essere valorizzato con la seguente stringa "urn:fdc:oots:dsd:ebxml-regrep:queries:dataservices-by-evidencetype-and-jurisdiction" 
         - in: query
           name: evidence-type-classification
           required: true
