@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query:QueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+	xmlns:sdg="http://data.europa.eu/p4s"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" 
+	xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+	xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	id="4ffb5281-179d-4578-adf2-39fd13ccc797"> 
+<!-- SpecificationIdentifier Slot -->	
+	<rim:Slot name="SpecificationIdentifier">
+		<rim:SlotValue xsi:type="rim:StringValueType">
+			<rim:Value>oots-edm:v1.0</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+<!-- IssueDateTime Slot -->	
+	<rim:Slot name="IssueDateTime">
+		<rim:SlotValue xsi:type="rim:DateTimeValueType">
+			<rim:Value>2022-05-19T17:08:10.872Z</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+<!-- Procedure Slot -->	
+	<rim:Slot name="Procedure">
+		<rim:SlotValue xsi:type="rim:InternationalStringValueType">
+			<rim:Value>
+				<rim:LocalizedString xml:lang="en"
+					value="Requesting a birth certificate"/>
+			</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>	
+<!-- PossibilityForPreview Slot -->	
+	<rim:Slot name="PossibilityForPreview">
+		<rim:SlotValue xsi:type="rim:BooleanValueType">
+			<rim:Value>false</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>	
+<!-- ExplicitRequestGiven Slot -->	
+	<rim:Slot name="ExplicitRequestGiven">
+		<rim:SlotValue xsi:type="rim:BooleanValueType">
+			<rim:Value>true</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+<!-- Requirements Slot -->	
+	<rim:Slot name="Requirements">
+		<rim:SlotValue xsi:type="rim:CollectionValueType" 
+			collectionType="urn:oasis:names:tc:ebxml-regrep:CollectionType:Set">
+			<rim:Element xsi:type="rim:AnyValueType">
+				<sdg:Requirement>
+					<sdg:Identifier>315cfd75-6605-49c4-b0fe-799833b41099</sdg:Identifier>
+					<sdg:Name lang="en">Proof of Birth</sdg:Name>
+				</sdg:Requirement>
+			</rim:Element>
+		</rim:SlotValue>
+	</rim:Slot>
+<!-- EvidenceRequester Slot -->	
+	<rim:Slot name="EvidenceRequester">
+		<rim:SlotValue xsi:type="rim:CollectionValueType">
+			<rim:Element xsi:type="rim:AnyValueType">
+				<sdg:Agent>
+					<sdg:Identifier schemeID="0096">DK22233223</sdg:Identifier>
+					<sdg:Name lang="en">Denmark University Portal</sdg:Name>
+					<sdg:Address>
+						<sdg:FullAddress>Prince Street 15</sdg:FullAddress>
+						<sdg:LocatorDesignator>15</sdg:LocatorDesignator>
+						<sdg:PostCode>1050</sdg:PostCode>
+						<sdg:PostCityName>Copenhagen</sdg:PostCityName>
+						<sdg:AdminUnitLevel1>Denmark</sdg:AdminUnitLevel1>
+						<sdg:AdminUnitLevel2>DK011</sdg:AdminUnitLevel2>
+					</sdg:Address>
+					<sdg:Classification>IntermediaryPlatform</sdg:Classification>
+				</sdg:Agent>
+			</rim:Element>
+		</rim:SlotValue>
+	</rim:Slot>
+<!-- EvidenceProvider Slot -->	
+	<rim:Slot name="EvidenceProvider">
+		<rim:SlotValue xsi:type="rim:AnyValueType">
+			<sdg:Agent>
+				<sdg:Identifier schemeID="9930">DE73524311</sdg:Identifier>
+				<sdg:Name>Civil Registration Office Berlin I</sdg:Name>
+			</sdg:Agent>
+		</rim:SlotValue>
+	</rim:Slot>
+<!-- EvidenceProviderClassificationValues Slot -->
+<rim:Slot name="EvidenceProviderClassificationValues">
+	<rim:SlotValue xsi:type="rim:CollectionValueType">
+		<!-- Classification Information - Used for finding the evidence -->
+		<rim:Element xsi:type="rim:AnyValueType">
+			<sdg:EvidenceProviderClassification>
+				<sdg:Identifier>SecondarySchool</sdg:Identifier>
+				<sdg:SupportedValue>
+					<sdg:StringValue>Wilhelm Gymnasium</sdg:StringValue>
+				</sdg:SupportedValue>
+			</sdg:EvidenceProviderClassification>
+		</rim:Element>
+		<!-- Classification Information - Used for finding the evidence -->
+		<rim:Element xsi:type="rim:AnyValueType">
+			<sdg:EvidenceProviderClassification>
+				<sdg:Identifier>YearOfGraduation</sdg:Identifier>
+				<sdg:SupportedValue>
+					<sdg:StringValue>1988</sdg:StringValue>
+				</sdg:SupportedValue>
+			</sdg:EvidenceProviderClassification>
+		</rim:Element>
+	</rim:SlotValue>
+</rim:Slot>
+<query:ResponseOption returnType="LeafClassWithRepositoryItem"/>
+<query:Query queryDefinition="DocumentQuery">
+		<rim:Slot name="NaturalPerson">
+			<rim:SlotValue xsi:type="rim:AnyValueType">
+				<sdg:Person>
+					<sdg:LevelOfAssurance>High</sdg:LevelOfAssurance>
+					<sdg:Identifier schemeID="eidas">DK/DE/123456</sdg:Identifier>
+					<sdg:FamilyName>Smith</sdg:FamilyName>
+					<sdg:GivenName>John</sdg:GivenName>
+					<sdg:DateOfBirth>1970-03-01</sdg:DateOfBirth>
+					<sdg:PlaceOfBirth>Hamburg, Germany</sdg:PlaceOfBirth>
+					<sdg:CurrentAddress>
+						<sdg:FullAddress>Dieter Wellhausen 71</sdg:FullAddress>
+						<sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+					</sdg:CurrentAddress>
+					<sdg:Gender>Male</sdg:Gender>
+				</sdg:Person>
+			</rim:SlotValue>
+		</rim:Slot>
+		<rim:Slot name="EvidenceRequest">
+			<rim:SlotValue xsi:type="rim:AnyValueType">
+				<sdg:DataServiceEvidenceType xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0">
+					<sdg:Identifier>2af27699-f131-4411-8fdb-9e8cd4e8bded</sdg:Identifier>
+					<sdg:EvidenceTypeClassification>CertificateOfBirth</sdg:EvidenceTypeClassification>
+					<sdg:Title lang="en">Certificate of Birth</sdg:Title>
+					<sdg:Title lang="de">Geburtsurkunde</sdg:Title>
+					<sdg:DistributedAs>
+						<sdg:Format>application/pdf</sdg:Format>
+						<sdg:ConformsTo>https://semic.org/sa/common/birthcert-1.0.0</sdg:ConformsTo>
+					</sdg:DistributedAs>
+				</sdg:DataServiceEvidenceType>
+			</rim:SlotValue>
+		</rim:Slot>
+	</query:Query>
+</query:QueryRequest>
