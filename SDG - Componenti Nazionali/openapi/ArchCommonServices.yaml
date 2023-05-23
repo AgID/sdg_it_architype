@@ -7,7 +7,7 @@ servers:
   - url: https://sit.servizisdg.gov.it/sdg-cnaz-sp-int
     description: PDND Collaudo
 paths:
-  /acs/v1/check/pf:
+   /acs/v1/check/pf:
     post:
       security:
         - Authorization: []
@@ -61,7 +61,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ServiceErrorDto'
-  /acs/v1/check/pf/supporto:
+   /acs/v1/check/pf/supporto:
     post:
       security:
         - Authorization: []  
@@ -141,7 +141,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/ServiceErrorDto'
         
-  /acs/v1/evidence/request:
+   /acs/v1/evidence/request:
     post:
       security:
         - Authorization: []       
@@ -183,7 +183,7 @@ paths:
         '500':
           $ref: '#/components/responses/500'
 
-  /acs/v1/evidence/response:
+   /acs/v1/evidence/response:
     post:
       security:
         - Authorization: []       
@@ -207,9 +207,38 @@ paths:
         '400':
           $ref: '#/components/responses/400'
         '500':
-          $ref: '#/components/responses/500'               
+          $ref: '#/components/responses/500'     
+   /acs/v1/evidence/ds/response:
+    post:
+      tags:
+        - EvidenceResponseDS
+      summary: riceve l'evidence response con entro l'evidence
+      operationId: getEvidenceResponseDSUsingPOST
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/QueryResponse'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericResponse'                 
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+          
 components:
   responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+           $ref: '#/components/schemas/genericResponse'
     '400':
       description: Bad Request
       content:
@@ -661,9 +690,6 @@ components:
          default: 'urn:oasis:names:tc:ebxml-regrep:CollectionType:Set'
         Element:
           $ref: '#/components/schemas/Element'
-          xml:
-            prefix: 'rim'
-
     SlotValueEvidenceMetadata:
       type: object
       required:
@@ -1886,6 +1912,24 @@ components:
               collegato, risulta attribuito in base a documenti falsi
       description: Oggetto generico di ritorno per la verifica del PF con supporto
   
+    genericResponse:
+      type: object
+      required:
+        - code
+        - description
+        - message
+      properties:
+        code:
+          type: string
+          description: Rif response code
+          example: 200
+        description:
+          type: string
+          description: Eventuale descrizione code
+          example: Successful operation
+        message:
+          type: string
+          description: Eventuale messaggio di errore 
     Errore:
       type: object
       required:
