@@ -231,6 +231,79 @@ paths:
         '500':
           $ref: '#/components/responses/500'
           
+   /acs/v1/check-legal-rep:
+    get:
+      tags:
+        - checkLegalRep
+      summary: Verifica legale rappresentante impresa
+      description: Servizio di verifica della rappresentanza legale di una persona fisica in un'impresa quale persona giuridica
+      operationId: verifica
+      parameters:
+        - name: cfPersona
+          in: query
+          description: Codice fiscale della persona
+          required: true
+          schema:
+            maxLength: 16
+            minLength: 16
+            type: string
+            description: Codice fiscale della persona
+        - name: cfImpresa
+          in: query
+          description: Codice fiscale dell'impresa
+          required: true
+          schema:
+            maxLength: 16
+            minLength: 11
+            type: string
+            description: Codice fiscale dell'impresa
+        - name: ipaCode
+          in: query
+          description: Codice ipa dell'ente
+          required: true
+          schema:
+            type: string
+        - name: euPublicServiceId
+          in: query
+          description: identificativo del prodecimento amministrativo
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Controllo eseguito
+          headers:
+            X-Counter:
+              description: Numero di richieste processate
+              style: simple
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ResponseKo'
+                  - $ref: '#/components/schemas/ResponseOk'
+        '400':
+          description: Richiesta non valida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorValidation'
+        '401':
+          description: Utente non abilitato al servizio
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '500':
+          description: Errore nell'esecuzione della richiesta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+      security:
+        - Authorization: [] 
 components:
   responses:
     '200':
@@ -1955,6 +2028,101 @@ components:
               description: Descrizione di dettaglio dello specifico problema verificatosi
               example: <detail_error>
       description: Modello di risposta in caso di errore  
+    ErrorValidation:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: Codice stato HTTP generato dal server per il problema
+          format: int32
+          enum:
+            - 400
+        title:
+          type: string
+          description: Titolo sintetico dell'errore
+        invalidsParams:
+          maxItems: 2
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/InvalidParams'
+      readOnly: true
+    InvalidParams:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Identifivativo del campo non valorizzato correttamente
+        reason:
+          type: string
+          description: Motivo dell'errore
+      readOnly: true
+    ResponseKo:
+      type: object
+      properties:
+        esito:
+          type: string
+          description: Esito della verifica
+          enum:
+            - KO
+        dataOraVerifica:
+          type: string
+          description: Data ora della verifica in UTC (Sintassi date-time indicata in RFC 3339)
+          format: date-time
+        status:
+          type: integer
+          format: int32
+          enum:
+            - 100
+            - 110
+            - 120
+            - 130
+            - 900
+        detail:
+          type: string
+          description: Dettaglio specifico dell'occorrenza del problema
+          nullable: true
+      readOnly: true
+    ResponseOk:
+      type: object
+      properties:
+        esito:
+          type: string
+          description: Esito della verifica
+          enum:
+            - OK
+        dataOraVerifica:
+          type: string
+          description: Data ora della verifica in UTC (Sintassi date-time indicata in RFC 3339)
+          format: date-time
+      readOnly: true
+    BaseError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: Codice stato HTTP generato dal server per il problema
+          format: int32
+          enum:
+            - 400
+            - 401
+            - 500
+        title:
+          type: string
+          description: Titolo sintetico dell'errore
+        detail:
+          type: string
+          description: Dettaglio specifico dell'occorrenza del problema
+          nullable: true
+        type:
+          type: string
+          description: Indirizzo URI assoluto che identifica il tipo di problema
+          nullable: true
+        instance:
+          type: string
+          description: Indirizzo URI assoluto che identifica l'occorrenza specifica del problema
+          nullable: true
+      readOnly: true
   securitySchemes:
     Authorization:            # Bearer <Voucher PDND>
       type: http

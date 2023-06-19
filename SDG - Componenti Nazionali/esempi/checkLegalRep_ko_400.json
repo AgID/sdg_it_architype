@@ -1,0 +1,14 @@
+{
+	"status": 400,
+	"title": "I parametri della tua richiesta non sono stati convalidati",
+	"invalidParams": [
+		{
+			"name": "cfPersona",
+			"reason": "Parametro Obbligatorio"
+		},
+		{
+			"name": "cfImpresa",
+			"reason": "Parametro Obbligatorio"
+		}
+	]
+}
