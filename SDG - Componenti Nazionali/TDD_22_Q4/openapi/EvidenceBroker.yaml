@@ -54,7 +54,49 @@ paths:
           content:
             application/xml:
               schema:
-                $ref: '#/components/schemas/QueryResponse'             
+                $ref: '#/components/schemas/QueryResponse'
+              example:
+                xmlns: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:lcm: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:rim: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+                xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+                xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                requestId: c4369c4d-740e-4b64-80f0-7b209a66d629
+                status: urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success      
+                RegistryObjectList: 
+                  RegistryObject:
+                    id: 315cfd75-6605-49c4-b0fe-799833b41099
+                    Slot:  
+                      name: Requirement
+                      SlotValue: 
+                        xsi:type: rim:AnyValueType 
+                        Requirement:
+                          xmlns: http://data.europa.eu/sdg#
+                          xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                          Identifier: 315cfd75-6605-49c4-b0fe-799833b41099
+                          Name: bachelor's degree
+                          
+                          
+                          ReferenceFramework:
+                          
+                          - Identifier: 118fd444-6443-42be-a084-c9fbfd1f674d
+                            Title: Procedure 5 - Annex II of SDG as Implemented in the Italian   Portal
+                            Description: Procedure 5 of Annex II of the Regulation (EU) 2018/1724 the European Parliament an of the Council of October   2 establishing a single digital gateway to providaccess to informati to procedures and to assistance anproblem-solving   services  amending Regulation (EU No 10/2012
+                            RelatedTo: 
+                              Identifier: http://data.europa.eu/eli/reg/2018/1724/oj#Annex-5
+                            Jurisdiction:
+                                AdminUnitLevel1: IT                
+                    
+                          - Identifier: 218fd444-6443-42be-a084-c9fbfd1f674d
+                            Title: Procedure 5 - Annex II of SDG as Implemented in the Italian   Portal
+                            Description: Procedure 5 of Annex II of the Regulation (EU) 2018/1724 the European Parliament and of the Council of October   2 establishing a single digital gateway to providaccess to   informati to procedures and to assistance anproblem-solving   services  amending Regulation (EU) No 10/2012
+                            RelatedTo: 
+                              Identifier: http://data.europa.eu/eli/reg/2018/1724/oj#Annex-5
+                            Jurisdiction:
+                              AdminUnitLevel1: IT                           
+      
+                          
         '400':
           $ref: '#/components/responses/400'
         '500':
@@ -90,13 +132,6 @@ paths:
             identificativo per requisito per i quali si richiedono le Tipologie
             di prova.
         - in: query
-          name: requirementType
-          required: false
-          schema:
-            type: string
-          description: >-
-            Il parametro è usato per specificare se il requisito è di tipo “oots”  o “noOots” . Se non valorizzato di default è “oots”.
-        - in: query
           name: country-code
           required: false
           schema:
@@ -127,6 +162,59 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/QueryResponse'
+              example:
+                xmlns: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:lcm: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                xmlns:rim: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+                xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+                xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+                requestId: c4369c4d-740e-4b64-80f0-7b209a66d629
+                status: urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success
+                RegistryObjectList:
+                  RegistryObject:
+                    id: 315cfd75-6605-49c4-b0fe-799833b41099
+                    Slot:
+                      name: Requirement
+                      SlotValue:
+                        xsi:type: rim:AnyValueType
+                        Requirement:
+                          xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+                          xmlns: http://data.europa.eu/sdg#
+                          Identifier: 315cfd75-6605-49c4-b0fe-799833b41099
+                          Name: Proof of Birth
+                          ReferenceFramework:
+                            Identifier: 118fd444-6443-42be-a084-c9fbfd1f674d
+                            Title: >-
+                              Procedure 5 - Annex II of SDG as Implemented in
+                              the Spanish Portal
+                            Description: >-
+                              Procedure 5 of Annex II of the Regulation (EU)
+                              2018/1724 of the European Parliament and of the
+                              Council of 2 October 2018 establishing a single
+                              digital gateway to provide access to information,
+                              to procedures and to assistance and
+                              problem-solving services and amending Regulation
+                              (EU) No 1024/2012
+                            RelatedTo:
+                              Identifier: >-
+                                http://data.europa.eu/eli/reg/2018/1724/oj#AnnexII-5
+                            Jurisdiction:
+                              AdminUnitLevel1: ES
+                          EvidenceTypeList:
+                            Identifier: EV-List-1
+                            Name: null
+                            Description: null
+                            EvidenceType:
+                              Identifier: ES-EV1223
+                              title: 
+                                lang: en
+                              Description: certificado de nacimiento
+                              EvidenceTypeClassification: Classification Code
+                              Jurisdiction:
+                                AdminUnitLevel1: ES
+                                AdminUnitLevel2: ES211
+                                AdminUnitLevel3: 1001
         '400':
           $ref: '#/components/responses/400'
         '500':
@@ -276,105 +364,59 @@ components:
                       example: Requirement
                       xml:
                         attribute: true
-                      enum:
-                        - Requirement
-                        - NoOotsRequirement
                     SlotValue:
                       type: object
                       xml:
                         prefix: 'rim'
-                      oneOf:
-                        - $ref: '#/components/schemas/Requirement'
-                        - $ref: '#/components/schemas/NoOotsRequirement'
-                        
-
-    Requirement:
-      type: object 
-      xml:
-       prefix: 'sdg'                                            
-      required:
-        - Identifier
-      properties:
-        xmlns:
-          type: string
-          default: http://data.europa.eu/sdg#
-          xml:
-            attribute: true
-        xmlns:xsi:
-          type: string
-          default: http://www.w3.org/2001/XMLSchema-instance
-          xml:
-            attribute: true  
-        Identifier:    
-          type: string
-          xml:
-            prefix: 'sdg'                                 
-        Name:
-          type: string
-          xml:
-            prefix: 'sdg'  
-          properties:
-            lang:
-              type: string
-              example: en
-              xml:
-                attribute: true
-        ReferenceFramework:  
-          $ref: '#/components/schemas/ReferenceFrameworkArray'
-        EvidenceTypeList:
-            $ref: '#/components/schemas/EvidenceTypeListArray'
-    NoOotsRequirement:
-      type: object 
-      xml:
-       prefix: 'sdg'                                            
-      required:
-        - Identifier
-      properties:
-        xmlns:
-          type: string
-          default: http://data.europa.eu/sdg#
-          xml:
-            attribute: true
-        xmlns:xsi:
-          type: string
-          default: http://www.w3.org/2001/XMLSchema-instance
-          xml:
-            attribute: true  
-        Identifier:    
-          type: string
-          xml:
-            prefix: 'sdg'                                 
-        Name:
-          type: string
-          xml:
-            prefix: 'sdg'  
-          properties:
-            lang:
-              type: string
-              example: en
-              xml:
-                attribute: true
-        ReferenceFramework:  
-          $ref: '#/components/schemas/ReferenceFrameworkArray'
-        NoOotsEvidenceTypeList:
-            $ref: '#/components/schemas/NoOotsEvidenceTypeListArray'                        
-    
-    
+                      required:
+                        - xsi:type
+                      properties:
+                        xsi:type:
+                          type: string
+                          default: rim:AnyValueType
+                          xml:
+                            attribute: true    
+                        Requirement:
+                          type: object 
+                          xml:
+                           prefix: 'sdg'                                            
+                          required:
+                            - Identifier
+                          properties:
+                            xmlns:
+                              type: string
+                              default: http://data.europa.eu/sdg#
+                              xml:
+                                attribute: true
+                            xmlns:xsi:
+                              type: string
+                              default: http://www.w3.org/2001/XMLSchema-instance
+                              xml:
+                                attribute: true  
+                            Identifier:    
+                              type: string
+                              xml:
+                                prefix: 'sdg'                                 
+                            Name:
+                              type: string
+                              xml:
+                                prefix: 'sdg'  
+                              properties:
+                                lang:
+                                  type: string
+                                  example: en
+                                  xml:
+                                    attribute: true
+                            ReferenceFramework:  
+                              $ref: '#/components/schemas/ReferenceFrameworkArray'
+                            EvidenceTypeList:
+                                $ref: '#/components/schemas/EvidenceTypeListArray'
     EvidenceTypeListArray:
       type: array
       items:
         $ref: '#/components/schemas/EvidenceTypeList'
       xml:
         name: EvidenceTypeList
-        wrapped: false
-        prefix: 'sdg'
-       
-    NoOotsEvidenceTypeListArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/NoOotsEvidenceTypeList'
-      xml:
-        name: NoOotsEvidenceTypeList
         wrapped: false
         prefix: 'sdg'
                       
@@ -531,90 +573,6 @@ components:
               type: string
               xml:
                 prefix: 'sdg'    
-    
-    NoOotsEvidenceTypeList:
-      type: object
-      xml:
-        prefix: 'sdg'
-      required:
-        - Identifier
-        - NoOotsEvidenceType
-      properties:
-        Identifier:
-          type: string
-          xml:
-            prefix: 'sdg'
-        Name:
-          type: string
-          xml:
-            prefix: 'sdg'
-          properties:
-            lang:
-              type: string
-              example: en
-              xml:
-                attribute: true
-        NoOotsEvidenceType:
-          $ref: '#/components/schemas/NoOotsEvidenceTypeArray'
-    NoOotsEvidenceTypeArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/NoOotsEvidenceType'
-      xml:
-        name: NoOotsEvidenceType
-        wrapped: false
-        prefix: 'sdg'
-    NoOotsEvidenceType:
-      type: object
-      xml:
-        prefix: 'sdg'
-      properties:
-        Identifier:
-          type: string
-          xml:
-            prefix: 'sdg'
-        title:
-          type: string
-          xml:
-            prefix: 'sdg'
-          properties:
-            lang:
-              type: string
-              example: en
-              xml:
-                attribute: true
-
-        Description:
-          type: string
-          xml:
-            prefix: 'sdg'
-          properties:
-            lang:
-              type: string
-              example: en
-              xml:
-                attribute: true
-        EvidenceTypeClassification:
-          type: string
-          xml:
-            prefix: 'sdg'
-        Jurisdiction:
-          type: object
-          xml:
-            prefix: 'sdg'
-          properties:
-            AdminUnitLevel1:
-              type: string
-              xml:
-                prefix: 'sdg'
-            AdminUnitLevel2:
-              type: string
-              xml:
-                prefix: 'sdg'
-            AdminUnitLevel3:
-              type: string
-              xml:
-                prefix: 'sdg'   
     
     RelatedTo:
       xml:

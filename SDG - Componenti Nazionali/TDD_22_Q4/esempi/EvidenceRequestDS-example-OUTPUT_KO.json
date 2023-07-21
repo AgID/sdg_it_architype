@@ -1,0 +1,5 @@
+{
+  "code": "500",
+  "description": "Errori nel processamento della richiesta.",
+  "message": "Internal server error"
+}

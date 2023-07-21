@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query:QueryResponse
+    xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0"
+    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
+    xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+    xmlns:sdg="http://data.europa.eu/p4s"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success">
+    
+    <!-- Validate with sch/EB-EVI-C and sch/EB-EVI-S-->
+    <rim:RegistryObjectList>
+        <!-- One registry object per dataset -->
+        <rim:RegistryObject id="urn:uuid:7b8a8ec6-71b9-4864-b147-f65debc14653">
+            <rim:Slot name="Requirement">
+                <rim:SlotValue xsi:type="rim:AnyValueType">
+                    <sdg:Requirement>
+                        <sdg:Identifier>https://sr.oots.tech.europa.eu/requirements/315cfd75-6605-49c4-b0fe-799833b41099</sdg:Identifier>
+                        <sdg:Name lang="EN">Proof of Birth</sdg:Name>
+                        <sdg:Name lang="DE">Geburtsnachweis</sdg:Name>
+
+                        <!-- List of Reference Frameworks that implement the Requirement-->
+                        <sdg:ReferenceFramework>
+
+                            <!-- Link to the Procedure as implemented in Germany, uniquely identified by the Identifier and Jurisdiction. The name of the procedure, as declared in the SDG Regulation; Is possibly extended or replaced with national reference frameworks when the procedure is implemented by a Member State regulation -->
+                            <sdg:Identifier>118fd444-6443-42be-a084-c9fbfd1f674d</sdg:Identifier>
+                            <sdg:Title lang="EN">Procedure #1 - Requesting proof of registration of birth</sdg:Title>
+                            <sdg:Title lang="DE">Verfahren #1 - Beantragung des Nachweises über die Eintragung in das Geburtenregister</sdg:Title>
+                            <sdg:Description lang="EN"> Procedure #1 "Requesting proof of registration of birth" belongs to the life event "Birth" of Annex II of the Regulation (EU) 2018/1724
+                                of the European Parliament and of the Council of 2 October 2018 establishing a single digital gateway to provide access to information, to procedures and to assistance and problem-solving services and amending Regulation (EU) No 1024/2012
+                            </sdg:Description>
+                            <sdg:Description lang="DE"> Das Verfahren #1 "Beantragung des Nachweises über die Eintragung in das Geburtenregister" gehört zum Lebensereignis "Geburt" des Anhangs II der Verordnung (EU) 2018/1724 des Europäischen Parlaments und des Rates vom 2. Oktober 2018 über die Einrichtung eines einheitlichen digitalen Zugangstors zu Informationen, Verfahren, Hilfsund Problemlösungsdiensten und zur Änderung der Verordnung (EU) Nr. 1024/2012
+                            </sdg:Description>
+
+                            <!-- The Identifier of the SDGR Procedure which this procedure relates to encoded according to Procedures-CodeList.gc. In this case R1 relates to "Requesting a birth certificate" -->
+                            <sdg:RelatedTo>
+                                <sdg:Identifier>R1</sdg:Identifier>
+                            </sdg:RelatedTo>
+
+                            <!-- Country - Mandatory - ISO code. Requirement is connected to the implementation of Procedure 1 in Germany. Regional Codes (AdminUnitLevel 2 and 3) not applicable for DE in this Procedure (Common Reference Framework for the country)  -->
+                            <sdg:Jurisdiction>
+                                <sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+                            </sdg:Jurisdiction>
+
+                        </sdg:ReferenceFramework>
+
+                        <!-- List of Evidence Types that proof the Requirement in Germany, indicated by the Jurisdiction - DE-->
+                        <!-- Multiple List of Evidence Types might be part of the result - depending on the query paramters -->
+                        <sdg:EvidenceTypeList>
+                            <sdg:Identifier>970918e4-1b27-41f0-be20-0a7c5fe4059f</sdg:Identifier>
+                            <sdg:Name lang="EN">List of Birth Certificates</sdg:Name>
+                            <sdg:Name lang="EN">Liste der Geburtsurkunden</sdg:Name>
+
+                            <!-- Example structure of an evidence type having national coverage area / jurisdiction = DE -->
+                            <sdg:EvidenceType>
+                                <!-- EvidenceTypeClassification Information - Provided by the Evidence Broker on the basis of the Semantic Repository. Used for linking with the Semantic Repository and Data Service Directory -->
+                                <sdg:EvidenceTypeClassification>https://sr.oots.tech.europa.eu/evidencetypeclassifications/DE/ca8afed6-2dc0-422a-a931-d21c3d8d370e</sdg:EvidenceTypeClassification>
+                                <sdg:Title lang="EN">Certificate of Birth</sdg:Title>
+                                <sdg:Title lang="DE">Geburtsurkunde</sdg:Title>
+                                <sdg:Description lang="EN">An official certificate of birth of a person - with first name, surname, sex, date and place of birth, which is obtained from the birth register of the place of birth.</sdg:Description>
+                                <sdg:Description lang="DE">Eine amtliche Bescheinigung über die Geburt einer Person – mit Vorname, Familienname, Geschlecht, Datum und Ort der Geburt, welche aus dem Geburtsregister des Geburtsortes erstellt wird.</sdg:Description>
+                                <sdg:Jurisdiction>
+                                    <!-- Country - Mandatory - ISO code -->
+                                    <sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+                                    <!-- Regional Code not applicable for DE (Common Evidence for the country), NUTS Code and LAU Code might be added -->
+                                </sdg:Jurisdiction>
+                            </sdg:EvidenceType>
+                        </sdg:EvidenceTypeList>
+
+                    </sdg:Requirement>
+                </rim:SlotValue>
+            </rim:Slot>
+        </rim:RegistryObject>
+    </rim:RegistryObjectList>
+</query:QueryResponse>

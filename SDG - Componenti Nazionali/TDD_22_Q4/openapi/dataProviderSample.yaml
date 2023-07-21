@@ -1,17 +1,19 @@
-openapi: 3.0.3
+openapi: 3.0.0
 info:
-  title: Preview Space
-  description: Preview Space API
-  version: v1
+  title: DataService - example 
+  description: servizi esposti dai DataProvider per lo scambio delle prove
+  version: 1.0.6
 servers:
-  - url: https://sit.servizisdg.gov.it/sdg-cnaz-sp-int
+  - url: <dominio-DS>
 paths:
-  /ps/v1/preview/url:
+  /ds/v1/evidence/request:
     post:
+      security:
+        - Authorization: []   
       tags:
-        - generatePreviewUrl
-      summary: generatePreviewUrl
-      operationId: generatePreviewUrlUsingPOST
+        - EvidenceRequestDS
+      summary: getEvidenceRequestResponse
+      operationId: getEvidenceRequestResponseUsingPOST
       requestBody:
         content:
           application/xml:
@@ -23,19 +25,75 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/genericResponse'
+                $ref: '#/components/schemas/BaseResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+  /ds/v1/preview/piece-of-evidence:
+    post:
+      security:
+        - Authorization: [] 
+      tags:
+        - findPieceOfEvidence
+      summary: findPieceOfEvidence
+      operationId: findPieceOfEvidenceUsingPOST
+      parameters:
+        - name: Authorization
+          in: header
+          description: Authorization
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FindPieceOfEvidenceVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindPieceOfEvidenceResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+  /ds/v1/preview/provide-user-decision:
+    post:
+      security:
+        - Authorization: []
+      tags:
+        - provideUserDecision
+      summary: provideUserDecision
+      operationId: provideUserDecisionUsingPOST
+      parameters:
+        - name: Authorization
+          in: header
+          description: Authorization
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvidenceDecision'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
         '400':
           $ref: '#/components/responses/400'
         '500':
           $ref: '#/components/responses/500'
 components:
   responses:
-    '200':
-      description: Successful operation
-      content:
-        application/json:
-          schema:
-           $ref: '#/components/schemas/genericResponse'
     '400':
       description: Bad Request
       content:
@@ -57,6 +115,100 @@ components:
              message: An internal server error occurred
              description: An internal server error occurred
   schemas:
+    BaseResponse:
+      title: BaseResponse
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        description:
+          type: string
+        message:
+          type: string
+    Errore:
+      type: object
+      required:
+            - code
+            - message
+      properties:
+            code:
+              type: string
+              description: Codice di errore
+              example: <HTTP_CODE>
+              enum:
+                - '400'
+                - '500'
+            message:
+              type: string
+              description: Tipologia di errore
+              example: <HTTP_STATUS>
+              enum:
+                - Bad Request
+                - Internal Server Error
+            description:
+              type: string
+              description: Descrizione di dettaglio dello specifico problema verificatosi
+              example: <detail_error>
+      description: Modello di risposta in caso di errore
+    EvidenceAcceptedVO:
+      title: EvidenceAcceptedVO
+      type: object
+      properties:
+        accepted:
+          type: boolean
+        id:
+          type: string
+    EvidenceDecision:
+      title: EvidenceDecision
+      type: object
+      properties:
+        evidences:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvidenceAcceptedVO'
+        previewUrl:
+          type: string
+        status:
+          type: boolean
+    EvidenceVO:
+      title: EvidenceVO
+      type: object
+      properties:
+        contentType:
+          type: string
+        file:
+          type: string
+        fileExtension:
+          type: string
+        fileName:
+          type: string
+        fileSize:
+          type: integer
+          format: int32
+        id:
+          type: string
+    FindPieceOfEvidenceResponse:
+      title: FindPieceOfEvidenceResponse
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        description:
+          type: string
+        evidences:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvidenceVO'
+        message:
+          type: string
+    FindPieceOfEvidenceVO:
+      title: FindPieceOfEvidenceVO
+      type: object
+      properties:
+        previewUrl:
+          type: string
     QueryRequest:
       type: object
       required:
@@ -230,39 +382,54 @@ components:
                 $ref: '#/components/schemas/Description' 
             SupportedValue: 
              $ref: '#/components/schemas/SupportedValue'
-    SupportedValue:    
-         type: object
-         xml:
-          prefix: 'sdg'
-         description: Valore supportato dalla risposta. Il campo è obbligatorio ma deve essere valorizzato solo UNO dei valori in lista.
-         properties:
-          StringValue:
-           type: array
-           xml:
+    SupportedValue:
+      type: object
+      xml:
+        prefix: 'sdg'
+      properties:
+        StringValue:
+          type: string
+          xml: 
             prefix: 'sdg'
-           items:
-            type: string
-            xml:
-             prefix: 'sdg'
-            description: Campo testuale
-          DateValue:
-           type: array
-           xml:
-             prefix: 'sdg'
-           items:
-            type: string
-            xml:
-             prefix: 'sdg'
-            description: Campo Data (formato YYYY-DD-MM)
-          BooleanValue:
-           type: array
-           xml:
-             prefix: 'sdg'
-           items:
-            type: boolean
-            xml:
-             prefix: 'sdg'
-            description: true or 1 Representing Yes affirmative answers.false or 0 representing No negative answers.          
+        DateValue:
+          type: string
+          xml: 
+            prefix: 'sdg'
+          description: data  in formato YYYY-DD-MM         
+        BooleanValue:
+          type: boolean
+          xml: 
+            prefix: 'sdg'          
+        CodeValue:
+          type: string
+          xml: 
+            prefix: 'sdg'          
+        DateTimeValue:
+          type: string
+          xml: 
+            prefix: 'sdg'          
+          description: data  in formato YYYY-DD-MM hh:mm:ss zzzzzz
+        Identifier:
+          $ref: '#/components/schemas/Identifier'           
+        URI:
+          type: string
+          xml: 
+            prefix: 'sdg'          
+        Duration:
+          type: string
+          xml: 
+            prefix: 'sdg'
+          description: Una durata espresso come  Year, Month, Day, Hour and Minutes (formato PnYn MnDTnH nMnS)
+        Decimal:
+          type: number
+          format: float
+          xml: 
+            prefix: 'sdg'          
+        Amount:
+          type: string
+          xml: 
+            prefix: 'sdg'
+          description: Una quantita e una valuta come definito in UN/CEFACT's CCTS
 
     ResponseOption:
       type: object
@@ -711,12 +878,9 @@ components:
          $ref: '#/components/schemas/Identifier'
          
         Name:
-         type: array
-         items:
-          $ref: '#/components/schemas/NameXml'
-         xml:
-           wrapped: false
-           prefix: 'sdg'
+          type: string
+          xml:
+            prefix: 'sdg'
     Element:
       type: object
       xml:
@@ -757,12 +921,15 @@ components:
           xml: 
             prefix: 'sdg'
         Name:
-         type: array
-         items:
-          $ref: '#/components/schemas/NameXml'
-         xml:
-           wrapped: false
-           prefix: 'sdg'
+          type: object
+          xml:
+            prefix: 'sdg'
+          properties:
+            lang:
+              type: string
+              xml:
+               attribute: true
+          description: 'attributo del nodo name.Espresso in codice ISO 639-1 di due lettere. Esempio:<Name lang="en">Proof of Birth</Name>'
 
     ElementEvidenceRequester:
       type: object
@@ -793,16 +960,8 @@ components:
       properties:
         Identifier:
             $ref: '#/components/schemas/Identifier'
-            xml:
-              prefix: 'sdg'
-        Name:
-         type: array
-         items:
-          $ref: '#/components/schemas/NameXml'
-         xml:
-           wrapped: false
-           prefix: 'sdg'
-  
+        Address:
+          $ref: '#/components/schemas/Address'
         Classification:
           type: string
           xml:
@@ -840,71 +999,4 @@ components:
           type: string
           xml: 
             prefix: 'sdg'
-    NameXml:
-      title: Name
-      type: object
-      required:
-        - lang
-      properties:
-        lang:
-          type: string
-          description: 'attributo del nodo name.Espresso in codice ISO 639-1 di due lettere. (es: EN). Di seguito un esempio di come deve essere popolato il campo Name: <sdg:Name lang="EN">Denmark University Portal</sdg:Name> '
-          xml:
-            name: lang
-            attribute: true
-            wrapped: false
-      xml:
-       prefix: 'sdg'
-       
-    Errore:
-      type: object
-      required:
-            - code
-            - message
-      properties:
-            code:
-              type: string
-              description: Codice di errore
-              example: <HTTP_CODE>
-              enum:
-                - '400'
-                - '500'
-            message:
-              type: string
-              description: Tipologia di errore
-              example: <HTTP_STATUS>
-              enum:
-                - Bad Request
-                - Internal Server Error
-            description:
-              type: string
-              description: Descrizione di dettaglio dello specifico problema verificatosi
-              example: <detail_error>
-      description: Modello di risposta in caso di errore
-    genericResponse:
-      type: object
-      required:
-        - code
-        - description
-        - message
-        - previewURL
-        - previewMethod
-      properties:
-        code:
-          type: string
-          description: Rif response code
-          example: 200
-        description:
-          type: string
-          description: Eventuale descrizione code
-          example: Successful operation
-        message:
-          type: string
-          description: Eventuale messaggio di errore 
-        previewURL:
-          type: string
-          description: url della preview generata 
-        previewMethod:
-          type: string
-          description: metodo di preview
-          example: GET
+    

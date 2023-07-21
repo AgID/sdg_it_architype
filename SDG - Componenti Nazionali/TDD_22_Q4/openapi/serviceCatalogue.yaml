@@ -117,30 +117,9 @@ components:
           type: string
           description: Descrizione del procedimento amministrativo
           example: Secondo questa procedura, le autorità competenti (regimi pensionistici e assicurativi obbligatori) sono tenute ad accettare la domanda di registrazione di un datore di lavoro per via elettronica.”
-        parentPublicServiceId:
-          $ref: '#/components/schemas/parentPublicService'
         publicOrganization:
           $ref: '#/components/schemas/publicOrganization'
 
-    parentPublicService:
-      type: object
-      description: informazioni sulla procedura Europea relativa al procedimento
-      required:
-        - publicServiceId
-        - euPublicServiceId
-        - name
-      properties:
-        publicServiceId:
-          type: integer
-          description: Identificativo tecnico della tabella del procedimento amministrativo
-          example: 101
-        euPublicServiceId:
-          type: string
-          description: Identificativo univoco definito dalla Comunità Europea del procedimento amministrativo  
-          example: P17    
-        name:
-          type: string
-          description: Nome della procedura Europea 
     publicOrganization:
       type: object
       description: Identificativo univoco definito dall’Comunità Europea

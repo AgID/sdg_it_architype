@@ -39,13 +39,13 @@ paths:
           required: false
           schema:
             type: string
-          description: 2 Codice NUTS da 3 a 6 lettere. Può essere valorizzato solo se rischiesto a valle di una risposta di errore DSD005.        
+          description: 2 Codice NUTS da 3 a 6 lettere.         
         - in: query
           name: jurisdiction-admin-l3
           required: false
           schema:
             type: string
-          description: Codice LAU. Può essere valorizzato solo se rischiesto a valle di una risposta di errore DSD005.  
+          description: Codice LAU
         - in: query
           name: jurisdiction-context-id
           required: false
@@ -94,13 +94,13 @@ paths:
                           xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
                           xmlns: http://data.europa.eu/sdg#
                           Identifier: RE238912378
-                          Title: 
-                            - lang: EN
-                            - lang: DE
+                          Title: #NON RIESCO AD INSERIRE IL VALORE Certificate of Birth
+                            - lang: en
+                            - lang: de
 
-                          Description: 
-                            - lang: EN
-                            - lang: DE
+                          Description: #NON RIESCO AD INSERIRE IL VALORE An official certificate of birth of a person - with first name, surname, sex, date and place of birth, which is obtained from the birth register of the place of birth.
+                            - lang: en
+                            - lang: de
                           EvidenceTypeClassification: CertificateOfBirth
                           DistributedAs:
                           - ConformsTo: https://semic.org/sa/common/birthcert-1.0.0
@@ -108,10 +108,10 @@ paths:
                           - Format: http://publications.europa.eu/resource/authority/file-type/PDF
                           AccessService:
                             ConformsTo: oots:edm-v1.0
-                            Identifier: 
+                            Identifier: #NON RIESCO AD INSERIRE IL VALORE --> 8889909098
                               schemeID: urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060
                             Publisher:
-                              Identifier: 
+                              Identifier: #NON RIESCO AD INSERIRE IL VALORE -->DE73524311
                                schemeID: VAT
                               Name: Civil Registration Office Hamburg
                               Address:
@@ -127,8 +127,8 @@ paths:
                               ClassificationConcept:
                                Identifier: BirthDate
                                Type: CertificateOfBirthh
-                               Description: 
-                               - lang: EN
+                               Description: #NON RIESCO AD INSERIRE IL VALORE The month, day, and year a person was born
+                               - lang: en
                                SupportedValue:
                                  DateValue: 2022-05-05
                           AuthenticationLevelOfAssurance: http://eidas.europa.eu/LoA/High
@@ -433,7 +433,7 @@ components:
           xml:
             prefix: 'sdg'
           description: Versione e Profilo     d Exchange Message Data       Model.
-          default: "oots-edm:v1.0"
+          default: "oots:edm-1.0"
         Publisher:
           type: object
           xml:
@@ -459,12 +459,10 @@ components:
                   xml:
                     attribute: true      
             Name:
-             type: array
-             items:
-              $ref: '#/components/schemas/NameXml'
-             xml:
-              wrapped: false
-              prefix: 'sdg'
+              type: string
+              xml:
+                prefix: 'sdg'
+              description: Etichetta associata all’agente.
             Address:
               type: object
               xml:
@@ -616,13 +614,12 @@ components:
             xml:
              attribute: true 
             description: Specifica il linguaggio
-            
        JurisdictionLevel:    
          type: string
-         description: Livello di giurisdizione necessario (es. LAU)
          xml:
-          prefix: 'sdg'
-    
+            prefix: 'sdg'
+         description: Livello di giurisdizione necessario 
+      
     EvidenceProviderClassification:
       type: object
       xml:
@@ -715,47 +712,60 @@ components:
          description: Valore supportato dalla risposta. Il campo è obbligatorio ma deve essere valorizzato solo UNO dei valori in lista.
          properties:
           StringValue:
-           type: array
+           type: string
            xml:
             prefix: 'sdg'
-           items:
-            type: string
-            xml:
-             prefix: 'sdg'
-            description: Campo testuale
+           description: Campo testuale
           DateValue:
-           type: array
+           type: string
            xml:
-             prefix: 'sdg'
-           items:
-            type: string
-            xml:
-             prefix: 'sdg'
-            description: Campo Data (formato YYYY-DD-MM)
+            prefix: 'sdg'
+           description: Campo Data (formato YYYY-DD-MM)
           BooleanValue:
-           type: array
+           type: boolean
            xml:
-             prefix: 'sdg'
-           items:
-            type: boolean
-            xml:
-             prefix: 'sdg'
-            description: true or 1 Representing Yes affirmative answers.false or 0 representing No negative answers.
-    NameXml:
-      title: Name
-      type: object
-      required:
-        - lang
-      properties:
-        lang:
-          type: string
-          description: 'attributo del nodo name.Espresso in codice ISO 639-1 di due lettere. (es: EN). Di seguito un esempio di come deve essere popolato il campo Name: <sdg:Name lang="EN">Denmark University Portal</sdg:Name> '
-          xml:
-            name: lang
-            attribute: true
-            wrapped: false
-      xml:
-       prefix: 'sdg'
+            prefix: 'sdg'
+           description: true or 1 Representing Yes affirmative answers.false or 0 representing No negative answers.
+          CodeValue:
+           type: string
+           xml:
+            prefix: 'sdg'
+           description: codice per il classification concept
+          DateTimeValue:
+           type: string
+           xml:
+            prefix: 'sdg'
+           description: Campo data che include l’orario (formato YYYY-DD-MM hh:mm:ss zzzzzz)
+          Identifier:
+           type: string
+           xml:
+            prefix: 'sdg'
+           description: Un identificativo di un concept, incluso uno schemaId
+          URI:
+           type: string
+           xml:
+            prefix: 'sdg'
+           description: Un URI  o un indirizzo email
+          Time:
+           type: string
+           xml:
+            prefix: 'sdg'
+           description: Un orario (formato hh:mm:ss)
+          Duration:
+           type: string
+           xml:
+            prefix: 'sdg'
+           description: Una durata espresso come  Year, Month, Day, Hour and Minutes (formato PnYn MnDTnH nMnS)
+          Decimal:
+           type: number
+           xml:
+            prefix: 'sdg'
+           description: Un numero in formato decimale
+          Amount:
+           type: string
+           xml:
+            prefix: 'sdg'
+           description: Una quantità e una valuta come definito in UN/CEFACT's CCTS
          
     UserIdentityAttribute:
       type: object

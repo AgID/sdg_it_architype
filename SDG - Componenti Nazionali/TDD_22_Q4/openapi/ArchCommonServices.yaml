@@ -272,6 +272,12 @@ paths:
       responses:
         '200':
           description: Controllo eseguito
+          headers:
+            X-Counter:
+              description: Numero di richieste processate
+              style: simple
+              schema:
+                type: string
           content:
             application/json:
               schema:
@@ -286,12 +292,6 @@ paths:
                 $ref: '#/components/schemas/ErrorValidation'
         '401':
           description: Utente non abilitato al servizio
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BaseError'
-        '429':
-          description: Superato numero richieste
           content:
             application/json:
               schema:
@@ -2106,7 +2106,6 @@ components:
           enum:
             - 400
             - 401
-            - 429
             - 500
         title:
           type: string

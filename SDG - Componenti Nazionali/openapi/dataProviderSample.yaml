@@ -171,6 +171,8 @@ components:
           type: string
         status:
           type: boolean
+        errorCode:
+          type: string
     EvidenceVO:
       title: EvidenceVO
       type: object
@@ -382,54 +384,39 @@ components:
                 $ref: '#/components/schemas/Description' 
             SupportedValue: 
              $ref: '#/components/schemas/SupportedValue'
-    SupportedValue:
-      type: object
-      xml:
-        prefix: 'sdg'
-      properties:
-        StringValue:
-          type: string
-          xml: 
+    SupportedValue:    
+         type: object
+         xml:
+          prefix: 'sdg'
+         description: Valore supportato dalla risposta. Il campo è obbligatorio ma deve essere valorizzato solo UNO dei valori in lista.
+         properties:
+          StringValue:
+           type: array
+           xml:
             prefix: 'sdg'
-        DateValue:
-          type: string
-          xml: 
-            prefix: 'sdg'
-          description: data  in formato YYYY-DD-MM         
-        BooleanValue:
-          type: boolean
-          xml: 
-            prefix: 'sdg'          
-        CodeValue:
-          type: string
-          xml: 
-            prefix: 'sdg'          
-        DateTimeValue:
-          type: string
-          xml: 
-            prefix: 'sdg'          
-          description: data  in formato YYYY-DD-MM hh:mm:ss zzzzzz
-        Identifier:
-          $ref: '#/components/schemas/Identifier'           
-        URI:
-          type: string
-          xml: 
-            prefix: 'sdg'          
-        Duration:
-          type: string
-          xml: 
-            prefix: 'sdg'
-          description: Una durata espresso come  Year, Month, Day, Hour and Minutes (formato PnYn MnDTnH nMnS)
-        Decimal:
-          type: number
-          format: float
-          xml: 
-            prefix: 'sdg'          
-        Amount:
-          type: string
-          xml: 
-            prefix: 'sdg'
-          description: Una quantita e una valuta come definito in UN/CEFACT's CCTS
+           items:
+            type: string
+            xml:
+             prefix: 'sdg'
+            description: Campo testuale
+          DateValue:
+           type: array
+           xml:
+             prefix: 'sdg'
+           items:
+            type: string
+            xml:
+             prefix: 'sdg'
+            description: Campo Data (formato YYYY-DD-MM)
+          BooleanValue:
+           type: array
+           xml:
+             prefix: 'sdg'
+           items:
+            type: boolean
+            xml:
+             prefix: 'sdg'
+            description: true or 1 Representing Yes affirmative answers.false or 0 representing No negative answers.
 
     ResponseOption:
       type: object
@@ -587,7 +574,24 @@ components:
        type: string
        xml:
         attribute: true  
-       description: 'esempio: <sdg:description lang="en">Year Of Graduation</sdg:description>'        
+       description: 'esempio: <sdg:description lang="en">Year Of Graduation</sdg:description>'    
+
+    NameXml:
+      title: Name
+      type: object
+      required:
+        - lang
+      properties:
+        lang:
+          type: string
+          description: 'attributo del nodo name.Espresso in codice ISO 639-1 di due lettere. (es: EN). Di seguito un esempio di come deve essere popolato il campo Name: <sdg:Name lang="EN">Denmark University Portal</sdg:Name> '
+          xml:
+            name: lang
+            attribute: true
+            wrapped: false
+      xml:
+       prefix: 'sdg'
+       
     SlotValueNaturalPerson:
       type: object
       required:
@@ -794,6 +798,47 @@ components:
             xml:
               attribute: true
               wrapped: false
+        Identifier:
+          type: object
+          xml:
+           prefix: 'sdg'
+          required:
+            - schemeID
+          description: l'identifier ha il formato "XX/YY/identifier". Dove XX e YY sono countrycode di provenienza e destinazione e identifier e una stringa alfanumerica di lunghezza massima 256
+          properties:
+           schemeID:
+            type: string
+            xml:
+              attribute: true
+              wrapped: false
+        LevelOfAssurance:
+          type: string
+          xml:
+           prefix: 'sdg'
+        LegalName:
+          type: string
+          xml:
+           prefix: 'sdg'
+        RegisteredAddress:
+          xml:
+            wrapped: false
+            prefix: 'sdg'
+            name: 'RegisteredAddress'
+          $ref: '#/components/schemas/CurrentAddress'        
+        SectorSpecificAttribute:
+          type: array
+          items:
+            $ref: '#/components/schemas/SectorSpecificAttribute'
+          xml:
+            wrapped: false
+            prefix: 'sdg'
+        UserIdentityAttribute:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserIdentityAttribute'
+          xml:
+            wrapped: false
+            prefix: 'sdg'
     SlotValueEvidenceProvider:
       type: object
       required:
@@ -878,9 +923,12 @@ components:
          $ref: '#/components/schemas/Identifier'
          
         Name:
-          type: string
-          xml:
-            prefix: 'sdg'
+         type: array
+         items:
+          $ref: '#/components/schemas/NameXml'
+         xml:
+           wrapped: false
+           prefix: 'sdg'
     Element:
       type: object
       xml:
@@ -921,15 +969,12 @@ components:
           xml: 
             prefix: 'sdg'
         Name:
-          type: object
-          xml:
-            prefix: 'sdg'
-          properties:
-            lang:
-              type: string
-              xml:
-               attribute: true
-          description: 'attributo del nodo name.Espresso in codice ISO 639-1 di due lettere. Esempio:<Name lang="en">Proof of Birth</Name>'
+         type: array
+         items:
+          $ref: '#/components/schemas/NameXml'
+         xml:
+           wrapped: false
+           prefix: 'sdg'
 
     ElementEvidenceRequester:
       type: object
@@ -960,8 +1005,19 @@ components:
       properties:
         Identifier:
             $ref: '#/components/schemas/Identifier'
+            xml:
+              prefix: 'sdg'
+        Name:
+         type: array
+         items:
+          $ref: '#/components/schemas/NameXml'
+         xml:
+           wrapped: false
+           prefix: 'sdg'
         Address:
           $ref: '#/components/schemas/Address'
+          xml:
+             prefix: 'sdg'
         Classification:
           type: string
           xml:
@@ -1000,3 +1056,8 @@ components:
           xml: 
             prefix: 'sdg'
     
+  securitySchemes:
+    Authorization:            # Bearer <Voucher PDND>
+      type: http
+      scheme: bearer
+      bearerFormat: JWT      
