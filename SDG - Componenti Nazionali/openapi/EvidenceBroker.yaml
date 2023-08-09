@@ -8,58 +8,6 @@ servers:
     description: PDND Collaudo
 
 paths:
-  /evidencebroker/v1/requirement/list:
-    get:
-      security:
-        - Authorization: []        
-      tags:
-        - retrieveRequirementList
-      summary: restituisce la lista delle Tipologie di prova per specifico requisito. 
-      description: L’insieme delle Tipologie di prova necessarie a soddisfare ogni specifico Requisito sarà restituito dall’Evidence Broker IT. 
-      parameters:
-        - in: query
-          name: queryId
-          required: true
-          schema:
-            type: string
-          description: Questo parametro deve essere valorizzato con la seguente stringa "urn:fdc:oots:eb:ebxml-regrep:queries:requirements-by-procedure-and-jurisdiction".
-        - in: query
-          name: procedure-id
-          required: false
-          schema:
-            type: string
-          description: Identificativo della Procedimento amministrativo al livello Europeo al fine di filtrare i Requirement.
-        - in: query
-          name: country-code
-          required: false
-          schema:
-            type: string
-          description: Giurisdizione della Procedure/Procedimento amministrativo al fine di filtrare i Requirement utilizzati nello Stato Membro. La codifica da utilizzare è ISO 3166-2.
-                        Obbligatorio nel caso sia valorizzato il procedure-id.
-        - in: query
-          name: jurisdiction-admin-l2
-          required: false
-          schema:
-            type: string
-          description: Codice NUTS da 3 a 6 lettere
-        - in: query
-          name: jurisdiction-admin-l3
-          required: false
-          schema:
-            type: string
-          description: Codice LAU
-      responses:
-        '200':    # status code
-          description: Successful operation
-          content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/QueryResponse'             
-        '400':
-          $ref: '#/components/responses/400'
-        '500':
-          $ref: '#/components/responses/500'
-          
   /evidencebroker/v1/evidence-type-list/list:
     get:
       security:
@@ -131,7 +79,60 @@ paths:
           $ref: '#/components/responses/400'
         '500':
           $ref: '#/components/responses/500'
-                                       
+  
+  /evidencebroker/v1/requirement/list:
+    get:
+      security:
+        - Authorization: []        
+      tags:
+        - retrieveRequirementList
+      summary: restituisce la lista delle Tipologie di prova per specifico requisito. 
+      description: L’insieme delle Tipologie di prova necessarie a soddisfare ogni specifico Requisito sarà restituito dall’Evidence Broker IT. 
+      parameters:
+        - in: query
+          name: queryId
+          required: true
+          schema:
+            type: string
+          description: Questo parametro deve essere valorizzato con la seguente stringa "urn:fdc:oots:eb:ebxml-regrep:queries:requirements-by-procedure-and-jurisdiction".
+        - in: query
+          name: procedure-id
+          required: false
+          schema:
+            type: string
+          description: Identificativo della Procedimento amministrativo al livello Europeo al fine di filtrare i Requirement.
+        - in: query
+          name: country-code
+          required: false
+          schema:
+            type: string
+          description: Giurisdizione della Procedure/Procedimento amministrativo al fine di filtrare i Requirement utilizzati nello Stato Membro. La codifica da utilizzare è ISO 3166-2.
+                        Obbligatorio nel caso sia valorizzato il procedure-id.
+        - in: query
+          name: jurisdiction-admin-l2
+          required: false
+          schema:
+            type: string
+          description: Codice NUTS da 3 a 6 lettere
+        - in: query
+          name: jurisdiction-admin-l3
+          required: false
+          schema:
+            type: string
+          description: Codice LAU
+      responses:
+        '200':    # status code
+          description: Successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'             
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+          
+    
 components:
   responses:
     '400':
@@ -247,45 +248,51 @@ components:
             
             
         RegistryObjectList:
+         type: object
+         xml:
+          wrapped: false 
+          prefix: 'rim'
+         properties:
+           RegistryObject:
+            type: array
+            items:
+              $ref: '#/components/schemas/RegistryObject'
+            
+     
+  
+    RegistryObject:
+      type: object
+      xml:
+       prefix: 'rim'
+      required:
+       - id
+      properties:
+        id:
+         type: string
+         xml:
+          attribute: true   
+        Slot:
           type: object
           xml:
             prefix: 'rim'
           required:
-             - RegistryObject
+            - name
           properties:
-            RegistryObject:
+            name:
+             type: string
+             example: Requirement
+             xml:
+               attribute: true
+             enum:
+              - Requirement
+              - NoOotsRequirement
+            SlotValue:
               type: object
               xml:
-                prefix: 'rim'
-              required:
-                - id
-              properties:
-                id:
-                  type: string
-                  xml:
-                    attribute: true   
-                Slot:
-                  type: object
-                  xml:
-                    prefix: 'rim'
-                  required:
-                    - name
-                  properties:
-                    name:
-                      type: string
-                      example: Requirement
-                      xml:
-                        attribute: true
-                      enum:
-                        - Requirement
-                        - NoOotsRequirement
-                    SlotValue:
-                      type: object
-                      xml:
-                        prefix: 'rim'
-                      oneOf:
-                        - $ref: '#/components/schemas/Requirement'
-                        - $ref: '#/components/schemas/NoOotsRequirement'
+               prefix: 'rim'
+              oneOf:
+               - $ref: '#/components/schemas/Requirement'
+               - $ref: '#/components/schemas/NoOotsRequirement'
                         
 
     Requirement:

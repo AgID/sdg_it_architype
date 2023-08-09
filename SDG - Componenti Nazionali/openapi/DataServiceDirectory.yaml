@@ -280,7 +280,15 @@ components:
           xml:
             prefix: 'rim'
           properties:
-            RegistryObject:
+           RegistryObject:
+            type: array
+            items:
+              $ref: '#/components/schemas/RegistryObject'
+          
+          
+          
+          
+    RegistryObject:
               type: object
               xml:
                 prefix: 'rim'
