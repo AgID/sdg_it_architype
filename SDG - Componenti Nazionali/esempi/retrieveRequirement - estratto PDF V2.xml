@@ -6,7 +6,6 @@
                      xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
                      xmlns:sdg="http://data.europa.eu/p4s"
                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                     xsi:schemaLocation="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0"
                      status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success"
                      totalResultCount="1">
 	<rim:RegistryObjectList>
@@ -34,7 +33,7 @@
 				</rim:SlotValue>
 			</rim:Slot>
 		</rim:RegistryObject>
-		<rim:RegistryObject>
+		<rim:RegistryObject id="urn:uuid:35f628cb-717a-4c8a-b91d-6d5afb1d8edf">
 			<rim:Slot name="NoOotsRequirement">
 				<rim:SlotValue xsi:type="rim:AnyValueType">
 					<sdg:NoOotsRequirement xmlns="http://data.europa.eu/sdg#"

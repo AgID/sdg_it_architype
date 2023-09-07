@@ -158,6 +158,10 @@ paths:
       responses:
         '200':
           description: Successful operation
+          headers:
+            conversationId:
+              schema:
+                type: string
           content:
             application/xml:
               schema:
@@ -184,6 +188,10 @@ paths:
       responses:
         '200':
           description: Successful operation
+          headers:
+            conversationId:
+              schema:
+                type: string
           content:
             application/xml:
               schema:

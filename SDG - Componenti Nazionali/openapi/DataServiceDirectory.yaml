@@ -81,7 +81,6 @@ paths:
                 xmlns:rim: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
                 xmlns:rs: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
                 xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
-                xsi:schemaLocation: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
                 status: urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success
                 RegistryObjectList:
                   RegistryObject:
@@ -211,11 +210,6 @@ components:
           default: http://www.w3.org/2001/XMLSchema-instance
           xml:
             attribute: true      
-        xsi:schemaLocation:
-          type: string
-          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
-          xml:
-            attribute: true  
         xmlns:xlink: 
           type: string
           default: http://www.w3.org/1999/xlink    

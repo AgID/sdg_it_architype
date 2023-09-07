@@ -190,11 +190,11 @@ components:
           default: http://www.w3.org/2001/XMLSchema-instance
           xml:
             attribute: true      
-        xsi:schemaLocation:
-          type: string
-          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+        totalResultCount:
+          type: number
+          example: 1
           xml:
-            attribute: true  
+            attribute: true            
         requestId:
           type: string
           example: c4369c4d-740e-4b64-80f0-7b209a66d629
@@ -294,7 +294,6 @@ components:
                - $ref: '#/components/schemas/Requirement'
                - $ref: '#/components/schemas/NoOotsRequirement'
                         
-
     Requirement:
       type: object 
       xml:

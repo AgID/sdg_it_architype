@@ -6,6 +6,7 @@
     xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
     xmlns:sdg="http://data.europa.eu/p4s"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	totalResultCount="1"
     status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success">
     
     <!-- Validate with sch/EB-EVI-C and sch/EB-EVI-S-->
