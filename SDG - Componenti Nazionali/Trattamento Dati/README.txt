@@ -1,0 +1,1 @@
+Il template è da considerarsi in bozza in quanto è in fase di consolidamento da parte della Commissione Europea
