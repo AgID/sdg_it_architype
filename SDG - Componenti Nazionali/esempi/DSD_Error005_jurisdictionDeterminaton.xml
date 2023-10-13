@@ -11,7 +11,7 @@
     <!-- The detail may contain further freely defined information about the error -->
  
     <rs:Exception xsi:type="rs:ObjectNotFoundExceptionType"
-                  severity="urn:sr.oots.tech.europa.eu:codes:ErrorSeverity:DSDErrorResponse:AdditionalInput"
+                  severity="urn:sr.oots.tech.ec.europa.eu:codes:ErrorSeverity:DSDErrorResponse:AdditionalInput"
                   message="The query requires the included extra attributes to be provided by the user."
                   detail="JurisdictionDetermination"
                   code="DSD:ERR:0005">

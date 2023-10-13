@@ -16,7 +16,7 @@
             <rim:Slot name="Requirement">
                 <rim:SlotValue xsi:type="rim:AnyValueType">
                     <sdg:Requirement>
-                        <sdg:Identifier>https://sr.oots.tech.europa.eu/requirements/315cfd75-6605-49c4-b0fe-799833b41099</sdg:Identifier>
+                        <sdg:Identifier>https://sr.oots.tech.ec.europa.eu/requirements/315cfd75-6605-49c4-b0fe-799833b41099</sdg:Identifier>
                         <sdg:Name lang="EN">Proof of Birth</sdg:Name>
                         <sdg:Name lang="DE">Geburtsnachweis</sdg:Name>
 
@@ -55,7 +55,7 @@
                             <!-- Example structure of an evidence type having national coverage area / jurisdiction = DE -->
                             <sdg:EvidenceType>
                                 <!-- EvidenceTypeClassification Information - Provided by the Evidence Broker on the basis of the Semantic Repository. Used for linking with the Semantic Repository and Data Service Directory -->
-                                <sdg:EvidenceTypeClassification>https://sr.oots.tech.europa.eu/evidencetypeclassifications/DE/ca8afed6-2dc0-422a-a931-d21c3d8d370e</sdg:EvidenceTypeClassification>
+                                <sdg:EvidenceTypeClassification>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/DE/ca8afed6-2dc0-422a-a931-d21c3d8d370e</sdg:EvidenceTypeClassification>
                                 <sdg:Title lang="EN">Certificate of Birth</sdg:Title>
                                 <sdg:Title lang="DE">Geburtsurkunde</sdg:Title>
                                 <sdg:Description lang="EN">An official certificate of birth of a person - with first name, surname, sex, date and place of birth, which is obtained from the birth register of the place of birth.</sdg:Description>

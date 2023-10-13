@@ -1,0 +1,665 @@
+openapi: 3.0.3
+info:
+  title: Evidence Broker
+  description: Evidence Broker API
+  version: 1.0.9
+servers:
+  - url: https://sit.servizisdg.gov.it/sdg-cnaz-sp-int
+    description: PDND Collaudo
+
+paths:
+  /evidencebroker/v1/evidence-type-list/list:
+    get:
+      security:
+        - Authorization: []
+      tags:
+        - retrieveEvidenceTypeList
+      summary: >-
+        restituisce la lista delle Tipologie di prova per specifico requisito
+        non necessariamente italiane.
+      description: >-
+        La lista delle prove delle tipologie ristrette all'output di
+        retrieveRequirementList.
+      parameters:
+        - in: query
+          name: queryId
+          required: true
+          schema:
+            type: string
+          description: >-
+            Questo parametro deve essere valorizzato con la seguente stringa
+            "urn:fdc:oots:eb:ebxml-regrep:queries:evidence-types-by-requirement-and-jurisdiction".
+        - in: query
+          name: requirement-id
+          required: true
+          schema:
+            type: string
+          description: >-
+            identificativo per requisito per i quali si richiedono le Tipologie
+            di prova.
+        - in: query
+          name: requirementType
+          required: false
+          schema:
+            type: string
+          description: >-
+            Il parametro è usato per specificare se il requisito è di tipo “oots”  o “noOots” . Se non valorizzato di default è “oots”.
+        - in: query
+          name: country-code
+          required: false
+          schema:
+            type: string
+          description: Il codice del paese per i quali sono mappate le Tipologie di prova.
+        - in: query
+          name: jurisdiction-admin-l2
+          required: false
+          schema:
+            type: string
+          description: >-
+            codice di secondo livello per l'amministrazione per la giurisdizione
+            della tipologia di prova. Il codice è NUTS. Il codice deve essere
+            combinato con il countrycode
+        - in: query
+          name: jurisdiction-admin-l3
+          required: false
+          schema:
+            type: string
+          description: >-
+            codice di terzo livello per l'amministrazione per la giurisdizione
+            della tipologia di prova. Il codice è LAU. Il codice deve essere
+            combinato con il countrycode
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+  
+  /evidencebroker/v1/requirement/list:
+    get:
+      security:
+        - Authorization: []        
+      tags:
+        - retrieveRequirementList
+      summary: restituisce la lista delle Tipologie di prova per specifico requisito. 
+      description: L’insieme delle Tipologie di prova necessarie a soddisfare ogni specifico Requisito sarà restituito dall’Evidence Broker IT. 
+      parameters:
+        - in: query
+          name: queryId
+          required: true
+          schema:
+            type: string
+          description: Questo parametro deve essere valorizzato con la seguente stringa "urn:fdc:oots:eb:ebxml-regrep:queries:requirements-by-procedure-and-jurisdiction".
+        - in: query
+          name: procedure-id
+          required: false
+          schema:
+            type: string
+          description: Identificativo della Procedimento amministrativo al livello Europeo al fine di filtrare i Requirement.
+        - in: query
+          name: country-code
+          required: false
+          schema:
+            type: string
+          description: Giurisdizione della Procedure/Procedimento amministrativo al fine di filtrare i Requirement utilizzati nello Stato Membro. La codifica da utilizzare è ISO 3166-2.
+                        Obbligatorio nel caso sia valorizzato il procedure-id.
+        - in: query
+          name: jurisdiction-admin-l2
+          required: false
+          schema:
+            type: string
+          description: Codice NUTS da 3 a 6 lettere
+        - in: query
+          name: jurisdiction-admin-l3
+          required: false
+          schema:
+            type: string
+          description: Codice LAU
+      responses:
+        '200':    # status code
+          description: Successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'             
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+          
+    
+components:
+  responses:
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '400'
+             message: Bad Request
+             description: Could not parse request           
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '500'
+             message: An internal server error occurred
+             description: An internal server error occurred
+  schemas:     
+    QueryResponse:
+      type: object
+      required:
+       - requestId
+       - status
+      xml:
+        prefix: query
+        namespace: urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0
+      properties:
+        xmlns:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+          xml:
+            attribute: true
+        xmlns:lcm:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+          xml:
+            attribute: true
+        xmlns:rim:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+          xml:
+            attribute: true
+        xmlns:rs:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+          xml:
+            attribute: true    
+        xmlns:xsi:
+          type: string
+          default: http://www.w3.org/2001/XMLSchema-instance
+          xml:
+            attribute: true      
+        totalResultCount:
+          type: number
+          example: 1
+          xml:
+            attribute: true            
+        requestId:
+          type: string
+          example: c4369c4d-740e-4b64-80f0-7b209a66d629
+          xml:
+            attribute: true   
+        status:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success
+          xml:
+            attribute: true             
+            
+        Exception:
+         required:
+          - xsi:type
+          - severity
+          - message         
+         type: object
+         xml:
+          prefix: rs
+         properties:
+            xsi:type:
+              type: string
+              example: rs:ObjectNotFoundExceptionType
+              xml:
+                attribute: true
+            severity:
+              type: string
+              default: urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error
+              xml:
+                attribute: true            
+            message:
+              type: string
+              example: >-
+                The requirement requested, represented by the requirement id,
+                does not exist
+              xml:
+                attribute: true
+            detail:
+              type: string
+              description: >-
+                Deve contenere informazioni dettagliate sull'errore, ad esempio
+                informazioni tecniche o una traccia dello stack.
+              xml:
+                attribute: true                 
+            code:
+              type: string
+              example: EB:ERR:0001
+              xml:
+                attribute: true            
+            
+            
+            
+        RegistryObjectList:
+         type: object
+         xml:
+          wrapped: false 
+          prefix: 'rim'
+         properties:
+           RegistryObject:
+            type: array
+            items:
+              $ref: '#/components/schemas/RegistryObject'
+            
+     
+  
+    RegistryObject:
+      type: object
+      xml:
+       prefix: 'rim'
+      required:
+       - id
+      properties:
+        id:
+         type: string
+         xml:
+          attribute: true   
+        Slot:
+          type: object
+          xml:
+            prefix: 'rim'
+          required:
+            - name
+          properties:
+            name:
+             type: string
+             example: Requirement
+             xml:
+               attribute: true
+             enum:
+              - Requirement
+              - NoOotsRequirement
+            SlotValue:
+              type: object
+              xml:
+               prefix: 'rim'
+              oneOf:
+               - $ref: '#/components/schemas/Requirement'
+               - $ref: '#/components/schemas/NoOotsRequirement'
+                        
+    Requirement:
+      type: object 
+      xml:
+       prefix: 'sdg'                                            
+      required:
+        - Identifier
+      properties:
+        xmlns:
+          type: string
+          default: http://data.europa.eu/sdg#
+          xml:
+            attribute: true
+        xmlns:xsi:
+          type: string
+          default: http://www.w3.org/2001/XMLSchema-instance
+          xml:
+            attribute: true  
+        Identifier:    
+          type: string
+          xml:
+            prefix: 'sdg'                                 
+        Name:
+          type: object
+          xml:
+            prefix: 'sdg'  
+          properties:
+            lang:
+              type: string
+              example: en
+              xml:
+                attribute: true
+        ReferenceFramework:  
+          $ref: '#/components/schemas/ReferenceFrameworkArray'
+        EvidenceTypeList:
+            $ref: '#/components/schemas/EvidenceTypeListArray'
+    NoOotsRequirement:
+      type: object 
+      xml:
+       prefix: 'sdg'                                            
+      required:
+        - Identifier
+      properties:
+        xmlns:
+          type: string
+          default: http://data.europa.eu/sdg#
+          xml:
+            attribute: true
+        xmlns:xsi:
+          type: string
+          default: http://www.w3.org/2001/XMLSchema-instance
+          xml:
+            attribute: true  
+        Identifier:    
+          type: string
+          xml:
+            prefix: 'sdg'                                 
+        Name:
+          type: object
+          xml:
+            prefix: 'sdg'  
+          properties:
+            lang:
+              type: string
+              example: en
+              xml:
+                attribute: true
+        ReferenceFramework:  
+          $ref: '#/components/schemas/ReferenceFrameworkArray'
+        NoOotsEvidenceTypeList:
+            $ref: '#/components/schemas/NoOotsEvidenceTypeListArray'                        
+    
+    
+    EvidenceTypeListArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/EvidenceTypeList'
+      xml:
+        name: EvidenceTypeList
+        wrapped: false
+        prefix: 'sdg'
+       
+    NoOotsEvidenceTypeListArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/NoOotsEvidenceTypeList'
+      xml:
+        name: NoOotsEvidenceTypeList
+        wrapped: false
+        prefix: 'sdg'
+                      
+    ReferenceFrameworkArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/ReferenceFramework'
+      xml:
+        name: ReferenceFramework
+        wrapped: false
+        prefix: 'sdg'
+            
+    ReferenceFramework:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - Identifier
+        - Title
+        - RelatedTo
+        - Jurisdiction
+      properties:
+        Identifier:
+          type: string
+          xml:
+            prefix: 'sdg'
+        Title:
+          type: object
+          xml:
+            prefix: 'sdg'
+          properties:
+            lang:
+              type: string
+              example: en
+              xml:
+                attribute: true
+        Description:
+          type: object
+          xml:
+            prefix: 'sdg'
+          properties:
+            lang:
+              type: string
+              example: en
+              xml:
+                attribute: true
+        RelatedToArray: 
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedTo'
+          xml:
+           name: RelatedTo
+           wrapped: false
+           prefix: 'sdg'
+        Jurisdiction: 
+          type: object
+          xml:
+            prefix: 'sdg'
+          required:
+           - AdminUnitLevel1
+          properties:
+            AdminUnitLevel1:
+              type: string
+              xml:
+                prefix: 'sdg'
+            AdminUnitLevel2:
+              type: string
+              xml:
+                prefix: 'sdg'
+            AdminUnitLevel3:
+              type: string
+              xml:
+                prefix: 'sdg'
+    EvidenceTypeList:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - Identifier
+        - EvidenceType
+      properties:
+        Identifier:
+          type: string
+          xml:
+            prefix: 'sdg'
+        Name:
+          type: object
+          xml:
+            prefix: 'sdg'
+          properties:
+            lang:
+              type: string
+              example: en
+              xml:
+                attribute: true
+        EvidenceType:
+          $ref: '#/components/schemas/EvidenceTypeArray'
+    EvidenceTypeArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/EvidenceType'
+      xml:
+        name: EvidenceType
+        wrapped: false
+        prefix: 'sdg'
+    EvidenceType:
+      type: object
+      xml:
+        prefix: 'sdg'
+      properties:
+        Identifier:
+          type: string
+          xml:
+            prefix: 'sdg'
+        title:
+          type: object
+          xml:
+            prefix: 'sdg'
+          properties:
+            lang:
+              type: string
+              example: en
+              xml:
+                attribute: true
+
+        Description:
+          type: object
+          xml:
+            prefix: 'sdg'
+          properties:
+            lang:
+              type: string
+              example: en
+              xml:
+                attribute: true
+        EvidenceTypeClassification:
+          type: string
+          xml:
+            prefix: 'sdg'
+        Jurisdiction:
+          type: object
+          xml:
+            prefix: 'sdg'
+          properties:
+            AdminUnitLevel1:
+              type: string
+              xml:
+                prefix: 'sdg'
+            AdminUnitLevel2:
+              type: string
+              xml:
+                prefix: 'sdg'
+            AdminUnitLevel3:
+              type: string
+              xml:
+                prefix: 'sdg'    
+    
+    NoOotsEvidenceTypeList:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - Identifier
+        - NoOotsEvidenceType
+      properties:
+        Identifier:
+          type: string
+          xml:
+            prefix: 'sdg'
+        Name:
+          type: object
+          xml:
+            prefix: 'sdg'
+          properties:
+            lang:
+              type: string
+              example: en
+              xml:
+                attribute: true
+        NoOotsEvidenceType:
+          $ref: '#/components/schemas/NoOotsEvidenceTypeArray'
+    NoOotsEvidenceTypeArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/NoOotsEvidenceType'
+      xml:
+        name: NoOotsEvidenceType
+        wrapped: false
+        prefix: 'sdg'
+    NoOotsEvidenceType:
+      type: object
+      xml:
+        prefix: 'sdg'
+      properties:
+        Identifier:
+          type: string
+          xml:
+            prefix: 'sdg'
+        title:
+          type: object
+          xml:
+            prefix: 'sdg'
+          properties:
+            lang:
+              type: string
+              example: en
+              xml:
+                attribute: true
+
+        Description:
+          type: object
+          xml:
+            prefix: 'sdg'
+          properties:
+            lang:
+              type: string
+              example: en
+              xml:
+                attribute: true
+        EvidenceTypeClassification:
+          type: string
+          xml:
+            prefix: 'sdg'
+        Jurisdiction:
+          type: object
+          xml:
+            prefix: 'sdg'
+          properties:
+            AdminUnitLevel1:
+              type: string
+              xml:
+                prefix: 'sdg'
+            AdminUnitLevel2:
+              type: string
+              xml:
+                prefix: 'sdg'
+            AdminUnitLevel3:
+              type: string
+              xml:
+                prefix: 'sdg'   
+    
+    RelatedTo:
+      xml:
+        prefix: 'sdg'
+      required:
+        - Identifier
+        - EvidenceType
+      properties:
+        Identifier:
+         type: string
+         xml:
+          prefix: 'sdg'            
+    Errore:
+      type: object
+      required:
+            - code
+            - message
+      properties:
+            code:
+              type: string
+              description: Codice di errore
+              example: <HTTP_CODE>
+              enum:
+                - '400'
+                - '500'
+            message:
+              type: string
+              description: Tipologia di errore
+              example: <HTTP_STATUS>
+              enum:
+                - Bad Request
+                - Internal Server Error
+            description:
+              type: string
+              description: Descrizione di dettaglio dello specifico problema verificatosi
+              example: <detail_error>
+      description: Modello di risposta in caso di errore    
+  securitySchemes:
+    Authorization:            # Bearer <Voucher PDND>
+      type: http
+      scheme: bearer
+      bearerFormat: JWT                   

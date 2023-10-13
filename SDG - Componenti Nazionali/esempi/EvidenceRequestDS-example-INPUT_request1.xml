@@ -7,7 +7,7 @@
 	xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns:xml="http://www.w3.org/XML/1998/namespace"
-	id="4ffb5281-179d-4578-adf2-39fd13ccc797"> 
+	id="urn:uuid:4ffb5281-179d-4578-adf2-39fd13ccc797"> 
 <!-- SpecificationIdentifier Slot -->	
 	<rim:Slot name="SpecificationIdentifier">
 		<rim:SlotValue xsi:type="rim:StringValueType">
@@ -24,8 +24,8 @@
 	<rim:Slot name="Procedure">
 		<rim:SlotValue xsi:type="rim:InternationalStringValueType">
 			<rim:Value>
-				<rim:LocalizedString xml:lang="en"
-					value="Requesting a birth certificate"/>
+				<rim:LocalizedString xml:lang="EN"
+					value="T2"/>
 			</rim:Value>
 		</rim:SlotValue>
 	</rim:Slot>	
@@ -47,8 +47,8 @@
 			collectionType="urn:oasis:names:tc:ebxml-regrep:CollectionType:Set">
 			<rim:Element xsi:type="rim:AnyValueType">
 				<sdg:Requirement>
-					<sdg:Identifier>315cfd75-6605-49c4-b0fe-799833b41099</sdg:Identifier>
-					<sdg:Name lang="en">Proof of Birth</sdg:Name>
+					<sdg:Identifier>https://sr.oots.tech.ec.europa.eu/requirements/315cfd75-6605-49c4-b0fe-799833b41099</sdg:Identifier>
+					<sdg:Name lang="EN">Proof of Birth</sdg:Name>
 				</sdg:Requirement>
 			</rim:Element>
 		</rim:SlotValue>
@@ -58,7 +58,7 @@
 		<rim:SlotValue xsi:type="rim:CollectionValueType">
 			<rim:Element xsi:type="rim:AnyValueType">
 				<sdg:Agent>
-					<sdg:Identifier schemeID="0096">DK22233223</sdg:Identifier>
+					<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:9930">DK22233223</sdg:Identifier>
 					<sdg:Name lang="en">Denmark University Portal</sdg:Name>
 					<sdg:Address>
 						<sdg:FullAddress>Prince Street 15</sdg:FullAddress>
@@ -77,7 +77,7 @@
 	<rim:Slot name="EvidenceProvider">
 		<rim:SlotValue xsi:type="rim:AnyValueType">
 			<sdg:Agent>
-				<sdg:Identifier schemeID="9930">DE73524311</sdg:Identifier>
+				<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:9930">DE73524311</sdg:Identifier>
 				<sdg:Name>Civil Registration Office Berlin I</sdg:Name>
 			</sdg:Agent>
 		</rim:SlotValue>
@@ -128,12 +128,12 @@
 			<rim:SlotValue xsi:type="rim:AnyValueType">
 				<sdg:DataServiceEvidenceType xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0">
 					<sdg:Identifier>2af27699-f131-4411-8fdb-9e8cd4e8bded</sdg:Identifier>
-					<sdg:EvidenceTypeClassification>CertificateOfBirth</sdg:EvidenceTypeClassification>
-					<sdg:Title lang="en">Certificate of Birth</sdg:Title>
-					<sdg:Title lang="de">Geburtsurkunde</sdg:Title>
+					<sdg:EvidenceTypeClassification>>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/EU/b6a49e54-8b3c-4688-acad-380440dc5962</sdg:EvidenceTypeClassification>
+					<sdg:Title lang="EN">Certificate of Birth</sdg:Title>
+					<sdg:Title lang="DE">Geburtsurkunde</sdg:Title>
 					<sdg:DistributedAs>
 						<sdg:Format>application/pdf</sdg:Format>
-						<sdg:ConformsTo>https://semic.org/sa/common/birthcert-1.0.0</sdg:ConformsTo>
+						<sdg:ConformsTo>>https://sr.oots.tech.ec.europa.eu/distributions/certificate-of-birth-1.0.0</sdg:ConformsTo>
 					</sdg:DistributedAs>
 				</sdg:DataServiceEvidenceType>
 			</rim:SlotValue>

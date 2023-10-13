@@ -1,0 +1,47 @@
+{
+
+    "code": 200,
+
+    "description": "Record trovato.",
+
+    "message": "Successo.",
+
+    "publicService": {
+
+        "publicServiceId": 10544,
+
+        "name": "Iscrizione all'albo degli Avvocati stabiliti",
+
+        "description": "II procedimento ''Iscrizione all'Albo degli Avvocati stabiliti'' permette di avviare il processo di iscrizione alla sezione speciale dell'Albo degli Avvocati stabiliti (D. Lgs. 2 febbraio 2001 n. 96 che recepisce la Direttiva 98/5/CE).",
+
+        "euPublicServiceId": "X1.2",
+
+        "parentPublicServiceId": {
+
+            "publicServiceId": 10431,
+
+            "euPublicServiceId": "X1",
+
+            "name": "Notifica di un'attività commerciale, licenza per l'esercizio di un'attività commerciale, modifiche di un'attività commerciale e cessazione di un'attività commerciale senza procedure di insolvenza"
+
+        },
+
+        "publicOrganization": {
+
+            "publicOrganizationId": 8288,
+
+            "preferredLabel": "Consiglio Nazionale Forense",
+
+            "ipaCode": "cnfo",
+
+            "location": {
+
+                "locationGeographicId": 1
+
+            }
+
+        }
+
+    }
+
+}

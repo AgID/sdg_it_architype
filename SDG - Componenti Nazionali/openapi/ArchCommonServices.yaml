@@ -1378,7 +1378,6 @@ components:
       xml:
        prefix: 'sdg'
       required:
-        - Identifier
         - LevelOfAssurance
         - FamilyName
         - GivenName
@@ -1652,7 +1651,6 @@ components:
       xml:
         prefix: 'sdg'
       required:
-        - Identifier
         - IssuingDate
         - IssuingAuthority
         - IsConformantTo 

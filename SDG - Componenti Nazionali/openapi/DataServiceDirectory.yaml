@@ -178,7 +178,6 @@ components:
     QueryResponse:
       type: object
       required:
-       - requestId
        - status  
        - RegistryObjectList
       xml:

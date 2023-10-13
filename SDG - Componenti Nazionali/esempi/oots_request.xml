@@ -51,8 +51,8 @@
 			collectionType="urn:oasis:names:tc:ebxml-regrep:CollectionType:Set">
 			<rim:Element xsi:type="rim:AnyValueType">
 				<sdg:Requirement>
-					<!--  The value of 'Identifier' of a 'Requirement' MUST be a unique UUID (RFC 4122) listed in the EvidenceBroker and use the prefix ''https://sr.oots.tech.europa.eu/requirements/[UUID]'' pointing to the Semantic Repository. -->
-					<sdg:Identifier>https://sr.oots.tech.europa.eu/requirements/315cfd75-6605-49c4-b0fe-799833b41099</sdg:Identifier>
+					<!--  The value of 'Identifier' of a 'Requirement' MUST be a unique UUID (RFC 4122) listed in the EvidenceBroker and use the prefix ''https://sr.oots.tech.ec.europa.eu/requirements/[UUID]'' pointing to the Semantic Repository. -->
+					<sdg:Identifier>https://sr.oots.tech.ec.europa.eu/requirements/315cfd75-6605-49c4-b0fe-799833b41099</sdg:Identifier>
 					<!-- MUST be part of the code list 'LanguageCode' (ISO 639-1 two-letter code). Default value "en" -->
 					<sdg:Name lang="EN">Proof of Birth</sdg:Name>
 				</sdg:Requirement>
@@ -106,7 +106,7 @@
 					<!-- Definition of the value expression. Must be published in the Semantic Repository. The codelist contains the values ApplicantHasNeverBeenResidentInGermany and ApplicantHasBeenResidentInGermany -->
 					<!-- During the DSD query process the user has to select one of the two values as additional input parameter for the query in order to identify the correct publisher / evidence provider -->
 					<!-- The selected value will be mapped against the ClassificationValue of Publishers -->
-					<sdg:ValueExpression>https://sr.oots.tech.europa.eu/ep-classification/de/countryresidence</sdg:ValueExpression>
+					<sdg:ValueExpression>https://sr.oots.tech.ec.europa.eu/ep-classification/de/countryresidence</sdg:ValueExpression>
 					<sdg:Description lang="EN">Rules of responsibility for the processing of personal status cases of German citizens without residence information
 					</sdg:Description>
 					<sdg:Description lang="DE">Zuständigkeitsregelungen für die Bearbeitung von personenstandsrechtlichen Vorgängen deutscher Staatsangehöriger ohne Wohnsitzinformation</sdg:Description>
@@ -181,8 +181,8 @@
 				<sdg:DataServiceEvidenceType xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0">
 					<!-- MUST be unique UUID (RFC 4122) fetched from the Data Services Directory. Must be used in the Evidence Exchange Request -->
 					<sdg:Identifier>2af27699-f131-4411-8fdb-9e8cd4e8bded</sdg:Identifier>
-					<!-- MUST be a UUID retrieved from the Evidence Broker/DSD and include a code of the code list 'CountryIdentificationCode' (ISO 3166-1' alpha-2 codes) using the prefix and scheme ''https://sr.oots.tech.europa.eu/evidencetypeclassifications/[CountryIdentificationCode]/[UUID]'' pointing to the Semantic Repository -->
-					<sdg:EvidenceTypeClassification>https://sr.oots.tech.europa.eu/evidencetypeclassifications/DE/ca8afed6-2dc0-422a-a931-d21c3d8d370e</sdg:EvidenceTypeClassification>
+					<!-- MUST be a UUID retrieved from the Evidence Broker/DSD and include a code of the code list 'CountryIdentificationCode' (ISO 3166-1' alpha-2 codes) using the prefix and scheme ''https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/[CountryIdentificationCode]/[UUID]'' pointing to the Semantic Repository -->
+					<sdg:EvidenceTypeClassification>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/DE/ca8afed6-2dc0-422a-a931-d21c3d8d370e</sdg:EvidenceTypeClassification>
 					<!-- The value of 'lang' attribute of Title and Description MUST be part of the code list 'LanguageCode' (ISO 639-1 two-letter code).  Default Value "EN"  -->
 					<sdg:Title lang="EN">Certificate of Birth</sdg:Title>
 					<sdg:Title lang="DE">Geburtsurkunde</sdg:Title>
@@ -192,10 +192,10 @@
 					<sdg:DistributedAs>
 						<!-- The value of 'Format' of the requested distribution MUST be part of the code list 'OOTSMediaTypes'.-->
 						<sdg:Format>application/xml</sdg:Format>
-						<!-- MUST be a persistent URL with a link to a "DataModelScheme" of the Evidence Type retrieved by the DSD and described in the Semantic Repository which uses the prefix "https://sr.oots.tech.europa.eu/distributions/[DataModelScheme]".-->
-						<sdg:ConformsTo>https://sr.oots.tech.europa.eu/distributions/certificate-of-birth-1.0.0</sdg:ConformsTo>
-						<!-- MUST be a persistent URL with link to a "DataModelScheme" and "Subset" of the EvidenceType retrieved from the Data Service Directory, described in the Semantic Repository which uses the prefix "https://sr.oots.tech.europa.eu/distributions/[DataModelScheme]/[Subset]"-->
-						<sdg:Transformation>https://sr.oots.tech.europa.eu/distributions/certificate-of-birth-1.0.0/age-of-majority</sdg:Transformation>
+						<!-- MUST be a persistent URL with a link to a "DataModelScheme" of the Evidence Type retrieved by the DSD and described in the Semantic Repository which uses the prefix "https://sr.oots.tech.ec.europa.eu/distributions/[DataModelScheme]".-->
+						<sdg:ConformsTo>https://sr.oots.tech.ec.europa.eu/distributions/certificate-of-birth-1.0.0</sdg:ConformsTo>
+						<!-- MUST be a persistent URL with link to a "DataModelScheme" and "Subset" of the EvidenceType retrieved from the Data Service Directory, described in the Semantic Repository which uses the prefix "https://sr.oots.tech.ec.europa.eu/distributions/[DataModelScheme]/[Subset]"-->
+						<sdg:Transformation>https://sr.oots.tech.ec.europa.eu/distributions/certificate-of-birth-1.0.0/age-of-majority</sdg:Transformation>
 					</sdg:DistributedAs>
 				</sdg:DataServiceEvidenceType>
 			</rim:SlotValue>

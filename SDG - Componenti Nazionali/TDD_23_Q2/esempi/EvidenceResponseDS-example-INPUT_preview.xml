@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query:QueryResponse xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0" 
+    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0" 
+    xmlns:sdg="http://data.europa.eu/p4s"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    requestId="4ffb5281-179d-4578-adf2-39fd13ccc797"
+    status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure">
+    
+    <rim:Slot name="SpecificationIdentifier">
+        <rim:SlotValue xsi:type="rim:StringValueType">
+            <rim:Value>oots-edm:v1.0</rim:Value>
+        </rim:SlotValue>
+    </rim:Slot>
+    <rim:Slot name="EvidenceResponseIdentifier">
+        <rim:SlotValue xsi:type="rim:StringValueType">
+            <rim:Value>530ad1e2-5eaf-4a9a-8192-227432eea95d</rim:Value>
+        </rim:SlotValue>
+    </rim:Slot>
+    <rim:Slot name="ErrorProvider">
+        <rim:SlotValue xsi:type="rim:AnyValueType">
+            <sdg:Agent>
+                <sdg:Identifier schemeID="0204">DE7657587001</sdg:Identifier>
+                <sdg:Name>Authority for school and occupational training</sdg:Name>
+                <sdg:Address>
+                    <sdg:FullAddress>Hamburger Str. 31</sdg:FullAddress>
+                    <sdg:LocatorDesignator>31</sdg:LocatorDesignator>
+                    <sdg:PostCode>22083</sdg:PostCode>
+                    <sdg:PostCityName>Hamburg</sdg:PostCityName>
+                    <sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+                    <sdg:AdminUnitLevel2>DE60</sdg:AdminUnitLevel2>
+                </sdg:Address>
+                <sdg:Classification>IntermediaryPlatform</sdg:Classification>
+            </sdg:Agent>
+        </rim:SlotValue>
+    </rim:Slot>
+    <rim:Slot name="EvidenceRequester">
+        <rim:SlotValue xsi:type="rim:AnyValueType">
+            <sdg:Agent>
+                <sdg:Identifier schemeID="0190">NL22233223</sdg:Identifier>
+                <sdg:Name lang="en">University of Amsterdam</sdg:Name>
+            </sdg:Agent>  
+        </rim:SlotValue>
+    </rim:Slot>
+    <rs:Exception xsi:type="rs:AuthorizationExceptionType"   severity="FAILURE"
+        message="User redirection required">
+        <rim:Slot name="Timestamp">
+            <rim:SlotValue xsi:type="rim:DateTimeValueType">
+                <rim:Value>2020-02-14T19:21:30+01:00</rim:Value>
+            </rim:SlotValue>
+        </rim:Slot>
+        <rim:Slot name="PreviewLocation">
+            <rim:SlotValue xsi:type="rim:StringValueType">
+                <rim:Value>https://preview.space.example.com/requests?session=d36af8bc-fea6-4ee5-a32d-5bef82cdb071</rim:Value>
+            </rim:SlotValue>
+        </rim:Slot>
+        <rim:Slot name="PreviewDescription">
+            <rim:SlotValue xsi:type="rim:InternationalStringValueType">
+                <rim:Value>
+                    <rim:LocalizedString xml:lang="nl" value="Kies uw diploma."/>
+                    <rim:LocalizedString xml:lang="ro" value="Vă rugăm să selectați diploma dvs."/>
+                    <rim:LocalizedString xml:lang="en" value="Please select your diploma."/>
+                </rim:Value>
+            </rim:SlotValue>
+        </rim:Slot>
+        <rim:Slot name="PreviewMethod">
+            <rim:SlotValue xsi:type="rim:StringValueType">
+                <rim:Value>GET</rim:Value>
+            </rim:SlotValue>
+        </rim:Slot>
+    </rs:Exception>
+</query:QueryResponse>

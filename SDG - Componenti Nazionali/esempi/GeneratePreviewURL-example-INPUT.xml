@@ -24,8 +24,8 @@
 	<rim:Slot name="Procedure">
 		<rim:SlotValue xsi:type="rim:InternationalStringValueType">
 			<rim:Value>
-				<rim:LocalizedString xml:lang="en"
-					value="Requesting a birth certificate"/>
+				<rim:LocalizedString xml:lang="EN"
+					value="T2"/>
 			</rim:Value>
 		</rim:SlotValue>
 	</rim:Slot>	
@@ -47,7 +47,7 @@
 			collectionType="urn:oasis:names:tc:ebxml-regrep:CollectionType:Set">
 			<rim:Element xsi:type="rim:AnyValueType">
 				<sdg:Requirement>
-					<sdg:Identifier>315cfd75-6605-49c4-b0fe-799833b41099</sdg:Identifier>
+					<sdg:Identifier>https://sr.oots.tech.ec.europa.eu/requirements/cfcd4e22-30f1-48fa-93e4-6cf98cedbf40</sdg:Identifier>
 					<sdg:Name lang="en">Proof of Birth</sdg:Name>
 				</sdg:Requirement>
 			</rim:Element>
@@ -58,7 +58,7 @@
 		<rim:SlotValue xsi:type="rim:CollectionValueType">
 			<rim:Element xsi:type="rim:AnyValueType">
 				<sdg:Agent>
-					<sdg:Identifier schemeID="0096">DK22233223</sdg:Identifier>
+					<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0096">DK22233223</sdg:Identifier>
 					<sdg:Name lang="en">Denmark University Portal</sdg:Name>
 					<sdg:Address>
 						<sdg:FullAddress>Prince Street 15</sdg:FullAddress>
@@ -77,7 +77,7 @@
 	<rim:Slot name="EvidenceProvider">
 		<rim:SlotValue xsi:type="rim:AnyValueType">
 			<sdg:Agent>
-				<sdg:Identifier schemeID="9930">DE73524311</sdg:Identifier>
+				<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0096">DE73524311</sdg:Identifier>
 				<sdg:Name>Civil Registration Office Berlin I</sdg:Name>
 			</sdg:Agent>
 		</rim:SlotValue>
@@ -128,12 +128,12 @@
 			<rim:SlotValue xsi:type="rim:AnyValueType">
 				<sdg:DataServiceEvidenceType xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0">
 					<sdg:Identifier>2af27699-f131-4411-8fdb-9e8cd4e8bded</sdg:Identifier>
-					<sdg:EvidenceTypeClassification>CertificateOfBirth</sdg:EvidenceTypeClassification>
+					<sdg:EvidenceTypeClassification>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/DE/ca8afed6-2dc0-422a-a931-d21c3d8d370e</sdg:EvidenceTypeClassification>
 					<sdg:Title lang="en">Certificate of Birth</sdg:Title>
 					<sdg:Title lang="de">Geburtsurkunde</sdg:Title>
 					<sdg:DistributedAs>
 						<sdg:Format>application/pdf</sdg:Format>
-						<sdg:ConformsTo>https://semic.org/sa/common/birthcert-1.0.0</sdg:ConformsTo>
+						<sdg:ConformsTo>https://sr.oots.tech.ec.europa.eu/distributions/certificate-of-birth-1.0.0</sdg:ConformsTo>
 					</sdg:DistributedAs>
 				</sdg:DataServiceEvidenceType>
 			</rim:SlotValue>

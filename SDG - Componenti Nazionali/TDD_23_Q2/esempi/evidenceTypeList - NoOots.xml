@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<query:QueryResponse xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0"
+                     xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0"
+                     xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
+                     xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+                     xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+                     xmlns:sdg="http://data.europa.eu/p4s"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success"
+                     totalResultCount="1">
+	<rim:RegistryObjectList>
+		<rim:RegistryObject id="urn:uuid:7cee6bac-b4ac-45fc-865a-d5e41867ffbb">
+			<rim:Slot name="NoOotsRequirement">
+				<rim:SlotValue xsi:type="rim:AnyValueType">
+					<sdg:NoOotsRequirement xmlns="http://data.europa.eu/sdg#"
+					                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+						<sdg:Identifier>100270</sdg:Identifier>
+						<sdg:Name lang="IT">SANITY req 1</sdg:Name>
+						<sdg:Name lang="EN">SANITY req 1 ENG</sdg:Name>
+						<sdg:ReferenceFramework>
+							<sdg:Identifier>2b3cf298-ceea-11ed-afa1-0242ac120002</sdg:Identifier>
+							<sdg:Title lang="IT">Catalogo dei Servizi</sdg:Title>
+							<sdg:Title lang="EN">Service Catalog</sdg:Title>
+							<sdg:Description lang="IT">Catalogo dei Servizi</sdg:Description>
+							<sdg:Description lang="EN">Service Catalog</sdg:Description>
+							<sdg:RelatedTo>
+								<sdg:Identifier>U1</sdg:Identifier>
+							</sdg:RelatedTo>
+							<sdg:Jurisdiction>
+								<sdg:AdminUnitLevel1>IT</sdg:AdminUnitLevel1>
+							</sdg:Jurisdiction>
+						</sdg:ReferenceFramework>
+						<sdg:NoOotsEvidenceTypeList>
+							<sdg:Identifier>100271</sdg:Identifier>
+							<sdg:Name lang="IT">SANITY req 1</sdg:Name>
+							<sdg:Name lang="EN">SANITY req 1 ENG</sdg:Name>
+							<sdg:NoOotsEvidenceType>
+								<sdg:Identifier>100272</sdg:Identifier>
+								<sdg:Title lang="IT">EV TY 1</sdg:Title>
+								<sdg:Title lang="EN">EV TY 1 ENG</sdg:Title>
+								<sdg:Description lang="IT"/>
+								<sdg:EvidenceTypeClassification>2f6b790f-3894-413c-be82-40cb6e7d6fa7</sdg:EvidenceTypeClassification>
+								<sdg:Jurisdiction>
+									<sdg:AdminUnitLevel1>IT</sdg:AdminUnitLevel1>
+								</sdg:Jurisdiction>
+							</sdg:NoOotsEvidenceType>
+						</sdg:NoOotsEvidenceTypeList>
+					</sdg:NoOotsRequirement>
+				</rim:SlotValue>
+			</rim:Slot>
+		</rim:RegistryObject>
+	</rim:RegistryObjectList>
+</query:QueryResponse>

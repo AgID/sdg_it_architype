@@ -21,7 +21,7 @@
             <sdg:Identifier>487fdfdc-7f92-42bb-a690-dcbd3d65f435</sdg:Identifier>
             
             <!-- Classification Information - Used for linking with the Semantic Repository and Evidence Broker -->    
-            <sdg:EvidenceTypeClassification>https://sr.oots.tech.europa.eu/evidencetypeclassifications/DE/edf717b7-b373-40b1-b51b-cbb7c9d64de5</sdg:EvidenceTypeClassification>
+            <sdg:EvidenceTypeClassification>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/DE/edf717b7-b373-40b1-b51b-cbb7c9d64de5</sdg:EvidenceTypeClassification>
             <sdg:Title lang="EN">Secondary Education Completion Evidence</sdg:Title>
             <sdg:Title lang="DE">Nachweis des Sekundarschulabschlusses</sdg:Title>
             <sdg:Description lang="EN">Proof of a secondary school graduation which is acquired after 12 or 13 school years in the upper secondary school and which entitles the holder to the general higher education entrance qualification, i.e. opens up access to all higher education institutions and fields of study.</sdg:Description>
@@ -33,12 +33,12 @@
             <!-- PDF Distribution -->
             <sdg:DistributedAs>
               <sdg:Format>application/xml</sdg:Format>
-              <sdg:ConformsTo>https://sr.oots.tech.europa.eu/distributions/secondary-education-evidence-1.0.0</sdg:ConformsTo>
+              <sdg:ConformsTo>https://sr.oots.tech.ec.europa.eu/distributions/secondary-education-evidence-1.0.0</sdg:ConformsTo>
             </sdg:DistributedAs>
             <sdg:DistributedAs>
               <sdg:Format>application/xml</sdg:Format>
-              <sdg:ConformsTo>https://sr.oots.tech.europa.eu/distributions/secondary-education-evidence-1.0.0</sdg:ConformsTo>
-              <sdg:Transformation>https://sr.oots.tech.europa.eu/distributions/secondary-education-evidence-1.0.0/passed</sdg:Transformation>
+              <sdg:ConformsTo>https://sr.oots.tech.ec.europa.eu/distributions/secondary-education-evidence-1.0.0</sdg:ConformsTo>
+              <sdg:Transformation>https://sr.oots.tech.ec.europa.eu/distributions/secondary-education-evidence-1.0.0/passed</sdg:Transformation>
             </sdg:DistributedAs>
             <!-- PDF Distribution. PDF is unstructured data so there is no conformance to a data model -->
             <sdg:DistributedAs>

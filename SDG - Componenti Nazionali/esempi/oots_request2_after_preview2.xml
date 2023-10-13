@@ -31,7 +31,7 @@
 	<rim:Slot name="PreviewLocation">
 		<rim:SlotValue xsi:type="rim:StringValueType">
 			<!-- MUST be a URI starting with 'https://' -->
-			<rim:Value>https://preview.space.example.com/requests?session=d36af8bc-fea6-4ee5-a32d-5bef82cdb071</rim:Value>
+			<rim:Value>https%3A%2F%2Fpreviewspace-coll.servizisdg.gov.it%2Flogin%3FpreviewUrl%3Dhttps%3A%2F%2Fagid%2Fpreviewspace%3Ftoken%3Df7c908af-d918-469a-8a1d-5aec3c00b6d2</rim:Value>
 		</rim:SlotValue>
 	</rim:Slot>
 	<rim:Slot name="PossibilityForPreview">
@@ -49,14 +49,14 @@
 					   collectionType="urn:oasis:names:tc:ebxml-regrep:CollectionType:Set">
 			<rim:Element xsi:type="rim:AnyValueType">
 				<sdg:Requirement>
-					<sdg:Identifier>https://sr.oots.tech.europa.eu/requirements/cfcd4e22-30f1-48fa-93e4-6cf98cedbf40</sdg:Identifier>
+					<sdg:Identifier>https://sr.oots.tech.ec.europa.eu/requirements/cfcd4e22-30f1-48fa-93e4-6cf98cedbf40</sdg:Identifier>
 					<sdg:Name lang="EN">Proof of secondary education diploma/certificate</sdg:Name>
 					<sdg:Name lang="DE">Nachweis eines Sekundarschulabschlusses/Zeugnisses</sdg:Name>
 				</sdg:Requirement>
 			</rim:Element>
 			<rim:Element xsi:type="rim:AnyValueType">
 				<sdg:Requirement>
-					<sdg:Identifier>https://sr.oots.tech.europa.eu/requirements/99a0a5d4-10ba-42c3-a0be-5566b441cbb6</sdg:Identifier>
+					<sdg:Identifier>https://sr.oots.tech.ec.europa.eu/requirements/99a0a5d4-10ba-42c3-a0be-5566b441cbb6</sdg:Identifier>
 					<sdg:Name lang="EN">Submission of secondary education diploma supplemenent</sdg:Name>
 					<sdg:Name lang="DE">Einreichung der Anlage zum Nachweis des SekundarschulabschlussesNachweis</sdg:Name>
 				</sdg:Requirement>
@@ -96,7 +96,7 @@
 				<sdg:EvidenceProviderClassification>
 					<sdg:Identifier>12c58ee8-f40a-42ac-b056-938499d55a1a</sdg:Identifier>
 					<sdg:Type>Codelist</sdg:Type>
-					<sdg:ValueExpression>https://sr.oots.tech.europa.eu/ep-classification/de/secondary-education-type</sdg:ValueExpression>
+					<sdg:ValueExpression>https://sr.oots.tech.ec.europa.eu/ep-classification/de/secondary-education-type</sdg:ValueExpression>
 					<sdg:Description lang="EN">Type of Secondary Education</sdg:Description>
 					<sdg:Description lang="DE">Art der Sekundarschulbildung</sdg:Description>
 					<sdg:SupportedValue>
@@ -153,15 +153,15 @@
 			<rim:SlotValue xsi:type="rim:AnyValueType">
 				<sdg:DataServiceEvidenceType>
 					<sdg:Identifier>487fdfdc-7f92-42bb-a690-dcbd3d65f435</sdg:Identifier>
-					<sdg:EvidenceTypeClassification>https://sr.oots.tech.europa.eu/evidencetypeclassifications/DE/edf717b7-b373-40b1-b51b-cbb7c9d64de5</sdg:EvidenceTypeClassification>
+					<sdg:EvidenceTypeClassification>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/DE/edf717b7-b373-40b1-b51b-cbb7c9d64de5</sdg:EvidenceTypeClassification>
 					<sdg:Title lang="EN">Secondary Education Completion Evidence</sdg:Title>
 					<sdg:Title lang="DE">Nachweis des Sekundarschulabschlusses</sdg:Title>
 					<sdg:Description lang="EN">Proof of a secondary school graduation which is acquired after 12 or 13 school years in the upper secondary school and which entitles the holder to the general higher education entrance qualification, i.e. opens up access to all higher education institutions and fields of study.</sdg:Description>
 					<sdg:Description lang="DE">Nachweis für einen Sekundarschulabschluss, der nach 12 bzw. 13 Schuljahren in der gymnasialen Oberstufe erworben wird und die Allgemeine Hochschulreife verleiht, d.h. den Zugang zu allen Hochschulen und Fachrichtungen eröffnet.</sdg:Description>
 					<sdg:DistributedAs>
 						<sdg:Format>application/pdf</sdg:Format>
-						<sdg:ConformsTo>https://sr.oots.tech.europa.eu/distributions/secondary-education-evidence-1.0.0</sdg:ConformsTo>
-						<sdg:Transformation>https://sr.oots.tech.europa.eu/distributions/secondary-education-evidence-1.0.0/passed</sdg:Transformation>
+						<sdg:ConformsTo>https://sr.oots.tech.ec.europa.eu/distributions/secondary-education-evidence-1.0.0</sdg:ConformsTo>
+						<sdg:Transformation>https://sr.oots.tech.ec.europa.eu/distributions/secondary-education-evidence-1.0.0/passed</sdg:Transformation>
 					</sdg:DistributedAs>
 				</sdg:DataServiceEvidenceType>
 			</rim:SlotValue>

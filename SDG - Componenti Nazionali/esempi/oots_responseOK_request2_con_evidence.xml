@@ -75,7 +75,7 @@
                         <sdg:Name lang="EN">Wilhelm Gymnasium</sdg:Name>
                     </sdg:IssuingAuthority>
                     <sdg:IsConformantTo>
-                        <sdg:EvidenceTypeClassification>https://sr.oots.tech.europa.eu/evidencetypeclassifications/DE/17a2b329-5ae5-4de6-b360-db504fad0526</sdg:EvidenceTypeClassification>
+                        <sdg:EvidenceTypeClassification>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/DE/17a2b329-5ae5-4de6-b360-db504fad0526</sdg:EvidenceTypeClassification>
                         <sdg:Title lang="EN">Secondary Education Completion Evidence</sdg:Title>
                         <sdg:Title lang="DE">Nachweis des Sekundarschulabschlusses</sdg:Title>
                         <sdg:Description lang="EN">Proof of a secondary school graduation which is acquired after 12 or 13 school years in the upper secondary school and which entitles the holder to the general higher education entrance qualification, i.e. opens up access to all higher education institutions and fields of study.</sdg:Description>
@@ -84,8 +84,8 @@
                     <sdg:IssuingDate>2019-05-10</sdg:IssuingDate>
                     <sdg:Distribution>
                         <sdg:Format>application/pdf</sdg:Format>
-                        <sdg:ConformsTo>https://sr.oots.tech.europa.eu/distributions/secondary-education-evidence-1.0.0</sdg:ConformsTo>
-                        <sdg:Transformation>https://sr.oots.tech.europa.eu/distributions/secondary-education-evidence-1.0.0/passed</sdg:Transformation>
+                        <sdg:ConformsTo>https://sr.oots.tech.ec.europa.eu/distributions/secondary-education-evidence-1.0.0</sdg:ConformsTo>
+                        <sdg:Transformation>https://sr.oots.tech.ec.europa.eu/distributions/secondary-education-evidence-1.0.0/passed</sdg:Transformation>
                     </sdg:Distribution>
                 </sdg:Evidence>         
             </rim:SlotValue>
@@ -112,7 +112,7 @@
                         <sdg:Name>Wilhelm Gymnasium</sdg:Name>
                     </sdg:IssuingAuthority>
                     <sdg:IsConformantTo>
-                        <sdg:EvidenceTypeClassification>https://sr.oots.tech.europa.eu/evidencetypeclassifications/DE/1602e8e5-43be-45e6-ba58-c1ca075a5d2b</sdg:EvidenceTypeClassification>
+                        <sdg:EvidenceTypeClassification>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/DE/1602e8e5-43be-45e6-ba58-c1ca075a5d2b</sdg:EvidenceTypeClassification>
                         <sdg:Title lang="EN">Secondary Education Completion Evidence Supplement</sdg:Title>
                         <sdg:Title lang="DE">Anhang zum Nachweis des Sekundarschulabschlusses</sdg:Title>
                         <sdg:Description lang="EN">The Supplement of the Secondary Education Completion Evidence Supplement to understand the qualification.</sdg:Description>

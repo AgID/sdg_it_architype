@@ -11,7 +11,7 @@
     <!-- The detail may contain further freely defined information about the error -->
  
     <rs:Exception xsi:type="rs:ObjectNotFoundExceptionType"
-                  severity="urn:sr.oots.tech.europa.eu:codes:ErrorSeverity:DSDErrorResponse:AdditionalInput"
+                  severity="urn:sr.oots.tech.ec.europa.eu:codes:ErrorSeverity:DSDErrorResponse:AdditionalInput"
                   message="The query requires the included extra attributes to be provided by the user."
                   detail="UserRequestedClassificationConcepts"
                   code="DSD:ERR:0005">
@@ -52,7 +52,7 @@
                         <!-- Definition of the value expression. Must be published in the Semantic Repository. The codelist contains the values ApplicantHasNeverBeenResidentInGermany and ApplicantHasBeenResidentInGermany -->
                         <!-- During the query process the user has to select one of the two values as additional input parameter for the query in order to identify the correct publisher / evidence provider -->
                         <!-- The selected value will be mapped against the SupportedValues of Publishers -->
-                        <sdg:ValueExpression>https://sr.oots.tech.europa.eu/ep-classification/de/countryresidence</sdg:ValueExpression>
+                        <sdg:ValueExpression>https://sr.oots.tech.ec.europa.eu/ep-classification/de/countryresidence</sdg:ValueExpression>
                         <sdg:Description lang="EN">Rules of responsibility for the processing of personal status cases of German citizens without residence information
                         </sdg:Description>
                         <sdg:Description lang="DE">Zuständigkeitsregelungen für die Bearbeitung von personenstandsrechtlichen Vorgängen deutscher Staatsangehöriger ohne Wohnsitzinformation</sdg:Description>

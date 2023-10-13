@@ -159,7 +159,6 @@ components:
     QueryResponse:
       type: object
       required:
-       - requestId
        - status
       xml:
         prefix: query
@@ -195,11 +194,6 @@ components:
           example: 1
           xml:
             attribute: true            
-        requestId:
-          type: string
-          example: c4369c4d-740e-4b64-80f0-7b209a66d629
-          xml:
-            attribute: true   
         status:
           type: string
           default: urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success

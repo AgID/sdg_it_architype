@@ -13,7 +13,7 @@
 			<rim:Slot name="Requirement">
 				<rim:SlotValue xsi:type="rim:AnyValueType">
 					<sdg:Requirement>
-						<sdg:Identifier>https://sr.oots.tech.europa.eu/requirements/aeeaf25c-ceea-11ed-afa1-0242ac120002</sdg:Identifier>
+						<sdg:Identifier>https://sr.oots.tech.ec.europa.eu/requirements/aeeaf25c-ceea-11ed-afa1-0242ac120002</sdg:Identifier>
 						<sdg:Name lang="IT">Documentazione che attesti la presenza o meno di procedure fallimentari</sdg:Name>
 						<sdg:Name lang="EN">Documentation certifying the presence or absence of bankruptcy proceedings</sdg:Name>
 						<sdg:ReferenceFramework>
