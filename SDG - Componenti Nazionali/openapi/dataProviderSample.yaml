@@ -211,6 +211,17 @@ components:
       properties:
         previewUrl:
           type: string
+        userIdentityAttribute:
+           type: object
+           required:
+            - name 
+            - value
+           properties:
+             name:
+               type: string
+             value:
+               type: string             
+        
     QueryRequest:
       type: object
       required:

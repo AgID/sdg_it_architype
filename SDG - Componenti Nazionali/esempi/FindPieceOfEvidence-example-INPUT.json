@@ -1,3 +1,8 @@
 {
-  "previewUrl": "https://preview.space.example.com/requests/d36af8bc-fea6-4ee5-a32d-5bef82cdb071"
+  "previewUrl": "https://preview.space.example.com/requests/d36af8bc-fea6-4ee5-a32d-5bef82cdb071",
+   "userIdentityAttribute": {
+    "name": "codiceFiscale",
+    "value": "DLPRBT59T27I590Q"
+  }
 }
+
