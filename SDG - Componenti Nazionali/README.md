@@ -4,3 +4,4 @@ Il presente Repository contiene:
 -   gli swagger relativi agli e-services pubblicati sotto PDND
 -   la lista dei domini SDG
 -   La lista delle utenze di Test 
+-   Mini guida per login eIDAS in ambiente di QA
