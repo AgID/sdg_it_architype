@@ -140,6 +140,11 @@ paths:
             type: string
           required: true
         - in: header
+          name: schemeID
+          schema:
+            type: string
+          required: true
+        - in: header
           name: countryCode
           schema:
             type: string
