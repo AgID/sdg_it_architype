@@ -14,6 +14,13 @@ paths:
         - EvidenceRequestDS
       summary: getEvidenceRequestResponse
       operationId: getEvidenceRequestResponseUsingPOST
+      parameters:
+        - in: header
+          name: conversationId
+          description: UUID univoco per la correlazione dei messaggi di request e response
+          schema:
+            type: string
+          required: false
       requestBody:
         content:
           application/xml:
@@ -38,13 +45,6 @@ paths:
         - findPieceOfEvidence
       summary: findPieceOfEvidence
       operationId: findPieceOfEvidenceUsingPOST
-      parameters:
-        - name: Authorization
-          in: header
-          description: Authorization
-          required: true
-          schema:
-            type: string
       requestBody:
         content:
           application/json:
@@ -69,13 +69,6 @@ paths:
         - provideUserDecision
       summary: provideUserDecision
       operationId: provideUserDecisionUsingPOST
-      parameters:
-        - name: Authorization
-          in: header
-          description: Authorization
-          required: true
-          schema:
-            type: string
       requestBody:
         content:
           application/json:
