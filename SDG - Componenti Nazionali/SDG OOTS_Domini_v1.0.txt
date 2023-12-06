@@ -1,3 +1,5 @@
-Domini per ambiente:
+Domini per ambiente presenti nelle openapi di PDND:
 
 - Integrazione: https://sit.servizisdg.gov.it/sdg-cnaz-sp-int
+
+- Produzione: https://servizisdg.gov.it/sdg-cnaz-sp-prod
