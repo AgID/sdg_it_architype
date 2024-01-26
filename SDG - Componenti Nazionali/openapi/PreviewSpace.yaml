@@ -8,6 +8,8 @@ servers:
 paths:
   /ps/v1/preview/url:
     post:
+      security:
+        - Authorization: []
       tags:
         - generatePreviewUrl
       summary: generatePreviewUrl
@@ -908,3 +910,9 @@ components:
           type: string
           description: metodo di preview
           example: GET
+          
+  securitySchemes:
+    Authorization:            # Bearer <Voucher PDND>
+      type: http
+      scheme: bearer
+      bearerFormat: JWT   

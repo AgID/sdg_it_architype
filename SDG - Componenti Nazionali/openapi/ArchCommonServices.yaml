@@ -207,6 +207,8 @@ paths:
           $ref: '#/components/responses/500'     
    /acs/v1/evidence/ds/response:
     post:
+      security:
+        - Authorization: []
       tags:
         - EvidenceResponseDS
       summary: riceve l'evidence response con entro l'evidence
