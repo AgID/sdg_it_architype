@@ -1,0 +1,2052 @@
+openapi: 3.0.3
+info:
+  title: ArchCommonService
+  description: Web Services for Agid - Servizio per il recupero delle Prove
+  version: 1.0.
+servers:
+  - url: https://sit.servizisdg.gov.it/sdg-cnaz-sp-int
+    description: PDND Collaudo
+paths:
+   /acs/v1/check/pf:
+    post:
+      security:
+        - Authorization: []
+      tags:
+        - checkPf
+      summary: getFiscalCode
+      operationId: getFiscalCodeUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserVO'
+        required: true
+      responses:
+        '200':
+          description: >-
+            Ritorno positivo della chiamata, restituisce un valore TRUE/FALSE
+            che identifica se la persona fisica è valida, inoltre ai fini della consistenza delle API
+            restituisce i dati di input utilizzati per la verifica.
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/OutputVerificaPfDto'
+       
+        '400':
+          description: >-
+            Il servizio non è in grado di elaborare la richiesta in quanto è
+            possibile che i dati di input non siano corretti o le verifiche sul
+            flusso hanno prodotto degli errori.
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/ServiceErrorDto'
+        '429':
+          description: Raggiunto il limite di richieste
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/ServiceErrorDto'
+        '500':
+          description: Errore interno del sistema per possibile malfunzionamento.
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/ServiceErrorDto'
+   /acs/v1/check/pf/supporto:
+    post:
+      security:
+        - Authorization: []  
+      tags:
+        - checkPfSupporto
+      summary: Effettua la verifica del codice fiscale della persona fisica con supporto
+      description: >-
+        La chiamata permette tramite l'inserimento del codice fiscale, dei dati
+        anagrafici della persona fisica e dell'identificativo del supporto (tesserino di codice fiscale
+        o del certificato di attribuzione) di verificarne la corrispondeza con i
+        dati presenti nell'archivio anagrafico
+      operationId: verificaPfSupporto
+      requestBody:
+        description: >-
+          Parametri relativi al codice fiscale, i dati anagrafici della persona
+          fisica da verificare e il supporto con identificativo univoco
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputPfSupportoDto'
+            examples:
+              Esempio di verifica tramite il codice fiscale dati anagrafici e supporto:
+                summary: Verifica PF con supporto
+                description: >-
+                  Esempio di verifica tramite il codice fiscale e
+                  i dati anagrafici e tesserino/certificato
+                value:
+                  codiceFiscale: TLEMRA83A01H501T
+                  cognome: TELEM
+                  nome: MARIO
+                  sesso: M
+                  dataNascita: '1983-01-01'
+                  comuneNascita: ROMA
+                  provinciaNascita: RM
+                  statoNascita: ''
+                  tipologiaSupporto: 'certificato'
+                  identificativoSupporto: '110000383716235'
+        required: true
+      responses:
+        '200':
+          description: >-
+            Ritorno positivo della chiamata, restituisce un valore TRUE/FALSE
+            che identifica se il riscontro dei dati inviati e quelli registrati è valido e un eventuale
+            messaggio diagnostico, inoltre ai fini della consistenza delle API
+            restituisce i dati di input utilizzati per la verifica.
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/OutputVerificaPfSupportoDto'
+        '400':
+          description: >-
+            Il servizio non è in grado di elaborare la richiesta in quanto è
+            possibile che i dati di input non siano corretti o le verifiche sul
+            flusso hanno prodotto degli errori.
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/ServiceErrorDto'
+        '429':
+          description: Raggiunto il limite di richieste
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/ServiceErrorDto'
+        '500':
+          description: Errore interno del sistema per possibile malfunzionamento.
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/ServiceErrorDto'
+        
+   /acs/v1/evidence/request:
+    post:
+      security:
+        - Authorization: []       
+      tags:
+        - EvidenceRequest
+      summary: Richiesta Invio Evidence Request
+      operationId: getEvidenceListUsingGET
+      parameters:
+        - in: header
+          name: dataService
+          schema:
+            type: string
+          required: true
+        - in: header
+          name: schemeID
+          schema:
+            type: string
+          required: true
+        - in: header
+          name: countryCode
+          schema:
+            type: string
+          required: false
+        - in: header
+          name: conversationId
+          schema:
+            type: string
+          required: false
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+  
+      responses:
+        '200':
+          description: Successful operation
+          headers:
+            conversationId:
+              schema:
+                type: string
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'                
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+
+   /acs/v1/evidence/response:
+    post:
+      security:
+        - Authorization: []       
+      tags:
+        - EvidenceResponse
+      summary: Verifica generazione Evidence Request
+      operationId: getEvidenceListUsingPOST
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+  
+      responses:
+        '200':
+          description: Successful operation
+          headers:
+            conversationId:
+              schema:
+                type: string
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'                   
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'     
+   /acs/v1/evidence/ds/response:
+    post:
+      security:
+        - Authorization: []
+      tags:
+        - EvidenceResponseDS
+      summary: riceve l'evidence response con entro l'evidence
+      operationId: getEvidenceResponseDSUsingPOST
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/QueryResponse'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericResponse'                 
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+          
+   /acs/v1/check-legal-rep:
+    get:
+      tags:
+        - checkLegalRep
+      summary: Verifica legale rappresentante impresa
+      description: Servizio di verifica della rappresentanza legale di una persona fisica in un'impresa quale persona giuridica
+      operationId: verifica
+      parameters:
+        - name: cfPersona
+          in: query
+          description: Codice fiscale della persona
+          required: true
+          schema:
+            maxLength: 16
+            minLength: 16
+            type: string
+            description: Codice fiscale della persona
+        - name: cfImpresa
+          in: query
+          description: Codice fiscale dell'impresa
+          required: true
+          schema:
+            maxLength: 16
+            minLength: 11
+            type: string
+            description: Codice fiscale dell'impresa
+        - name: ipaCode
+          in: query
+          description: Codice ipa dell'ente
+          required: true
+          schema:
+            type: string
+        - name: euPublicServiceId
+          in: query
+          description: identificativo del prodecimento amministrativo
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Controllo eseguito
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ResponseKo'
+                  - $ref: '#/components/schemas/ResponseOk'
+        '400':
+          description: Richiesta non valida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorValidation'
+        '401':
+          description: Utente non abilitato al servizio
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Superato numero richieste
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '500':
+          description: Errore nell'esecuzione della richiesta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+      security:
+        - Authorization: [] 
+components:
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+           $ref: '#/components/schemas/genericResponse'
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '400'
+             message: Bad Request
+             description: Could not parse request           
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '500'
+             message: An internal server error occurred
+             description: An internal server error occurred
+  schemas:      
+    QueryRequest:
+      type: object
+      required:
+       - id 
+       - Slot
+       - Query
+      xml:
+        name: 'QueryRequest'
+        prefix: 'query'
+        namespace: urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0
+      properties:
+        xmlns:sdg:
+          type: string
+          default: http://data.europa.eu/p4s
+          xml:
+            attribute: true
+        xmlns:xmime:
+          type: string
+          default: http://www.w3.org/2005/05/xmlmime
+          xml:
+            attribute: true
+        xmlns:rim:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+          xml:
+            attribute: true
+        xmlns:rs:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+          xml:
+            attribute: true    
+        xmlns:xsi:
+          type: string
+          default: http://www.w3.org/2001/XMLSchema-instance
+          xml:
+            attribute: true      
+        xsi:xml:
+          type: string
+          default: http://www.w3.org/XML/1998/namespace
+          xml:
+            attribute: true  
+        xmlns:xlink: 
+          type: string
+          default: http://www.w3.org/1999/xlink    
+          xml:
+            attribute: true
+        id:
+          type: string
+          xml:
+            attribute: true    
+        Slot:
+              type: array
+              items:
+                $ref: '#/components/schemas/Slot'
+              xml:
+                wrapped: false
+        ResponseOption:
+          $ref: '#/components/schemas/ResponseOption'
+        Query:
+          $ref: '#/components/schemas/Query'
+      
+    QueryResponse:
+      type: object
+      xml:
+        name: 'QueryResponse'
+        prefix: 'query'
+      oneOf:
+        - $ref: '#/components/schemas/QueryOKResponse' 
+        - $ref: '#/components/schemas/QueryErrorResponse' 
+
+    QueryOKResponse:
+      type: object
+      required:
+        - status
+        - requestId
+        - Slot   
+      xml:
+        name: 'QueryResponse'
+        prefix: 'query'
+        namespace: urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0      
+      properties:
+        xmlns:xsi:
+          type: string
+          default: http://www.w3.org/2001/XMLSchema-instance
+          xml:
+            attribute: true    
+        xmlns:rs:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+          xml:
+            attribute: true   
+        xmlns:rim:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+          xml:
+            attribute: true
+        xmlns:sdg:
+          type: string
+          default: http://data.europa.eu/p4s
+          xml:
+            attribute: true
+
+        xmlns:xlink: 
+          type: string
+          default: http://www.w3.org/1999/xlink    
+          xml:
+            attribute: true
+  
+        status:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success
+          xml:
+            attribute: true   
+        xmlns:xml:
+          type: string
+          default: http://www.w3.org/XML/1998/namespace
+          xml:
+            attribute: true  
+
+        requestId:
+          type: string
+          xml:
+            attribute: true 
+        Slot:
+              type: array
+              items:
+                $ref: '#/components/schemas/SlotResponse'
+              xml:
+                wrapped: false 
+        RegistryObjectList:
+              type: array
+              items:
+                $ref: '#/components/schemas/RegistryObjectList'
+              xml:
+                prefix: 'rim'
+                wrapped: false             
+    QueryErrorResponse:
+      type: object
+      required:
+        - status
+        - requestId    
+        - Slot
+        - Exception
+      xml:
+        name: 'QueryResponse'
+        prefix: 'query'
+        namespace: urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0      
+      properties:
+        xmlns:xsi:
+          type: string
+          default: http://www.w3.org/2001/XMLSchema-instance
+          xml:
+            attribute: true    
+        xmlns:rs:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+          xml:
+            attribute: true   
+        xmlns:rim:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+          xml:
+            attribute: true
+        xmlns:sdg:
+          type: string
+          default: http://data.europa.eu/p4s
+          xml:
+            attribute: true
+        xmlns:xlink: 
+          type: string
+          default: http://www.w3.org/1999/xlink    
+          xml:
+            attribute: true  
+        status:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure
+          xml:
+            attribute: true   
+        xmlns:xml:
+          type: string
+          default: http://www.w3.org/XML/1998/namespace
+          xml:
+            attribute: true  
+        requestId:
+          type: string
+          xml:
+            attribute: true 
+        Slot:
+              type: array
+              items:
+                $ref: '#/components/schemas/SlotErrorResponse'
+              xml:
+                wrapped: false 
+        Exception:
+          required:
+            - xsi:type
+            - severity
+            - message
+          type: object
+          xml:
+            prefix: rs
+          properties:
+            xsi:type:
+              type: string
+              example: rs:ObjectNotFoundExceptionType
+              xml:
+                attribute: true
+            severity:
+              type: string
+              default: FAILURE
+              xml:
+                attribute: true
+            message:
+              type: string
+              example: >-
+                Deve contenere il requisito richiesto, identificato dal suo ID
+              xml:
+                attribute: true
+            detail:
+              type: string
+              description: >-
+                Deve contenere informazioni dettagliate sull'errore, ad esempio
+                informazioni tecniche o una traccia dello stack.
+              xml:
+                attribute: true
+            code:
+              type: string
+              xml:
+                attribute: true
+            Slot:
+                $ref: '#/components/schemas/SlotErrorResponse'
+    Slot:
+      type: object
+      xml:
+        prefix: 'rim'
+      required:
+        - SlotValue 
+      properties:
+        name:
+          type: string
+          xml:
+            attribute: true
+          enum:
+           - EvidenceProviderClassificationValues
+           - EvidenceProvider
+           - EvidenceRequester
+           - Requirements 
+           - PreviewLocation
+           - SpecificationIdentifier
+           - IssueDateTime 
+           - Procedure
+           - PossibilityForPreview
+           - ExplicitRequestGiven
+        SlotValue:
+          $ref: '#/components/schemas/SlotValue'       
+    RegistryObjectList:
+      type: object
+      properties:
+        RegistryObject:
+          type: array
+          items:
+             $ref: '#/components/schemas/RegistryObjectType'
+          xml:
+            wrapped: false 
+            prefix: 'rim'
+    SlotResponse:
+      type: object
+      xml:
+        prefix: 'rim'
+      required:
+        - SlotValue 
+      properties:
+        name:
+          type: string
+          xml:
+            attribute: true
+          enum:
+           - EvidenceRequester    
+           - EvidenceProvider  
+           - SpecificationIdentifier
+           - ResponseAvailableDateTime              
+           - IssueDateTime            
+           - EvidenceResponseIdentifier         
+        SlotValue:
+          $ref: '#/components/schemas/SlotValueResponse'                
+
+    SlotErrorResponse:
+      type: object
+      xml:
+        prefix: 'rim'
+      required:
+        - SlotValue 
+      properties:
+        name:
+          type: string
+          xml:
+            attribute: true
+          enum:
+           - SpecificationIdentifier
+           - ErrorProvider
+           - PreviewDescription
+           - PreviewLocation
+           - Timestamp   
+           - EvidenceRequester  
+           - PreviewMethod
+           - EvidenceResponseIdentifier    
+        SlotValue:
+          $ref: '#/components/schemas/SlotValueErrorResponse'   
+    SlotValue:
+      type: object
+      xml:
+        prefix: 'rim'
+      anyOf:
+        - $ref: '#/components/schemas/SlotEvidenceProviderClassification'  
+        - $ref: '#/components/schemas/SlotValueEvidenceProvider'  
+        - $ref: '#/components/schemas/SlotValueElement'    
+        - $ref: '#/components/schemas/SlotValueSimple'
+        - $ref: '#/components/schemas/SlotValueLocalized'      
+    SlotValueSimple:
+      type: object     
+      required:
+        - xsi:type
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+          prefix: 'rim'
+         enum:
+          - rim:StringValueType
+          - rim:DateTimeValueType
+          - rim:BooleanValueType         
+        Value: 
+          type: string
+          xml:
+            prefix: 'rim'          
+          description: per i campi data, il formato deve essere YYYY-DD-MM hh:mm:ss zzzzzz
+    SlotValueResponse:
+      type: object
+      xml:
+        prefix: 'rim'
+      anyOf:
+        - $ref: '#/components/schemas/SlotValueEvidenceRequesterResponse'   
+        - $ref: '#/components/schemas/SlotValueEvidenceProviderResponse'
+        - $ref: '#/components/schemas/SlotValueSimple' 
+    SlotValueErrorResponse:
+      type: object
+      xml:
+        prefix: 'rim'
+      anyOf:
+        - $ref: '#/components/schemas/SlotValueSimple'       
+        - $ref: '#/components/schemas/SlotValueLocalized'         
+        - $ref: '#/components/schemas/SlotValueErrorProvider'
+        - $ref: '#/components/schemas/SlotValueEvidenceRequesterResponse'        
+          
+    SlotEvidenceMetadata:
+      type: object
+      xml:
+        prefix: 'rim'
+      required:
+        - SlotValue 
+      properties:
+        name:
+          type: string
+          xml:
+            attribute: true   
+          enum:
+           - EvidenceMetadata         
+        SlotValue:
+          $ref: '#/components/schemas/SlotValueEvidenceMetadata'  
+          
+    SlotValueLocalized:
+      type: object
+      required:
+        - xsi:type
+        - LocalizedString
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:InternationalStringValueType
+        Value: 
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotValueLocalizedList'
+          xml:
+            wrapped: false
+            prefix: 'rim'  
+    SlotValueLocalizedList:
+      type: object
+      properties:
+        LocalizedString:
+            type: object
+            required:
+                - xml:lang
+                - value
+            properties:
+                xml:lang:
+                    type: string
+                    xml:
+                        attribute: true
+                    example: en
+                value:
+                    type: string
+                    xml:
+                        attribute: true
+                    example: Requesting a birth certificate        
+            xml: 
+                prefix: 'rim'
+            
+    SlotValueElement:
+      type: object
+      required:
+        - xsi:type
+        - collectionType
+        - Element
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:CollectionValueType
+        collectionType:
+         type: string
+         xml:
+          attribute: true
+         default: 'urn:oasis:names:tc:ebxml-regrep:CollectionType:Set'
+        Element:
+          $ref: '#/components/schemas/Element'
+    SlotValueEvidenceMetadata:
+      type: object
+      required:
+        - xsi:type
+        - Evidence
+      xml:
+        prefix: 'rim'
+      properties: 
+        xsi:type:
+         type: string
+         default: 'rim:AnyValueType'
+         xml:
+          attribute: true      
+        Evidence:      
+          $ref: '#/components/schemas/Evidence'
+          xml:
+            prefix: 'sdg'
+    
+    SlotValueEvidenceProviderResponse:
+      type: object
+      required:
+        - xsi:type
+        - Agent
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:CollectionValueType
+        Agent:
+          type: array
+          items:
+           $ref: '#/components/schemas/AgentWithAddress'
+          xml:
+           wrapped: false   
+
+    SlotValueErrorProvider:
+      type: object
+      required:
+        - xsi:type
+        - Agent
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        Agent:
+          type: array
+          items:
+           $ref: '#/components/schemas/AgentWithAddress'
+          xml:
+           wrapped: false  
+           prefix: 'sdg'
+           
+    RegistryObjectType:
+      type: object
+      xml:
+        prefix: 'rim'
+      required: 
+        - id
+        - xsi:type
+        - Slot
+        - RepositoryItem
+      properties: 
+        xsi:type:
+         type: string
+         default: 'rim:ExtrinsicObjectType'
+         xml:
+          attribute: true          
+        id: 
+          type: string
+          xml:
+           attribute: true        
+        Slot:
+           $ref: '#/components/schemas/SlotEvidenceMetadata'
+        RepositoryItem:
+           $ref: '#/components/schemas/RepositoryItemType' 
+    Element:
+      type: object
+      xml:
+        prefix: 'rim'
+      oneOf:
+        - $ref: '#/components/schemas/ElementEvidenceRequester'
+        - $ref: '#/components/schemas/ElementRequirement'
+    
+    ElementRequirement:
+      type: object
+      required:
+        - xsi:type
+        - Requirement
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        Requirement:
+          type: array
+          items:
+           $ref: '#/components/schemas/Requirement'
+          xml:
+           wrapped: false
+           prefix: 'sdg'
+    Requirement:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - Identifier
+        - Name
+        - lang 
+      properties:
+        Identifier:
+          type: string
+          xml: 
+            prefix: 'sdg'
+        Name:
+          type: object
+          xml:
+            prefix: 'sdg'
+          properties:
+            lang:
+              type: string
+              xml:
+               attribute: true
+          description: 'attributo del nodo name.Espresso in codice ISO 639-1 di due lettere. Esempio:<Name lang="en">Proof of Birth</Name>'
+
+    ElementEvidenceRequester:
+      type: object
+      required:
+        - xsi:type
+        - Agent
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        Agent:
+          type: array
+          items:
+           $ref: '#/components/schemas/Agent'
+          xml:
+           wrapped: false
+           prefix: 'sdg'
+    
+    Agent:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - Identifier
+        - Name
+        - Classification
+      properties:
+        Identifier:
+            $ref: '#/components/schemas/Identifier'
+            xml:
+              prefix: 'sdg'
+        Name:
+          type: object
+          xml:
+            prefix: 'sdg'
+          properties:
+            lang:
+              type: string
+              xml:
+               attribute: true
+          description: 'attributo del nodo name.Espresso in codice ISO 639-1 di due lettere. (es: en). Di seguito un esempio di come deve essere popolato il campo Name: <sdg:Name lang="en">Denmark University Portal</sdg:Name> '
+        Address:
+          $ref: '#/components/schemas/Address'
+          xml:
+             prefix: 'sdg'
+        Classification:
+          type: string
+          xml:
+            prefix: 'sdg'
+    
+    AgentProvider:
+      type: object
+      required:
+        - Identifier
+        - Name
+      xml:
+        prefix: 'sdg'
+        name: Agent
+      properties:
+        Identifier:
+         $ref: '#/components/schemas/Identifier'
+         xml:
+            prefix: 'sdg'
+        Name:
+          type: string
+          xml:
+            prefix: 'sdg'
+            
+    AgentBase:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - Identifier
+        - Name
+      properties:
+        Identifier:
+         $ref: '#/components/schemas/Identifier'
+         xml:
+            prefix: 'sdg'
+        Name:
+          type: object
+          description: 'attributo del nodo name.Espresso in codice ISO 639-1 di due lettere. (es: en). Di seguito un esempio di come deve essere popolato il campo Name: <sdg:Name lang="en">Denmark University Portal</sdg:Name> '
+          xml:
+            prefix: 'sdg'
+          properties:
+            lang:
+              type: string
+              xml:
+               attribute: true               
+    AgentWithAddress:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - Identifier
+        - Name
+        - Classification
+      properties:
+        Identifier:
+            $ref: '#/components/schemas/Identifier'
+        Name:
+          type: object
+          xml:
+            prefix: 'sdg'
+          properties:
+            lang:
+              type: string
+              xml:
+               attribute: true
+               prefix: 'sdg'
+          description: 'attributo del nodo name.Espresso in codice ISO 639-1 di due lettere. (es: en). Di seguito un esempio di come deve essere popolato il campo Name: <sdg:Name lang="en">Denmark University Portal</sdg:Name> '
+        Address:
+          $ref: '#/components/schemas/Address'
+          xml:
+            prefix: 'sdg'
+        Classification:
+          type: string      
+          xml:
+            prefix: 'sdg'
+
+    Address:
+      type: object
+      xml:
+        prefix: 'sdg'
+      properties:
+        FullAddress:
+          type: string
+          xml:
+            prefix: 'sdg'
+        LocatorDesignator:
+          type: string
+          xml: 
+            prefix: 'sdg'
+        Thoroughfare:
+          type: string
+          xml:
+            prefix: 'sdg'
+        PostCode:
+          type: string
+          xml:
+            prefix: 'sdg'
+        PostCityName:
+          type: string
+          xml:
+            prefix: 'sdg'
+        AdminUnitLevel1:
+          type: string
+          xml:
+            prefix: 'sdg'
+        AdminUnitLevel2:
+          type: string
+          xml: 
+            prefix: 'sdg'
+
+
+    SlotValueEvidenceProvider:
+      type: object
+      required:
+       - xsi:type
+       - Agent
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        Agent:
+          $ref: '#/components/schemas/AgentProvider'
+          xml:
+            prefix: 'sdg'
+    
+    SlotValueEvidenceRequesterResponse:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+       - xsi:type
+       - Agent
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        Agent:
+          $ref: '#/components/schemas/AgentBase'
+    
+    Identifier:
+      title: Identifier
+      type: object
+      required:
+        - schemeID
+      properties:
+        schemeID:
+          type: string
+          description: 'esempio di popolamento del campo Identifier: <sdg:Identifier schemeID="9930">DE73524311</sdg:Identifier>'
+          xml:
+            name: schemeID
+            attribute: true
+            wrapped: false
+      xml:
+       prefix: 'sdg'
+       
+    SlotEvidenceProviderClassification:
+      type: object
+      required:
+        - xsi:type
+        - Element
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:CollectionValueType
+        Element:
+          type: array
+          items:
+           $ref: '#/components/schemas/ElementEvidenceProviderClassification'
+           xml:
+            prefix: 'sdg'
+
+    ElementEvidenceProviderClassification:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - xsi:type
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        EvidenceProviderClassification:
+          type: object
+          xml:
+            prefix: 'sdg'
+          required:
+            - Identifier
+            - Type
+            - Description
+            - SupportedValue
+          properties:
+            Identifier:
+             type: string
+             xml:
+              prefix: 'sdg'
+              name: 'Identifier'
+            Type:
+              type: string
+              xml:
+               prefix: 'sdg'      
+            ValueExpression:
+              type: string
+              xml:
+                prefix: 'sdg'
+            Description:
+              type: array
+              xml:
+               prefix: 'sdg'    
+              items:
+                $ref: '#/components/schemas/Description' 
+            SupportedValue: 
+             $ref: '#/components/schemas/SupportedValue'
+             xml:
+                prefix: 'sdg'
+    SupportedValue:
+      type: object
+      xml:
+        prefix: 'sdg'
+      properties:
+        StringValue:
+          type: string
+          xml: 
+            prefix: 'sdg'
+        DateValue:
+          type: string
+          xml: 
+            prefix: 'sdg'
+          description: data  in formato YYYY-DD-MM         
+        BooleanValue:
+          type: boolean
+          xml: 
+            prefix: 'sdg'          
+        CodeValue:
+          type: string
+          xml: 
+            prefix: 'sdg'          
+        DateTimeValue:
+          type: string
+          xml: 
+            prefix: 'sdg'          
+          description: data  in formato YYYY-DD-MM hh:mm:ss zzzzzz
+        Identifier:
+          $ref: '#/components/schemas/Identifier'
+          xml: 
+            prefix: 'sdg'          
+        URI:
+          type: string
+          xml: 
+            prefix: 'sdg'          
+        Duration:
+          type: string
+          xml: 
+            prefix: 'sdg'
+          description: Una durata espresso come  Year, Month, Day, Hour and Minutes (formato PnYn MnDTnH nMnS)
+        Decimal:
+          type: number
+          format: float
+          xml: 
+            prefix: 'sdg'          
+        Amount:
+          type: string
+          xml: 
+            prefix: 'sdg'
+          description: Una quantita e una valuta come definito in UN/CEFACT's CCTS
+
+    ResponseOption:
+      type: object
+      required:
+       - returnType
+      xml:
+        name: 'ResponseOption'
+        prefix: 'query'
+      properties:
+        returnType:
+          type: string
+          xml:
+            attribute: true
+          default: LeafClassWithRepositoryItem
+    
+    Query:
+      type: object
+      required:
+       - queryDefinition
+       - Slot
+      xml:
+        name: 'Query'
+        prefix: 'query'
+      properties:
+        queryDefinition:
+          type: string
+          xml:
+            attribute: true
+          default: DocumentQuery
+        Slot:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotQuery'
+          xml:
+            wrapped: false
+    
+    SlotQuery:
+      type: object
+      xml:
+        prefix: 'rim'
+      required:
+        - SlotValue 
+      properties:
+        name:
+          type: string
+          xml:
+            attribute: true
+          enum:
+           - AuthorizedRepresentative  
+           - LegalPerson
+           - NaturalPerson 
+           - EvidenceRequest      
+        SlotValue:
+          $ref: '#/components/schemas/SlotValueQuery'
+    
+    SlotValueQuery:
+      type: object
+      description: Può essere presente un solo slot tra NaturalPerson e LegalPerson, mai entrambi.
+      xml:
+        prefix: 'rim'
+        name: SlotValue
+      anyOf:
+        - $ref: '#/components/schemas/SlotValueAuthorizedRepresentative'
+        - $ref: '#/components/schemas/SlotValueLegalPerson' 
+        - $ref: '#/components/schemas/SlotValueNaturalPerson'
+        - $ref: '#/components/schemas/SlotValueEvidenceRequest'      
+    SlotValueEvidenceRequest:
+      type: object
+      required:
+        - xsi:type
+        - DataServiceEvidenceType
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        DataServiceEvidenceType:
+          $ref: '#/components/schemas/DataServiceEvidenceType'
+  
+    DataServiceEvidenceType:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - Identifier
+        - EvidenceTypeClassification
+        - Title
+        - DistributedAs
+      properties:
+        xmlns:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+          xml:
+            attribute: true
+        Identifier:
+          type: string
+          xml:
+            prefix: 'sdg'
+        EvidenceTypeClassification:
+          type: string
+          xml:
+            prefix: 'sdg'
+        DistributedAs: 
+          type: object
+          xml:
+            prefix: 'sdg'
+          required:
+            - Format
+          properties:
+            Format:
+              type: string
+              xml:
+               prefix: 'sdg'
+            ConformsTo:
+              type: string
+              xml:
+               prefix: 'sdg'
+            Transformation:
+              type: string
+              xml:
+               prefix: 'sdg'
+        Title:
+          type: array
+          xml:
+           wrapped: false
+          items:
+            $ref: '#/components/schemas/Title'
+        Description:
+          type: array
+          xml:
+           wrapped: false
+          items:
+            $ref: '#/components/schemas/Description'
+    
+    Title:
+     type: object
+     required:
+        - lang
+     xml:
+      prefix: 'sdg'
+     properties:
+      lang:
+       type: string
+       xml:
+        attribute: true    
+    Description:
+     type: object
+     required:
+        - lang
+     xml:
+      prefix: 'sdg'
+     properties:
+      lang:
+       type: string
+       xml:
+        attribute: true  
+       description: 'esempio: <sdg:description lang="en">Year Of Graduation</sdg:description>'        
+    SlotValueNaturalPerson:
+      type: object
+      required:
+        - xsi:type
+        - Person
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        Person:
+          $ref: '#/components/schemas/Person'    
+
+    Person:
+      type: object
+      xml:
+       prefix: 'sdg'
+      required:
+        - LevelOfAssurance
+        - FamilyName
+        - GivenName
+        - DateOfBirth
+      properties:
+        Identifier:
+          type: object
+          xml:
+           prefix: 'sdg'
+          required:
+            - schemeID
+          properties:
+           schemeID:
+            type: string
+            default: eidas
+            description: l'attributo va sempre valorizzato con eidas
+            xml:
+              attribute: true
+              wrapped: false
+        LevelOfAssurance:
+          type: string
+          xml:
+           prefix: 'sdg'
+        FamilyName:
+          type: string
+          xml:
+           prefix: 'sdg'
+        GivenName:
+          type: string
+          xml:
+           prefix: 'sdg'
+        DateOfBirth:
+          type: string
+          xml:
+           prefix: 'sdg'
+        BirthName:
+          type: string
+          xml:
+           prefix: 'sdg'
+        PlaceOfBirth:
+          type: string
+          xml:
+            prefix: 'sdg'
+        Gender:
+          type: string
+          xml:
+            prefix: 'sdg'
+        CurrentAddress:
+           $ref: '#/components/schemas/CurrentAddress' 
+          
+        SectorSpecificAttribute:
+          type: array
+          items:
+            $ref: '#/components/schemas/SectorSpecificAttribute'
+          xml:
+            wrapped: false
+            prefix: 'sdg'
+        UserIdentityAttribute:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserIdentityAttribute'
+          xml:
+            wrapped: false
+            prefix: 'sdg'
+    PersonResponse:
+      type: object
+      xml: 
+        prefix: 'sdg'
+      required:
+        - DateOfBirth
+        - FamilyName
+        - GivenName      
+      properties:
+        Identifier:
+          type: object
+          xml:
+           prefix: 'sdg'
+          required:
+            - schemeID
+          properties:
+           schemeID:
+            type: string
+            default: eidas
+            description: l'attributo va sempre valorizzato con eidas
+            xml:
+              attribute: true
+              wrapped: false               
+        FamilyName:
+          type: string
+          xml:
+           prefix: 'sdg'
+        GivenName:
+          type: string
+          xml:
+           prefix: 'sdg'
+        DateOfBirth:
+          type: string
+          format: date
+          xml: 
+           prefix: 'sdg'
+    LegalPerson:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - LevelOfAssurance
+        - LegalName
+      properties:
+        LegalPersonIdentifier:
+          type: object
+          xml:
+           prefix: 'sdg'
+          required:
+            - schemeID
+          properties:
+           schemeID:
+            type: string
+            default: eidas
+            description: l'attributo va sempre valorizzato con eidas
+            xml:
+              attribute: true
+              wrapped: false
+        Identifier:
+          type: object
+          xml:
+           prefix: 'sdg'
+          required:
+            - schemeID
+          properties:
+           schemeID:
+            type: string
+            xml:
+              attribute: true
+              wrapped: false
+        LevelOfAssurance:
+          type: string
+          xml:
+           prefix: 'sdg'
+        LegalName:
+          type: string
+          xml:
+           prefix: 'sdg'
+        RegisteredAddress:
+          xml:
+            wrapped: false
+            prefix: 'sdg'
+            name: 'RegisteredAddress'
+          $ref: '#/components/schemas/CurrentAddress'        
+        SectorSpecificAttribute:
+          type: array
+          items:
+            $ref: '#/components/schemas/SectorSpecificAttribute'
+          xml:
+            wrapped: false
+            prefix: 'sdg'
+        UserIdentityAttribute:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserIdentityAttribute'
+          xml:
+            wrapped: false
+            prefix: 'sdg'
+
+    LegalPersonResponse:
+      type: object
+      xml:      
+        prefix: 'sdg'
+      required:
+        - LegalPersonIdentifier
+        - LegalName
+      properties:
+        LegalPersonIdentifier:
+          $ref: '#/components/schemas/Identifier'
+        LegalName:
+          type: string
+    CurrentAddress:
+      type: object
+      xml:
+       prefix: 'sdg'
+      
+      properties:
+        sdg:FullAddress:
+          type: string
+        sdg:LocatorDesignator:
+          type: string
+        sdg:Thoroughfare:
+          type: string
+        sdg:PostCode:
+          type: string
+        sdg:PostCityName:
+          type: string
+        sdg:AdminUnitLevel1:
+          type: string
+        sdg:AdminUnitLevel2:
+          type: string
+
+    SectorSpecificAttribute:
+      type: object
+      required:
+        - AttributeName
+        - AttributeURI
+        - AttributeValue
+      properties:
+        AttributeName:
+          type: string
+          xml:
+            prefix: 'sdg'
+        AttributeURI:
+          type: string
+          xml:
+            prefix: 'sdg'
+        AttributeValue:
+          type: string
+          xml:
+            prefix: 'sdg'
+ 
+    UserIdentityAttribute:
+      type: object
+      required:
+        - AttributeName
+        - AttributeValue
+      properties:
+        AttributeName:
+          type: string
+          xml:
+            prefix: 'sdg'
+        AttributeURI:
+          type: string
+          xml:
+            prefix: 'sdg'
+        AttributeValue:
+          type: string
+          xml:
+            prefix: 'sdg'
+ 
+    SlotValueLegalPerson:
+      type: object
+      required:
+        - xsi:type
+        - LegalPerson
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        LegalPerson:
+          $ref: '#/components/schemas/LegalPerson' 
+          xml:
+            wrapped: false
+            prefix: 'sdg'
+
+
+    SlotValueAuthorizedRepresentative:
+      type: object
+      required:
+        - xsi:type
+        - Person
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        Person:
+          $ref: '#/components/schemas/Person'
+          xml:
+            prefix: 'sdg'
+    Evidence:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - IssuingDate
+        - IssuingAuthority
+        - IsConformantTo 
+        - Distribution           
+      properties:
+        Identifier:
+          type: string
+          xml:
+            prefix: 'sdg'
+        IssuingDate:
+          type: string
+          xml:
+            prefix: 'sdg'          
+          format: date
+        IsAbout:
+          type: object
+          xml:
+            prefix: 'sdg'
+          oneOf:
+            - $ref: '#/components/schemas/NaturalPersonType' 
+            - $ref: '#/components/schemas/LegalPersonType'    
+        IssuingAuthority:
+          $ref: '#/components/schemas/AgentBase'
+        IsConformantTo:
+          $ref: '#/components/schemas/EvidenceTypeType'
+        Distribution:
+          $ref: '#/components/schemas/DistributionType'
+        ValidityPeriod:
+          $ref: '#/components/schemas/PeriodType'
+    EvidenceTypeType:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - EvidenceTypeClassification
+        - Title
+      properties:
+        EvidenceTypeClassification:
+          type: string
+          xml:
+            prefix: 'sdg'
+        Title:
+          type: array
+          items:
+            $ref: '#/components/schemas/Title'
+        Description:
+          type: array
+          items:
+            $ref: '#/components/schemas/Description'
+    DistributionType:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - Format
+      properties:
+        Format:
+          type: string
+          xml:
+           prefix: 'sdg'
+        Transformation :
+          type: string
+          xml:
+           prefix: 'sdg'
+        Language:
+          type: array
+          xml:
+            prefix: 'sdg'
+          items:
+            $ref: '#/components/schemas/Language'
+            xml:
+             prefix: 'sdg'            
+        ConformsTo:
+          type: string
+          xml:
+            prefix: 'sdg'
+    PeriodType:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - EndDate
+        - StartDate
+      properties:
+        StartDate:
+          type: string
+          description: 'La data deve contenere i secondi e le informazioni sul timezone. '
+          xml:
+            prefix: 'sdg'
+        EndDate:
+          type: string
+          description: 'La data deve contenere i secondi e le informazioni sul timezone. '
+          xml:
+            prefix: 'sdg'
+    Language:
+      type: string
+    RepositoryItemType:
+      type: object
+      xml:
+        prefix: 'rim'
+      required:
+        - xmime:expectedContentTypes
+      properties:
+        xmime:expectedContentTypes:
+          type: string
+          xml:
+            attribute: true
+    NaturalPersonType:
+     type: object
+     xml:
+        prefix: 'sdg'
+     properties:
+        NaturalPerson:
+            $ref: '#/components/schemas/PersonResponse'
+    LegalPersonType:
+     type: object
+     xml:
+        prefix: 'sdg'
+     properties:
+      LegalPerson:
+       $ref: '#/components/schemas/LegalPersonResponse' 
+    UserVO:
+      title: UserVO
+      required:
+        - dataNascita
+      type: object
+      properties:
+        codiceFiscale:
+          pattern: ^([A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST]{1}[0-9LMNPQRSTUV]{2}[A-Z]{1}[0-9LMNPQRSTUV]{3}[A-Z]{1})$|([0-9]{11})$
+          type: string
+        cognome:
+          pattern: ^[a-zA-Zà-ù\'\s+]+$
+          type: string
+        comuneNascita:
+          pattern: ^[a-zA-Zà-ù\s+]+$
+          type: string
+        dataNascita:
+          type: string
+        nome:
+          pattern: ^[a-zA-Zà-ù\'\s+]+$
+          type: string
+        provinciaNascita:
+          pattern: ^[a-zA-Zà-ù\s+]+$
+          type: string
+        sesso:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[fmFM]{1}$
+          type: string
+        statoNascita:
+          pattern: ^[a-zA-Zà-ù\s+]+$
+          type: string
+     
+    OutputVerificaPfDto:
+      type: object
+      properties:
+        dati:
+          $ref: '#/components/schemas/UserVO'
+        valido:
+          type: boolean
+          description: Campo di validità della persona fisica
+        messaggio:
+          type: string
+          description: Messaggio di ritorno del servizio di verifica
+          
+      description: Oggetto generico di ritorno per la verifica del PF
+      
+    ServiceErrorDto:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        messaggi:
+          type: array
+          items:
+            type: string
+      description: Oggetto di ritorno per la gestione degli errori
+    InputPfSupportoDto:
+      required:
+        - codiceFiscale
+        - cognome
+        - comuneNascita
+        - dataNascita
+        - nome
+        - provinciaNascita
+        - sesso
+        - statoNascita
+        - tipologiaSupporto
+        - identificativoSupporto
+      type: object
+      properties:
+        codiceFiscale:
+          type: string
+          example: TLEMRA83A01H501T
+        cognome:
+          type: string
+          example: TELEM
+        nome:
+          type: string
+          example: MARIO
+        sesso:
+          type: string
+          enum:
+            - M
+            - F
+        dataNascita:
+          type: string
+          example: '2022-01-01'
+        comuneNascita:
+          type: string
+          example: ROMA
+        provinciaNascita:
+          maxLength: 2
+          minLength: 2
+          type: string
+          description: Sono consentite le sigle ufficiali delle province italiane.
+          example: RM
+        statoNascita:
+          type: string
+          description: >-
+            Lo stato è da inserire quando la persona fisica non è nata in
+            italia.
+          example: SVIZZERA
+        tipologiaSupporto:
+          type: string
+          enum:
+            - 'tesserino'
+            - 'certificato'
+        identificativoSupporto:
+          type: string
+          example: 110000383716235
+      description: >- 
+        Oggetto di input per la definizione dei parametri di verifica integrativa 
+        del supporto con tesserino o certificato di attribuzione
+    OutputVerificaPfSupportoDto:
+      type: object
+      properties:
+        dati:
+          $ref: '#/components/schemas/InputPfSupportoDto'
+        valido:
+          type: boolean
+          description: Campo di validità della persona fisica
+        messaggio:
+          type: string
+          description: Messaggio di ritorno del servizio di verifica
+      description: Oggetto generico di ritorno per la verifica del PF con supporto
+  
+    genericResponse:
+      type: object
+      required:
+        - code
+        - description
+        - message
+      properties:
+        code:
+          type: string
+          description: Rif response code
+          example: 200
+        description:
+          type: string
+          description: Eventuale descrizione code
+          example: Successful operation
+        message:
+          type: string
+          description: Eventuale messaggio di errore 
+    Errore:
+      type: object
+      required:
+            - code
+            - message
+      properties:
+            code:
+              type: string
+              description: Codice di errore
+              example: <HTTP_CODE>
+              enum:
+                - '400'
+                - '500'
+            message:
+              type: string
+              description: Tipologia di errore
+              example: <HTTP_STATUS>
+              enum:
+                - Bad Request
+                - Internal Server Error
+            description:
+              type: string
+              description: Descrizione di dettaglio dello specifico problema verificatosi
+              example: <detail_error>
+      description: Modello di risposta in caso di errore  
+    ErrorValidation:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: Codice stato HTTP generato dal server per il problema
+          format: int32
+          enum:
+            - 400
+        title:
+          type: string
+          description: Titolo sintetico dell'errore
+        invalidsParams:
+          maxItems: 2
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/InvalidParams'
+      readOnly: true
+    InvalidParams:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Identifivativo del campo non valorizzato correttamente
+        reason:
+          type: string
+          description: Motivo dell'errore
+      readOnly: true
+    ResponseKo:
+      type: object
+      properties:
+        esito:
+          type: string
+          description: Esito della verifica
+          enum:
+            - KO
+        dataOraVerifica:
+          type: string
+          description: Data ora della verifica in UTC (Sintassi date-time indicata in RFC 3339)
+          format: date-time
+        status:
+          type: integer
+          format: int32
+          enum:
+            - 100
+            - 110
+            - 120
+            - 130
+            - 900
+        detail:
+          type: string
+          description: Dettaglio specifico dell'occorrenza del problema
+          nullable: true
+      readOnly: true
+    ResponseOk:
+      type: object
+      properties:
+        esito:
+          type: string
+          description: Esito della verifica
+          enum:
+            - OK
+        dataOraVerifica:
+          type: string
+          description: Data ora della verifica in UTC (Sintassi date-time indicata in RFC 3339)
+          format: date-time
+      readOnly: true
+    BaseError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: Codice stato HTTP generato dal server per il problema
+          format: int32
+          enum:
+            - 400
+            - 401
+            - 429
+            - 500
+        title:
+          type: string
+          description: Titolo sintetico dell'errore
+        detail:
+          type: string
+          description: Dettaglio specifico dell'occorrenza del problema
+          nullable: true
+        type:
+          type: string
+          description: Indirizzo URI assoluto che identifica il tipo di problema
+          nullable: true
+        instance:
+          type: string
+          description: Indirizzo URI assoluto che identifica l'occorrenza specifica del problema
+          nullable: true
+      readOnly: true
+  securitySchemes:
+    Authorization:            # Bearer <Voucher PDND>
+      type: http
+      scheme: bearer
+      bearerFormat: JWT              

@@ -49,6 +49,7 @@
 				<sdg:Requirement>
 					<sdg:Identifier>https://sr.oots.tech.ec.europa.eu/requirements/315cfd75-6605-49c4-b0fe-799833b41099</sdg:Identifier>
 					<sdg:Name lang="EN">Proof of Birth</sdg:Name>
+					<sdg:Name lang="IT">Certificato di nascita</sdg:Name>
 				</sdg:Requirement>
 			</rim:Element>
 		</rim:SlotValue>
@@ -59,13 +60,14 @@
 			<rim:Element xsi:type="rim:AnyValueType">
 				<sdg:Agent>
 					<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:9930">DK22233223</sdg:Identifier>
-					<sdg:Name lang="en">Denmark University Portal</sdg:Name>
+					<sdg:Name lang="EN">Denmark University Portal</sdg:Name>
+					<sdg:Name lang="IT">Portale dell'Università della Danimarca</sdg:Name>
 					<sdg:Address>
 						<sdg:FullAddress>Prince Street 15</sdg:FullAddress>
 						<sdg:LocatorDesignator>15</sdg:LocatorDesignator>
 						<sdg:PostCode>1050</sdg:PostCode>
 						<sdg:PostCityName>Copenhagen</sdg:PostCityName>
-						<sdg:AdminUnitLevel1>Denmark</sdg:AdminUnitLevel1>
+						<sdg:AdminUnitLevel1>DK</sdg:AdminUnitLevel1>
 						<sdg:AdminUnitLevel2>DK011</sdg:AdminUnitLevel2>
 					</sdg:Address>
 					<sdg:Classification>IntermediaryPlatform</sdg:Classification>
@@ -78,7 +80,8 @@
 		<rim:SlotValue xsi:type="rim:AnyValueType">
 			<sdg:Agent>
 				<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:9930">DE73524311</sdg:Identifier>
-				<sdg:Name>Civil Registration Office Berlin I</sdg:Name>
+				<sdg:Name lang="EN">Civil Registration Office Berlin I</sdg:Name>
+				<sdg:Name lang="IT">Ufficio dello stato civile Berlino I</sdg:Name>
 			</sdg:Agent>
 		</rim:SlotValue>
 	</rim:Slot>

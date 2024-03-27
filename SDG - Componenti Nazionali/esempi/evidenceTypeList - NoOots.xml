@@ -38,7 +38,8 @@
 								<sdg:Identifier>100272</sdg:Identifier>
 								<sdg:Title lang="IT">EV TY 1</sdg:Title>
 								<sdg:Title lang="EN">EV TY 1 ENG</sdg:Title>
-								<sdg:Description lang="IT"/>
+								<sdg:Description lang="IT">Descrizione dei evidence type 1</sdg:Description>/>
+								<sdg:Description lang="EN">EvidenceType 1 Description</sdg:Description>/>
 								<sdg:EvidenceTypeClassification>2f6b790f-3894-413c-be82-40cb6e7d6fa7</sdg:EvidenceTypeClassification>
 								<sdg:Jurisdiction>
 									<sdg:AdminUnitLevel1>IT</sdg:AdminUnitLevel1>

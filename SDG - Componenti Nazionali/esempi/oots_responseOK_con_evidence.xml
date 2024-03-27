@@ -34,7 +34,8 @@
     <rim:SlotValue xsi:type="rim:CollectionValueType">
         <sdg:Agent>
             <sdg:Identifier schemeID="9930">DE73524311</sdg:Identifier>
-            <sdg:Name lang="en">Civil Registration Office Berlin I</sdg:Name>
+            <sdg:Name lang="EN">Civil Registration Office Berlin I</sdg:Name>
+			<sdg:Name lang="IT">Ufficio dello stato civile Berlino I</sdg:Name>
             <sdg:Address>
                     <sdg:FullAddress>Schönstedtstraße 5</sdg:FullAddress>
                     <sdg:LocatorDesignator>5</sdg:LocatorDesignator>
@@ -50,7 +51,8 @@
     <rim:SlotValue xsi:type="rim:AnyValueType">
         <sdg:Agent>
             <sdg:Identifier schemeID="0096">DK22233223</sdg:Identifier>
-            <sdg:Name>Denmark University Portal</sdg:Name>
+            <sdg:Name lang="EN">Denmark University Portal</sdg:Name>
+			<sdg:Name lang="IT">Portale dell'Università della Danimarca</sdg:Name>
         </sdg:Agent>
     </rim:SlotValue>
 </rim:Slot>
@@ -70,14 +72,15 @@
                     </sdg:IsAbout>
                     <sdg:IssuingAuthority>
                         <sdg:Identifier schemeID="9930">DE73524311</sdg:Identifier>
-                        <sdg:Name lang="en">Civil Registration Office Berlin I</sdg:Name>
+                        <sdg:Name lang="EN">Civil Registration Office Berlin I</sdg:Name>
+						<sdg:Name lang="IT">Ufficio dello stato civile Berlino I</sdg:Name>
                     </sdg:IssuingAuthority>
                     <sdg:IsConformantTo>
                         <sdg:EvidenceTypeClassification>CertificateOfBirth</sdg:EvidenceTypeClassification>
-                        <sdg:Title lang="en">Certificate of Birth</sdg:Title>
-                        <sdg:Title lang="de">Geburtsurkunde</sdg:Title>
-                        <sdg:Description lang="en">Civil status certificate created from the birth register</sdg:Description>
-                        <sdg:Description lang="de">Personenstandsurkunde, die aus dem Geburtenregister erstellt wird</sdg:Description>
+                        <sdg:Title lang="EN">Certificate of Birth</sdg:Title>
+                        <sdg:Title lang="DE">Geburtsurkunde</sdg:Title>
+                        <sdg:Description lang="EN">Civil status certificate created from the birth register</sdg:Description>
+                        <sdg:Description lang="DE">Personenstandsurkunde, die aus dem Geburtenregister erstellt wird</sdg:Description>
                     </sdg:IsConformantTo>
                     <sdg:IssuingDate>1970-03-03</sdg:IssuingDate>
                     <sdg:Distribution>

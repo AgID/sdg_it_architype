@@ -22,7 +22,8 @@
         <rim:SlotValue xsi:type="rim:AnyValueType">
             <sdg:Agent>
                 <sdg:Identifier schemeID="0204">DE7657587001</sdg:Identifier>
-                <sdg:Name>Authority for school and occupational training</sdg:Name>
+                <sdg:Name lang="EN">Authority for school and occupational training</sdg:Name>
+				<sdg:Name lang="IT">Ente per la scuola e la formazione professionale</sdg:Name>
                 <sdg:Address>
                     <sdg:FullAddress>Hamburger Str. 31</sdg:FullAddress>
                     <sdg:LocatorDesignator>31</sdg:LocatorDesignator>
@@ -31,7 +32,7 @@
                     <sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
                     <sdg:AdminUnitLevel2>DE60</sdg:AdminUnitLevel2>
                 </sdg:Address>
-                <sdg:Classification>IntermediaryPlatform</sdg:Classification>
+                <sdg:Classification>IP</sdg:Classification>
             </sdg:Agent>
         </rim:SlotValue>
     </rim:Slot>
@@ -39,7 +40,8 @@
         <rim:SlotValue xsi:type="rim:AnyValueType">
             <sdg:Agent>
                 <sdg:Identifier schemeID="0190">NL22233223</sdg:Identifier>
-                <sdg:Name lang="en">University of Amsterdam</sdg:Name>
+                <sdg:Name lang="EN">University of Amsterdam</sdg:Name>
+				<sdg:Name lang="IT">Università di Amsterdam</sdg:Name>
             </sdg:Agent>  
         </rim:SlotValue>
     </rim:Slot>
@@ -58,9 +60,9 @@
         <rim:Slot name="PreviewDescription">
             <rim:SlotValue xsi:type="rim:InternationalStringValueType">
                 <rim:Value>
-                    <rim:LocalizedString xml:lang="nl" value="Kies uw diploma."/>
-                    <rim:LocalizedString xml:lang="ro" value="Vă rugăm să selectați diploma dvs."/>
-                    <rim:LocalizedString xml:lang="en" value="Please select your diploma."/>
+                    <rim:LocalizedString xml:lang="NL" value="Kies uw diploma."/>
+                    <rim:LocalizedString xml:lang="RO" value="Vă rugăm să selectați diploma dvs."/>
+                    <rim:LocalizedString xml:lang="EN" value="Please select your diploma."/>
                 </rim:Value>
             </rim:SlotValue>
         </rim:Slot>

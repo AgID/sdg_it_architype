@@ -381,6 +381,20 @@ components:
                                 xml:
                                  attribute: true 
                                 description: Specifica il linguaggio
+                            Note:
+                             type: array
+                             xml:
+                                prefix: 'sdg'
+                             items:
+                              type: object
+                              description: Note relative al DataServiceEvidenceType. l'attributo "lang" permette di specificare la lingua
+                              properties:
+                               lang:
+                                type: string
+                                example: en
+                                xml:
+                                 attribute: true 
+                                description: Specifica il linguaggio
                             DistributedAs:
                                 $ref: '#/components/schemas/DistributedAsArray'
                             AccessService:
@@ -429,6 +443,20 @@ components:
               example: urn:oasis:names:tc:ebcore :iso6523:0060
               xml:
                 attribute: true
+        Name:
+         type: array
+         xml:
+          prefix: 'sdg'
+         items:
+           type: object
+           description: Nome dell'AccessService. l'attributo "lang" permette di specificare la lingua
+           properties:
+            lang:
+              type: string
+              example: en
+              xml:
+               attribute: true 
+              description: Specifica il linguaggio
         ConformsTo:
           type: string
           xml:
@@ -463,6 +491,13 @@ components:
              type: array
              items:
               $ref: '#/components/schemas/NameXml'
+             xml:
+              wrapped: false
+              prefix: 'sdg'
+            Description:
+             type: array
+             items:
+              $ref: '#/components/schemas/DescriptionXml'
              xml:
               wrapped: false
               prefix: 'sdg'
@@ -751,6 +786,22 @@ components:
         lang:
           type: string
           description: 'attributo del nodo name.Espresso in codice ISO 639-1 di due lettere. (es: EN). Di seguito un esempio di come deve essere popolato il campo Name: <sdg:Name lang="EN">Denmark University Portal</sdg:Name> '
+          xml:
+            name: lang
+            attribute: true
+            wrapped: false
+      xml:
+       prefix: 'sdg'
+    
+    DescriptionXml:
+      title: Description
+      type: object
+      required:
+        - lang
+      properties:
+        lang:
+          type: string
+          description: 'attributo del nodo Description.Espresso in codice ISO 639-1 di due lettere. (es: EN). Di seguito un esempio di come deve essere popolato il campo Description: <sdg:Description lang="EN">Denmark University Portal</sdg:Description> '
           xml:
             name: lang
             attribute: true

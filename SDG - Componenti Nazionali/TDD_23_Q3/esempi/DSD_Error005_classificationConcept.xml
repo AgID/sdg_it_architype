@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<query:QueryResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+                     xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+                     xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0" xmlns:sdg="http://data.europa.eu/p4s"
+                     status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure">
+ 
+    <!-- Valid parameter combinations are defined by the DSDErrorResponseCodes -->
+    <!-- The Codelists DSDErrorCodes provides the values for xsi:type, message and code - - -->
+    <!-- The ErrorSeverity provides allowed values for severity. In this example (code DSD:ERR:0005) the severity "AdditionalInput" points to a DSD request that requires additional discovery metadata of the user in order to be answered successfully. -->
+    <!-- The detail may contain further freely defined information about the error -->
+ 
+    <rs:Exception xsi:type="rs:ObjectNotFoundExceptionType"
+                  severity="urn:sr.oots.tech.ec.europa.eu:codes:ErrorSeverity:DSDErrorResponse:AdditionalInput"
+                  message="The query requires the included extra attributes to be provided by the user."
+                  detail="UserRequestedClassificationConcepts"
+                  code="DSD:ERR:0005">
+ 
+         <rim:Slot name="DataServiceEvidenceType">
+      <rim:SlotValue xsi:type="rim:AnyValueType">
+        <sdg:DataServiceEvidenceType>
+          <sdg:Identifier>2af27699-f131-4411-8fdb-9e8cd4e8bded</sdg:Identifier>
+
+          <!-- Classification Information - Used for linking with the Semantic Repository and Evidence Broker -->
+          <sdg:EvidenceTypeClassification>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/DE/ca8afed6-2dc0-422a-a931-d21c3d8d370e</sdg:EvidenceTypeClassification>
+          <sdg:Title lang="EN">Certificate of Birth</sdg:Title>
+          <sdg:Title lang="DE">Geburtsurkunde</sdg:Title>
+          <sdg:Description lang="EN">An official certificate of birth of a person - with first name, surname, sex, date and place of birth, which is obtained from the birth register of the place of birth.</sdg:Description>
+          <sdg:Description lang="DE">Eine amtliche Bescheinigung über die Geburt einer Person – mit Vorname, Familienname, Geschlecht, Datum und Ort der Geburt, welche aus dem Geburtsregister des Geburtsortes erstellt wird.</sdg:Description>
+
+          <!-- Distribution Information - Multiple Distributions per Data Service Evidence Type -->
+		  <!-- PDF Distribution. PDF is unstructured data so there is no conformance to a data model -->
+          <sdg:DistributedAs>
+            <sdg:Format>application/pdf</sdg:Format>
+          </sdg:DistributedAs>
+          <sdg:AuthenticationLevelOfAssurance>High</sdg:AuthenticationLevelOfAssurance>
+          <sdg:Note lang="EN">Payment: Free of charge</sdg:Note>
+        </sdg:DataServiceEvidenceType>
+      </rim:SlotValue>
+    </rim:Slot>
+ 
+        <!-- User Requested Classification Concepts  -->
+        <!-- Determination of the EvidenceProviderClassification to the User's attributes. In this example the applicant must indicate if he has ever resided in the country.  -->
+        <rim:Slot name="UserRequestedClassificationConcepts">
+            <rim:SlotValue xsi:type="rim:CollectionValueType"
+                           collectionType="urn:oasis:names:tc:ebxml-regrep:CollectionType:Set">
+                <rim:Element xsi:type="rim:AnyValueType">
+                    <sdg:EvidenceProviderClassification>
+                        <!-- The Unique Identifier of this EvidenceProviderClassification reused by the element <sdg:ClassificationConcept> of Publishers -->
+                        <sdg:Identifier>b07146b6-1468-41a7-a10f-ee2a61429dbc</sdg:Identifier>
+                        <sdg:Type>Codelist</sdg:Type>
+                        <!-- Definition of the value expression. Must be published in the Semantic Repository. The codelist contains the values ApplicantHasNeverBeenResidentInGermany and ApplicantHasBeenResidentInGermany -->
+                        <!-- During the query process the user has to select one of the two values as additional input parameter for the query in order to identify the correct publisher / evidence provider -->
+                        <!-- The selected value will be mapped against the SupportedValues of Publishers -->
+                        <sdg:ValueExpression>https://sr.oots.tech.ec.europa.eu/ep-classification/de/countryresidence</sdg:ValueExpression>
+                        <sdg:Description lang="EN">Rules of responsibility for the processing of personal status cases of German citizens without residence information
+                        </sdg:Description>
+                        <sdg:Description lang="DE">Zuständigkeitsregelungen für die Bearbeitung von personenstandsrechtlichen Vorgängen deutscher Staatsangehöriger ohne Wohnsitzinformation</sdg:Description>
+                    </sdg:EvidenceProviderClassification>
+                </rim:Element>
+            </rim:SlotValue>
+        </rim:Slot>
+    </rs:Exception>
+</query:QueryResponse> 

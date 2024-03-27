@@ -28,6 +28,7 @@
                 <!-- The value of the 'schemeID' attribute of the 'Identifier' MUST be part of the code list 'EAS' (Electronic Address Scheme ) and use the prefix 'urn:cef.eu:names:identifier:EAS:[Code]'  -->
                 <sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0204">DE765758700</sdg:Identifier>
                 <sdg:Name lang="EN">Authority for school and occupational training</sdg:Name>
+				<sdg:Name lang="IT">Ente per la scuola e la formazione professionale</sdg:Name>
                 <sdg:Address>
                     <sdg:FullAddress>Hamburger Str. 31</sdg:FullAddress>
                     <sdg:LocatorDesignator>31</sdg:LocatorDesignator>
@@ -49,6 +50,7 @@
             <sdg:Agent>
                 <sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0190">NL22233223</sdg:Identifier>
                 <sdg:Name lang="en">University of Amsterdam</sdg:Name>
+				<sdg:Name lang="IT">Università di Amsterdam</sdg:Name>
             </sdg:Agent>  
         </rim:SlotValue>
     </rim:Slot>
@@ -72,7 +74,7 @@
         <rim:Slot name="PreviewLocation">
             <rim:SlotValue xsi:type="rim:StringValueType">
                 <!-- The 'rim:Value' of a 'PreviewLocation' MUST be a URI starting with 'https://'. -->
-                <rim:Value>https%3A%2F%2Fpreviewspace-coll.servizisdg.gov.it%2Flogin%3FpreviewUrl%3Dhttps%3A%2F%2Fagid%2Fpreviewspace%3Ftoken%3Df7c908af-d918-469a-8a1d-5aec3c00b6d2</rim:Value>
+                <rim:Value>https://previewspace-coll.servizisdg.gov.it/login?token=58d6111a-70e6-4732-bf51-d1b405b3dfa3</rim:Value>
             </rim:SlotValue>
         </rim:Slot>
         <rim:Slot name="PreviewDescription">

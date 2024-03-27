@@ -31,7 +31,7 @@
 	<rim:Slot name="PreviewLocation">
 		<rim:SlotValue xsi:type="rim:StringValueType">
 			<!-- MUST be a URI starting with 'https://' -->
-			<rim:Value>https%3A%2F%2Fpreviewspace-coll.servizisdg.gov.it%2Flogin%3FpreviewUrl%3Dhttps%3A%2F%2Fagid%2Fpreviewspace%3Ftoken%3Df7c908af-d918-469a-8a1d-5aec3c00b6d2</rim:Value>
+			<rim:Value>https://previewspace-coll.servizisdg.gov.it/login?token=58d6111a-70e6-4732-bf51-d1b405b3dfa3</rim:Value>
 		</rim:SlotValue>
 	</rim:Slot>
 	<rim:Slot name="PossibilityForPreview">
@@ -69,6 +69,7 @@
 				<sdg:Agent>
 					<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0190">NL22233223</sdg:Identifier>
 					<sdg:Name lang="EN">University of Amsterdam</sdg:Name>
+					<sdg:Name lang="IT">Università di Amsterdam</sdg:Name>
 					<sdg:Address>
 						<sdg:FullAddress>Binnengasthuisstraat 9</sdg:FullAddress>
 						<sdg:LocatorDesignator>9</sdg:LocatorDesignator>
@@ -87,6 +88,7 @@
 			<sdg:Agent>
 				<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0204">DE7657587001</sdg:Identifier>
 				<sdg:Name lang="EN">Authority for school and occupational training</sdg:Name>
+				<sdg:Name lang="IT">Ente per la scuola e la formazione professionale</sdg:Name>
 			</sdg:Agent>
 		</rim:SlotValue>
 	</rim:Slot>
@@ -98,6 +100,7 @@
 					<sdg:Type>Codelist</sdg:Type>
 					<sdg:ValueExpression>https://sr.oots.tech.ec.europa.eu/ep-classification/de/secondary-education-type</sdg:ValueExpression>
 					<sdg:Description lang="EN">Type of Secondary Education</sdg:Description>
+					<sdg:Description lang="IT">Tipo di scuola secondaria</sdg:Description>
 					<sdg:Description lang="DE">Art der Sekundarschulbildung</sdg:Description>
 					<sdg:SupportedValue>
 						<sdg:StringValue>HigherEducationEntranceQualification</sdg:StringValue>

@@ -55,6 +55,7 @@
 					<sdg:Identifier>https://sr.oots.tech.ec.europa.eu/requirements/315cfd75-6605-49c4-b0fe-799833b41099</sdg:Identifier>
 					<!-- MUST be part of the code list 'LanguageCode' (ISO 639-1 two-letter code). Default value "en" -->
 					<sdg:Name lang="EN">Proof of Birth</sdg:Name>
+					<sdg:Name lang="IT">Certificato di nascita</sdg:Name>
 				</sdg:Requirement>
 			</rim:Element>
 			<!--  another requirement may be added as rim:Element-->
@@ -68,6 +69,7 @@
 					<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0096">DK22233223</sdg:Identifier>
 					<!-- The language attribute MUST be part of the code list 'LanguageCode' (ISO 639-1 two-letter code).  Default value "en" -->
 					<sdg:Name lang="EN">Denmark University Portal</sdg:Name>
+					<sdg:Name lang="IT">Portale dell'Università della Danimarca</sdg:Name>
 					<sdg:Address>
 						<sdg:FullAddress>Prince Street 15, 1050 Copenhagen, Denmark</sdg:FullAddress>
 						<sdg:LocatorDesignator>15</sdg:LocatorDesignator>
@@ -92,6 +94,7 @@
 				<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:9930">DE73524311</sdg:Identifier>
 				<!-- The language attribute MUST be part of the code list 'LanguageCode' (ISO 639-1 two-letter code).  Default value "en" -->
 				<sdg:Name lang="EN">Civil Registration Office Berlin I</sdg:Name>
+				<sdg:Name lang="IT">Ufficio dello stato civile Berlino I</sdg:Name>
 			</sdg:Agent>
 		</rim:SlotValue>
 	</rim:Slot>

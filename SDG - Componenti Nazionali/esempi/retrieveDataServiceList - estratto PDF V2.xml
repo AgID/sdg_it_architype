@@ -53,13 +53,15 @@
               <!-- The Evidence Exchange profile version to which this access service expects / serves -->
               <sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0204">11-IntermediaryPlatform-58</sdg:Identifier>
               <!-- The identifier of the Access Service, using ebcore Party ID Type. Used in eDelivery Evidence Exchange for PMode Mapping - Corner 3 (C3). C3 is an Access Point that receives messages on behalf of C4. The scheme ID must point to a valid Electronic Address Scheme (EAS) from the codelist EAS.gc -->
-              <sdg:ConformsTo>oots-edm:v1.0</sdg:ConformsTo>
+             <sdg:Name lang="EN">German Intermediary Platform II</sdg:Name>
+			 <sdg:ConformsTo>oots-edm:v1.0</sdg:ConformsTo>
               
               <!-- The Evidence Provider Information of this Access Service - Corner 4 (C4). C4 is the final recipient party, which can be selected to receive the Evidence Request Query  -->
               <sdg:Publisher>
                 <sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0204">11-SchoolAuthority-67</sdg:Identifier>
                 <sdg:Name lang="EN">Authority for school and occupational training Berlin</sdg:Name>
-                <sdg:Address>
+                <sdg:Description lang="EN">As a foreign registry office of the Federal Republic of Germany, Registry Office I in Berlin is responsible in particular for Certifications of births of Germans abroad who have never had a residence in Germany. </sdg:Description>
+				<sdg:Address>
                   <sdg:FullAddress>Schönstedtstraße 5, 13357 Berlin, Germany</sdg:FullAddress>
                   <sdg:LocatorDesignator>5</sdg:LocatorDesignator>
                   <sdg:PostCode>13357</sdg:PostCode>
@@ -107,7 +109,7 @@
             </sdg:AccessService>
             <!-- Level Of Assurance Required for the Evidence Type -->
             <sdg:AuthenticationLevelOfAssurance>High</sdg:AuthenticationLevelOfAssurance>
-			
+			<sdg:Note lang="EN">Payment: Free of charge</sdg:Note>
 			<sdg:UserIdentityAttribute name="codice_fiscale">
 				<sdg:Label lang="en" > fiscal code</sdg:Label>
 				<sdg:Label lang="it" > codice fiscale</sdg:Label>
