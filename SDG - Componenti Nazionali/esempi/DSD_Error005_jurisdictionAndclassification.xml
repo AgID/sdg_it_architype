@@ -49,8 +49,7 @@
         <rim:Element xsi:type="rim:AnyValueType">
           <sdg:EvidenceProviderClassification>
             <sdg:Identifier>b07146b6-1468-41a7-a10f-ee2a61429dbc</sdg:Identifier>
-            <sdg:Type>Codelist</sdg:Type>
-            <!-- Definition of the value expression. Must be published in the Semantic Repository. The codelist contains the values ApplicantHasNeverBeenResidentInGermany and ApplicantHasBeenResidentInGermany -->
+            <sdg:Type>stringValue</sdg:Type>
             <sdg:ValueExpression>https://sr.oots.tech.ec.europa.eu/ep-classification/de/countryresidence</sdg:ValueExpression>
             <sdg:Description lang="EN">Rules of responsibility for the processing of personal status cases of German citizens without residence information
             </sdg:Description>
