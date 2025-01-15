@@ -7,11 +7,7 @@
   xmlns:sdg="http://data.europa.eu/p4s"
   status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success">
   
-  <rim:Slot name="SpecificationIdentifier">
-        <rim:SlotValue xsi:type="rim:StringValueType">
-            <rim:Value>oots-edm:v1.0</rim:Value>
-        </rim:SlotValue>
-    </rim:Slot>
+  
   <rim:RegistryObjectList>
     <!-- One registry object per dataset -->
     <rim:RegistryObject id="urn:uuid:4d66b7df-ad09-4098-942c-cb8da467af2a">

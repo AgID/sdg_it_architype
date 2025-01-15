@@ -1,47 +1,22 @@
 {
-
     "code": 200,
-
     "description": "Record trovato.",
-
     "message": "Successo.",
-
     "publicService": {
-
-        "publicServiceId": 10544,
-
-        "name": "Iscrizione all'albo degli Avvocati stabiliti",
-
-        "description": "II procedimento ''Iscrizione all'Albo degli Avvocati stabiliti'' permette di avviare il processo di iscrizione alla sezione speciale dell'Albo degli Avvocati stabiliti (D. Lgs. 2 febbraio 2001 n. 96 che recepisce la Direttiva 98/5/CE).",
-
-        "euPublicServiceId": "X1.2",
-
+        "publicServiceId": 0,
+        "name": "Comunicazione obbligatoria di assunzione",
+        "description": "DA COMPILARE A CURA DELLA PA",
+        "euPublicServiceId": "X3.23",
         "parentPublicServiceId": {
-
-            "publicServiceId": 10431,
-
-            "euPublicServiceId": "X1",
-
-            "name": "Notifica di un'attività commerciale, licenza per l'esercizio di un'attività commerciale, modifiche di un'attività commerciale e cessazione di un'attività commerciale senza procedure di insolvenza"
-
+            "publicServiceId": 0,
+            "euPublicServiceId": "X3",
+            "name": "Iscrizione di dipendenti presso i regimi pensionistici e assicurativi obbligatori"
         },
-
         "publicOrganization": {
-
-            "publicOrganizationId": 8288,
-
-            "preferredLabel": "Consiglio Nazionale Forense",
-
-            "ipaCode": "cnfo",
-
-            "location": {
-
-                "locationGeographicId": 1
-
-            }
-
+            "publicOrganizationId": 21,
+            "preferredLabel": "Regione Puglia",
+            "ipaCode": "r_puglia",
+            "locationGeographicId": 0
         }
-
     }
-
 }

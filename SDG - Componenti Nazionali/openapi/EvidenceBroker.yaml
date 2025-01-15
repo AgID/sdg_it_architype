@@ -21,6 +21,12 @@ paths:
         La lista delle prove delle tipologie ristrette all'output di
         retrieveRequirementList.
       parameters:
+        - in: header
+          name: Accept-Version
+          schema:
+            type: string
+          required: false
+          description: Indica la versione, o le versioni, delle specifiche supportate dal client.
         - in: query
           name: queryId
           required: true
@@ -89,6 +95,12 @@ paths:
       summary: restituisce la lista delle Tipologie di prova per specifico requisito. 
       description: L’insieme delle Tipologie di prova necessarie a soddisfare ogni specifico Requisito sarà restituito dall’Evidence Broker IT. 
       parameters:
+        - in: header
+          name: Accept-Version
+          schema:
+            type: string
+          required: false
+          description: Indica la versione, o le versioni, delle specifiche supportate dal client.
         - in: query
           name: queryId
           required: true
@@ -155,8 +167,17 @@ components:
            - code: '500'
              message: An internal server error occurred
              description: An internal server error occurred
-  schemas:     
+  schemas:  
     QueryResponse:
+      type: object
+      xml:
+        name: 'QueryResponse'
+        prefix: 'query'
+      oneOf:
+        - $ref: '#/components/schemas/QueryOKResponse' 
+        - $ref: '#/components/schemas/QueryErrorResponse'    
+    
+    QueryErrorResponse:
       type: object
       required:
        - status
@@ -199,7 +220,12 @@ components:
           default: urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success
           xml:
             attribute: true             
-            
+        Slot:
+              type: array
+              items:
+                $ref: '#/components/schemas/SlotSpecification'
+              xml:
+                wrapped: false     
         Exception:
          required:
           - xsi:type
@@ -237,10 +263,57 @@ components:
               type: string
               example: EB:ERR:0001
               xml:
-                attribute: true            
-            
-            
-            
+                attribute: true                    
+     
+    QueryOKResponse:
+      type: object
+      required:
+       - status
+      xml:
+        prefix: query
+        namespace: urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0
+      properties:
+        xmlns:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+          xml:
+            attribute: true
+        xmlns:lcm:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:lcm:4.0
+          xml:
+            attribute: true
+        xmlns:rim:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+          xml:
+            attribute: true
+        xmlns:rs:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+          xml:
+            attribute: true    
+        xmlns:xsi:
+          type: string
+          default: http://www.w3.org/2001/XMLSchema-instance
+          xml:
+            attribute: true      
+        totalResultCount:
+          type: number
+          example: 1
+          xml:
+            attribute: true            
+        status:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success
+          xml:
+            attribute: true  
+        Slot:
+              type: array
+              items:
+                $ref: '#/components/schemas/SlotSpecification'
+              xml:
+                wrapped: false               
         RegistryObjectList:
          type: object
          xml:
@@ -251,9 +324,46 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/RegistryObject'
-            
-     
-  
+    
+    SlotSpecification:
+      type: object
+      xml:
+        prefix: 'rim'
+      required:
+        - SlotValue 
+      properties:
+        name:
+          type: string
+          xml:
+            attribute: true
+          enum: 
+           - SpecificationIdentifier       
+        SlotValue:
+          $ref: '#/components/schemas/SlotValueSpecification'    
+
+    SlotValueSpecification:
+      type: object
+      xml:
+        prefix: 'rim'
+      anyOf:
+        - $ref: '#/components/schemas/SlotValueSimple' 
+    
+    SlotValueSimple:
+      type: object     
+      required:
+        - xsi:type
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+          prefix: 'rim'
+         enum:
+          - rim:StringValueType       
+        Value: 
+          type: string
+          xml:
+            prefix: 'rim'
     RegistryObject:
       type: object
       xml:

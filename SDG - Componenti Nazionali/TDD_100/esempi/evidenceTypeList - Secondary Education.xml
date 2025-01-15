@@ -8,11 +8,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	totalResultCount="1"
     status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success">
-    <rim:Slot name="SpecificationIdentifier">
-        <rim:SlotValue xsi:type="rim:StringValueType">
-            <rim:Value>oots-edm:v1.0</rim:Value>
-        </rim:SlotValue>
-    </rim:Slot>
+    
     <!-- Validate with sch/EB-EVI-C and sch/EB-EVI-S-->
     <rim:RegistryObjectList>
         <!-- One registry object per dataset -->

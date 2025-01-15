@@ -8,37 +8,8 @@
                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                      status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success"
                      totalResultCount="1">
-	<rim:Slot name="SpecificationIdentifier">
-        <rim:SlotValue xsi:type="rim:StringValueType">
-            <rim:Value>oots-edm:v1.0</rim:Value>
-        </rim:SlotValue>
-    </rim:Slot>
 	<rim:RegistryObjectList>
-		<rim:RegistryObject id="urn:uuid:33f628cb-717a-4c8a-b91d-6d5afb1d8bcf">
-			<rim:Slot name="Requirement">
-				<rim:SlotValue xsi:type="rim:AnyValueType">
-					<sdg:Requirement>
-						<sdg:Identifier>https://sr.oots.tech.ec.europa.eu/requirements/aeeaf25c-ceea-11ed-afa1-0242ac120002</sdg:Identifier>
-						<sdg:Name lang="IT">Documentazione che attesti la presenza o meno di procedure fallimentari</sdg:Name>
-						<sdg:Name lang="EN">Documentation certifying the presence or absence of bankruptcy proceedings</sdg:Name>
-						<sdg:ReferenceFramework>
-							<sdg:Identifier>ce0f34cc-ce1d-11ed-afa1-0242ac120002</sdg:Identifier>
-							<sdg:Title lang="IT">Procedura 5 - Allegato II del SDG Implementato sul portale italiano</sdg:Title>
-							<sdg:Title lang="EN">Procedure 5 - Attachment II of SDG into italian portal</sdg:Title>
-							<sdg:Description lang="IT">Procedura 5 di Annex II of the Regulation (EU) 2018/1724</sdg:Description>
-							<sdg:Description lang="EN">Procedure 5 of Annex II of the Regulation (EU) 2018/1724</sdg:Description>
-							<sdg:RelatedTo>
-								<sdg:Identifier>U1</sdg:Identifier>
-							</sdg:RelatedTo>
-							<sdg:Jurisdiction>
-								<sdg:AdminUnitLevel1>IT</sdg:AdminUnitLevel1>
-							</sdg:Jurisdiction>
-						</sdg:ReferenceFramework>
-					</sdg:Requirement>
-				</rim:SlotValue>
-			</rim:Slot>
-		</rim:RegistryObject>
-		<rim:RegistryObject id="urn:uuid:35f628cb-717a-4c8a-b91d-6d5afb1d8edf">
+		<rim:RegistryObject id="urn:uuid:7cee6bac-b4ac-45fc-865a-d5e41867ffbb">
 			<rim:Slot name="NoOotsRequirement">
 				<rim:SlotValue xsi:type="rim:AnyValueType">
 					<sdg:NoOotsRequirement xmlns="http://data.europa.eu/sdg#"
@@ -59,6 +30,22 @@
 								<sdg:AdminUnitLevel1>IT</sdg:AdminUnitLevel1>
 							</sdg:Jurisdiction>
 						</sdg:ReferenceFramework>
+						<sdg:NoOotsEvidenceTypeList>
+							<sdg:Identifier>100271</sdg:Identifier>
+							<sdg:Name lang="IT">SANITY req 1</sdg:Name>
+							<sdg:Name lang="EN">SANITY req 1 ENG</sdg:Name>
+							<sdg:NoOotsEvidenceType>
+								<sdg:Identifier>100272</sdg:Identifier>
+								<sdg:Title lang="IT">EV TY 1</sdg:Title>
+								<sdg:Title lang="EN">EV TY 1 ENG</sdg:Title>
+								<sdg:Description lang="IT">Descrizione dei evidence type 1</sdg:Description>/>
+								<sdg:Description lang="EN">EvidenceType 1 Description</sdg:Description>/>
+								<sdg:EvidenceTypeClassification>2f6b790f-3894-413c-be82-40cb6e7d6fa7</sdg:EvidenceTypeClassification>
+								<sdg:Jurisdiction>
+									<sdg:AdminUnitLevel1>IT</sdg:AdminUnitLevel1>
+								</sdg:Jurisdiction>
+							</sdg:NoOotsEvidenceType>
+						</sdg:NoOotsEvidenceTypeList>
 					</sdg:NoOotsRequirement>
 				</rim:SlotValue>
 			</rim:Slot>

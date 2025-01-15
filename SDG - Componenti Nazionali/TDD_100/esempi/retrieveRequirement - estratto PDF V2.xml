@@ -8,11 +8,6 @@
                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                      status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success"
                      totalResultCount="1">
-	<rim:Slot name="SpecificationIdentifier">
-        <rim:SlotValue xsi:type="rim:StringValueType">
-            <rim:Value>oots-edm:v1.0</rim:Value>
-        </rim:SlotValue>
-    </rim:Slot>
 	<rim:RegistryObjectList>
 		<rim:RegistryObject id="urn:uuid:33f628cb-717a-4c8a-b91d-6d5afb1d8bcf">
 			<rim:Slot name="Requirement">

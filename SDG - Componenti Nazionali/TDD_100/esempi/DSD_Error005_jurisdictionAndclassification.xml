@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<query:QueryResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+  xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+  xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0" xmlns:sdg="http://data.europa.eu/p4s"
+  status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure">
+
+  <rs:Exception xsi:type="rs:ObjectNotFoundExceptionType" severity="urn:sr.oots.tech.ec.europa.eu:codes:ErrorSeverity:DSDErrorResponse:AdditionalInput" message="The query requires the included extra attributes to be provided by the user." detail="JurisdictionDetermination and UserRequestedClassificationConcepts" code="DSD:ERR:0005">
+
+    <rim:Slot name="DataServiceEvidenceType">
+      <rim:SlotValue xsi:type="rim:AnyValueType">
+        <sdg:DataServiceEvidenceType>
+          <sdg:Identifier>2af27699-f131-4411-8fdb-9e8cd4e8bded</sdg:Identifier>
+
+          <!-- Classification Information - Used for linking with the Semantic Repository and Evidence Broker -->
+          <sdg:EvidenceTypeClassification>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/DE/ca8afed6-2dc0-422a-a931-d21c3d8d370e</sdg:EvidenceTypeClassification>
+          <sdg:Title lang="EN">Certificate of Birth</sdg:Title>
+          <sdg:Title lang="DE">Geburtsurkunde</sdg:Title>
+          <sdg:Description lang="EN">An official certificate of birth of a person - with first name, surname, sex, date and place of birth, which is obtained from the birth register of the place of birth.</sdg:Description>
+          <sdg:Description lang="DE">Eine amtliche Bescheinigung über die Geburt einer Person – mit Vorname, Familienname, Geschlecht, Datum und Ort der Geburt, welche aus dem Geburtsregister des Geburtsortes erstellt wird.</sdg:Description>
+
+          <!-- Distribution Information - Multiple Distributions per Data Service Evidence Type -->
+		  <!-- PDF Distribution. PDF is unstructured data so there is no conformance to a data model -->
+          <sdg:DistributedAs>
+            <sdg:Format>application/pdf</sdg:Format>
+          </sdg:DistributedAs>
+          <sdg:AuthenticationLevelOfAssurance>High</sdg:AuthenticationLevelOfAssurance>
+          <sdg:Note lang="EN">Payment: Free of charge</sdg:Note>
+        </sdg:DataServiceEvidenceType>
+      </rim:SlotValue>
+    </rim:Slot>
+
+    <!-- Jurisdiction Mapping Requests -->
+    <rim:Slot name="JurisdictionDetermination">
+      <rim:SlotValue xsi:type="rim:AnyValueType">
+        <sdg:EvidenceProviderJurisdictionDetermination>
+          <sdg:JurisdictionContextId>5ce148b9-5578-4049-aecf-af7bb55714b5</sdg:JurisdictionContextId>
+          <sdg:JurisdictionContext lang="EN">Place Of Birth</sdg:JurisdictionContext>
+          <sdg:JurisdictionContext lang="DE">Geburtsort</sdg:JurisdictionContext>
+          <!-- Codelist defining the jurisdiction levels, published in the semantic repository - JurisdictionLevel-CodeList.gc -->
+          <sdg:JurisdictionLevel>LAU</sdg:JurisdictionLevel>
+        </sdg:EvidenceProviderJurisdictionDetermination>
+      </rim:SlotValue>
+    </rim:Slot>
+
+    <!-- Determination of the EvidenceProviderClassification to the User's attributes. In this example the applicant must indicate if he has ever resided in the country.  -->
+    <rim:Slot name="UserRequestedClassificationConcepts">
+      <rim:SlotValue xsi:type="rim:CollectionValueType" collectionType="urn:oasis:names:tc:ebxml-regrep:CollectionType:Set">
+        <rim:Element xsi:type="rim:AnyValueType">
+          <sdg:EvidenceProviderClassification>
+            <sdg:Identifier>b07146b6-1468-41a7-a10f-ee2a61429dbc</sdg:Identifier>
+            <sdg:Type>stringValue</sdg:Type>
+            <sdg:ValueExpression>https://sr.oots.tech.ec.europa.eu/ep-classification/de/countryresidence</sdg:ValueExpression>
+            <sdg:Description lang="EN">Rules of responsibility for the processing of personal status cases of German citizens without residence information
+            </sdg:Description>
+            <sdg:Description lang="DE">Zuständigkeitsregelungen für die Bearbeitung von personenstandsrechtlichen Vorgängen deutscher Staatsangehöriger ohne Wohnsitzinformation</sdg:Description>
+          </sdg:EvidenceProviderClassification>
+          </rim:Element>
+      </rim:SlotValue>
+    </rim:Slot>
+  </rs:Exception>
+</query:QueryResponse>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<query:QueryResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+    xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+    xmlns:sdg="http://data.europa.eu/p4s"
+    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace" 
+    requestId="urn:uuid:cb6b247f-232a-4163-87ce-c3e49b148e0a">
+    
+ 
+    <!-- Top Level Slots, providing metadata about the Response and the Evidence Provider -->
+    <rim:Slot name="SpecificationIdentifier">
+        <rim:SlotValue xsi:type="rim:StringValueType"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <rim:Value>oots-edm:v1.0</rim:Value>
+        </rim:SlotValue>
+    </rim:Slot>
+    <rim:Slot name="EvidenceResponseIdentifier">
+        <rim:SlotValue xsi:type="rim:StringValueType">
+            <rim:Value>urn:uuid:abd12484-aa7d-4bb7-a697-7b15ab9b3b79</rim:Value>
+        </rim:SlotValue>
+    </rim:Slot>
+    <rim:Slot name="IssueDateTime">
+        <rim:SlotValue xsi:type="rim:DateTimeValueType">
+            <rim:Value>2022-02-14T19:20:30+02:00</rim:Value>
+        </rim:SlotValue>
+    </rim:Slot>
+    <rim:Slot name="EvidenceProvider">
+        <rim:SlotValue xsi:type="rim:CollectionValueType">
+            <rim:Element xsi:type="rim:AnyValueType">
+                <sdg:Agent>
+                    <sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0204">02-SchoolAuthority-34</sdg:Identifier>
+                    <sdg:Name lang="EN">Authority for school and occupational training</sdg:Name>
+					<sdg:Name lang="IT">Ente per la scuola e la formazione professionale</sdg:Name>
+                    <sdg:Address>
+                        <sdg:FullAddress>Hamburger Str. 31</sdg:FullAddress>
+                        <sdg:LocatorDesignator>31</sdg:LocatorDesignator>
+                        <sdg:PostCode>22083</sdg:PostCode>
+                        <sdg:PostCityName>Hamburg</sdg:PostCityName>
+                        <sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+                        <sdg:AdminUnitLevel2>DE600</sdg:AdminUnitLevel2>
+                    </sdg:Address>
+                    <sdg:Classification>EP</sdg:Classification>
+                </sdg:Agent>
+            </rim:Element>
+        </rim:SlotValue>
+    </rim:Slot>
+    <rim:Slot name="EvidenceRequester">
+        <rim:SlotValue xsi:type="rim:AnyValueType">
+            <sdg:Agent>
+                <sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0190">NL222332239</sdg:Identifier>
+                <sdg:Name lang="EN">University of Amsterdam</sdg:Name>
+				<sdg:Name lang="IT">Università di Amsterdam</sdg:Name>
+            </sdg:Agent>
+        </rim:SlotValue>
+    </rim:Slot>
+    <rim:RegistryObjectList>
+        <rim:RegistryObject xsi:type="rim:ExtrinsicObjectType" id="urn:uuid:6fb9fe0f-c0bf-4172-849b-7e7a1d86f98a">
+        <rim:Slot name="EvidenceMetadata">
+            <rim:SlotValue xsi:type="rim:AnyValueType">
+                <sdg:Evidence>
+                    <sdg:Identifier>7c2e04cf-7d20-4363-908d-827817746725</sdg:Identifier>
+                    <sdg:IsAbout>
+                        <sdg:NaturalPerson>
+                            <sdg:Identifier schemeID="eidas">DE/DE/123456789</sdg:Identifier>
+                            <sdg:FamilyName>Smith</sdg:FamilyName>
+                            <sdg:GivenName>Jack</sdg:GivenName>
+                            <sdg:DateOfBirth>1999-03-01</sdg:DateOfBirth>
+                            <sdg:PlaceOfBirth>Duesseldorf</sdg:PlaceOfBirth>
+                        </sdg:NaturalPerson>
+                    </sdg:IsAbout>
+                    <sdg:IssuingAuthority>
+                        <sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:9930">DE7657587001</sdg:Identifier>
+                        <sdg:Name lang="EN">Wilhelm Gymnasium</sdg:Name>
+                    </sdg:IssuingAuthority>
+                    <sdg:IsConformantTo>
+                        <sdg:EvidenceTypeClassification>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/DE/17a2b329-5ae5-4de6-b360-db504fad0526</sdg:EvidenceTypeClassification>
+                        <sdg:Title lang="EN">Secondary Education Completion Evidence</sdg:Title>
+                        <sdg:Title lang="DE">Nachweis des Sekundarschulabschlusses</sdg:Title>
+                        <sdg:Description lang="EN">Proof of a secondary school graduation which is acquired after 12 or 13 school years in the upper secondary school and which entitles the holder to the general higher education entrance qualification, i.e. opens up access to all higher education institutions and fields of study.</sdg:Description>
+                        <sdg:Description lang="DE">Nachweis für einen Sekundarschulabschluss, der nach 12 bzw. 13 Schuljahren in der gymnasialen Oberstufe erworben wird und die Allgemeine Hochschulreife verleiht, d.h. den Zugang zu allen Hochschulen und Fachrichtungen eröffnet.</sdg:Description>
+                    </sdg:IsConformantTo>
+                    <sdg:IssuingDate>2019-05-10</sdg:IssuingDate>
+                    <sdg:Distribution>
+                        <sdg:Format>application/pdf</sdg:Format>
+                        <sdg:ConformsTo>https://sr.oots.tech.ec.europa.eu/distributions/secondary-education-evidence-1.0.0</sdg:ConformsTo>
+                        <sdg:Transformation>https://sr.oots.tech.ec.europa.eu/distributions/secondary-education-evidence-1.0.0/passed</sdg:Transformation>
+                    </sdg:Distribution>
+                </sdg:Evidence>         
+            </rim:SlotValue>
+        </rim:Slot>           
+        <!-- The attached Document Provided as Evidence. Points to an AS4 attachment -->
+        <rim:RepositoryItemRef xlink:href="cid:attachment100001@example.oots.eu" xlink:title="SecondaryEducationCompletion"/>
+    </rim:RegistryObject>
+        <rim:RegistryObject xsi:type="rim:ExtrinsicObjectType" id="urn:uuid:dc518a5b-ff25-44de-9bc5-2ecda71d3f6e">
+        <rim:Slot name="EvidenceMetadata">
+            <rim:SlotValue xsi:type="rim:AnyValueType">
+                <sdg:Evidence>
+                    <sdg:Identifier>5ee5c0de-c066-4637-bea3-6e3511ada970</sdg:Identifier>
+                    <sdg:IsAbout>
+                        <sdg:NaturalPerson>
+                            <sdg:Identifier schemeID="eidas">DE/DE/123456789</sdg:Identifier>
+                            <sdg:FamilyName>Smith</sdg:FamilyName>
+                            <sdg:GivenName>Jack</sdg:GivenName>
+                            <sdg:DateOfBirth>1999-03-01</sdg:DateOfBirth>
+                            <sdg:PlaceOfBirth>Duesseldorf</sdg:PlaceOfBirth>
+                        </sdg:NaturalPerson>
+                    </sdg:IsAbout>
+                    <sdg:IssuingAuthority>
+                        <sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:9930">DE7657587001</sdg:Identifier>
+                        <sdg:Name>Wilhelm Gymnasium</sdg:Name>
+                    </sdg:IssuingAuthority>
+                    <sdg:IsConformantTo>
+                        <sdg:EvidenceTypeClassification>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/DE/1602e8e5-43be-45e6-ba58-c1ca075a5d2b</sdg:EvidenceTypeClassification>
+                        <sdg:Title lang="EN">Secondary Education Completion Evidence Supplement</sdg:Title>
+                        <sdg:Title lang="DE">Anhang zum Nachweis des Sekundarschulabschlusses</sdg:Title>
+                        <sdg:Description lang="EN">The Supplement of the Secondary Education Completion Evidence Supplement to understand the qualification.</sdg:Description>
+                        <sdg:Description lang="DE">Die Anlage zum Nachweis des Sekundarschulabschlusses, um die Qualifikation zu verstehen.</sdg:Description>
+                    </sdg:IsConformantTo>
+                    <sdg:IssuingDate>2019-05-10</sdg:IssuingDate>
+                    <sdg:Distribution>
+                        <sdg:Format>application/pdf</sdg:Format>
+                    </sdg:Distribution>
+                </sdg:Evidence>
+            </rim:SlotValue>
+        </rim:Slot>           
+        <!-- The attached Document Provided as Evidence. Points to an AS4 attachment -->
+        <rim:RepositoryItem xmime:expectedContentTypes="application/pdf">
+		JVBERi0xLjcKCjQgMCBvYmoKKElkZW50aXR5KQplbmRvYmoKNSAwIG9iagooQWRvYmUpCmVuZG9iago4IDAgb2JqCjw8Ci9GaWx0ZXIgL0ZsYXRlRGVjb2RlCi9MZW5ndGggMTg1MjUxCi9MZW5ndGgxIDU0NzY2MAovVHlwZSAvU3RyZWFtCj4+CnN0cmVhbQp4nOy9CUCcxfk/
+		</rim:RepositoryItem>
+    </rim:RegistryObject>
+</rim:RegistryObjectList>  
+</query:QueryResponse>

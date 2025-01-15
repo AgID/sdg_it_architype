@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query:QueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+					xmlns:sdg="http://data.europa.eu/p4s"
+					xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+					xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+					xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
+					xmlns:xlink="http://www.w3.org/1999/xlink"
+					xmlns:xml="http://www.w3.org/XML/1998/namespace"
+					xml:lang="DE"
+					id="urn:uuid:cb6b247f-232a-4163-87ce-c3e49b148e0a">
+	
+	<rim:Slot name="SpecificationIdentifier">
+		<rim:SlotValue xsi:type="rim:StringValueType">
+			<rim:Value>oots-edm:v1.0</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="IssueDateTime">
+		<rim:SlotValue xsi:type="rim:DateTimeValueType">
+			<rim:Value>2022-02-15T19:20:30+01:00</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="Procedure">
+		<rim:SlotValue xsi:type="rim:InternationalStringValueType">
+			<rim:Value>
+				<rim:LocalizedString xml:lang="EN"
+					value="T2"/>
+			</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="PreviewLocation">
+		<rim:SlotValue xsi:type="rim:StringValueType">
+			<!-- MUST be a URI starting with 'https://' -->
+			<rim:Value>https://previewspace-coll.servizisdg.gov.it/login?token=58d6111a-70e6-4732-bf51-d1b405b3dfa3</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="PossibilityForPreview">
+		<rim:SlotValue xsi:type="rim:BooleanValueType">
+			<rim:Value>true</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="ExplicitRequestGiven">
+		<rim:SlotValue xsi:type="rim:BooleanValueType">
+			<rim:Value>true</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="Requirements">
+		<rim:SlotValue xsi:type="rim:CollectionValueType"
+					   collectionType="urn:oasis:names:tc:ebxml-regrep:CollectionType:Set">
+			<rim:Element xsi:type="rim:AnyValueType">
+				<sdg:Requirement>
+					<sdg:Identifier>https://sr.oots.tech.ec.europa.eu/requirements/cfcd4e22-30f1-48fa-93e4-6cf98cedbf40</sdg:Identifier>
+					<sdg:Name lang="EN">Proof of secondary education diploma/certificate</sdg:Name>
+					<sdg:Name lang="DE">Nachweis eines Sekundarschulabschlusses/Zeugnisses</sdg:Name>
+				</sdg:Requirement>
+			</rim:Element>
+			<rim:Element xsi:type="rim:AnyValueType">
+				<sdg:Requirement>
+					<sdg:Identifier>https://sr.oots.tech.ec.europa.eu/requirements/99a0a5d4-10ba-42c3-a0be-5566b441cbb6</sdg:Identifier>
+					<sdg:Name lang="EN">Submission of secondary education diploma supplemenent</sdg:Name>
+					<sdg:Name lang="DE">Einreichung der Anlage zum Nachweis des SekundarschulabschlussesNachweis</sdg:Name>
+				</sdg:Requirement>
+			</rim:Element>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="EvidenceRequester">
+		<rim:SlotValue xsi:type="rim:CollectionValueType">
+			<rim:Element xsi:type="rim:AnyValueType">
+				<sdg:Agent>
+					<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0190">NL22233223</sdg:Identifier>
+					<sdg:Name lang="EN">University of Amsterdam</sdg:Name>
+					<sdg:Name lang="IT">Università di Amsterdam</sdg:Name>
+					<sdg:Address>
+						<sdg:FullAddress>Binnengasthuisstraat 9</sdg:FullAddress>
+						<sdg:LocatorDesignator>9</sdg:LocatorDesignator>
+						<sdg:PostCode>1012</sdg:PostCode>
+						<sdg:PostCityName>Amsterdam</sdg:PostCityName>
+						<sdg:AdminUnitLevel1>NL</sdg:AdminUnitLevel1>
+						<sdg:AdminUnitLevel2>NL329</sdg:AdminUnitLevel2>
+					</sdg:Address>
+					<sdg:Classification>ER</sdg:Classification>
+				</sdg:Agent>
+			</rim:Element>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="EvidenceProvider">
+		<rim:SlotValue xsi:type="rim:AnyValueType">
+			<sdg:Agent>
+				<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0204">DE7657587001</sdg:Identifier>
+				<sdg:Name lang="EN">Authority for school and occupational training</sdg:Name>
+				<sdg:Name lang="IT">Ente per la scuola e la formazione professionale</sdg:Name>
+			</sdg:Agent>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="EvidenceProviderClassification">
+		<rim:SlotValue xsi:type="rim:CollectionValueType">
+			<rim:Element xsi:type="rim:AnyValueType">
+				<sdg:EvidenceProviderClassification>
+					<sdg:Identifier>12c58ee8-f40a-42ac-b056-938499d55a1a</sdg:Identifier>
+					<sdg:Type>Codelist</sdg:Type>
+					<sdg:ValueExpression>https://sr.oots.tech.ec.europa.eu/ep-classification/de/secondary-education-type</sdg:ValueExpression>
+					<sdg:Description lang="EN">Type of Secondary Education</sdg:Description>
+					<sdg:Description lang="IT">Tipo di scuola secondaria</sdg:Description>
+					<sdg:Description lang="DE">Art der Sekundarschulbildung</sdg:Description>
+					<sdg:SupportedValue>
+						<sdg:StringValue>HigherEducationEntranceQualification</sdg:StringValue>
+					</sdg:SupportedValue>
+				</sdg:EvidenceProviderClassification>
+			</rim:Element>
+		</rim:SlotValue>
+	</rim:Slot>
+	<query:ResponseOption returnType="LeafClassWithRepositoryItem"/>
+	<query:Query queryDefinition="DocumentQuery">
+		<rim:Slot name="NaturalPerson">
+			<rim:SlotValue xsi:type="rim:AnyValueType">
+				<sdg:Person>
+					<sdg:LevelOfAssurance>High</sdg:LevelOfAssurance>
+					<sdg:Identifier schemeID="eidas">DE/DE/123456789</sdg:Identifier>
+					<sdg:FamilyName>Smith</sdg:FamilyName>
+					<sdg:GivenName>Jack</sdg:GivenName>
+					<sdg:DateOfBirth>1999-03-01</sdg:DateOfBirth>
+					<sdg:PlaceOfBirth>Duesseldorf</sdg:PlaceOfBirth>
+					<sdg:CurrentAddress>
+						<sdg:FullAddress>Lansstraße 81, 50825 Koeln, Germany</sdg:FullAddress>
+						<sdg:LocatorDesignator>81</sdg:LocatorDesignator>
+						<sdg:PostCode>50825</sdg:PostCode>
+						<sdg:PostCityName>Koeln</sdg:PostCityName>
+						<sdg:Thoroughfare>Lansstraße</sdg:Thoroughfare>
+						<sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+						<sdg:AdminUnitLevel2>DEA2</sdg:AdminUnitLevel2>
+					</sdg:CurrentAddress>
+					<sdg:Gender>Male</sdg:Gender>
+					<!-- Optional Sector Specific Attribute not belonging to the Minimum Data Set -->
+					<sdg:SectorSpecificAttribute>
+						<sdg:AttributeName>Mobile-ID</sdg:AttributeName>
+						<sdg:AttributeURI>http://eidas.europa.eu/attributes/naturalperson/payment/mobile-id</sdg:AttributeURI>
+						<sdg:AttributeValue>5170137075032</sdg:AttributeValue>
+					</sdg:SectorSpecificAttribute>
+					<sdg:SectorSpecificAttribute>
+						<sdg:AttributeName>Residency-ID</sdg:AttributeName>
+						<sdg:AttributeURI>http://eidas.europa.eu/attributes/naturalperson/location/residency-id</sdg:AttributeURI>
+						<sdg:AttributeValue>INGTTTFYYY</sdg:AttributeValue>
+					</sdg:SectorSpecificAttribute>
+					<sdg:UserIdentityAttribute>
+						<sdg:AttributeName>codice_fiscale</sdg:AttributeName>
+						<sdg:AttributeValue>angptr91T57A2456O</sdg:AttributeValue>
+					</sdg:UserIdentityAttribute>
+					<sdg:UserIdentityAttribute>
+						<sdg:AttributeName>other_attributet</sdg:AttributeName>
+						<sdg:AttributeValue>>other attribute value</sdg:AttributeValue>
+					</sdg:UserIdentityAttribute>
+				</sdg:Person>
+			</rim:SlotValue>
+		</rim:Slot>
+		<rim:Slot name="EvidenceRequest">
+			<rim:SlotValue xsi:type="rim:AnyValueType">
+				<sdg:DataServiceEvidenceType>
+					<sdg:Identifier>487fdfdc-7f92-42bb-a690-dcbd3d65f435</sdg:Identifier>
+					<sdg:EvidenceTypeClassification>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/DE/edf717b7-b373-40b1-b51b-cbb7c9d64de5</sdg:EvidenceTypeClassification>
+					<sdg:Title lang="EN">Secondary Education Completion Evidence</sdg:Title>
+					<sdg:Title lang="DE">Nachweis des Sekundarschulabschlusses</sdg:Title>
+					<sdg:Description lang="EN">Proof of a secondary school graduation which is acquired after 12 or 13 school years in the upper secondary school and which entitles the holder to the general higher education entrance qualification, i.e. opens up access to all higher education institutions and fields of study.</sdg:Description>
+					<sdg:Description lang="DE">Nachweis für einen Sekundarschulabschluss, der nach 12 bzw. 13 Schuljahren in der gymnasialen Oberstufe erworben wird und die Allgemeine Hochschulreife verleiht, d.h. den Zugang zu allen Hochschulen und Fachrichtungen eröffnet.</sdg:Description>
+					<sdg:DistributedAs>
+						<sdg:Format>application/pdf</sdg:Format>
+						<sdg:ConformsTo>https://sr.oots.tech.ec.europa.eu/distributions/secondary-education-evidence-1.0.0</sdg:ConformsTo>
+						<sdg:Transformation>https://sr.oots.tech.ec.europa.eu/distributions/secondary-education-evidence-1.0.0/passed</sdg:Transformation>
+					</sdg:DistributedAs>
+				</sdg:DataServiceEvidenceType>
+			</rim:SlotValue>
+		</rim:Slot>
+	</query:Query>
+</query:QueryRequest>

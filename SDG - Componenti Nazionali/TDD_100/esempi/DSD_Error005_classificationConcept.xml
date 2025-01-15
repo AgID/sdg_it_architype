@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<query:QueryResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+                     xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+                     xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
+                     xmlns:sdg="http://data.europa.eu/p4s"
+                     status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure">
+	<rs:Exception xsi:type="rs:ObjectNotFoundExceptionType"
+	              severity="urn:sr.oots.tech.ec.europa.eu:codes:ErrorSeverity:DSDErrorResponse:AdditionalInput"
+	              message="The query requires the included extra attributes to be provided by the user."
+	              detail="JurisdictionDetermination and UserRequestedClassificationConcepts"
+	              code="DSD:ERR:0005">
+		<rim:Slot name="DataServiceEvidenceType">
+			<rim:SlotValue xsi:type="rim:AnyValueType">
+				<sdg:DataServiceEvidenceType>
+					<sdg:Identifier>487fdfdc-7f92-42bb-a690-dcbd3d65f435</sdg:Identifier>
+					<!-- Classification Information - Used for linking with the Semantic Repository and Evidence Broker -->
+					<sdg:EvidenceTypeClassification>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/DE/edf717b7-b373-40b1-b51b-cbb7c9d64de5</sdg:EvidenceTypeClassification>
+					<sdg:Title lang="EN">Secondary Education Completion Evidence</sdg:Title>
+					<sdg:Title lang="DE">Nachweis des Sekundarschulabschlusses</sdg:Title>
+					<sdg:Description lang="EN">Proof of a secondary school graduation which is acquired after 12 or 13 school years in the upper secondary school and which entitles the holder to the general higher education entrance qualification, i.e. opens up access to all higher education institutions and fields of study.</sdg:Description>
+					<sdg:Description lang="DE">Nachweis für einen Sekundarschulabschluss, der nach 12 bzw. 13 Schuljahren in der gymnasialen Oberstufe erworben wird und die Allgemeine Hochschulreife verleiht, d.h. den Zugang zu allen Hochschulen und Fachrichtungen eröffnet.</sdg:Description>
+					<!-- Distribution Information - Multiple Distributions per Data Service Evidence Type -->
+					<!-- XML Distribution, conforming to the common data model on Secondary Education Evidence -->
+					<!-- XML Distribution, conforming to the common data model on Secondary Education Evidence, Verifying subset "Passed" only -->
+					<!-- PDF Distribution -->
+					<sdg:DistributedAs>
+						<sdg:Format>application/xml</sdg:Format>
+						<sdg:ConformsTo>https://sr.oots.tech.ec.europa.eu/distributions/secondary-education-evidence-1.0.0</sdg:ConformsTo>
+					</sdg:DistributedAs>
+					<sdg:DistributedAs>
+						<sdg:Format>application/xml</sdg:Format>
+						<sdg:ConformsTo>https://sr.oots.tech.ec.europa.eu/distributions/secondary-education-evidence-1.0.0</sdg:ConformsTo>
+						<sdg:Transformation>https://sr.oots.tech.ec.europa.eu/distributions/secondary-education-evidence-1.0.0/passed</sdg:Transformation>
+					</sdg:DistributedAs>
+					<!-- PDF Distribution. PDF is unstructured data so there is no conformance to a data model -->
+					<sdg:DistributedAs>
+						<sdg:Format>application/pdf</sdg:Format>
+					</sdg:DistributedAs>
+					<sdg:AuthenticationLevelOfAssurance>High</sdg:AuthenticationLevelOfAssurance>
+					<sdg:Note lang="EN">Payment: Free of charge</sdg:Note>
+				</sdg:DataServiceEvidenceType>
+			</rim:SlotValue>
+		</rim:Slot>
+		<!-- Evidence Provider Classification Scheme. Evidence Subject must select appropriate value from codelist to find the correct Evidence Provider -->
+		<!-- In this example the EvidenceProviders may provide information about HigherEducationEntranceQualification and Subject-specificHigherEducationEntranceQualification   -->
+		<rim:Slot name="UserRequestedClassificationConcepts">
+			<rim:SlotValue xsi:type="rim:CollectionValueType">
+				<rim:Element xsi:type="rim:AnyValueType">
+					<sdg:EvidenceProviderClassification>
+						<sdg:Identifier>12c58ee8-f40a-42ac-b056-938499d55a1a</sdg:Identifier>
+						<sdg:Type>stringValue</sdg:Type>
+						<sdg:ValueExpression>https://sr.oots.tech.ec.europa.eu/ep-classification/de/secondary-education-type</sdg:ValueExpression>
+						<sdg:Description lang="EN">Type of Secondary Education</sdg:Description>
+						<sdg:Description lang="DE">Art der Sekundarschulbildung</sdg:Description>
+					</sdg:EvidenceProviderClassification>
+				</rim:Element>
+			</rim:SlotValue>
+		</rim:Slot>
+	</rs:Exception>
+</query:QueryResponse>
