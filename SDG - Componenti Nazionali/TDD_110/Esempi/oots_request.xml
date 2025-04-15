@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query:QueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+					xmlns:sdg="http://data.europa.eu/p4s"
+					xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+					xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+					xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
+					xmlns:xlink="http://www.w3.org/1999/xlink"
+					xmlns:xml="http://www.w3.org/XML/1998/namespace"
+					xml:lang="EN"
+					id="urn:uuid:4ffb5281-179d-4578-adf2-39fd13ccc797">
+	<!-- The 'id' attribute of a 'QueryRequest' MUST be unique UUID (RFC 4122) for each request starting with prefix "urn:uuid:" -->
+	<!-- The optional 'lang' attribute can be used to indicate a preferred language of the requested Evidence  -->
+	
+	<rim:Slot name="SpecificationIdentifier">
+		<rim:SlotValue xsi:type="rim:StringValueType">
+			<!-- MUST be the fixed value "oots-edm:v1.0", depending on the release version -->
+			<rim:Value>oots-edm:v1.1</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="IssueDateTime">
+		<rim:SlotValue xsi:type="rim:DateTimeValueType">
+			<!-- MUST be according to xsd:dateTime.  -->
+			<rim:Value>2022-05-19T17:08:10.872Z</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="Procedure">
+		<rim:SlotValue xsi:type="rim:InternationalStringValueType">
+			<rim:Value>
+				<!-- Code for "Requesting a birth certificate". MUST be part of the code list 'Procedures' -->
+				<!-- MUST be part of the code list 'LanguageCode' (ISO 639-1 two-letter code).  Default value "en" -->
+				<rim:LocalizedString xml:lang="EN"
+					value="R1"/>
+			</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="PossibilityForPreview">
+		<rim:SlotValue xsi:type="rim:BooleanValueType">
+			<!-- MUST be according to xs:boolean -->
+			<rim:Value>false</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>	
+	<rim:Slot name="ExplicitRequestGiven">
+		<rim:SlotValue xsi:type="rim:BooleanValueType">
+			<!-- MUST be according to xs:boolean -->
+			<rim:Value>true</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="Requirements">
+		<rim:SlotValue xsi:type="rim:CollectionValueType" 
+			collectionType="urn:oasis:names:tc:ebxml-regrep:CollectionType:Set">
+			<rim:Element xsi:type="rim:AnyValueType">
+				<sdg:Requirement>
+					<!--  The value of 'Identifier' of a 'Requirement' MUST be a unique UUID (RFC 4122) listed in the EvidenceBroker and use the prefix ''https://sr.oots.tech.ec.europa.eu/requirements/[UUID]'' pointing to the Semantic Repository. -->
+					<sdg:Identifier>https://sr.oots.tech.ec.europa.eu/requirements/315cfd75-6605-49c4-b0fe-799833b41099</sdg:Identifier>
+					<!-- MUST be part of the code list 'LanguageCode' (ISO 639-1 two-letter code). Default value "en" -->
+					<sdg:Name lang="EN">Proof of Birth</sdg:Name>
+					<sdg:Name lang="IT">Certificato di nascita</sdg:Name>
+				</sdg:Requirement>
+			</rim:Element>
+			<!--  another requirement may be added as rim:Element-->
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="EvidenceRequester">
+		<rim:SlotValue xsi:type="rim:CollectionValueType" collectionType="urn:oasis:names:tc:ebxml-regrep:CollectionType:Set">
+			<rim:Element xsi:type="rim:AnyValueType">
+				<sdg:Agent>
+					<!-- The value of the 'schemeID' attribute of the 'Identifier' MUST be part of the code list 'EAS' (Electronic Address Scheme ) and use the prefix 'urn:cef.eu:names:identifier:EAS:[Code]'  -->
+					<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0096">DK22233223</sdg:Identifier>
+					<!-- The language attribute MUST be part of the code list 'LanguageCode' (ISO 639-1 two-letter code).  Default value "en" -->
+					<sdg:Name lang="EN">Denmark University Portal</sdg:Name>
+					<sdg:Name lang="IT">Portale dell'Università della Danimarca</sdg:Name>
+					<sdg:Address>
+						<sdg:FullAddress>Prince Street 15, 1050 Copenhagen, Denmark</sdg:FullAddress>
+						<sdg:LocatorDesignator>15</sdg:LocatorDesignator>
+						<sdg:PostCode>1050</sdg:PostCode>
+						<sdg:PostCityName>Copenhagen</sdg:PostCityName>
+						<sdg:Thoroughfare>Prince Street</sdg:Thoroughfare>
+						<!-- The value of the 'AdminUnitLevel1' MUST be coded using the code list 'CountryIdentificationCode' (ISO 3166-1' alpha-2 codes).  -->
+						<sdg:AdminUnitLevel1>DK</sdg:AdminUnitLevel1>
+						<!-- The value of the 'AdminUnitLevel2' MUST be coded using the code list 'NUTS' (Nomenclature of Territorial Units for Statistics).  -->
+						<sdg:AdminUnitLevel2>DK011</sdg:AdminUnitLevel2>
+					</sdg:Address>
+					<!-- The value MUST be part of the code list 'AgentClassification'. Default value: ER (Evidence Requester). If the code 'IP' (Intermediary Platform) is present there must be another 'sdg:Agent' Element containing the code 'ER'. The codes 'EP' and 'ERRP' shall not be used by this transaction.   -->
+					<sdg:Classification>ER</sdg:Classification>
+				</sdg:Agent>
+			</rim:Element>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="EvidenceProvider">
+		<rim:SlotValue xsi:type="rim:AnyValueType">
+			<sdg:Agent>
+				<!-- The value of the 'schemeID' attribute of the 'Identifier' MUST be part of the code list 'EAS' (Electronic Address Scheme ) and use the prefix 'urn:cef.eu:names:identifier:EAS:[Code]'.  -->
+				<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:9930">DE73524311</sdg:Identifier>
+				<!-- The language attribute MUST be part of the code list 'LanguageCode' (ISO 639-1 two-letter code).  Default value "en" -->
+				<sdg:Name lang="EN">Civil Registration Office Berlin I</sdg:Name>
+				<sdg:Name lang="IT">Ufficio dello stato civile Berlino I</sdg:Name>
+			</sdg:Agent>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:Slot name="EvidenceProviderClassification">
+		<rim:SlotValue xsi:type="rim:CollectionValueType" collectionType="urn:oasis:names:tc:ebxml-regrep:CollectionType:Set">
+			<!-- Classification Information - Used for finding the evidence. In this example the applicant must indicate if he has ever resided in the country. -->
+			<rim:Element xsi:type="rim:AnyValueType">
+				<sdg:EvidenceProviderClassification>
+					<!-- The value of 'Identifier' of MUST be unique UUID (RFC 4122) pointing to a concept for Evidence Provider Classification in the DSD and Semantic Repository.  -->
+					<sdg:Identifier>b07146b6-1468-41a7-a10f-ee2a61429dbc</sdg:Identifier>
+					<sdg:Type>Codelist</sdg:Type>
+					<!-- Definition of the value expression. Must be published in the Semantic Repository. The codelist contains the values ApplicantHasNeverBeenResidentInGermany and ApplicantHasBeenResidentInGermany -->
+					<!-- During the DSD query process the user has to select one of the two values as additional input parameter for the query in order to identify the correct publisher / evidence provider -->
+					<!-- The selected value will be mapped against the ClassificationValue of Publishers -->
+					<sdg:ValueExpression>https://sr.oots.tech.ec.europa.eu/ep-classification/de/countryresidence</sdg:ValueExpression>
+					<sdg:Description lang="EN">Rules of responsibility for the processing of personal status cases of German citizens without residence information
+					</sdg:Description>
+					<sdg:Description lang="DE">Zuständigkeitsregelungen für die Bearbeitung von personenstandsrechtlichen Vorgängen deutscher Staatsangehöriger ohne Wohnsitzinformation</sdg:Description>
+					<!-- The selected value of the user MUST be provided in the Evidence Request-->
+					<sdg:SupportedValue>
+						<sdg:StringValue>ApplicantHasNeverBeenResidentInGermany</sdg:StringValue>
+					</sdg:SupportedValue>
+				</sdg:EvidenceProviderClassification>
+			</rim:Element>
+		</rim:SlotValue>
+	</rim:Slot>
+	<!-- Default Response Option -->
+	<query:ResponseOption returnType="LeafClassWithRepositoryItem"/>
+	<!-- Query Definition -->
+	<query:Query queryDefinition="DocumentQuery">
+		<rim:Slot name="NaturalPerson">
+			<rim:SlotValue xsi:type="rim:AnyValueType">
+				<sdg:Person>
+					<sdg:LevelOfAssurance>High</sdg:LevelOfAssurance>
+					<sdg:Identifier schemeID="eidas">DK/DE/123456</sdg:Identifier>
+					<sdg:FamilyName nonLatin="Ντόε">Smith</sdg:FamilyName>
+					<sdg:GivenName nonLatin="Γιάννης">John</sdg:GivenName>
+					<sdg:DateOfBirth>1970-03-01</sdg:DateOfBirth>
+					<sdg:PlaceOfBirth nonLatin="Ιωνάθαν Δουπίδης">Hamburg, Germany</sdg:PlaceOfBirth>
+					<sdg:CurrentAddress>
+						<sdg:FullAddress>Dieter Wellhausen 71</sdg:FullAddress>
+						<sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+					</sdg:CurrentAddress>
+					<sdg:Gender>Male</sdg:Gender>
+					<sdg:Nationality>DE</sdg:Nationality>
+					<sdg:CountryOfBirth>DE</sdg:CountryOfBirth>
+					<sdg:TownOfBirth>Berlin</sdg:TownOfBirth>
+					<sdg:CountryOfResidence>DE</sdg:CountryOfResidence>
+					<sdg:PhoneNumber>+34912739000</sdg:PhoneNumber>
+					<sdg:EmailAddress>john.doe@mail.com</sdg:EmailAddress>
+					<sdg:SectorSpecificAttribute>
+						<sdg:AttributeName>IBAN</sdg:AttributeName>
+						<sdg:AttributeURI>http://eidas.europa.eu/attributes/naturalperson/banking/IBAN</sdg:AttributeURI>
+						<sdg:AttributeValue>DE02500105170137075032</sdg:AttributeValue>
+					</sdg:SectorSpecificAttribute>
+					<sdg:SectorSpecificAttribute>
+						<sdg:AttributeName>BIC</sdg:AttributeName>
+						<sdg:AttributeURI>http://eidas.europa.eu/attributes/naturalperson/banking/BIC</sdg:AttributeURI>
+						<sdg:AttributeValue>INGDDEFFYYY</sdg:AttributeValue>
+					</sdg:SectorSpecificAttribute>
+					<sdg:UserIdentityAttribute>
+						<sdg:AttributeName>codice_fiscale</sdg:AttributeName>
+						<sdg:AttributeValue>angptr91T57A2456O</sdg:AttributeValue>
+					</sdg:UserIdentityAttribute>
+					<sdg:UserIdentityAttribute>
+						<sdg:AttributeName>other_attributet</sdg:AttributeName>
+						<sdg:AttributeValue>>other attribute value</sdg:AttributeValue>
+					</sdg:UserIdentityAttribute>
+				</sdg:Person>
+			</rim:SlotValue>
+		</rim:Slot>
+		<rim:Slot name="AuthorizedRepresentativeLegalPerson">
+			<rim:SlotValue xsi:type="rim:AnyValueType">
+				<sdg:LegalPerson>
+					<sdg:LevelOfAssurance>High</sdg:LevelOfAssurance>
+					<sdg:Identifier schemeID="Tax">113123123123123</sdg:Identifier>
+					<sdg:Identifier schemeID="VAT">SE730757727</sdg:Identifier>
+					<sdg:LegalPersonIdentifier schemeID="eidas">ES/SE/12132123Y</sdg:LegalPersonIdentifier>
+					<sdg:LegalName nonLatin="Ντόε">AnyCompanyName</sdg:LegalName>
+					<sdg:RegisteredAddress>
+						<sdg:FullAddress>Prince Street 15, 11121 Stockholm, Sweden</sdg:FullAddress>
+						<sdg:LocatorDesignator>15</sdg:LocatorDesignator>
+						<sdg:PostCode>11121</sdg:PostCode>
+						<sdg:PostCityName>Stockholm</sdg:PostCityName>
+						<sdg:Thoroughfare>PrinceStreet</sdg:Thoroughfare>
+						<sdg:AdminUnitLevel1>SE</sdg:AdminUnitLevel1>
+						<sdg:AdminUnitLevel2>SE11</sdg:AdminUnitLevel2>
+					</sdg:RegisteredAddress>
+					<sdg:LegalPhoneNumber>+34912739000</sdg:LegalPhoneNumber>
+					<sdg:LegalEmailAddress>company@mail.com</sdg:LegalEmailAddress>
+					<sdg:SectorSpecificAttribute>
+						<sdg:AttributeName>PowerOfRepresentationScope</sdg:AttributeName>
+						<sdg:AttributeURI>http://data.europa.eu/p4s/attributes/PowerOfRepresentationScope</sdg:AttributeURI>
+						<sdg:AttributeValue>T1</sdg:AttributeValue>
+					</sdg:SectorSpecificAttribute>
+				</sdg:LegalPerson>
+			</rim:SlotValue>
+		</rim:Slot> 
+		<rim:Slot name="EvidenceRequest">
+			<rim:SlotValue xsi:type="rim:AnyValueType">
+				<sdg:DataServiceEvidenceType xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0">
+					<!-- MUST be unique UUID (RFC 4122) fetched from the Data Services Directory. Must be used in the Evidence Exchange Request -->
+					<sdg:Identifier>2af27699-f131-4411-8fdb-9e8cd4e8bded</sdg:Identifier>
+					<!-- MUST be a UUID retrieved from the Evidence Broker/DSD and include a code of the code list 'CountryIdentificationCode' (ISO 3166-1' alpha-2 codes) using the prefix and scheme ''https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/[CountryIdentificationCode]/[UUID]'' pointing to the Semantic Repository -->
+					<sdg:EvidenceTypeClassification>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/DE/ca8afed6-2dc0-422a-a931-d21c3d8d370e</sdg:EvidenceTypeClassification>
+					<!-- The value of 'lang' attribute of Title and Description MUST be part of the code list 'LanguageCode' (ISO 639-1 two-letter code).  Default Value "EN"  -->
+					<sdg:Title lang="EN">Certificate of Birth</sdg:Title>
+					<sdg:Title lang="DE">Geburtsurkunde</sdg:Title>
+					<sdg:Description lang="EN">An official certificate of birth of a person - with first name, surname, sex, date and place of birth, which is obtained from the birth register of the place of birth.</sdg:Description>
+					<sdg:Description lang="DE">Eine amtliche Bescheinigung über die Geburt einer Person – mit Vorname, Familienname, Geschlecht, Datum und Ort der Geburt, welche aus dem Geburtsregister des Geburtsortes erstellt wird.</sdg:Description>
+					<!-- This is the selected distribution requested. It must be one of the distributions provided by the DSD for this specific Data Service Evidence Type-->
+					<sdg:DistributedAs>
+						<!-- The value of 'Format' of the requested distribution MUST be part of the code list 'OOTSMediaTypes'.-->
+						<sdg:Format>application/xml</sdg:Format>
+						<!-- MUST be a persistent URL with a link to a "DataModelScheme" of the Evidence Type retrieved by the DSD and described in the Semantic Repository which uses the prefix "https://sr.oots.tech.ec.europa.eu/distributions/[DataModelScheme]".-->
+						<sdg:ConformsTo>https://sr.oots.tech.ec.europa.eu/datamodels/certificate-of-birth-1.0.0</sdg:ConformsTo>
+						<!-- MUST be a persistent URL with link to a "DataModelScheme" and "Subset" of the EvidenceType retrieved from the Data Service Directory, described in the Semantic Repository which uses the prefix "https://sr.oots.tech.ec.europa.eu/distributions/[DataModelScheme]/[Subset]"-->
+						<sdg:Transformation>https://sr.oots.tech.ec.europa.eu/datamodels/certificate-of-birth-1.0.0/age-of-majority</sdg:Transformation>
+					</sdg:DistributedAs>
+				</sdg:DataServiceEvidenceType>
+			</rim:SlotValue>
+		</rim:Slot>
+	</query:Query>
+</query:QueryRequest>
