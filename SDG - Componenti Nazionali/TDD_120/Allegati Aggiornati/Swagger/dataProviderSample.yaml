@@ -1,0 +1,1076 @@
+openapi: 3.1.0
+info:
+  title: DataService - example 
+  description: servizi esposti dai DataProvider per lo scambio delle prove
+  version: 1.0.6
+servers:
+  - url: <dominio-DS>
+paths:
+  /ds/v1/evidence/request:
+    post:
+      security:
+        - Authorization: []   
+      tags:
+        - EvidenceRequestDS
+      summary: getEvidenceRequestResponse
+      operationId: getEvidenceRequestResponseUsingPOST
+      parameters:
+        - in: header
+          name: conversationId
+          description: UUID univoco per la correlazione dei messaggi di request e response
+          schema:
+            type: string
+          required: false
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+  /ds/v1/preview/piece-of-evidence:
+    post:
+      security:
+        - Authorization: [] 
+      tags:
+        - findPieceOfEvidence
+      summary: findPieceOfEvidence
+      operationId: findPieceOfEvidenceUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FindPieceOfEvidenceVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindPieceOfEvidenceResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+  /ds/v1/preview/provide-user-decision:
+    post:
+      security:
+        - Authorization: []
+      tags:
+        - provideUserDecision
+      summary: provideUserDecision
+      operationId: provideUserDecisionUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvidenceDecision'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  responses:
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '400'
+             message: Bad Request
+             description: Could not parse request           
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errore'
+          example:
+           - code: '500'
+             message: An internal server error occurred
+             description: An internal server error occurred
+  schemas:
+    BaseResponse:
+      title: BaseResponse
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        description:
+          type: string
+        message:
+          type: string
+    Errore:
+      type: object
+      required:
+            - code
+            - message
+      properties:
+            code:
+              type: string
+              description: Codice di errore
+              example: <HTTP_CODE>
+              enum:
+                - '400'
+                - '500'
+            message:
+              type: string
+              description: Tipologia di errore
+              example: <HTTP_STATUS>
+              enum:
+                - Bad Request
+                - Internal Server Error
+            description:
+              type: string
+              description: Descrizione di dettaglio dello specifico problema verificatosi
+              example: <detail_error>
+      description: Modello di risposta in caso di errore
+    EvidenceAcceptedVO:
+      title: EvidenceAcceptedVO
+      type: object
+      properties:
+        accepted:
+          type: boolean
+        id:
+          type: string
+    EvidenceDecision:
+      title: EvidenceDecision
+      type: object
+      properties:
+        evidences:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvidenceAcceptedVO'
+        previewUrl:
+          type: string
+        status:
+          type: boolean
+        errorCode:
+          type: string
+    EvidenceVO:
+      title: EvidenceVO
+      type: object
+      properties:
+        contentType:
+          type: string
+        file:
+          type: string
+        fileExtension:
+          type: string
+        fileName:
+          type: string
+        fileSize:
+          type: integer
+          format: int32
+        id:
+          type: string
+    FindPieceOfEvidenceResponse:
+      title: FindPieceOfEvidenceResponse
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        description:
+          type: string
+        availableDataTime:
+          type: string
+          description: Data di disponibilità dell’evidence in caso in cui l’evidence non sia subito disponibile. 
+        evidences:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvidenceVO'
+        message:
+          type: string
+    FindPieceOfEvidenceVO:
+      title: FindPieceOfEvidenceVO
+      type: object
+      properties:
+        previewUrl:
+          type: string
+        userIdentityAttribute:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserIdentityAttributeVO'
+     
+    UserIdentityAttributeVO:         
+      type: object
+      required:
+        - name 
+        - value
+      properties:
+        name:
+         type: string
+        value:
+         type: string     
+                       
+        
+    QueryRequest:
+      type: object
+      required:
+       - id 
+       - Slot
+       - Query
+      xml:
+        name: 'QueryRequest'
+        prefix: 'query'
+        namespace: urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0
+      properties:
+        xmlns:sdg:
+          type: string
+          default: http://data.europa.eu/p4s
+          xml:
+            attribute: true
+        xmlns:xmime:
+          type: string
+          default: http://www.w3.org/2005/05/xmlmime
+          xml:
+            attribute: true
+        xmlns:rim:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+          xml:
+            attribute: true
+        xmlns:rs:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0
+          xml:
+            attribute: true    
+        xmlns:xsi:
+          type: string
+          default: http://www.w3.org/2001/XMLSchema-instance
+          xml:
+            attribute: true      
+        xsi:xml:
+          type: string
+          default: http://www.w3.org/XML/1998/namespace
+          xml:
+            attribute: true  
+        xmlns:xlink: 
+          type: string
+          default: http://www.w3.org/1999/xlink    
+          xml:
+            attribute: true
+        id:
+          type: string
+          xml:
+            attribute: true    
+        Slot:
+              type: array
+              items:
+                $ref: '#/components/schemas/Slot'
+              xml:
+                wrapped: false
+        ResponseOption:
+          $ref: '#/components/schemas/ResponseOption'
+        Query:
+          $ref: '#/components/schemas/Query'
+    Slot:
+      type: object
+      xml:
+        prefix: 'rim'
+      required:
+        - SlotValue 
+      properties:
+        name:
+          type: string
+          xml:
+            attribute: true
+          enum:
+           - EvidenceProvider
+           - EvidenceRequester
+           - Requirements 
+           - PreviewLocation
+           - SpecificationIdentifier
+           - IssueDateTime 
+           - EvidenceProviderClassificationValues
+           - Procedure
+           - PossibilityForPreview
+           - ExplicitRequestGiven
+        SlotValue:
+          $ref: '#/components/schemas/SlotValue'  
+    SlotValue:
+      type: object
+      xml:
+        prefix: 'rim'
+      anyOf: 
+        - $ref: '#/components/schemas/SlotValueElement' 
+        - $ref: '#/components/schemas/SlotValueEvidenceProvider'      
+        - $ref: '#/components/schemas/SlotValueSimple'
+        - $ref: '#/components/schemas/SlotValueLocalized'
+        - $ref: '#/components/schemas/SlotEvidenceProviderClassification'      
+    SlotValueSimple:
+      type: object     
+      required:
+        - xsi:type
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+          prefix: 'rim'
+         enum:
+          - rim:StringValueType
+          - rim:DateTimeValueType
+          - rim:BooleanValueType         
+        Value: 
+          type: string
+          xml:
+            prefix: 'rim'          
+          description: per i campi data, il formato deve essere YYYY-DD-MM hh:mm:ss zzzzzz
+    SlotEvidenceProviderClassification:
+      type: object
+      required:
+        - xsi:type
+        - Element
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:CollectionValueType
+        Element:
+          type: array
+          items:
+            $ref: '#/components/schemas/ElementEvidenceProviderClassification'
+          xml:
+            prefix: 'sdg'
+    ElementEvidenceProviderClassification:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - xsi:type
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        EvidenceProviderClassification:
+          type: object
+          xml:
+            prefix: 'sdg'
+          required:
+            - Identifier
+            - Type
+            - Description
+            - SupportedValue
+          properties:
+            Identifier:
+             type: string
+             xml:
+              prefix: 'sdg'
+              name: 'Identifier'
+            Type:
+              type: string
+              xml:
+               prefix: 'sdg'      
+            ValueExpression:
+              type: string
+              xml:
+                prefix: 'sdg'
+            Description:
+              type: array
+              xml:
+               prefix: 'sdg'    
+              items:
+                $ref: '#/components/schemas/Description' 
+            SupportedValue: 
+             $ref: '#/components/schemas/SupportedValue'
+    SupportedValue:    
+         type: object
+         xml:
+          prefix: 'sdg'
+         description: Valore supportato dalla risposta. Il campo è obbligatorio ma deve essere valorizzato solo UNO dei valori in lista.
+         properties:
+          StringValue:
+           type: array
+           xml:
+            prefix: 'sdg'
+           items:
+            type: string
+            xml:
+             prefix: 'sdg'
+            description: Campo testuale
+          DateValue:
+           type: array
+           xml:
+             prefix: 'sdg'
+           items:
+            type: string
+            xml:
+             prefix: 'sdg'
+            description: Campo Data (formato YYYY-DD-MM)
+          BooleanValue:
+           type: array
+           xml:
+             prefix: 'sdg'
+           items:
+            type: boolean
+            xml:
+             prefix: 'sdg'
+            description: true or 1 Representing Yes affirmative answers.false or 0 representing No negative answers.
+
+    ResponseOption:
+      type: object
+      required:
+       - returnType
+      xml:
+        name: 'ResponseOption'
+        prefix: 'query'
+      properties:
+        returnType:
+          type: string
+          xml:
+            attribute: true
+          default: LeafClassWithRepositoryItem
+    
+    Query:
+      type: object
+      required:
+       - queryDefinition
+       - Slot
+      xml:
+        name: 'Query'
+        prefix: 'query'
+      properties:
+        queryDefinition:
+          type: string
+          xml:
+            attribute: true
+          default: DocumentQuery
+        Slot:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotQuery'
+          xml:
+            wrapped: false
+    
+    SlotQuery:
+      type: object
+      xml:
+        prefix: 'rim'
+      required:
+        - SlotValue 
+      properties:
+        name:
+          type: string
+          xml:
+            attribute: true
+          enum:
+           - AuthorizedRepresentative  
+           - LegalPerson
+           - NaturalPerson 
+           - EvidenceRequest      
+        SlotValue:
+          $ref: '#/components/schemas/SlotValueQuery'
+    
+    SlotValueQuery:
+      type: object
+      description: Può essere presente un solo slot tra NaturalPerson e LegalPerson, mai entrambi.
+      xml:
+        prefix: 'rim'
+        name: SlotValue
+      anyOf:
+        - $ref: '#/components/schemas/SlotValueAuthorizedRepresentative'
+        - $ref: '#/components/schemas/SlotValueLegalPerson' 
+        - $ref: '#/components/schemas/SlotValueNaturalPerson'
+        - $ref: '#/components/schemas/SlotValueEvidenceRequest'      
+    SlotValueEvidenceRequest:
+      type: object
+      required:
+        - xsi:type
+        - DataServiceEvidenceType
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        DataServiceEvidenceType:
+          $ref: '#/components/schemas/DataServiceEvidenceType'
+  
+    DataServiceEvidenceType:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - Identifier
+        - EvidenceTypeClassification
+        - Title
+        - DistributedAs
+      properties:
+        xmlns:
+          type: string
+          default: urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0
+          xml:
+            attribute: true
+        Identifier:
+          type: string
+          xml:
+            prefix: 'sdg'
+        EvidenceTypeClassification:
+          type: string
+          xml:
+            prefix: 'sdg'
+        DistributedAs: 
+          type: object
+          xml:
+            prefix: 'sdg'
+          required:
+            - Format
+          properties:
+            Format:
+              type: string
+              xml:
+               prefix: 'sdg'
+            ConformsTo:
+              type: string
+              xml:
+               prefix: 'sdg'
+            Transformation:
+              type: string
+              xml:
+               prefix: 'sdg'
+        Title:
+          type: array
+          xml:
+           wrapped: false
+          items:
+            $ref: '#/components/schemas/Title'
+        Description:
+          type: array
+          xml:
+           wrapped: false
+          items:
+            $ref: '#/components/schemas/Description'
+    
+    Title:
+     type: object
+     required:
+        - lang
+     xml:
+      prefix: 'sdg'
+     properties:
+      lang:
+       type: string
+       xml:
+        attribute: true    
+    Description:
+     type: object
+     required:
+        - lang
+     xml:
+      prefix: 'sdg'
+     properties:
+      lang:
+       type: string
+       xml:
+        attribute: true  
+       description: 'esempio: <sdg:description lang="en">Year Of Graduation</sdg:description>'    
+
+    NameXml:
+      title: Name
+      type: object
+      required:
+        - lang
+      properties:
+        lang:
+          type: string
+          description: 'attributo del nodo name.Espresso in codice ISO 639-1 di due lettere. (es: EN). Di seguito un esempio di come deve essere popolato il campo Name: <sdg:Name lang="EN">Denmark University Portal</sdg:Name> '
+          xml:
+            name: lang
+            attribute: true
+            wrapped: false
+      xml:
+       prefix: 'sdg'
+       
+    SlotValueNaturalPerson:
+      type: object
+      required:
+        - xsi:type
+        - Person
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        Person:
+          $ref: '#/components/schemas/Person'    
+
+    Person:
+      type: object
+      xml:
+       prefix: 'sdg'
+      required:
+        - Identifier
+        - LevelOfAssurance
+        - FamilyName
+        - GivenName
+        - DateOfBirth
+      properties:
+        Identifier:
+          type: object
+          xml:
+           prefix: 'sdg'
+          required:
+            - schemeID
+          properties:
+           schemeID:
+            type: string
+            default: eidas
+            description: l'attributo va sempre valorizzato con eidas
+            xml:
+              attribute: true
+              wrapped: false
+        LevelOfAssurance:
+          type: string
+          xml:
+           prefix: 'sdg'
+        FamilyName:
+          type: string
+          xml:
+           prefix: 'sdg'
+        GivenName:
+          type: string
+          xml:
+           prefix: 'sdg'
+        DateOfBirth:
+          type: string
+          xml:
+           prefix: 'sdg'
+        BirthName:
+          type: string
+          xml:
+           prefix: 'sdg'
+        PlaceOfBirth:
+          type: string
+          xml:
+            prefix: 'sdg'
+        Gender:
+          type: string
+          xml:
+            prefix: 'sdg'
+        CurrentAddress:
+           $ref: '#/components/schemas/CurrentAddress' 
+          
+        SectorSpecificAttribute:
+          type: array
+          items:
+            $ref: '#/components/schemas/SectorSpecificAttribute'
+          xml:
+            wrapped: false
+            prefix: 'sdg'
+        UserIdentityAttribute:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserIdentityAttribute'
+          xml:
+            wrapped: false
+            prefix: 'sdg'
+    Identifier:
+      title: Identifier
+      type: object
+      required:
+        - schemeID
+      xml:
+       prefix: 'sdg'
+      properties:
+        schemeID:
+          type: string
+          description: 'esempio di popolamento del campo Identifier: <sdg:Identifier schemeID="9930">DE73524311</sdg:Identifier>'
+          xml:
+            name: schemeID
+            attribute: true
+            wrapped: false 
+    CurrentAddress:
+      type: object
+      xml:
+       prefix: 'sdg'
+      
+      properties:
+        sdg:FullAddress:
+          type: string
+        sdg:LocatorDesignator:
+          type: string
+        sdg:Thoroughfare:
+          type: string
+        sdg:PostCode:
+          type: string
+        sdg:PostCityName:
+          type: string
+        sdg:AdminUnitLevel1:
+          type: string
+        sdg:AdminUnitLevel2:
+          type: string
+
+    SectorSpecificAttribute:
+      type: object
+      required:
+        - AttributeName
+        - AttributeURI
+        - AttributeValue
+      properties:
+        AttributeName:
+          type: string
+          xml:
+            prefix: 'sdg'
+        AttributeURI:
+          type: string
+          xml:
+            prefix: 'sdg'
+        AttributeValue:
+          type: string
+          xml:
+            prefix: 'sdg'
+ 
+    UserIdentityAttribute:
+      type: object
+      required:
+        - AttributeName
+        - AttributeValue
+      properties:
+        AttributeName:
+          type: string
+          xml:
+            prefix: 'sdg'
+        AttributeURI:
+          type: string
+          xml:
+            prefix: 'sdg'
+        AttributeValue:
+          type: string
+          xml:
+            prefix: 'sdg'
+    SlotValueLegalPerson:
+      type: object
+      required:
+        - xsi:type
+        - LegalPerson
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        LegalPerson:
+          $ref: '#/components/schemas/LegalPerson' 
+    SlotValueAuthorizedRepresentative:
+      type: object
+      required:
+        - xsi:type
+        - Person
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        Person:
+          $ref: '#/components/schemas/Person'
+    LegalPerson:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - LevelOfAssurance
+        - LegalName
+      properties:
+        LegalPersonIdentifier:
+          type: object
+          xml:
+           prefix: 'sdg'
+          required:
+            - schemeID
+          properties:
+           schemeID:
+            type: string
+            default: eidas
+            description: l'attributo va sempre valorizzato con eidas
+            xml:
+              attribute: true
+              wrapped: false
+        Identifier:
+          type: object
+          xml:
+           prefix: 'sdg'
+          required:
+            - schemeID
+          description: l'identifier ha il formato "XX/YY/identifier". Dove XX e YY sono countrycode di provenienza e destinazione e identifier e una stringa alfanumerica di lunghezza massima 256
+          properties:
+           schemeID:
+            type: string
+            xml:
+              attribute: true
+              wrapped: false
+        LevelOfAssurance:
+          type: string
+          xml:
+           prefix: 'sdg'
+        LegalName:
+          type: string
+          xml:
+           prefix: 'sdg'
+        RegisteredAddress:
+          xml:
+            wrapped: false
+            prefix: 'sdg'
+            name: 'RegisteredAddress'
+          $ref: '#/components/schemas/CurrentAddress'        
+        SectorSpecificAttribute:
+          type: array
+          items:
+            $ref: '#/components/schemas/SectorSpecificAttribute'
+          xml:
+            wrapped: false
+            prefix: 'sdg'
+        UserIdentityAttribute:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserIdentityAttribute'
+          xml:
+            wrapped: false
+            prefix: 'sdg'
+    SlotValueEvidenceProvider:
+      type: object
+      required:
+       - xsi:type
+       - Agent
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        Agent:
+          $ref: '#/components/schemas/AgentProvider'
+    SlotValueElement:
+      type: object
+      required:
+        - xsi:type
+        - collectionType
+        - Element
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:CollectionValueType
+        collectionType:
+         type: string
+         xml:
+          attribute: true
+         default: 'urn:oasis:names:tc:ebxml-regrep:CollectionType:Set'
+        Element:
+          $ref: '#/components/schemas/Element'
+    SlotValueLocalized:
+      type: object
+      required:
+        - xsi:type
+        - LocalizedString
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:InternationalStringValueType
+        Value: 
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotValueLocalizedList'
+          xml:
+            wrapped: false
+            prefix: 'rim'  
+    SlotValueLocalizedList:
+      type: object
+      properties:
+        LocalizedString:
+            type: object
+            required:
+                - xml:lang
+                - value
+            properties:
+                xml:lang:
+                    type: string
+                    xml:
+                        attribute: true
+                    example: en
+                value:
+                    type: string
+                    xml:
+                        attribute: true
+                    example: Requesting a birth certificate        
+            xml: 
+                prefix: 'rim'
+    AgentProvider:
+      type: object
+      required:
+        - Identifier
+        - Name
+      xml:
+        prefix: 'sdg'
+        name: Agent
+      properties:
+        Identifier:
+         $ref: '#/components/schemas/Identifier'
+         
+        Name:
+         type: array
+         items:
+          $ref: '#/components/schemas/NameXml'
+         xml:
+           wrapped: false
+           prefix: 'sdg'
+    Element:
+      type: object
+      xml:
+        prefix: 'rim'
+      oneOf:
+        - $ref: '#/components/schemas/ElementEvidenceRequester'
+        - $ref: '#/components/schemas/ElementRequirement'
+    
+    ElementRequirement:
+      type: object
+      required:
+        - xsi:type
+        - Requirement
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        Requirement:
+          type: array
+          items:
+           $ref: '#/components/schemas/Requirement'
+          xml:
+           wrapped: false
+           prefix: 'sdg'
+    Requirement:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - Identifier
+        - Name
+        - lang 
+      properties:
+        Identifier:
+          type: string
+          xml: 
+            prefix: 'sdg'
+        Name:
+         type: array
+         items:
+          $ref: '#/components/schemas/NameXml'
+         xml:
+           wrapped: false
+           prefix: 'sdg'
+
+    ElementEvidenceRequester:
+      type: object
+      required:
+        - xsi:type
+        - Agent
+      properties:
+        xsi:type:
+         type: string
+         xml:
+          attribute: true
+         default: rim:AnyValueType
+        Agent:
+          type: array
+          items:
+           $ref: '#/components/schemas/Agent'
+          xml:
+           wrapped: false
+           prefix: 'sdg'
+    Agent:
+      type: object
+      xml:
+        prefix: 'sdg'
+      required:
+        - Identifier
+        - Name
+        - Classification
+      properties:
+        Identifier:
+            $ref: '#/components/schemas/Identifier'
+            xml:
+              prefix: 'sdg'
+        Name:
+         type: array
+         items:
+          $ref: '#/components/schemas/NameXml'
+         xml:
+           wrapped: false
+           prefix: 'sdg'
+        Address:
+          $ref: '#/components/schemas/Address'
+          xml:
+             prefix: 'sdg'
+        Classification:
+          type: string
+          xml:
+            prefix: 'sdg'
+    Address:
+      type: object
+      xml:
+        prefix: 'sdg'
+      properties:
+        FullAddress:
+          type: string
+          xml:
+            prefix: 'sdg'
+        LocatorDesignator:
+          type: string
+          xml: 
+            prefix: 'sdg'
+        Thoroughfare:
+          type: string
+          xml:
+            prefix: 'sdg'
+        PostCode:
+          type: string
+          xml:
+            prefix: 'sdg'
+        PostCityName:
+          type: string
+          xml:
+            prefix: 'sdg'
+        AdminUnitLevel1:
+          type: string
+          xml:
+            prefix: 'sdg'
+        AdminUnitLevel2:
+          type: string
+          xml: 
+            prefix: 'sdg'
+    
+  securitySchemes:
+    Authorization:            # Bearer <Voucher PDND>
+      type: http
+      scheme: bearer
+      bearerFormat: JWT      

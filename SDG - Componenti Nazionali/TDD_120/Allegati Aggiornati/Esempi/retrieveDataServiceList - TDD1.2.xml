@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query:QueryResponse xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:4.0"
+                     xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:4.0"
+                     xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:4.0"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xmlns:sdg="http://data.europa.eu/p4s"
+                     status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success">
+	<rim:Slot name="SpecificationIdentifier">
+		<rim:SlotValue xsi:type="rim:StringValueType">
+			<rim:Value>oots-cs:v1.2</rim:Value>
+		</rim:SlotValue>
+	</rim:Slot>
+	<rim:RegistryObjectList>
+		<!-- One registry object per dataset -->
+		<rim:RegistryObject id="urn:uuid:4d66b7df-ad09-4098-942c-cb8da467af2a">
+			<rim:Slot name="DataServiceEvidenceType">
+				<rim:SlotValue xsi:type="rim:AnyValueType">
+					<sdg:DataServiceEvidenceType>
+						<!-- - - Evidence Type Metadata - - -->
+						<!-- The Data Service assigned Unique Identifier of the Evidence Type. Must be used in the Evidence Exchange Request -->
+						<sdg:Identifier>487fdfdc-7f92-42bb-a690-dcbd3d65f435</sdg:Identifier>
+						<!-- Classification Information - Used for linking with the Semantic Repository and Evidence Broker -->
+						<sdg:EvidenceTypeClassification>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/DE/edf717b7-b373-40b1-b51b-cbb7c9d64de5</sdg:EvidenceTypeClassification>
+						<sdg:Title lang="EN">Secondary Education Completion Evidence</sdg:Title>
+						<sdg:Title lang="DE">Nachweis des Sekundarschulabschlusses</sdg:Title>
+						<sdg:Description lang="EN">Proof of a secondary school graduation which is acquired after 12 or 13 school years in the upper secondary school and which entitles the holder to the general higher education entrance qualification, i.e. opens up access to all higher education institutions and fields of study.</sdg:Description>
+						<sdg:Description lang="DE">Nachweis für einen Sekundarschulabschluss, der nach 12 bzw. 13 Schuljahren in der gymnasialen Oberstufe erworben wird und die Allgemeine Hochschulreife verleiht, d.h. den Zugang zu allen Hochschulen und Fachrichtungen eröffnet.</sdg:Description>
+						<!-- Distribution Information - Multiple Distributions per Data Service Evidence Type -->
+						<!-- XML Distribution, conforming to the common data model on Secondary Education Evidence -->
+						<!-- XML Distribution, conforming to the common data model on Secondary Education Evidence, Verifying subset "Passed" only -->
+						<!-- PDF Distribution -->
+						<sdg:DistributedAs>
+							<sdg:Format>application/xml</sdg:Format>
+							<sdg:ConformsTo>https://sr.oots.tech.ec.europa.eu/datamodels/secondary-education-evidence-1.0.0</sdg:ConformsTo>
+							<sdg:Transformation>https://sr.oots.tech.ec.europa.eu/datamodels/secondary-education-evidence-1.0.0/passed</sdg:Transformation>
+						</sdg:DistributedAs>
+						<!-- PDF Distribution. PDF is unstructured data so there is no conformance to a data model -->
+						<sdg:DistributedAs>
+							<sdg:Format>application/pdf</sdg:Format>
+						</sdg:DistributedAs>
+						<!-- - - Evidence Provider and Data Service Metadata - - -->
+						<!-- Access Service represents the Data Service serving the piece of Evidence on behalf of an Evidence Provider -->
+						<!-- Multiple Access Services, one per Evidence Provider. In this example each Evidence Provider (Publisher) uses a different Access Service (e.g. an Intermediary Platforms) -->
+						<sdg:AccessService>
+							<!-- The Evidence Exchange profile version to which this access service expects / serves -->
+							<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0204">11-IntermediaryPlatform-58</sdg:Identifier>
+							<!-- The identifier of the Access Service, using ebcore Party ID Type. Used in eDelivery Evidence Exchange for PMode Mapping - Corner 3 (C3). C3 is an Access Point that receives messages on behalf of C4. The scheme ID must point to a valid Electronic Address Scheme (EAS) from the codelist EAS.gc -->
+							<sdg:Name lang="EN">German Intermediary Platform II</sdg:Name>
+							<sdg:ConformsTo>oots-edm:v1.0</sdg:ConformsTo>
+							<!-- The Evidence Provider Information of this Access Service - Corner 4 (C4). C4 is the final recipient party, which can be selected to receive the Evidence Request Query  -->
+							<sdg:Publisher>
+								<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0204">11-SchoolAuthority-67</sdg:Identifier>
+								<sdg:Name lang="EN">Authority for school and occupational training Berlin</sdg:Name>
+								<sdg:Description lang="EN">As a foreign registry office of the Federal Republic of Germany, Registry Office I in Berlin is responsible in particular for Certifications of births of Germans abroad who have never had a residence in Germany. </sdg:Description>
+								<sdg:Address>
+									<sdg:FullAddress>Schönstedtstraße 5, 13357 Berlin, Germany</sdg:FullAddress>
+									<sdg:LocatorDesignator>5</sdg:LocatorDesignator>
+									<sdg:PostCode>13357</sdg:PostCode>
+									<sdg:PostCityName>Berlin</sdg:PostCityName>
+									<sdg:Thoroughfare>Schönstedtstraße</sdg:Thoroughfare>
+									<sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+									<sdg:AdminUnitLevel2>DE3</sdg:AdminUnitLevel2>
+								</sdg:Address>
+								<!-- The Publisher is only able to provide information for NUTS1 DE3, Berlin  -->
+								<sdg:Jurisdiction>
+									<sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+									<sdg:AdminUnitLevel2>DE3</sdg:AdminUnitLevel2>
+								</sdg:Jurisdiction>
+							</sdg:Publisher>
+						</sdg:AccessService>
+						<!-- Level Of Assurance Required for the Evidence Type -->
+						<sdg:AuthenticationLevelOfAssurance>High</sdg:AuthenticationLevelOfAssurance>
+						<sdg:Note lang="EN">Payment: Free of charge</sdg:Note>
+					</sdg:DataServiceEvidenceType>
+				</rim:SlotValue>
+			</rim:Slot>
+		</rim:RegistryObject>
+		<rim:RegistryObject id="urn:uuid:4d66b7df-ad09-4098-942c-cb8da467af2a">
+			<rim:Slot name="DataServiceEvidenceType">
+				<rim:SlotValue xsi:type="rim:AnyValueType">
+					<sdg:DataServiceEvidenceType>
+						<!-- - - Evidence Type Metadata - - -->
+						<!-- The Data Service assigned Unique Identifier of the Evidence Type. Must be used in the Evidence Exchange Request -->
+						<sdg:Identifier>487fdfdc-7f92-42bb-a690-dcbd3d65f435</sdg:Identifier>
+						<!-- Classification Information - Used for linking with the Semantic Repository and Evidence Broker -->
+						<sdg:EvidenceTypeClassification>https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/DE/edf717b7-b373-40b1-b51b-cbb7c9d64de5</sdg:EvidenceTypeClassification>
+						<sdg:Title lang="EN">Secondary Education Completion Evidence</sdg:Title>
+						<sdg:Title lang="DE">Nachweis des Sekundarschulabschlusses</sdg:Title>
+						<sdg:Description lang="EN">Proof of a secondary school graduation which is acquired after 12 or 13 school years in the upper secondary school and which entitles the holder to the general higher education entrance qualification, i.e. opens up access to all higher education institutions and fields of study.</sdg:Description>
+						<sdg:Description lang="DE">Nachweis für einen Sekundarschulabschluss, der nach 12 bzw. 13 Schuljahren in der gymnasialen Oberstufe erworben wird und die Allgemeine Hochschulreife verleiht, d.h. den Zugang zu allen Hochschulen und Fachrichtungen eröffnet.</sdg:Description>
+						<!-- Distribution Information - Multiple Distributions per Data Service Evidence Type -->
+						<!-- XML Distribution, conforming to the common data model on Secondary Education Evidence -->
+						<!-- XML Distribution, conforming to the common data model on Secondary Education Evidence, Verifying subset "Passed" only -->
+						<!-- PDF Distribution -->
+						
+						<sdg:DistributedAs>
+							<sdg:Format>application/pdf</sdg:Format>
+						</sdg:DistributedAs>
+						<sdg:DistributedAs>
+							<sdg:Format>application/xml</sdg:Format>
+							<sdg:ConformsTo>https://sr.oots.tech.ec.europa.eu/datamodels/secondary-education-evidence-1.0.0</sdg:ConformsTo>
+							<sdg:Transformation>https://sr.oots.tech.ec.europa.eu/datamodels/secondary-education-evidence-1.0.0/passed</sdg:Transformation>
+						</sdg:DistributedAs>
+						<sdg:AccessService>
+							<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0204">02-IntermediaryPlatform-90</sdg:Identifier>
+							<!-- The identifier of the Access Service, using ebcore Party ID Type. Used in eDelivery Evidence Exchange for PMode Mapping - Corner 3 (C3). C3 is an Access Point that receives messages on behalf of C4. The scheme ID must point to a valid Electronic Address Scheme (EAS) from the codelist EAS.gc -->
+							<sdg:ConformsTo>oots-edm:v1.0</sdg:ConformsTo>
+							<sdg:Publisher>
+								<!-- The Evidence Provider Information of this Access Service - Corner 4 (C4). C4 is the final recipient party, which can be selected to receive the Evidence Request Query. The scheme ID must point to a valid Electronic Address Scheme (EAS) from the codelist EAS.gc  -->
+								<sdg:Identifier schemeID="urn:cef.eu:names:identifier:EAS:0204">02-SchoolAuthority-34</sdg:Identifier>
+								<sdg:Name lang="EN">Authority for school and occupational training Hamburg</sdg:Name>
+								<sdg:Address>
+									<sdg:FullAddress>Hamburger Str. 31</sdg:FullAddress>
+									<sdg:LocatorDesignator>31</sdg:LocatorDesignator>
+									<sdg:PostCode>22083</sdg:PostCode>
+									<sdg:PostCityName>Hamburg</sdg:PostCityName>
+									<sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+									<sdg:AdminUnitLevel2>DE6</sdg:AdminUnitLevel2>
+								</sdg:Address>
+								<!-- The Publisher is only able to provide information for NUTS1 DE6, Hamburg   -->
+								<sdg:Jurisdiction>
+									<sdg:AdminUnitLevel1>DE</sdg:AdminUnitLevel1>
+									<sdg:AdminUnitLevel2>DE6</sdg:AdminUnitLevel2>
+								</sdg:Jurisdiction>
+							</sdg:Publisher>
+						</sdg:AccessService>
+						<!-- Level Of Assurance Required for the Evidence Type -->
+						<sdg:AuthenticationLevelOfAssurance>High</sdg:AuthenticationLevelOfAssurance>
+						<sdg:Note lang="EN">Payment: Free of charge</sdg:Note>
+						<sdg:UserIdentityAttribute name="codice_fiscale">
+							<sdg:Label lang="en"> fiscal code</sdg:Label>
+							<sdg:Label lang="it"> codice fiscale</sdg:Label>
+						</sdg:UserIdentityAttribute>
+						<sdg:UserIdentityAttribute name="altro_attributo">
+							<sdg:Label lang="it">altro attributo</sdg:Label>
+							<sdg:Label lang="en">other attribute</sdg:Label>
+						</sdg:UserIdentityAttribute>
+					</sdg:DataServiceEvidenceType>
+				</rim:SlotValue>
+			</rim:Slot>
+		</rim:RegistryObject>
+	</rim:RegistryObjectList>
+</query:QueryResponse>
