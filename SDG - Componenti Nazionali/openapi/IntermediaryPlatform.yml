@@ -1,0 +1,570 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": 1.0
+  },
+  "servers": [
+    {
+      "url": "https://sit.servizisdg.gov.it/sdg-cnaz-sp-int",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/intermediaryplatform/v1/instance": {
+      "post": {
+        "tags": [
+          "instance-controller"
+        ],
+        "operationId": "createInstance",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InstanceAddVO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstanceAddResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intermediaryplatform/v1/instance/evidence/list/{instanceUuid}": {
+      "get": {
+        "tags": [
+          "instance-controller"
+        ],
+        "operationId": "retrieveStatusAndEvidenceList",
+        "parameters": [
+          {
+            "name": "instanceUuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstanceStatusAndEvidenceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intermediaryplatform/v1/evidence/{evidenceUuid}": {
+      "get": {
+        "tags": [
+          "evidence-controller"
+        ],
+        "operationId": "retrieveEvidence",
+        "parameters": [
+          {
+            "name": "evidenceUuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "InstanceAddVO": {
+        "type": "object",
+        "properties": {
+          "createdBy": {
+            "type": "string",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "exclude": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "requestId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "service": {
+            "$ref": "#/components/schemas/ServiceAddVO"
+          },
+          "organization": {
+            "$ref": "#/components/schemas/OrganizationAddVO"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserAddVO"
+          },
+          "legalRepresentation": {
+            "$ref": "#/components/schemas/LegalRepresentationAddVO"
+          }
+        }
+      },
+      "LegalRepresentationAddVO": {
+        "type": "object",
+        "properties": {
+          "createdBy": {
+            "type": "string",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "eidasId": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "personType": {
+            "type": "string",
+            "default": "NP",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "companyName": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "lastName": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "firstName": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "fiscalCode": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0,
+            "pattern": "^((?:[A-Z][AEIOUX][AEIOUX]|[B-DF-HJ-NP-TV-Z]{2}[A-Z]){2}(?:[\\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[15MR][\\dLMNP-V]|[26NS][0-8LMNP-U])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM]|[AC-EHLMPR-T][26NS][9V])|(?:[02468LNQSU][048LQU]|[13579MPRTV][26NS])B[26NS][9V])(?:[A-MZ][1-9MNP-V][\\dLMNP-V]{2}|[A-M][0L](?:[1-9MNP-V][\\dLMNP-V]|[0L][1-9MNP-V]))[A-Z]|[0-9]{11})$"
+          },
+          "gender": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "pattern": "^(3[01]|[12]\\d|0[1-9])\\/(1[0-2]|0[1-9])\\/\\d{4}$"
+          }
+        },
+        "required": [
+          "personType"
+        ]
+      },
+      "OrganizationAddVO": {
+        "type": "object",
+        "properties": {
+          "createdBy": {
+            "type": "string",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "nameIt": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0,
+            "pattern": "^$|^[0-9A-Za-zÀ-ú\\s\\.\\,\\'\\’\\;\\:\\-\\_\\(\\/\\)\\?]+$"
+          },
+          "nameEn": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0,
+            "pattern": "^$|^[0-9A-Za-zÀ-ú\\s\\.\\,\\'\\’\\;\\:\\-\\_\\(\\/\\)\\?]+$"
+          },
+          "address": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0,
+            "pattern": "$|^[A-Za-zÀ-ú0-9\\s\\'\\’\\,\\.]+$"
+          },
+          "number": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "postCode": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "cityName": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "adminUnitLevel1": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "adminUnitLevel2": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "classification": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "schemeId": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          }
+        },
+        "required": [
+          "nameIt",
+          "schemeId"
+        ]
+      },
+      "ServiceAddVO": {
+        "type": "object",
+        "properties": {
+          "createdBy": {
+            "type": "string",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "ipaCode": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0,
+            "pattern": "^[0-9A-Za-zÀ-ú_\\s\\'\\’]+$"
+          },
+          "nameIt": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0,
+            "pattern": "^$|^[0-9A-Za-zÀ-ú\\s\\.\\,\\'\\’\\;\\:\\-\\_\\(\\/\\)\\?]+$"
+          },
+          "nameEn": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0,
+            "pattern": "^$|^[0-9A-Za-zÀ-ú\\s\\.\\,\\'\\’\\;\\:\\-\\_\\(\\/\\)\\?]+$"
+          },
+          "descriptionIt": {
+            "type": "string",
+            "maxLength": 4000,
+            "minLength": 0,
+            "pattern": "^$|^[0-9A-Za-zÀ-ú\\s\\.\\,\\'\\’\\;\\:\\-\\_\\(\\/\\)\\?]+$"
+          },
+          "descriptionEn": {
+            "type": "string",
+            "maxLength": 4000,
+            "minLength": 0,
+            "pattern": "^$|^[0-9A-Za-zÀ-ú\\s\\.\\,\\'\\’\\;\\:\\-\\_\\(\\/\\)\\?]+$"
+          }
+        },
+        "required": [
+          "ipaCode",
+          "nameIt"
+        ]
+      },
+      "UserAddVO": {
+        "type": "object",
+        "properties": {
+          "createdBy": {
+            "type": "string",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "eidasId": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "personType": {
+            "type": "string",
+            "default": "NP",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "companyName": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "lastName": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "firstName": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "fiscalCode": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0,
+            "pattern": "^((?:[A-Z][AEIOUX][AEIOUX]|[B-DF-HJ-NP-TV-Z]{2}[A-Z]){2}(?:[\\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[15MR][\\dLMNP-V]|[26NS][0-8LMNP-U])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM]|[AC-EHLMPR-T][26NS][9V])|(?:[02468LNQSU][048LQU]|[13579MPRTV][26NS])B[26NS][9V])(?:[A-MZ][1-9MNP-V][\\dLMNP-V]{2}|[A-M][0L](?:[1-9MNP-V][\\dLMNP-V]|[0L][1-9MNP-V]))[A-Z]|[0-9]{11})$"
+          },
+          "gender": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "pattern": "^(3[01]|[12]\\d|0[1-9])\\/(1[0-2]|0[1-9])\\/\\d{4}$"
+          },
+          "powerOfRepresentationScope": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0
+          }
+        },
+        "required": [
+          "personType"
+        ]
+      },
+      "InstanceAddResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "intPlatformURL": {
+            "type": "string"
+          },
+          "ko": {
+            "type": "string",
+            "writeOnly": true
+          },
+          "ok": {
+            "type": "string",
+            "writeOnly": true
+          }
+        }
+      },
+      "EvidenceToDownloadVO": {
+        "type": "object",
+        "properties": {
+          "evidenceUuid": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "fileExtension": {
+            "type": "string"
+          },
+          "fileSize": {
+            "type": "number",
+            "format": "double"
+          },
+          "attachedOn": {
+            "type": "string",
+            "pattern": "^(3[01]|[12]\\d|0[1-9])\\/(1[0-2]|0[1-9])\\/\\d{4} (2[0-3]|[01]\\d):[0-5]\\d:[0-5]\\d$"
+          },
+          "note": {
+            "type": "string"
+          },
+          "evidenceProviderId": {
+            "type": "string"
+          },
+          "evidenceProviderNameIt": {
+            "type": "string"
+          },
+          "evidenceProviderNameEn": {
+            "type": "string"
+          }
+        }
+      },
+      "InstanceStatusAndEvidenceResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "requirements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MapRequirementPPVO"
+            }
+          },
+          "ko": {
+            "type": "string",
+            "writeOnly": true
+          },
+          "ok": {
+            "type": "string",
+            "writeOnly": true
+          }
+        }
+      },
+      "MapRequirementPPVO": {
+        "type": "object",
+        "properties": {
+          "requirementId": {
+            "type": "string"
+          },
+          "evidenceTypeListId": {
+            "type": "string"
+          },
+          "evidenceTypeId": {
+            "type": "string"
+          },
+          "requirementType": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "requirementNameIt": {
+            "type": "string"
+          },
+          "requirementNameEn": {
+            "type": "string"
+          },
+          "evidenceTypeNameIt": {
+            "type": "string"
+          },
+          "evidenceTypeNameEn": {
+            "type": "string"
+          },
+          "evidenceTypeListNameIt": {
+            "type": "string"
+          },
+          "evidenceTypeListNameEn": {
+            "type": "string"
+          },
+          "evidenceTypeClassification": {
+            "type": "string"
+          },
+          "evidences": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EvidenceToDownloadVO"
+            }
+          }
+        }
+      }
+    }
+  }
+}
