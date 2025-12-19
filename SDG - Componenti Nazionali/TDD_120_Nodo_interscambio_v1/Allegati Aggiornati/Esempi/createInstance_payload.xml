@@ -1,0 +1,31 @@
+{
+    "requestId": 123456,
+    "user": {
+        "personType": "NP",
+        "firstName": "Ada",
+        "lastName": "Lovelace",
+        "dateOfBirth": "10/12/1985"
+    },
+    "legalRepresentation": null,
+    "service": {
+        "ipaCode": "agid",
+        "nameIt": "Procedimento amministrativo per collaudo AgID Nodo di interscambio SDG - Italia",
+        "nameEn": "Procedimento amministrativo per collaudo AgID Nodo di interscambio SDG - Italia",
+        "descriptionIt": "Informazioni sul servizio del procedimento amministrativo",
+        "descriptionEn": "Information on the administrative procedure service"
+    },
+    "organization": {
+        "schemeId": "urn:cef.eu:names:identifier:EAS:0201",
+        "nameIt": "Accenture s.p.a",
+        "nameEn": "Accenture s.p.a",
+        "address": "Via Sciangai",
+        "number": "53",
+        "postCode": "00144",
+        "cityName": "Rome",
+        "adminUnitLevel1": "IT",
+        "adminUnitLevel2": "It001",
+        "classification": "ER"
+    },
+    "requirements": [],
+    "exclude": []
+}

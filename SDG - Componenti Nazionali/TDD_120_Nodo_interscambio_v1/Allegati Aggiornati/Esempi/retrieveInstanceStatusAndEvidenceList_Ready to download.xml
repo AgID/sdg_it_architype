@@ -1,0 +1,46 @@
+{
+    "code": 0,
+    "description": null,
+    "message": null,
+    "status": "ready to download",
+    "requirements": [
+        {
+            "requirementId": "https://sr.oots.tech.ec.europa.eu/requirements/edba1922-cb7f-3543-a5d4-945cb63c9270",
+            "evidenceTypeListId": "37628150-4686-11ee-be56-0242ac120005",
+            "evidenceTypeId": null,
+            "requirementType": "oots",
+            "country": "IT",
+            "requirementNameIt": "Prova che attesti il diploma o il certificato di istruzione secondaria",
+            "requirementNameEn": "Proof of secondary education diploma/certificate",
+            "evidenceTypeNameIt": "Diploma di istruzione secondaria",
+            "evidenceTypeNameEn": "Secondary education diploma",
+            "evidenceTypeListNameIt": "Completamento dell'istruzione secondaria superiore che dà accesso all'istruzione terziaria",
+            "evidenceTypeListNameEn": "Completion of secondary education qualifying for tertiary education",
+            "evidenceTypeClassification": "https://sr.oots.tech.ec.europa.eu/evidencetypeclassifications/IT/1ccff39b-1e04-38df-b733-551ad855a1dd",
+            "evidences": [
+                {
+                    "evidenceUuid": "121a1592-6975-4860-b99d-d5c2018d612e",
+                    "fileName": "Secondary education diploma.pdf",
+                    "fileExtension": ".pdf",
+                    "fileSize": 216008.0,
+                    "attachedOn": "12/12/2025 12:19:56",
+                    "note": null,
+                    "evidenceProviderId": "agid",
+                    "evidenceProviderNameIt": "Agenzia per L'Italia Digitale",
+                    "evidenceProviderNameEn": "Agenzia per L'Italia Digitale"
+                },
+                {
+                    "evidenceUuid": "8d32663a-33fa-4925-898b-d0805786d8ce",
+                    "fileName": "Secondary education diploma.json",
+                    "fileExtension": ".json",
+                    "fileSize": 439.0,
+                    "attachedOn": "12/12/2025 12:19:56",
+                    "note": null,
+                    "evidenceProviderId": "agid",
+                    "evidenceProviderNameIt": "Agenzia per L'Italia Digitale",
+                    "evidenceProviderNameEn": "Agenzia per L'Italia Digitale"
+                }
+            ]
+        }
+    ]
+}
